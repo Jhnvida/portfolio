@@ -18,7 +18,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "João Silva - Full-Stack Engineer",
+    title: "João Silva — Full-Stack Engineer",
     description: "Crafting high-performance digital products and immersive interfaces.",
 };
 

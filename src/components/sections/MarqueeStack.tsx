@@ -1,6 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+gsap.registerPlugin(useGSAP);
 
 const STACK_ITEMS = [
     "Next.js & React",
@@ -14,6 +18,21 @@ const STACK_ITEMS = [
 const MARQUEE_ITEMS = [...STACK_ITEMS, ...STACK_ITEMS, ...STACK_ITEMS, ...STACK_ITEMS];
 
 export function MarqueeStack() {
+    const trackRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            // Move -25% (equivalente a 1 cópia do array de 4x) em loop infinito
+            gsap.to(trackRef.current, {
+                xPercent: -25,
+                duration: 30,
+                ease: "none", // equivalente ao ease: "linear" do Motion
+                repeat: -1,   // equivalente ao repeat: Infinity do Motion
+            });
+        },
+        { scope: trackRef },
+    );
+
     return (
         <div className="w-full border-y border-white/10 py-4 mt-20 overflow-hidden">
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 relative">
@@ -26,26 +45,15 @@ export function MarqueeStack() {
                             "linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)",
                     }}
                 >
-                    <motion.div
-                        animate={{ x: ["0%", "-25%"] }}
-                        transition={{
-                            repeat: Infinity,
-                            ease: "linear",
-                            duration: 30,
-                        }}
-                        className="flex w-max"
-                    >
+                    <div ref={trackRef} className="flex w-max">
                         <ul className="flex items-center text-xs sm:text-sm text-neutral-400 tracking-wide">
                             {MARQUEE_ITEMS.map((item, index) => (
-                                <li
-                                    key={index}
-                                    className="border-r border-white/10 px-8 whitespace-nowrap"
-                                >
+                                <li key={index} className="border-r border-white/10 px-8 whitespace-nowrap">
                                     {item}
                                 </li>
                             ))}
                         </ul>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </div>
