@@ -1,9 +1,9 @@
 "use client";
 
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import gsap from "gsap";
 import Link from "next/link";
+import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
 
@@ -18,7 +18,7 @@ export function Hero() {
                 opacity: 0,
                 y: 30,
                 duration: 0.8,
-                ease: "expo.out", // equivalente ao cubic-bezier(0.16, 1, 0.3, 1) do Motion
+                ease: "expo.out",
                 stagger: 0.15,
             });
         },
@@ -27,10 +27,7 @@ export function Hero() {
 
     return (
         <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex-1 flex items-center">
-            <div
-                ref={containerRef}
-                className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 w-full"
-            >
+            <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 w-full">
                 <div>
                     <h1
                         data-anim
@@ -39,12 +36,9 @@ export function Hero() {
                         Engenharia de software focada em interfaces refinadas.
                     </h1>
 
-                    <p
-                        data-anim
-                        className="text-neutral-400 text-lg max-w-xl mt-6 leading-relaxed"
-                    >
-                        Desenvolvimento full-stack especializado em produtos digitais de alto
-                        desempenho, unindo arquitetura robusta e estética premium.
+                    <p data-anim className="text-neutral-400 text-lg max-w-xl mt-6 leading-relaxed">
+                        Desenvolvimento full-stack especializado em produtos digitais de alto desempenho, unindo
+                        arquitetura robusta e estética premium.
                     </p>
 
                     <div data-anim>

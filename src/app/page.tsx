@@ -1,11 +1,13 @@
 import { Hero } from "../components/sections/Hero";
 import { MarqueeStack } from "../components/sections/MarqueeStack";
+import { SelectedWork } from "../components/sections/SelectedWork";
 
 export default function Home() {
     return (
-        <main className="w-full min-h-screen pt-32 pb-12 flex flex-col justify-center">
+        <main className="w-full pt-32 pb-12">
             <Hero />
             <MarqueeStack />
+            <SelectedWork />
         </main>
     );
 }

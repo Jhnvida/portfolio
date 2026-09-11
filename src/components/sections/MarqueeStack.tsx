@@ -1,7 +1,7 @@
 "use client";
 
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -22,12 +22,11 @@ export function MarqueeStack() {
 
     useGSAP(
         () => {
-            // Move -25% (equivalente a 1 cópia do array de 4x) em loop infinito
             gsap.to(trackRef.current, {
                 xPercent: -25,
                 duration: 30,
-                ease: "none", // equivalente ao ease: "linear" do Motion
-                repeat: -1,   // equivalente ao repeat: Infinity do Motion
+                ease: "none",
+                repeat: -1,
             });
         },
         { scope: trackRef },
