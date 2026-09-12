@@ -32,3 +32,14 @@ body {
     color: var(--color-foreground);
     font-family: var(--font-sans);
 }
+
+html,
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}

@@ -66,10 +66,10 @@ export function CodeCube() {
     const introRef = useRef({ progress: 0 });
 
     useGSAP(() => {
-        const SVG_CX = 150;
-        const SVG_CY = 150;
-        const SCALE = 95;
-        const FOV = 380;
+        const SVG_CX = 250;
+        const SVG_CY = 250;
+        const SCALE = 160;
+        const FOV = 600;
 
         gsap.to(introRef.current, {
             progress: 1,
@@ -136,7 +136,7 @@ export function CodeCube() {
 
     return (
         <div className="w-full h-full flex items-center justify-center select-none">
-            <svg width="300" height="300" viewBox="0 0 300 300" style={{ overflow: "visible" }} aria-hidden="true">
+            <svg width="500" height="500" viewBox="0 0 500 500" style={{ overflow: "visible" }} aria-hidden="true">
                 <defs>
                     {EDGES.map((_, i) => (
                         <path

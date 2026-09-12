@@ -7,7 +7,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Alpha",
         category: "Full-Stack Web App",
         impact: "+40% Conversão",
-        image: "https://placehold.co/1200x800/1a1a1a/ffffff?text=Project+Alpha",
+        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5",
         link: "/work/project-alpha",
     },
     {
@@ -16,7 +16,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Beta",
         category: "UI/UX & Design System",
         impact: "Zero Inconsistências",
-        image: "https://placehold.co/1200x800/2a2a2a/ffffff?text=Project+Beta",
+        image: "https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3",
         link: "/work/project-beta",
     },
     {
@@ -25,7 +25,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Gamma",
         category: "Backend & Cloud",
         impact: "-60% Custos AWS",
-        image: "https://placehold.co/1200x800/333333/ffffff?text=Project+Gamma",
+        image: "https://images.unsplash.com/photo-1576595580361-90a855b84b20",
         link: "/work/project-gamma",
     },
     {
@@ -34,7 +34,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Delta",
         category: "Product Design",
         impact: "+2x Retenção",
-        image: "https://placehold.co/1200x800/444444/ffffff?text=Project+Delta",
+        image: "https://images.unsplash.com/photo-1512295767273-ac109ac3acfa",
         link: "/work/project-delta",
     },
 ];

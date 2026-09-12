@@ -27,7 +27,7 @@ export function Hero() {
     );
 
     return (
-        <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex-1 flex items-center">
+        <div className="w-full max-w-(--container-page) min-h-[65vh] lg:min-h-[70vh] mx-auto px-6 md:px-12 lg:px-24 flex items-center">
             <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 w-full">
                 <div>
                     <h1
