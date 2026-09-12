@@ -75,10 +75,11 @@ export function SelectedWork() {
                             Trabalhos Selecionados
                         </h2>
                         <p data-header-anim className="text-neutral-400 text-lg max-w-xl">
-                            Uma amostra de projetos onde engenharia robusta encontra design de alto padrão para gerar
-                            impacto real de negócios.
+                            Uma seleção de produtos digitais construídos com atenção obsessiva aos detalhes, fluidez e
+                            código de alta performance.
                         </p>
                     </div>
+
                     <div data-header-anim className="flex lg:justify-end lg:items-end">
                         <Link
                             href="/work"
@@ -106,12 +107,15 @@ export function SelectedWork() {
                                 />
 
                                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+
                                 <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 flex flex-col justify-end">
                                     <div className="flex items-center gap-3 mb-4">
                                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-300">
                                             {project.client}
                                         </span>
+
                                         <span className="w-1 h-1 rounded-full bg-neutral-600" />
+
                                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
                                             {project.category}
                                         </span>
@@ -125,6 +129,7 @@ export function SelectedWork() {
                                         <span className="inline-block px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm font-medium text-white">
                                             {project.impact}
                                         </span>
+
                                         <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center transform transition-transform duration-500 hover:scale-110">
                                             <ArrowUpRight className="w-6 h-6" />
                                         </div>
