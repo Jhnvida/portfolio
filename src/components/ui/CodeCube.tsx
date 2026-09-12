@@ -65,6 +65,9 @@ export function CodeCube() {
     const timeRef = useRef(0);
     const introRef = useRef({ progress: 0 });
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isVisible = useRef(true);
+
     useGSAP(() => {
         const SVG_CX = 250;
         const SVG_CY = 250;
@@ -78,7 +81,21 @@ export function CodeCube() {
             delay: 0.2,
         });
 
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    isVisible.current = entry.isIntersecting;
+                });
+            },
+            { threshold: 0 },
+        );
+
+        if (containerRef.current) {
+            observer.observe(containerRef.current);
+        }
+
         const handleMouseMove = (e: MouseEvent) => {
+            if (!isVisible.current) return;
             const cx = window.innerWidth / 2;
             const cy = window.innerHeight / 2;
             mouseOffsetRef.current.x = ((e.clientX - cx) / cx) * 0.8;
@@ -88,6 +105,8 @@ export function CodeCube() {
         window.addEventListener("mousemove", handleMouseMove);
 
         const ticker = gsap.ticker.add(() => {
+            if (!isVisible.current) return;
+
             timeRef.current += 0.003;
 
             const targetX = -0.4 + Math.sin(timeRef.current * 0.5) * 0.2 - mouseOffsetRef.current.y;
@@ -129,13 +148,14 @@ export function CodeCube() {
         });
 
         return () => {
+            observer.disconnect();
             window.removeEventListener("mousemove", handleMouseMove);
             gsap.ticker.remove(ticker);
         };
     });
 
     return (
-        <div className="w-full h-full flex items-center justify-center select-none">
+        <div ref={containerRef} className="w-full h-full flex items-center justify-center select-none">
             <svg width="500" height="500" viewBox="0 0 500 500" style={{ overflow: "visible" }} aria-hidden="true">
                 <defs>
                     {EDGES.map((_, i) => (

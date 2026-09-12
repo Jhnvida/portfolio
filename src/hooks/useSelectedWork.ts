@@ -35,10 +35,16 @@ export function useSelectedWork() {
                     return -(galleryWidth - gridWidth);
                 };
 
-                const tween = gsap.to(galleryRef.current, {
+                const tl = gsap.timeline();
+
+                tl.to({}, { duration: 0.1 });
+
+                tl.to(galleryRef.current, {
                     x: getScrollAmount,
                     ease: "none",
                 });
+
+                tl.to({}, { duration: 0.1 });
 
                 ScrollTrigger.create({
                     trigger: sectionRef.current,
@@ -46,8 +52,9 @@ export function useSelectedWork() {
                     end: () =>
                         `+=${(galleryRef.current?.scrollWidth || 0) - (gridContainerRef.current?.offsetWidth || 0)}`,
                     pin: true,
-                    animation: tween,
-                    scrub: 1,
+                    pinType: "fixed",
+                    animation: tl,
+                    scrub: true,
                     invalidateOnRefresh: true,
                 });
             }

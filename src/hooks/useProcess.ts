@@ -32,10 +32,12 @@ export function useProcess() {
                     start: "top top",
                     end: `+=${PROCESS_STEPS.length * 80}%`,
                     pin: true,
-                    scrub: 0.5,
-                    anticipatePin: 1,
+                    pinType: "fixed",
+                    scrub: true,
                 },
             });
+
+            tl.to({}, { duration: 0.2 });
 
             PROCESS_STEPS.forEach((_, index) => {
                 if (index < PROCESS_STEPS.length - 1) {
