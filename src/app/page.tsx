@@ -1,7 +1,4 @@
-import { Hero } from "../components/sections/Hero";
-import { MarqueeStack } from "../components/sections/MarqueeStack";
-import { Process } from "../components/sections/Process";
-import { SelectedWork } from "../components/sections/SelectedWork";
+import { Hero, MarqueeStack, Process, SelectedWork } from "../components/sections";
 
 export default function Home() {
     return (

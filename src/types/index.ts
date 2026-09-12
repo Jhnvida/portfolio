@@ -7,3 +7,10 @@ export interface Project {
     image: string;
     link: string;
 }
+
+export interface ProcessStep {
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+}
