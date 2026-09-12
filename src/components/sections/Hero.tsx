@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Link from "next/link";
 import { useRef } from "react";
+import { CodeCube } from "../ui/CodeCube";
 
 gsap.registerPlugin(useGSAP);
 
@@ -51,7 +52,9 @@ export function Hero() {
                     </div>
                 </div>
 
-                <div className="hidden lg:block" />
+                <div data-anim className="hidden lg:flex items-center justify-center h-105">
+                    <CodeCube />
+                </div>
             </div>
         </div>
     );

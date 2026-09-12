@@ -35,8 +35,8 @@ export function SelectedWork() {
 
             if (galleryRef.current && sectionRef.current && gridContainerRef.current) {
                 const getScrollAmount = () => {
-                    let galleryWidth = galleryRef.current?.scrollWidth || 0;
-                    let gridWidth = gridContainerRef.current?.offsetWidth || 0;
+                    const galleryWidth = galleryRef.current?.scrollWidth || 0;
+                    const gridWidth = gridContainerRef.current?.offsetWidth || 0;
                     return -(galleryWidth - gridWidth);
                 };
 
