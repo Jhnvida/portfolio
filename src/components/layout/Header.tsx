@@ -26,7 +26,7 @@ export function Header() {
             <div
                 className={`flex justify-between items-center w-full transition-all duration-500 ease-out overflow-hidden ${
                     isScrolled
-                        ? "max-w-4xl mx-auto py-3 px-6 md:px-8 bg-neutral-950/80 backdrop-blur-lg border border-neutral-800 shadow-2xl"
+                        ? "max-w-4xl mx-auto py-3 px-6 md:px-8 bg-neutral-950/80 backdrop-blur-lg border border-neutral-800 shadow-2xl rounded-full"
                         : "max-w-(--container-page) mx-auto py-6 px-6 md:px-12 lg:px-24 bg-transparent border-transparent"
                 }`}
             >

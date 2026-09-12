@@ -44,7 +44,7 @@ export function Hero() {
                     <div data-anim>
                         <Link
                             href="/work"
-                            className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors"
+                            className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full"
                         >
                             Ver trabalhos
                         </Link>
