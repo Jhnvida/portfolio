@@ -9,16 +9,17 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export function useProcess() {
     const sectionRef = useRef<HTMLElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const stepsRef = useRef<(HTMLDivElement | null)[]>([]);
 
     useGSAP(
         () => {
             if (!sectionRef.current || !containerRef.current) return;
 
-            gsap.set(stepsRef.current, { opacity: 1, y: 0 });
+            const steps = gsap.utils.toArray<HTMLElement>(".process-step");
+            if (steps.length === 0) return;
 
-            stepsRef.current.forEach((step, i) => {
-                if (!step) return;
+            gsap.set(steps, { opacity: 1, y: 0 });
+
+            steps.forEach((step, i) => {
                 const elements = step.querySelectorAll("span, h3, p");
                 gsap.set(elements, {
                     opacity: i === 0 ? 1 : 0,
@@ -42,8 +43,8 @@ export function useProcess() {
 
             PROCESS_STEPS.forEach((_, index) => {
                 if (index < PROCESS_STEPS.length - 1) {
-                    const currentStep = stepsRef.current[index];
-                    const nextStep = stepsRef.current[index + 1];
+                    const currentStep = steps[index];
+                    const nextStep = steps[index + 1];
 
                     if (!currentStep || !nextStep) return;
 
@@ -82,5 +83,5 @@ export function useProcess() {
         { scope: sectionRef },
     );
 
-    return { sectionRef, containerRef, stepsRef };
+    return { sectionRef, containerRef };
 }

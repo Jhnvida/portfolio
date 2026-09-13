@@ -5,7 +5,7 @@ import { useProcess } from "../../hooks/useProcess";
 import { SectionHeader } from "../ui/SectionHeader";
 
 export function Process() {
-    const { sectionRef, containerRef, stepsRef } = useProcess();
+    const { sectionRef, containerRef } = useProcess();
 
     return (
         <section ref={sectionRef} className="w-full h-screen bg-background relative overflow-hidden flex flex-col">
@@ -16,21 +16,18 @@ export function Process() {
                     {PROCESS_STEPS.map((step, index) => (
                         <div
                             key={step.id}
-                            ref={(el) => {
-                                stepsRef.current[index] = el;
-                            }}
-                            className="absolute inset-0 flex flex-col justify-center pointer-events-none px-6 md:px-12 lg:px-24"
+                            className="process-step absolute inset-0 flex flex-col justify-center pointer-events-none px-6 md:px-12 lg:px-24"
                         >
                             <div className="max-w-2xl pointer-events-auto">
-                                <span className="text-5xl md:text-7xl font-bold text-white/10 mb-6 block font-mono will-change-transform will-change-opacity">
+                                <span className="text-5xl md:text-7xl font-bold text-white/10 mb-6 block font-mono">
                                     {step.number}
                                 </span>
 
-                                <h3 className="text-3xl md:text-4xl font-semibold text-white mb-4 leading-tight will-change-transform will-change-opacity">
+                                <h3 className="text-3xl md:text-4xl font-semibold text-white mb-4 leading-tight">
                                     {step.title}
                                 </h3>
 
-                                <p className="text-neutral-400 text-lg md:text-xl leading-relaxed will-change-transform will-change-opacity">
+                                <p className="text-neutral-400 text-lg md:text-xl leading-relaxed">
                                     {step.description}
                                 </p>
                             </div>
