@@ -16,19 +16,38 @@ export function Services() {
     useGSAP(
         () => {
             const cards = gsap.utils.toArray<HTMLElement>(".service-card");
+            let mm = gsap.matchMedia();
 
-            cards.forEach((card, index) => {
-                if (index === cards.length - 1) return;
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                cards.forEach((card, index) => {
+                    if (index === cards.length - 1) return;
 
-                gsap.to(card, {
-                    scale: 0.95,
-                    opacity: 0.4,
-                    scrollTrigger: {
-                        trigger: cards[index + 1],
-                        start: "top bottom",
-                        end: "top top",
-                        scrub: true,
-                    },
+                    gsap.to(card, {
+                        scale: 0.95,
+                        opacity: 0.4,
+                        scrollTrigger: {
+                            trigger: cards[index + 1],
+                            start: "top bottom",
+                            end: "top top",
+                            scrub: true,
+                        },
+                    });
+                });
+            });
+
+            mm.add("(prefers-reduced-motion: reduce)", () => {
+                cards.forEach((card, index) => {
+                    if (index === cards.length - 1) return;
+
+                    gsap.to(card, {
+                        opacity: 0.4,
+                        scrollTrigger: {
+                            trigger: cards[index + 1],
+                            start: "top bottom",
+                            end: "top top",
+                            scrub: true,
+                        },
+                    });
                 });
             });
         },
@@ -73,7 +92,7 @@ export function Services() {
 
                                         <Link
                                             href="/contact"
-                                            className="shrink-0 inline-flex items-center justify-center px-8 py-4 bg-white text-black font-semibold text-sm md:text-base rounded-full hover:bg-neutral-200 transition-colors"
+                                            className="shrink-0 inline-flex items-center justify-center px-8 py-4 bg-white text-black font-semibold text-sm md:text-base rounded-full hover:bg-neutral-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
                                         >
                                             {service.ctaLabel}
                                         </Link>

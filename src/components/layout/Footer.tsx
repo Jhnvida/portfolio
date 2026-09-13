@@ -28,8 +28,11 @@ export function Footer() {
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                     <div className="lg:col-span-5 flex flex-col">
-                        <Link href="/" className="font-heading font-bold text-2xl tracking-tight text-white mb-6">
-                            João Silva
+                        <Link
+                            href="/"
+                            className="font-heading font-bold text-2xl tracking-tight text-white mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
+                        >
+                            João Vida
                         </Link>
 
                         <p className="text-neutral-400 text-base md:text-lg max-w-sm leading-relaxed mb-8">
@@ -44,7 +47,7 @@ export function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-neutral-500 hover:text-white transition-colors text-sm font-medium"
+                                    className="text-neutral-500 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                                 >
                                     {social.label}
                                 </a>
@@ -64,7 +67,7 @@ export function Footer() {
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
-                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium"
+                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                                     >
                                         {link.label}
                                     </Link>
@@ -83,7 +86,7 @@ export function Footer() {
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
-                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium"
+                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                                     >
                                         {link.label}
                                     </Link>
@@ -95,9 +98,7 @@ export function Footer() {
             </div>
 
             <div className="w-full absolute bottom-0 left-0 pointer-events-none flex justify-center items-end select-none translate-y-1/3">
-                <span className="text-[15vw] font-bold text-white/2 tracking-tighter whitespace-nowrap">
-                    JOÃO SILVA
-                </span>
+                <span className="text-[15vw] font-bold text-white/2 tracking-tighter whitespace-nowrap">JOÃO VIDA</span>
             </div>
         </footer>
     );

@@ -20,8 +20,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
     title: {
-        template: "%s / João Silva",
-        default: "Full-Stack Engineer / João Silva",
+        template: "%s / João Vida",
+        default: "Full-Stack Engineer / João Vida",
     },
     description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
 };

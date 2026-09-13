@@ -22,11 +22,19 @@ export function MarqueeStack() {
 
     useGSAP(
         () => {
-            gsap.to(trackRef.current, {
-                xPercent: -25,
-                duration: 30,
-                ease: "none",
-                repeat: -1,
+            let mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.to(trackRef.current, {
+                    xPercent: -25,
+                    duration: 30,
+                    ease: "none",
+                    repeat: -1,
+                });
+            });
+
+            mm.add("(prefers-reduced-motion: reduce)", () => {
+                gsap.set(trackRef.current, { xPercent: 0 });
             });
         },
         { scope: trackRef },

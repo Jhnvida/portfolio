@@ -14,14 +14,26 @@ export function Hero() {
     useGSAP(
         () => {
             const items = gsap.utils.toArray<HTMLElement>("[data-anim]", containerRef.current);
+            let mm = gsap.matchMedia();
 
-            gsap.from(items, {
-                opacity: 0,
-                y: 30,
-                scale: 0.95,
-                duration: 1,
-                ease: "expo.out",
-                stagger: 0.15,
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.from(items, {
+                    opacity: 0,
+                    y: 30,
+                    scale: 0.95,
+                    duration: 1,
+                    ease: "expo.out",
+                    stagger: 0.15,
+                });
+            });
+
+            mm.add("(prefers-reduced-motion: reduce)", () => {
+                gsap.from(items, {
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    stagger: 0.1,
+                });
             });
         },
         { scope: containerRef },
@@ -46,7 +58,7 @@ export function Hero() {
                     <div data-anim>
                         <Link
                             href="/work"
-                            className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full"
+                            className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                         >
                             Ver trabalhos
                         </Link>

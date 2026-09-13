@@ -19,7 +19,7 @@ export function SelectedWork() {
                 <div ref={gridContainerRef} className="w-full max-w-(--container-page) mx-auto overflow-visible">
                     <div ref={galleryRef} className="flex gap-6 px-6 md:px-12 lg:px-24 w-max">
                         {MOCK_PROJECTS.map((project, index) => (
-                            <ProjectCard key={project.id} project={project} priority={index < 2} />
+                            <ProjectCard key={project.id} project={project} priority={index < 4} />
                         ))}
                     </div>
                 </div>
