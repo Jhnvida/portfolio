@@ -41,22 +41,28 @@ export function Header() {
 
                 <nav className="hidden md:flex flex-none gap-8 text-sm font-medium">
                     <Link href="/work" className="hover:text-white text-gray-400 transition-colors">
-                        Trabalhos
+                        Trabalho
                     </Link>
-                    <Link href="/process" className="hover:text-white text-gray-400 transition-colors">
-                        Processo
+                    <Link href="/about" className="hover:text-white text-gray-400 transition-colors">
+                        Sobre
                     </Link>
                     <Link href="/services" className="hover:text-white text-gray-400 transition-colors">
                         Serviços
                     </Link>
-                    <Link href="/contact" className="hover:text-white text-gray-400 transition-colors">
-                        Contato
-                    </Link>
                 </nav>
 
-                <div className="flex-1 flex justify-end gap-4 text-sm font-medium">
-                    <button className="cursor-pointer hover:text-white text-gray-400 transition-colors">PT</button>
-                    <button className="cursor-pointer hover:text-white text-gray-400 transition-colors">EN</button>
+                <div className="flex-1 flex justify-end items-center gap-4 text-sm font-medium">
+                    <div className="flex gap-4 mr-4">
+                        <button className="cursor-pointer hover:text-white text-gray-400 transition-colors">PT</button>
+                        <button className="cursor-pointer hover:text-white text-gray-400 transition-colors">EN</button>
+                    </div>
+
+                    <Link
+                        href="/contact"
+                        className="px-5 py-2.5 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full"
+                    >
+                        Contato
+                    </Link>
                 </div>
             </div>
         </header>
