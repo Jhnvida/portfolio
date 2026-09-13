@@ -28,17 +28,17 @@ export function Hero() {
     );
 
     return (
-        <div className="w-full max-w-(--container-page) min-h-[65vh] lg:min-h-[70vh] mx-auto px-6 md:px-12 lg:px-24 flex items-center">
-            <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 w-full">
+        <div className="w-full max-w-(--container-page) min-h-[65vh] lg:min-h-[70vh] mx-auto px-6 md:px-12 lg:px-24 flex items-center pt-24 lg:pt-0">
+            <div ref={containerRef} className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 md:gap-12 w-full">
                 <div>
                     <h1
                         data-anim
-                        className="text-white text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]"
+                        className="text-white text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]"
                     >
                         Engenharia de software focada em interfaces refinadas.
                     </h1>
 
-                    <p data-anim className="text-neutral-400 text-lg max-w-xl mt-6 leading-relaxed">
+                    <p data-anim className="text-neutral-400 text-base md:text-lg max-w-xl mt-6 leading-relaxed">
                         Desenvolvimento full-stack especializado em produtos digitais de alto desempenho, unindo
                         arquitetura robusta e estética premium.
                     </p>
