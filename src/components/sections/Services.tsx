@@ -50,14 +50,17 @@ export function Services() {
                 <div className="flex flex-col">
                     {SERVICES.map((service, index) => {
                         const isActive = index === activeIndex;
+                        const isFirst = index === 0;
+                        const isLast = index === SERVICES.length - 1;
+                        const radiusClass = isFirst ? "rounded-t-2xl" : isLast ? "rounded-b-2xl" : "rounded-none";
 
                         return (
                             <div
                                 key={service.id}
-                                className={`flex flex-col group cursor-pointer transition-all duration-500 overflow-hidden ${
+                                className={`flex flex-col group cursor-pointer transition-all duration-500 overflow-hidden ${radiusClass} ${
                                     isActive
-                                        ? "bg-white/5 rounded-2xl my-4 border border-white/10"
-                                        : "border-b border-white/10 hover:bg-white/2 my-0"
+                                        ? "bg-white/5 border border-white/10"
+                                        : "border-b border-white/10 hover:bg-white/2"
                                 }`}
                                 onClick={() => setActiveIndex(isActive ? null : index)}
                                 onKeyDown={(e) => {
@@ -88,6 +91,7 @@ export function Services() {
                                 <div className="service-content overflow-hidden px-6 md:px-10">
                                     <div className="pb-8 md:pb-10 md:pl-20">
                                         <div className="h-px w-full bg-white/5 mb-8" />
+
                                         <p className="text-neutral-400 text-base md:text-lg max-w-2xl leading-relaxed mb-8">
                                             {service.description}
                                         </p>
