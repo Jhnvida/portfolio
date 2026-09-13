@@ -1,0 +1,104 @@
+"use client";
+
+import Link from "next/link";
+
+const FOOTER_LINKS = {
+    navigation: [
+        { label: "Trabalhos", href: "/work" },
+        { label: "Sobre", href: "/about" },
+        { label: "Serviços", href: "/services" },
+    ],
+    contact: [
+        { label: "Agendar Reunião", href: "/contact" },
+        { label: "GitHub", href: "https://github.com/Jhnvida" },
+        { label: "LinkedIn", href: "https://www.linkedin.com/in/jaoandre/" },
+        { label: "E-mail", href: "mailto:joao.vida.andre@gmail.com" },
+    ],
+};
+
+const SOCIAL_LINKS = [
+    { href: "https://github.com/Jhnvida", label: "GitHub" },
+    { href: "https://www.linkedin.com/in/jaoandre/", label: "LinkedIn" },
+    { href: "mailto:joao.vida.andre@gmail.com", label: "Email" },
+];
+
+export function Footer() {
+    return (
+        <footer className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden flex flex-col relative">
+            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+                    <div className="lg:col-span-5 flex flex-col">
+                        <Link href="/" className="font-heading font-bold text-2xl tracking-tight text-white mb-6">
+                            João Silva
+                        </Link>
+
+                        <p className="text-neutral-400 text-base md:text-lg max-w-sm leading-relaxed mb-8">
+                            Engenharia de software focada em interfaces refinadas. Desenvolvimento full-stack unindo
+                            arquitetura robusta e estética premium.
+                        </p>
+
+                        <div className="flex items-center gap-6">
+                            {SOCIAL_LINKS.map((social) => (
+                                <a
+                                    key={social.label}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-neutral-500 hover:text-white transition-colors text-sm font-medium"
+                                >
+                                    {social.label}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="hidden lg:block lg:col-span-3"></div>
+
+                    <div className="lg:col-span-2 flex flex-col">
+                        <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 mb-6">
+                            Navegação
+                        </h4>
+
+                        <ul className="flex flex-col gap-4">
+                            {FOOTER_LINKS.navigation.map((link) => (
+                                <li key={link.label}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="lg:col-span-2 flex flex-col">
+                        <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 mb-6">
+                            Contato
+                        </h4>
+
+                        <ul className="flex flex-col gap-4">
+                            {FOOTER_LINKS.contact.map((link) => (
+                                <li key={link.label}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div className="w-full absolute bottom-0 left-0 pointer-events-none flex justify-center items-end select-none translate-y-1/3">
+                <span className="text-[15vw] font-bold text-white/2 tracking-tighter whitespace-nowrap">
+                    JOÃO SILVA
+                </span>
+            </div>
+        </footer>
+    );
+}
