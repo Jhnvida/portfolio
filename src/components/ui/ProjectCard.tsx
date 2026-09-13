@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Project } from "../../types";
 
@@ -12,9 +13,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
             href={`/work/${project.slug}`}
             className="group relative shrink-0 w-[85vw] md:w-[50vw] lg:w-[35vw] h-[55vh] md:h-[65vh] overflow-hidden rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/20"
         >
-            <div
-                className="absolute inset-0 bg-neutral-900 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105"
-                style={{ backgroundImage: `url(${project.image})` }}
+            <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
 
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
