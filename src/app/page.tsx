@@ -1,4 +1,4 @@
-import { Hero, MarqueeStack, Process, SelectedWork } from "../components/sections";
+import { Hero, MarqueeStack, Process, SelectedWork, Services } from "../components/sections";
 
 export default function Home() {
     return (
@@ -7,6 +7,7 @@ export default function Home() {
             <MarqueeStack />
             <SelectedWork />
             <Process />
+            <Services />
         </main>
     );
 }

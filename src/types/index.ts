@@ -14,3 +14,12 @@ export interface ProcessStep {
     title: string;
     description: string;
 }
+
+export interface ServiceItem {
+    id: string;
+    number: string;
+    title: string;
+    tags: string;
+    description: string;
+    ctaLabel: string;
+}
