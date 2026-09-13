@@ -23,7 +23,7 @@ export function useSelectedWork() {
                     ease: "expo.out",
                     scrollTrigger: {
                         trigger: sectionRef.current,
-                        start: "top 80%",
+                        start: "top 85%",
                     },
                 });
             }
@@ -37,14 +37,10 @@ export function useSelectedWork() {
 
                 const tl = gsap.timeline();
 
-                tl.to({}, { duration: 0.1 });
-
                 tl.to(galleryRef.current, {
                     x: getScrollAmount,
                     ease: "none",
                 });
-
-                tl.to({}, { duration: 0.1 });
 
                 ScrollTrigger.create({
                     trigger: sectionRef.current,

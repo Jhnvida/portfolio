@@ -18,7 +18,8 @@ export function Hero() {
             gsap.from(items, {
                 opacity: 0,
                 y: 30,
-                duration: 0.8,
+                filter: "blur(10px)",
+                duration: 1,
                 ease: "expo.out",
                 stagger: 0.15,
             });
@@ -32,17 +33,20 @@ export function Hero() {
                 <div>
                     <h1
                         data-anim
-                        className="text-white text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1]"
+                        className="text-white text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.1] will-change-transform will-change-opacity will-change-filter"
                     >
                         Engenharia de software focada em interfaces refinadas.
                     </h1>
 
-                    <p data-anim className="text-neutral-400 text-lg max-w-xl mt-6 leading-relaxed">
+                    <p
+                        data-anim
+                        className="text-neutral-400 text-lg max-w-xl mt-6 leading-relaxed will-change-transform will-change-opacity will-change-filter"
+                    >
                         Desenvolvimento full-stack especializado em produtos digitais de alto desempenho, unindo
                         arquitetura robusta e estética premium.
                     </p>
 
-                    <div data-anim>
+                    <div data-anim className="will-change-transform will-change-opacity will-change-filter">
                         <Link
                             href="/work"
                             className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full"
@@ -52,7 +56,10 @@ export function Hero() {
                     </div>
                 </div>
 
-                <div data-anim className="hidden lg:flex items-center justify-center h-105">
+                <div
+                    data-anim
+                    className="hidden lg:flex items-center justify-center h-105 will-change-transform will-change-opacity will-change-filter"
+                >
                     <CodeCube />
                 </div>
             </div>

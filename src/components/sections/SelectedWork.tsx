@@ -13,12 +13,7 @@ export function SelectedWork() {
             ref={sectionRef}
             className="w-full h-screen overflow-hidden flex flex-col justify-center bg-background relative"
         >
-            <SectionHeader
-                ref={headerRef}
-                title="Trabalhos Selecionados"
-                description="Uma seleção de produtos digitais construídos com atenção obsessiva aos detalhes, fluidez e código de alta performance."
-                link={{ href: "/work", label: "Ver todos os projetos" }}
-            />
+            <SectionHeader ref={headerRef} title="Trabalhos Selecionados" />
 
             <div className="w-full relative mt-8">
                 <div ref={gridContainerRef} className="w-full max-w-(--container-page) mx-auto overflow-visible">

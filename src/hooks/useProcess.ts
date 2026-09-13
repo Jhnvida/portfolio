@@ -34,6 +34,7 @@ export function useProcess() {
                     pin: true,
                     pinType: "fixed",
                     scrub: true,
+                    invalidateOnRefresh: true,
                 },
             });
 
@@ -53,22 +54,27 @@ export function useProcess() {
                         currentElements,
                         {
                             opacity: 0,
-                            y: -(window.innerHeight * 0.4),
-                            duration: 1,
-                            stagger: 0.1,
-                            ease: "none",
+                            y: () => -(window.innerHeight * 0.4),
+                            duration: 0.8,
+                            stagger: 0.05,
+                            ease: "power2.inOut",
                         },
                         `step${index}`,
-                    ).to(
+                    ).fromTo(
                         nextElements,
+                        {
+                            opacity: 0,
+                            y: () => window.innerHeight * 0.4,
+                        },
                         {
                             opacity: 1,
                             y: 0,
-                            duration: 1,
-                            stagger: 0.1,
-                            ease: "none",
+                            duration: 0.8,
+                            stagger: 0.05,
+                            ease: "power2.out",
+                            immediateRender: false,
                         },
-                        `step${index}+=0.1`,
+                        `step${index}+=0.4`,
                     );
                 }
             });
