@@ -5,9 +5,10 @@ import { Project } from "../../types";
 
 interface ProjectCardProps {
     project: Project;
+    priority?: boolean;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, priority = false }: ProjectCardProps) {
     return (
         <Link
             href={`/work/${project.slug}`}
@@ -17,6 +18,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 src={project.image}
                 alt={project.title}
                 fill
+                priority={priority}
                 sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 35vw"
                 className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
