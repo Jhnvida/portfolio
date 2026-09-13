@@ -18,8 +18,11 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "João Silva — Full-Stack Engineer",
-    description: "Crafting high-performance digital products and immersive interfaces.",
+    title: {
+        template: "%s / João Silva",
+        default: "Full-Stack Engineer / João Silva",
+    },
+    description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
