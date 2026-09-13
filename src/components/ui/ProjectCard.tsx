@@ -9,7 +9,7 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
     return (
         <Link
-            href={project.link}
+            href={`/work/${project.slug}`}
             className="group relative shrink-0 w-[85vw] md:w-[50vw] lg:w-[35vw] h-[55vh] md:h-[65vh] overflow-hidden rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/20"
         >
             <div

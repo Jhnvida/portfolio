@@ -5,7 +5,7 @@ export interface Project {
     category: string;
     impact: string;
     image: string;
-    link: string;
+    slug: string;
 }
 
 export interface ProcessStep {
