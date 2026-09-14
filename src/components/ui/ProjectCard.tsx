@@ -37,39 +37,53 @@ export function ProjectCard({ project, priority = false, index }: ProjectCardPro
                 </div>
 
                 <div
-                    className={`project-content flex flex-col lg:col-span-4 ${
+                    className={`project-content flex flex-col justify-center lg:col-span-4 ${
                         isEven ? "lg:order-2 lg:col-start-9" : "lg:order-1 lg:col-start-1"
                     }`}
                 >
-                    <div className="flex flex-col gap-2 mb-8 md:mb-12">
+                    <div className="flex items-center gap-4 mb-6 md:mb-8">
                         <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-neutral-500 font-mono">
-                            {formattedIndex} // {project.category}
+                            {formattedIndex}
                         </span>
 
-                        <h3 className="text-4xl md:text-5xl font-medium tracking-tighter text-white leading-[1.1] md:leading-[1.1] transition-colors group-hover:text-white/80">
-                            {project.title}
-                        </h3>
+                        <div className="w-4 h-px bg-white/20" />
 
-                        <p className="text-sm md:text-base text-neutral-400 font-medium mt-1">
-                            Client: <span className="text-neutral-300">{project.client}</span>
-                        </p>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-mono px-2 py-1 rounded-full border border-white/10">
+                            {project.category}
+                        </span>
                     </div>
 
-                    <div className="flex flex-col gap-8 md:gap-10">
-                        <p className="text-sm md:text-base text-neutral-400 leading-relaxed max-w-md">
-                            {project.impact}
-                        </p>
+                    <h3 className="text-4xl md:text-5xl font-medium tracking-tighter text-white leading-[1.1] md:leading-[1.1] transition-colors group-hover:text-white/80 mb-10 md:mb-12">
+                        {project.title}
+                    </h3>
 
-                        <div>
-                            <Button
-                                as="div"
-                                variant="secondary"
-                                showArrow
-                                className="px-5 py-2.5 text-xs md:text-sm md:px-6 md:py-3 transition-colors group-hover:bg-white/5"
-                            >
-                                Ver projeto
-                            </Button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-12">
+                        <div className="flex flex-col gap-2">
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono">
+                                Cliente
+                            </span>
+                            <span className="text-sm md:text-base text-neutral-300 font-medium">{project.client}</span>
                         </div>
+
+                        <div className="flex flex-col gap-2">
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-500 font-mono">
+                                Resultado
+                            </span>
+                            <span className="text-base md:text-lg text-white font-medium tracking-tight">
+                                {project.impact}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <Button
+                            as="div"
+                            variant="secondary"
+                            showArrow
+                            className="px-5 py-2.5 text-xs md:text-sm md:px-6 md:py-3 transition-colors group-hover:bg-white/5"
+                        >
+                            Ver projeto
+                        </Button>
                     </div>
                 </div>
             </div>
