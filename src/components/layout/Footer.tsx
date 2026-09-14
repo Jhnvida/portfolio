@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Button } from "../ui/Button";
 
 const FOOTER_LINKS = {
     navigation: [
@@ -40,17 +41,18 @@ export function Footer() {
                             arquitetura robusta e estética premium.
                         </p>
 
-                        <div className="flex items-center gap-6">
+                        <div className="flex flex-wrap items-center gap-4">
                             {SOCIAL_LINKS.map((social) => (
-                                <a
+                                <Button
                                     key={social.label}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-neutral-500 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
+                                    variant="dark"
+                                    className="px-5 py-2.5 text-sm"
                                 >
                                     {social.label}
-                                </a>
+                                </Button>
                             ))}
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSmoothScroll } from "../providers/SmoothScrollProvider";
+import { Button } from "../ui/Button";
 
 export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -89,12 +90,9 @@ export function Header() {
                         </button>
                     </div>
 
-                    <Link
-                        href="/contact"
-                        className="px-5 py-2.5 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                    >
+                    <Button href="/contact" className="px-5 py-2.5">
                         Contato
-                    </Link>
+                    </Button>
                 </div>
 
                 <div className="flex flex-1 justify-end md:hidden z-50">
@@ -138,13 +136,9 @@ export function Header() {
                     >
                         Serviços
                     </Link>
-                    <Link
-                        href="/contact"
-                        className="mt-4 px-8 py-4 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                        onClick={() => setIsMenuOpen(false)}
-                    >
+                    <Button href="/contact" className="mt-4 px-8 py-4" onClick={() => setIsMenuOpen(false)}>
                         Contato
-                    </Link>
+                    </Button>
                 </nav>
 
                 <div className="flex gap-6 mt-8 text-lg font-medium">

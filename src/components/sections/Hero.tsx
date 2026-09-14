@@ -2,8 +2,8 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Link from "next/link";
 import { useRef } from "react";
+import { Button } from "../ui/Button";
 import { CodeCube } from "../ui/CodeCube";
 
 gsap.registerPlugin(useGSAP);
@@ -56,12 +56,9 @@ export function Hero() {
                     </p>
 
                     <div data-anim>
-                        <Link
-                            href="/work"
-                            className="inline-block mt-8 px-6 py-3 bg-white text-black font-medium hover:bg-neutral-200 transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                        >
+                        <Button href="/work" className="mt-8 px-6 py-3">
                             Ver trabalhos
-                        </Link>
+                        </Button>
                     </div>
                 </div>
 

@@ -3,9 +3,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Link from "next/link";
 import { useRef } from "react";
 import { SERVICES } from "../../data/services";
+import { Button } from "../ui/Button";
 import { SectionHeader } from "../ui/SectionHeader";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -90,12 +90,12 @@ export function Services() {
                                             {service.description}
                                         </p>
 
-                                        <Link
+                                        <Button
                                             href="/contact"
-                                            className="shrink-0 inline-flex items-center justify-center px-8 py-4 bg-white text-black font-semibold text-sm md:text-base rounded-full hover:bg-neutral-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]"
+                                            className="shrink-0 px-8 py-4 text-sm md:text-base focus-visible:ring-offset-[#0a0a0a]"
                                         >
                                             {service.ctaLabel}
-                                        </Link>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
