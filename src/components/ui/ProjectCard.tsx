@@ -25,7 +25,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
 
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-90 md:opacity-80 transition-opacity duration-500 md:group-hover:opacity-100" />
 
-            <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 flex flex-col justify-end transform translate-y-0 md:translate-y-18 transition-transform duration-500 ease-out md:group-hover:translate-y-0">
+            <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 flex flex-col justify-end transform translate-y-0 md:translate-y-24 transition-transform duration-500 ease-out md:group-hover:translate-y-0">
                 <div className="flex items-center gap-3 mb-4">
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-300">
                         {project.client}

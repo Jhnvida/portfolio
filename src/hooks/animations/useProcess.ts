@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import { PROCESS_STEPS } from "../data/process";
+import { PROCESS_STEPS } from "../../data/process";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -17,7 +17,7 @@ export function useProcess() {
             const steps = gsap.utils.toArray<HTMLElement>(".process-step");
             if (steps.length === 0) return;
 
-            let mm = gsap.matchMedia();
+            const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
                 gsap.set(steps, { opacity: 1, y: 0 });

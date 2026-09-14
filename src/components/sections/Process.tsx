@@ -1,7 +1,7 @@
 "use client";
 
 import { PROCESS_STEPS } from "../../data/process";
-import { useProcess } from "../../hooks/useProcess";
+import { useProcess } from "../../hooks/animations/useProcess";
 import { SectionHeader } from "../ui/SectionHeader";
 
 export function Process() {

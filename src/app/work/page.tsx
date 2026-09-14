@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Trabalhos",
+    title: "Trabalho",
     description: "Conheça os projetos em que atuei, unindo design premium e performance extrema.",
 };
 

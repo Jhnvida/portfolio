@@ -1,44 +1,12 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useRef } from "react";
-
-gsap.registerPlugin(useGSAP);
-
-const STACK_ITEMS = [
-    "Next.js & React",
-    "Vite & React",
-    "TypeScript",
-    "Node.js & APIs",
-    "UI/UX Motion",
-    "Arquitetura Escalável",
-];
+import { STACK_ITEMS } from "../../data/navigation";
+import { useMarquee } from "../../hooks/animations/useMarquee";
 
 const MARQUEE_ITEMS = [...STACK_ITEMS, ...STACK_ITEMS, ...STACK_ITEMS, ...STACK_ITEMS];
 
 export function MarqueeStack() {
-    const trackRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(
-        () => {
-            let mm = gsap.matchMedia();
-
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.to(trackRef.current, {
-                    xPercent: -25,
-                    duration: 30,
-                    ease: "none",
-                    repeat: -1,
-                });
-            });
-
-            mm.add("(prefers-reduced-motion: reduce)", () => {
-                gsap.set(trackRef.current, { xPercent: 0 });
-            });
-        },
-        { scope: trackRef },
-    );
+    const { trackRef } = useMarquee();
 
     return (
         <div className="w-full border-y border-white/10 py-4 mt-20 overflow-hidden">

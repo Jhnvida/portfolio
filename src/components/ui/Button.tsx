@@ -80,7 +80,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
                     variant === "primary"
                         ? "bg-white text-black"
                         : variant === "dark"
-                          ? "bg-[#0a0a0a] text-white border border-white/10 hover:border-white/20"
+                          ? "bg-surface-raised text-white border border-white/10 hover:border-white/20"
                           : "bg-transparent text-gray-400 hover:text-white hover:bg-white/5",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
                     "group",

@@ -1,58 +1,12 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
 import { SERVICES } from "../../data/services";
+import { useServices } from "../../hooks/animations/useServices";
 import { Button } from "../ui/Button";
 import { SectionHeader } from "../ui/SectionHeader";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 export function Services() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(
-        () => {
-            const cards = gsap.utils.toArray<HTMLElement>(".service-card");
-            let mm = gsap.matchMedia();
-
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
-                cards.forEach((card, index) => {
-                    if (index === cards.length - 1) return;
-
-                    gsap.to(card, {
-                        scale: 0.95,
-                        opacity: 0.4,
-                        scrollTrigger: {
-                            trigger: cards[index + 1],
-                            start: "top bottom",
-                            end: "top top",
-                            scrub: true,
-                        },
-                    });
-                });
-            });
-
-            mm.add("(prefers-reduced-motion: reduce)", () => {
-                cards.forEach((card, index) => {
-                    if (index === cards.length - 1) return;
-
-                    gsap.to(card, {
-                        opacity: 0.4,
-                        scrollTrigger: {
-                            trigger: cards[index + 1],
-                            start: "top bottom",
-                            end: "top top",
-                            scrub: true,
-                        },
-                    });
-                });
-            });
-        },
-        { scope: containerRef },
-    );
+    const { containerRef } = useServices();
 
     return (
         <section id="services" className="w-full bg-background relative overflow-hidden flex flex-col py-24 md:py-32">
@@ -67,7 +21,7 @@ export function Services() {
                         return (
                             <div
                                 key={service.id}
-                                className="service-card sticky w-full h-auto min-h-[50vh] md:min-h-[60vh] rounded-3xl border border-white/10 bg-[#0a0a0a] flex flex-col justify-between p-8 md:p-12 lg:p-16 shadow-2xl origin-top"
+                                className="service-card sticky w-full h-auto min-h-[50vh] md:min-h-[60vh] rounded-3xl border border-white/10 bg-surface-raised flex flex-col justify-between p-8 md:p-12 lg:p-16 shadow-2xl origin-top"
                                 style={{ top: `calc(6rem + ${index * 1.5}rem)` }}
                             >
                                 <div className="flex flex-col md:flex-row justify-between md:items-start gap-4 mb-16 md:mb-0">
@@ -92,7 +46,7 @@ export function Services() {
 
                                         <Button
                                             href="/contact"
-                                            className="shrink-0 px-8 py-4 text-sm md:text-base focus-visible:ring-offset-[#0a0a0a]"
+                                            className="shrink-0 px-8 py-4 text-sm md:text-base focus-visible:ring-offset-surface-raised"
                                         >
                                             {service.ctaLabel}
                                         </Button>

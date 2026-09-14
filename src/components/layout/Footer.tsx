@@ -1,27 +1,6 @@
-"use client";
-
 import Link from "next/link";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "../../data/navigation";
 import { Button } from "../ui/Button";
-
-const FOOTER_LINKS = {
-    navigation: [
-        { label: "Trabalhos", href: "/work" },
-        { label: "Sobre", href: "/about" },
-        { label: "Serviços", href: "/services" },
-    ],
-    contact: [
-        { label: "Agendar Reunião", href: "/contact" },
-        { label: "GitHub", href: "https://github.com/Jhnvida" },
-        { label: "LinkedIn", href: "https://www.linkedin.com/in/jaoandre/" },
-        { label: "E-mail", href: "mailto:joao.vida.andre@gmail.com" },
-    ],
-};
-
-const SOCIAL_LINKS = [
-    { href: "https://github.com/Jhnvida", label: "GitHub" },
-    { href: "https://www.linkedin.com/in/jaoandre/", label: "LinkedIn" },
-    { href: "mailto:joao.vida.andre@gmail.com", label: "Email" },
-];
 
 export function Footer() {
     return (

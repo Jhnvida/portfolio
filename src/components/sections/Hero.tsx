@@ -1,43 +1,11 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useRef } from "react";
+import { useHero } from "../../hooks/animations/useHero";
 import { Button } from "../ui/Button";
 import { CodeCube } from "../ui/CodeCube";
 
-gsap.registerPlugin(useGSAP);
-
 export function Hero() {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(
-        () => {
-            const items = gsap.utils.toArray<HTMLElement>("[data-anim]", containerRef.current);
-            let mm = gsap.matchMedia();
-
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from(items, {
-                    opacity: 0,
-                    y: 30,
-                    scale: 0.95,
-                    duration: 1,
-                    ease: "expo.out",
-                    stagger: 0.15,
-                });
-            });
-
-            mm.add("(prefers-reduced-motion: reduce)", () => {
-                gsap.from(items, {
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power2.out",
-                    stagger: 0.1,
-                });
-            });
-        },
-        { scope: containerRef },
-    );
+    const { containerRef } = useHero();
 
     return (
         <div className="w-full max-w-(--container-page) min-h-[65vh] lg:min-h-[70vh] mx-auto px-6 md:px-12 lg:px-24 flex items-center pt-24 lg:pt-0">

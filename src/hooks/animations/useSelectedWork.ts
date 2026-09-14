@@ -13,7 +13,7 @@ export function useSelectedWork() {
 
     useGSAP(
         () => {
-            let mm = gsap.matchMedia();
+            const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
                 if (headerRef.current) {

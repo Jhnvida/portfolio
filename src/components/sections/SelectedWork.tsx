@@ -1,7 +1,7 @@
 "use client";
 
 import { MOCK_PROJECTS } from "../../data/projects";
-import { useSelectedWork } from "../../hooks/useSelectedWork";
+import { useSelectedWork } from "../../hooks/animations/useSelectedWork";
 import { ProjectCard } from "../ui/ProjectCard";
 import { SectionHeader } from "../ui/SectionHeader";
 
