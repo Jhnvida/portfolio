@@ -40,7 +40,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
 
                 <h3 className="text-2xl md:text-3xl font-semibold text-white leading-tight mb-6">{project.title}</h3>
 
-                <div className="flex items-center justify-between opacity-100 md:opacity-0 transition-opacity duration-500 md:group-hover:opacity-100">
+                <div className="flex items-center justify-between">
                     <span className="inline-block px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm font-medium text-white">
                         {project.impact}
                     </span>

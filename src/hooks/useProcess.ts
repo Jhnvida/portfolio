@@ -34,7 +34,7 @@ export function useProcess() {
                     scrollTrigger: {
                         trigger: sectionRef.current,
                         start: "top top",
-                        end: `+=${PROCESS_STEPS.length * 80}%`,
+                        end: "+=150%",
                         pin: true,
                         pinType: "fixed",
                         scrub: true,

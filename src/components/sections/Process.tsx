@@ -8,7 +8,11 @@ export function Process() {
     const { sectionRef, containerRef } = useProcess();
 
     return (
-        <section ref={sectionRef} className="w-full h-screen bg-background relative overflow-hidden flex flex-col">
+        <section
+            id="process"
+            ref={sectionRef}
+            className="w-full h-screen bg-background relative overflow-hidden flex flex-col"
+        >
             <SectionHeader title="Como eu trabalho" className="pt-24 md:pt-32 relative z-10" />
 
             <div ref={containerRef} className="flex-1 w-full relative flex items-center justify-center">

@@ -10,6 +10,7 @@ export function SelectedWork() {
 
     return (
         <section
+            id="work"
             ref={sectionRef}
             className="w-full h-screen overflow-hidden flex flex-col justify-center bg-background relative"
         >

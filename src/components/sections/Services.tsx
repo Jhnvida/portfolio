@@ -55,7 +55,7 @@ export function Services() {
     );
 
     return (
-        <section className="w-full bg-background relative overflow-hidden flex flex-col py-24 md:py-32">
+        <section id="services" className="w-full bg-background relative overflow-hidden flex flex-col py-24 md:py-32">
             <SectionHeader title="Serviços" className="relative z-10" />
 
             <div

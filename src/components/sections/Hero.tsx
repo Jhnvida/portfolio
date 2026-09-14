@@ -51,8 +51,8 @@ export function Hero() {
                     </h1>
 
                     <p data-anim className="text-neutral-400 text-base md:text-lg max-w-xl mt-6 leading-relaxed">
-                        Desenvolvimento full-stack especializado em produtos digitais de alto desempenho, unindo
-                        arquitetura robusta e estética premium.
+                        Desenvolvimento full-stack de alto desempenho para produtos digitais que não aceitam
+                        mediocridade técnica ou visual.
                     </p>
 
                     <div data-anim>

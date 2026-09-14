@@ -61,19 +61,19 @@ export function Header() {
 
                 <nav className="hidden md:flex flex-none gap-8 text-sm font-medium">
                     <Link
-                        href="/work"
+                        href="/#work"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                     >
                         Trabalho
                     </Link>
                     <Link
-                        href="/about"
+                        href="/#process"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                     >
                         Sobre
                     </Link>
                     <Link
-                        href="/services"
+                        href="/#services"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
                     >
                         Serviços
@@ -81,15 +81,6 @@ export function Header() {
                 </nav>
 
                 <div className="hidden md:flex flex-1 justify-end items-center gap-4 text-sm font-medium">
-                    <div className="flex gap-4 mr-4">
-                        <button className="cursor-pointer hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1">
-                            PT
-                        </button>
-                        <button className="cursor-pointer hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1">
-                            EN
-                        </button>
-                    </div>
-
                     <Button href="/contact" className="px-5 py-2.5">
                         Contato
                     </Button>
@@ -116,21 +107,21 @@ export function Header() {
             >
                 <nav className="flex flex-col items-center gap-8 text-2xl font-medium">
                     <Link
-                        href="/work"
+                        href="/#work"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Trabalho
                     </Link>
                     <Link
-                        href="/about"
+                        href="/#process"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Sobre
                     </Link>
                     <Link
-                        href="/services"
+                        href="/#services"
                         className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2"
                         onClick={() => setIsMenuOpen(false)}
                     >
@@ -140,15 +131,6 @@ export function Header() {
                         Contato
                     </Button>
                 </nav>
-
-                <div className="flex gap-6 mt-8 text-lg font-medium">
-                    <button className="cursor-pointer hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2">
-                        PT
-                    </button>
-                    <button className="cursor-pointer hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2">
-                        EN
-                    </button>
-                </div>
             </div>
         </header>
     );

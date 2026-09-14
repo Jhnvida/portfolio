@@ -11,7 +11,7 @@ type ButtonProps = {
     children: React.ReactNode;
     className?: string;
     showArrow?: boolean;
-    variant?: "primary" | "dark";
+    variant?: "primary" | "dark" | "ghost";
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
     React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -79,7 +79,9 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
                     "relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium transition-colors",
                     variant === "primary"
                         ? "bg-white text-black"
-                        : "bg-[#0a0a0a] text-white border border-white/10 hover:border-white/20",
+                        : variant === "dark"
+                          ? "bg-[#0a0a0a] text-white border border-white/10 hover:border-white/20"
+                          : "bg-transparent text-gray-400 hover:text-white hover:bg-white/5",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
                     "group",
                     className,
@@ -90,7 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
                     ref={flairRef}
                     className={cn(
                         "absolute z-0 block aspect-square w-[150%] rounded-full pointer-events-none",
-                        variant === "primary" ? "bg-neutral-200" : "bg-white/10",
+                        variant === "primary" ? "bg-neutral-200" : variant === "dark" ? "bg-white/10" : "bg-white/10",
                     )}
                     style={{
                         transform: "translate(-50%, -50%) scale(0)",

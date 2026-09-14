@@ -62,7 +62,7 @@ export function CodeCube() {
 
     const rotRef = useRef({ x: -0.4, y: 0.5 });
     const mouseOffsetRef = useRef({ x: 0, y: 0 });
-    const timeRef = useRef(0);
+
     const introRef = useRef({ progress: 0 });
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -107,10 +107,8 @@ export function CodeCube() {
         const ticker = gsap.ticker.add(() => {
             if (!isVisible.current) return;
 
-            timeRef.current += 0.003;
-
-            const targetX = -0.4 + Math.sin(timeRef.current * 0.5) * 0.2 - mouseOffsetRef.current.y;
-            const targetY = 0.5 + timeRef.current + mouseOffsetRef.current.x;
+            const targetX = -0.4 - mouseOffsetRef.current.y;
+            const targetY = 0.5 + mouseOffsetRef.current.x;
 
             rotRef.current.x += (targetX - rotRef.current.x) * 0.05;
             rotRef.current.y += (targetY - rotRef.current.y) * 0.05;
