@@ -1,7 +1,9 @@
-import { ArrowUpRight } from "lucide-react";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "../../types";
+import { Button } from "./Button";
 
 interface ProjectCardProps {
     project: Project;
@@ -14,10 +16,13 @@ export function ProjectCard({ project, priority = false, index }: ProjectCardPro
     const isEven = index % 2 === 0;
 
     return (
-        <Link href={`/work/${project.slug}`} className="group block mb-24 md:mb-32 lg:mb-40 focus:outline-none">
+        <Link
+            href={`/work/${project.slug}`}
+            className="group project-card block mb-24 md:mb-32 lg:mb-40 focus:outline-none"
+        >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
                 <div
-                    className={`w-full relative aspect-4/5 md:aspect-video lg:aspect-4/3 overflow-hidden bg-white/5 rounded-sm lg:col-span-7 ${
+                    className={`project-img w-full relative aspect-4/5 md:aspect-video lg:aspect-4/3 overflow-hidden bg-white/5 rounded-sm lg:col-span-7 ${
                         isEven ? "lg:order-1" : "lg:order-2 lg:col-start-6"
                     }`}
                 >
@@ -32,7 +37,7 @@ export function ProjectCard({ project, priority = false, index }: ProjectCardPro
                 </div>
 
                 <div
-                    className={`flex flex-col lg:col-span-4 ${
+                    className={`project-content flex flex-col lg:col-span-4 ${
                         isEven ? "lg:order-2 lg:col-start-9" : "lg:order-1 lg:col-start-1"
                     }`}
                 >
@@ -55,8 +60,15 @@ export function ProjectCard({ project, priority = false, index }: ProjectCardPro
                             {project.impact}
                         </p>
 
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center transition-colors group-hover:bg-white group-hover:text-black">
-                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
+                        <div>
+                            <Button
+                                as="div"
+                                variant="secondary"
+                                showArrow
+                                className="px-5 py-2.5 text-xs md:text-sm md:px-6 md:py-3 transition-colors group-hover:bg-white/5"
+                            >
+                                Ver projeto
+                            </Button>
                         </div>
                     </div>
                 </div>

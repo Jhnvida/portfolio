@@ -28,6 +28,38 @@ export function useSelectedWork() {
                         },
                     });
                 }
+
+                const cards = gsap.utils.toArray<HTMLElement>(".project-card");
+                if (cards.length > 0) {
+                    cards.forEach((card) => {
+                        const img = card.querySelector(".project-img");
+                        const content = card.querySelector(".project-content");
+
+                        const tl = gsap.timeline({
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 85%",
+                            },
+                        });
+
+                        tl.fromTo(
+                            img,
+                            { scale: 1.05, opacity: 0.5, clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" },
+                            {
+                                scale: 1,
+                                opacity: 1,
+                                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+                                duration: 1.2,
+                                ease: "power4.out",
+                            },
+                        ).fromTo(
+                            content,
+                            { y: 20, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+                            "-=0.8",
+                        );
+                    });
+                }
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {
@@ -41,6 +73,21 @@ export function useSelectedWork() {
                             trigger: sectionRef.current,
                             start: "top 85%",
                         },
+                    });
+                }
+
+                const cards = gsap.utils.toArray<HTMLElement>(".project-card");
+                if (cards.length > 0) {
+                    cards.forEach((card) => {
+                        gsap.from(card, {
+                            opacity: 0,
+                            duration: 0.8,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 85%",
+                            },
+                        });
                     });
                 }
             });

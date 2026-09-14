@@ -7,17 +7,18 @@ import { cn } from "../../lib/utils";
 
 type ButtonProps = {
     href?: string;
-    as?: "button" | "a";
+    as?: "button" | "a" | "div" | "span";
     children: React.ReactNode;
     className?: string;
     showArrow?: boolean;
     variant?: "primary" | "secondary" | "dark" | "ghost";
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
-    React.AnchorHTMLAttributes<HTMLAnchorElement>;
+    React.AnchorHTMLAttributes<HTMLAnchorElement> &
+    React.HTMLAttributes<HTMLDivElement>;
 
-export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement, ButtonProps>(
     ({ href, as, children, className, showArrow = true, variant = "primary", ...props }, ref) => {
-        const buttonRef = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
+        const buttonRef = useRef<any>(null);
         const flairRef = useRef<HTMLSpanElement>(null);
 
         useEffect(() => {
@@ -69,7 +70,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
             }
         };
 
-        const Component = href ? Link : "button";
+        const Component = as || (href ? Link : "button");
 
         return (
             <Component

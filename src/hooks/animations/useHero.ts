@@ -9,22 +9,46 @@ export function useHero() {
 
     useGSAP(
         () => {
-            const items = gsap.utils.toArray<HTMLElement>("[data-anim]", containerRef.current);
+            const h1 = containerRef.current?.querySelector("h1");
+            const items = gsap.utils.toArray<HTMLElement>("[data-anim]:not(h1)", containerRef.current);
             const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from(items, {
-                    opacity: 0,
-                    y: 30,
-                    scale: 0.95,
-                    duration: 1,
-                    ease: "expo.out",
-                    stagger: 0.15,
-                });
+                const tl = gsap.timeline();
+
+                if (h1) {
+                    gsap.set(h1, {
+                        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+                        y: 40,
+                        opacity: 1,
+                    });
+
+                    tl.to(h1, {
+                        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                        y: 0,
+                        duration: 1.2,
+                        ease: "power4.out",
+                    });
+                }
+
+                if (items.length) {
+                    tl.from(
+                        items,
+                        {
+                            opacity: 0,
+                            y: 20,
+                            duration: 1,
+                            ease: "power3.out",
+                            stagger: 0.1,
+                        },
+                        "-=0.6",
+                    );
+                }
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {
-                gsap.from(items, {
+                const allItems = gsap.utils.toArray<HTMLElement>("[data-anim]", containerRef.current);
+                gsap.from(allItems, {
                     opacity: 0,
                     duration: 1,
                     ease: "power2.out",

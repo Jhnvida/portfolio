@@ -17,9 +17,9 @@ export function useServices() {
                 cards.forEach((card, index) => {
                     if (index === cards.length - 1) return;
 
-                    gsap.to(card, {
-                        scale: 0.95,
-                        opacity: 0.4,
+                    const title = card.querySelector("h3");
+
+                    const tl = gsap.timeline({
                         scrollTrigger: {
                             trigger: cards[index + 1],
                             start: "top bottom",
@@ -27,6 +27,12 @@ export function useServices() {
                             scrub: true,
                         },
                     });
+
+                    tl.to(card, { scale: 0.95, opacity: 0.4, ease: "none" }, 0);
+
+                    if (title) {
+                        tl.to(title, { y: -15, ease: "none" }, 0);
+                    }
                 });
             });
 
