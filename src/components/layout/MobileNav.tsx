@@ -27,7 +27,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     </Link>
                 ))}
 
-                <Button href="/contact" className="mt-4 px-8 py-4" onClick={onClose}>
+                <Button href="/contact" variant="secondary" className="mt-4 px-8 py-4" onClick={onClose}>
                     Contato
                 </Button>
             </nav>

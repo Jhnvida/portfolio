@@ -8,8 +8,6 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export function useSelectedWork() {
     const sectionRef = useRef<HTMLElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
-    const galleryRef = useRef<HTMLDivElement>(null);
-    const gridContainerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
@@ -30,33 +28,6 @@ export function useSelectedWork() {
                         },
                     });
                 }
-
-                if (galleryRef.current && sectionRef.current && gridContainerRef.current) {
-                    const getScrollAmount = () => {
-                        const galleryWidth = galleryRef.current?.scrollWidth || 0;
-                        const gridWidth = gridContainerRef.current?.offsetWidth || 0;
-                        return -(galleryWidth - gridWidth);
-                    };
-
-                    const tl = gsap.timeline();
-
-                    tl.to(galleryRef.current, {
-                        x: getScrollAmount,
-                        ease: "none",
-                    });
-
-                    ScrollTrigger.create({
-                        trigger: sectionRef.current,
-                        start: "top top",
-                        end: () =>
-                            `+=${(galleryRef.current?.scrollWidth || 0) - (gridContainerRef.current?.offsetWidth || 0)}`,
-                        pin: true,
-                        pinType: "fixed",
-                        animation: tl,
-                        scrub: true,
-                        invalidateOnRefresh: true,
-                    });
-                }
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {
@@ -72,17 +43,10 @@ export function useSelectedWork() {
                         },
                     });
                 }
-
-                if (gridContainerRef.current) {
-                    gsap.set(gridContainerRef.current, { overflowX: "auto", paddingBottom: "24px" });
-                }
-                if (sectionRef.current) {
-                    gsap.set(sectionRef.current, { height: "auto", minHeight: "100vh", paddingBottom: "100px" });
-                }
             });
         },
         { scope: sectionRef },
     );
 
-    return { sectionRef, headerRef, galleryRef, gridContainerRef };
+    return { sectionRef, headerRef };
 }

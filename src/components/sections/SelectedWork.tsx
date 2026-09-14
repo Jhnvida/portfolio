@@ -6,23 +6,17 @@ import { ProjectCard } from "../ui/ProjectCard";
 import { SectionHeader } from "../ui/SectionHeader";
 
 export function SelectedWork() {
-    const { sectionRef, headerRef, galleryRef, gridContainerRef } = useSelectedWork();
+    const { sectionRef, headerRef } = useSelectedWork();
 
     return (
-        <section
-            id="work"
-            ref={sectionRef}
-            className="w-full h-screen overflow-hidden flex flex-col justify-center bg-background relative"
-        >
+        <section id="work" ref={sectionRef} className="w-full bg-background relative pt-24 pb-12">
             <SectionHeader ref={headerRef} title="Trabalhos Selecionados" />
 
-            <div className="w-full relative mt-8">
-                <div ref={gridContainerRef} className="w-full max-w-(--container-page) mx-auto overflow-visible">
-                    <div ref={galleryRef} className="flex gap-6 px-6 md:px-12 lg:px-24 w-max">
-                        {MOCK_PROJECTS.map((project, index) => (
-                            <ProjectCard key={project.id} project={project} priority={index < 4} />
-                        ))}
-                    </div>
+            <div className="w-full mt-8 md:mt-12">
+                <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">
+                    {MOCK_PROJECTS.map((project, index) => (
+                        <ProjectCard key={project.id} project={project} index={index} priority={index < 2} />
+                    ))}
                 </div>
             </div>
         </section>

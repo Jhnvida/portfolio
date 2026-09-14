@@ -54,7 +54,7 @@ export function Header() {
                 <DesktopNav />
 
                 <div className="hidden md:flex flex-1 justify-end items-center gap-4 text-sm font-medium">
-                    <Button href="/contact" className="px-5 py-2.5">
+                    <Button href="/contact" variant="secondary" className="px-5 py-2.5">
                         Contato
                     </Button>
                 </div>

@@ -6,47 +6,58 @@ import { Project } from "../../types";
 interface ProjectCardProps {
     project: Project;
     priority?: boolean;
+    index: number;
 }
 
-export function ProjectCard({ project, priority = false }: ProjectCardProps) {
+export function ProjectCard({ project, priority = false, index }: ProjectCardProps) {
+    const formattedIndex = (index + 1).toString().padStart(2, "0");
+    const isEven = index % 2 === 0;
+
     return (
-        <Link
-            href={`/work/${project.slug}`}
-            className="group relative shrink-0 w-[85vw] md:w-[50vw] lg:w-[35vw] h-[55vh] md:h-[65vh] overflow-hidden rounded-2xl focus:outline-none focus:ring-2 focus:ring-white/20"
-        >
-            <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                priority={priority}
-                sizes="(max-width: 768px) 85vw, (max-width: 1024px) 50vw, 35vw"
-                className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent opacity-90 md:opacity-80 transition-opacity duration-500 md:group-hover:opacity-100" />
-
-            <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 flex flex-col justify-end transform translate-y-0 md:translate-y-24 transition-transform duration-500 ease-out md:group-hover:translate-y-0">
-                <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-300">
-                        {project.client}
-                    </span>
-
-                    <span className="w-1 h-1 rounded-full bg-neutral-600" />
-
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-                        {project.category}
-                    </span>
+        <Link href={`/work/${project.slug}`} className="group block mb-24 md:mb-32 lg:mb-40 focus:outline-none">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
+                <div
+                    className={`w-full relative aspect-4/5 md:aspect-video lg:aspect-4/3 overflow-hidden bg-white/5 rounded-sm lg:col-span-7 ${
+                        isEven ? "lg:order-1" : "lg:order-2 lg:col-start-6"
+                    }`}
+                >
+                    <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        priority={priority}
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                        className="object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                    />
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-semibold text-white leading-tight mb-6">{project.title}</h3>
+                <div
+                    className={`flex flex-col lg:col-span-4 ${
+                        isEven ? "lg:order-2 lg:col-start-9" : "lg:order-1 lg:col-start-1"
+                    }`}
+                >
+                    <div className="flex flex-col gap-2 mb-8 md:mb-12">
+                        <span className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-neutral-500 font-mono">
+                            {formattedIndex} // {project.category}
+                        </span>
 
-                <div className="flex items-center justify-between">
-                    <span className="inline-block px-4 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-sm font-medium text-white">
-                        {project.impact}
-                    </span>
+                        <h3 className="text-4xl md:text-5xl font-medium tracking-tighter text-white leading-[1.1] md:leading-[1.1] transition-colors group-hover:text-white/80">
+                            {project.title}
+                        </h3>
 
-                    <div className="w-12 h-12 rounded-full bg-white text-black flex items-center justify-center transform transition-transform duration-500 hover:scale-110">
-                        <ArrowUpRight className="w-6 h-6" />
+                        <p className="text-sm md:text-base text-neutral-400 font-medium mt-1">
+                            Client: <span className="text-neutral-300">{project.client}</span>
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col gap-8 md:gap-10">
+                        <p className="text-sm md:text-base text-neutral-400 leading-relaxed max-w-md">
+                            {project.impact}
+                        </p>
+
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center transition-colors group-hover:bg-white group-hover:text-black">
+                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5" />
+                        </div>
                     </div>
                 </div>
             </div>

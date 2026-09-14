@@ -11,7 +11,7 @@ type ButtonProps = {
     children: React.ReactNode;
     className?: string;
     showArrow?: boolean;
-    variant?: "primary" | "dark" | "ghost";
+    variant?: "primary" | "secondary" | "dark" | "ghost";
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
     React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
@@ -76,12 +76,12 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
                 href={href as any}
                 ref={setRefs}
                 className={cn(
-                    "relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium transition-colors",
+                    "relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium transition-colors px-6 py-3 tracking-wide",
                     variant === "primary"
-                        ? "bg-white text-black"
-                        : variant === "dark"
-                          ? "bg-surface-raised text-white border border-white/10 hover:border-white/20"
-                          : "bg-transparent text-gray-400 hover:text-white hover:bg-white/5",
+                        ? "bg-white text-black hover:bg-neutral-200 border border-transparent"
+                        : variant === "dark" || variant === "secondary"
+                          ? "bg-transparent text-white border border-white/20 hover:bg-white/5"
+                          : "bg-transparent text-neutral-400 hover:text-white hover:bg-white/5",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
                     "group",
                     className,
@@ -92,7 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
                     ref={flairRef}
                     className={cn(
                         "absolute z-0 block aspect-square w-[150%] rounded-full pointer-events-none",
-                        variant === "primary" ? "bg-neutral-200" : variant === "dark" ? "bg-white/10" : "bg-white/10",
+                        variant === "primary" ? "bg-neutral-300" : "bg-white/10",
                     )}
                     style={{
                         transform: "translate(-50%, -50%) scale(0)",
