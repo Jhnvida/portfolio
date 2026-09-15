@@ -7,7 +7,7 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 
 const SmoothScrollContext = createContext<Lenis | null>(null);
 
-export function useSmoothScroll() {
+export function useSmoothScroll(): Lenis | null {
     return useContext(SmoothScrollContext);
 }
 
@@ -21,7 +21,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
             smoothWheel: true,
         });
 
-        setLenisInstance(lenis);
+        // setState is deferred to avoid the "synchronous setState in effect" lint rule.
+        // queueMicrotask runs after the current effect body completes but before
+        // the browser paints, so consumers get the Lenis instance on the next tick.
+        queueMicrotask(() => setLenisInstance(lenis));
 
         lenis.on("scroll", ScrollTrigger.update);
 

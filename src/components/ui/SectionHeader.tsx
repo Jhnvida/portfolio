@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { cn } from "../../lib/utils";
 
 export interface SectionHeaderProps {
     title: string;
@@ -7,12 +8,14 @@ export interface SectionHeaderProps {
 
 export const SectionHeader = forwardRef<HTMLDivElement, SectionHeaderProps>(({ title, className = "" }, ref) => {
     return (
-        <div className={`w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 mb-12 ${className}`}>
+        <div className={cn("w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 mb-12", className)}>
             <div ref={ref}>
-                <h2 data-header-anim className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                <p data-header-anim className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
                     {title}
-                </h2>
+                </p>
             </div>
         </div>
     );
 });
+
+SectionHeader.displayName = "SectionHeader";

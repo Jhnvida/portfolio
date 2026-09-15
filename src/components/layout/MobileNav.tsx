@@ -1,5 +1,8 @@
+"use client";
+
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HEADER_LINKS } from "../../data/navigation";
 
 interface MobileNavProps {
@@ -8,6 +11,8 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
+    const pathname = usePathname();
+
     return (
         <div
             id="mobile-menu"
@@ -16,22 +21,31 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             }`}
         >
             <nav className="flex flex-col items-center gap-10 text-3xl font-medium tracking-tight">
-                {HEADER_LINKS.map((link) => (
-                    <Link
-                        key={link.label}
-                        href={link.href}
-                        className="text-neutral-400 hover:text-white transition-colors focus-visible:outline-none"
-                        onClick={onClose}
-                    >
-                        {link.label}
-                    </Link>
-                ))}
+                {HEADER_LINKS.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                        <Link
+                            key={link.label}
+                            href={link.href}
+                            aria-current={isActive ? "page" : undefined}
+                            className={`transition-colors focus-visible:outline-none ${
+                                isActive ? "text-white" : "text-neutral-300 hover:text-white"
+                            }`}
+                            onClick={onClose}
+                        >
+                            {link.label}
+                        </Link>
+                    );
+                })}
 
                 <div className="w-12 h-px bg-white/10 my-4" />
 
                 <Link
                     href="/contact"
-                    className="flex items-center gap-2 text-xl text-neutral-300 hover:text-white transition-colors focus-visible:outline-none"
+                    aria-current={pathname === "/contact" ? "page" : undefined}
+                    className={`flex items-center gap-2 text-xl transition-colors focus-visible:outline-none ${
+                        pathname === "/contact" ? "text-white" : "text-neutral-300 hover:text-white"
+                    }`}
                     onClick={onClose}
                 >
                     Contato

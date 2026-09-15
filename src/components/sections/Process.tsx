@@ -13,7 +13,7 @@ export function Process() {
 
             <div ref={containerRef} className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-                    {PROCESS_STEPS.map((step, index) => (
+                    {PROCESS_STEPS.map((step) => (
                         <div key={step.id} className="process-step flex flex-col gap-6 relative">
                             <span className="text-6xl md:text-[8rem] font-medium text-white/5 block leading-none tracking-tighter mb-4 md:mb-8">
                                 {step.number}
