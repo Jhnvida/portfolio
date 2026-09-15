@@ -24,20 +24,6 @@ export const metadata: Metadata = {
         default: "Full-Stack Engineer / João Vida",
     },
     description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
-    metadataBase: new URL("https://portfolio-jhnvida.vercel.app"),
-    openGraph: {
-        type: "website",
-        locale: "pt_BR",
-        url: "https://portfolio-jhnvida.vercel.app",
-        siteName: "João Vida",
-        title: "Full-Stack Engineer / João Vida",
-        description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Full-Stack Engineer / João Vida",
-        description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
-    },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
