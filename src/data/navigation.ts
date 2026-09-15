@@ -11,7 +11,7 @@ export const FOOTER_LINKS = {
         { label: "Serviços", href: "/services" },
     ],
     contact: [
-        { label: "Agendar Reunião", href: "/contact" },
+        { label: "Agendar reunião", href: "/contact" },
         { label: "GitHub", href: "https://github.com/Jhnvida" },
         { label: "LinkedIn", href: "https://www.linkedin.com/in/jaoandre/" },
         { label: "E-mail", href: "mailto:joao.vida.andre@gmail.com" },

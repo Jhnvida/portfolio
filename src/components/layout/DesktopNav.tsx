@@ -8,7 +8,7 @@ export function DesktopNav() {
                 <Link
                     key={link.label}
                     href={link.href}
-                    className="hover:text-white text-gray-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
+                    className="relative text-neutral-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1 py-1"
                 >
                     {link.label}
                 </Link>

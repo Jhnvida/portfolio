@@ -3,7 +3,7 @@ import { Project } from "../types";
 export const MOCK_PROJECTS: Project[] = [
     {
         id: "1",
-        title: "Plataforma Web de Investimentos",
+        title: "Plataforma web de investimentos",
         client: "Projeto Alpha",
         category: "Full-Stack Web App",
         impact: "+40% Conversão",
@@ -12,7 +12,7 @@ export const MOCK_PROJECTS: Project[] = [
     },
     {
         id: "2",
-        title: "Design System para E-commerce",
+        title: "Design system para e-commerce",
         client: "Projeto Beta",
         category: "UI/UX & Design System",
         impact: "Zero Inconsistências",
@@ -21,7 +21,7 @@ export const MOCK_PROJECTS: Project[] = [
     },
     {
         id: "3",
-        title: "Arquitetura Serverless para Aplicação Web",
+        title: "Arquitetura serverless para aplicação web",
         client: "Projeto Gamma",
         category: "Backend & Cloud",
         impact: "-60% Custos AWS",
@@ -30,7 +30,7 @@ export const MOCK_PROJECTS: Project[] = [
     },
     {
         id: "4",
-        title: "Redesign de Interface para Plataforma SaaS",
+        title: "Redesign de interface para plataforma SaaS",
         client: "Projeto Delta",
         category: "Product Design",
         impact: "+2x Retenção",

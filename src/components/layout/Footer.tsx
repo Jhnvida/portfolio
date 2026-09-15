@@ -4,8 +4,21 @@ import { Button } from "../ui/Button";
 
 export function Footer() {
     return (
-        <footer className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-20 md:pb-16 overflow-hidden flex flex-col relative">
-            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10">
+        <footer className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden flex flex-col relative">
+            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10 flex flex-col">
+                <div className="w-full flex flex-col items-center justify-center text-center py-16 md:py-24 mb-8 md:mb-16">
+                    <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-medium tracking-tighter text-white leading-[1.05] max-w-4xl mb-12">
+                        Tem um projeto em mente? <br className="hidden md:block" />
+                        <span className="text-neutral-500">Vamos criar algo que vale a pena.</span>
+                    </h2>
+
+                    <Button href="/contact" variant="secondary" showArrow className="px-10 py-5">
+                        Iniciar conversa
+                    </Button>
+                </div>
+
+                <div className="w-full h-px bg-white/10 mb-16 md:mb-20" />
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                     <div className="lg:col-span-5 flex flex-col">
                         <Link
