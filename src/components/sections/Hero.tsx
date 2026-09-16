@@ -2,9 +2,10 @@
 
 import { useHero } from "../../hooks/animations/useHero";
 import { Button } from "../ui/Button";
+import { SplitText } from "../ui/SplitText";
 
 export function Hero() {
-    const { containerRef } = useHero();
+    const { containerRef, titleRef } = useHero();
 
     return (
         <div
@@ -16,10 +17,10 @@ export function Hero() {
                 className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start justify-center"
             >
                 <h1
-                    data-anim
+                    ref={titleRef}
                     className="text-white text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] font-medium tracking-tighter leading-none md:leading-[0.95] max-w-full lg:max-w-6xl mix-blend-difference wrap-break-word"
                 >
-                    Engenharia de software focada em interfaces refinadas.
+                    <SplitText text="Engenharia de software focada em interfaces refinadas." />
                 </h1>
 
                 <div
