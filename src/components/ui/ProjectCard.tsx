@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "../../types";
@@ -13,82 +11,56 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, priority = false, index }: ProjectCardProps) {
     const formattedIndex = (index + 1).toString().padStart(2, "0");
-    const isEven = index % 2 === 0;
 
     return (
-        <Link href={`/work/${project.slug}`} className="group project-card block mb-32 lg:mb-48 focus:outline-none">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-0 items-center">
-                <div
-                    className={`project-img w-full relative aspect-4/5 md:aspect-4/3 lg:aspect-16/11 overflow-hidden bg-white/5 rounded-sm lg:col-span-7 ${
-                        isEven ? "lg:order-1" : "lg:order-2 lg:col-start-6"
-                    }`}
-                >
+        <Link
+            href={`/work/${project.slug}`}
+            className="project-card group relative w-[85vw] md:w-[70vw] shrink-0 h-[60vh] md:h-[75vh] rounded-sm overflow-hidden snap-center block focus:outline-none bg-surface-raised border border-white/5"
+        >
+            <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
+                <div className="parallax-bg absolute inset-0 w-[120%] h-full left-[-10%]">
                     <Image
                         src={project.image}
                         alt={project.title}
                         fill
                         priority={priority}
-                        sizes="(max-width: 1024px) 100vw, 60vw"
-                        className="object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] opacity-90 group-hover:opacity-100"
+                        sizes="(max-width: 768px) 85vw, 70vw"
+                        className="object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-700 ease-out"
                     />
-                    <div className="absolute inset-0 bg-black/10 transition-opacity duration-1000 group-hover:opacity-0" />
                 </div>
+                <div className="absolute inset-0 bg-linear-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+            </div>
 
-                <div
-                    className={`project-content relative flex flex-col justify-center lg:col-span-4 ${
-                        isEven ? "lg:order-2 lg:col-start-9" : "lg:order-1 lg:col-start-1"
-                    }`}
-                >
-                    <span className="absolute -top-12 -left-8 text-[10rem] md:text-[14rem] font-bold text-white/2 -z-10 select-none pointer-events-none font-mono">
+            <div className="absolute inset-0 p-6 md:p-10 lg:p-14 flex flex-col justify-between">
+                <div className="flex items-center gap-3">
+                    <span className="text-[10px] md:text-xs uppercase tracking-widest text-neutral-400 font-mono bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
                         {formattedIndex}
                     </span>
+                    <span className="text-[10px] md:text-xs uppercase tracking-widest text-white font-mono bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                        {project.category}
+                    </span>
+                </div>
 
-                    <div className="flex items-center gap-4 mb-8">
-                        <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">
-                            {formattedIndex}
-                        </span>
-
-                        <div className="w-8 h-px bg-white/10" />
-
-                        <span className="text-xs uppercase tracking-widest text-neutral-300 font-mono">
-                            {project.category}
-                        </span>
-                    </div>
-
-                    <h3 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-white leading-[1.1] transition-colors group-hover:text-white/90 mb-10 md:mb-12">
-                        {project.title}
-                    </h3>
-
-                    <div className="flex flex-col pt-8 border-t border-white/10 mb-10 md:mb-12">
-                        <div className="grid grid-cols-2 gap-6">
-                            <div className="flex flex-col gap-3">
-                                <span className="text-[11px] uppercase tracking-widest text-neutral-500 font-mono">
-                                    Cliente
-                                </span>
-                                <span className="text-sm md:text-base text-neutral-300 font-medium">
-                                    {project.client}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-col gap-3">
-                                <span className="text-[11px] uppercase tracking-widest text-neutral-500 font-mono">
-                                    Resultado
-                                </span>
-                                <span className="text-base md:text-lg text-white font-medium tracking-tight">
-                                    {project.impact}
-                                </span>
-                            </div>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
+                    <div className="flex flex-col max-w-2xl">
+                        <h3 className="text-3xl md:text-5xl lg:text-[4rem] font-medium tracking-tighter text-white leading-[1.05] mb-4 md:mb-6">
+                            {project.title}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-4 text-sm md:text-base text-neutral-300">
+                            <span className="font-medium text-white">{project.client}</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                            <span className="text-neutral-400">{project.impact}</span>
                         </div>
                     </div>
 
-                    <div>
+                    <div className="mt-4 md:mt-0">
                         <Button
                             as="div"
                             variant="secondary"
                             showArrow
-                            className="px-6 py-3 text-sm transition-colors group-hover:bg-white/10 group-hover:text-white group-hover:border-white/30"
+                            className="px-6 py-3 text-sm md:opacity-0 md:-translate-x-4 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
                         >
-                            Ver projeto
+                            Ver case
                         </Button>
                     </div>
                 </div>
