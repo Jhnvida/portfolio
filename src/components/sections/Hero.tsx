@@ -7,7 +7,10 @@ export function Hero() {
     const { containerRef } = useHero();
 
     return (
-        <div className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-32 pb-16">
+        <div
+            id="hero"
+            className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-32 pb-16"
+        >
             <div
                 ref={containerRef}
                 className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start justify-center"
