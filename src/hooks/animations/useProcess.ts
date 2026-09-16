@@ -8,90 +8,65 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export function useProcess() {
     const sectionRef = useRef<HTMLElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const lineRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
-            if (!sectionRef.current || !containerRef.current) return;
+            if (!sectionRef.current || !containerRef.current || !lineRef.current) return;
 
             const steps = gsap.utils.toArray<HTMLElement>(".process-step");
             if (steps.length === 0) return;
 
             const mm = gsap.matchMedia();
 
-            mm.add(
-                {
-                    isDesktop: "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-                    isMobile: "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
-                    isReduced: "(prefers-reduced-motion: reduce)",
-                },
-                (context) => {
-                    const { isDesktop, isMobile, isReduced } = context.conditions as { [key: string]: boolean };
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.fromTo(
+                    lineRef.current,
+                    { scaleY: 0 },
+                    {
+                        scaleY: 1,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: "top center",
+                            end: "bottom center",
+                            scrub: true,
+                        },
+                    },
+                );
 
-                    if (isReduced) {
-                        gsap.from(steps, {
-                            opacity: 0,
-                            duration: 0.8,
-                            stagger: 0.1,
-                            ease: "power2.out",
-                            scrollTrigger: {
-                                trigger: sectionRef.current,
-                                start: "top 80%",
-                            },
-                        });
-                        return;
-                    }
+                steps.forEach((step) => {
+                    const numberIndicator = step.querySelector(".process-number");
 
-                    if (isDesktop) {
-                        const tl = gsap.timeline({
-                            scrollTrigger: {
-                                trigger: sectionRef.current,
-                                start: "center center",
-                                end: "+=150%",
-                                pin: true,
-                                scrub: 1,
-                                invalidateOnRefresh: true,
-                            },
-                        });
-
-                        steps.forEach((step, index) => {
-                            gsap.set(step, { opacity: 0.2, y: 20 });
-
-                            tl.to(
-                                step,
-                                {
-                                    opacity: 1,
-                                    y: 0,
-                                    duration: 1,
-                                    ease: "power2.out",
-                                },
-                                index * 0.8,
-                            );
-                        });
-
-                        tl.to({}, { duration: 1.5 });
-                    }
-
-                    if (isMobile) {
-                        steps.forEach((step) => {
-                            gsap.set(step, { opacity: 0.2, y: 20 });
-
+                    ScrollTrigger.create({
+                        trigger: step,
+                        start: "top center+=100",
+                        end: "bottom center",
+                        onToggle: (self) => {
                             gsap.to(step, {
-                                opacity: 1,
-                                y: 0,
-                                scrollTrigger: {
-                                    trigger: step,
-                                    start: "top 85%",
-                                    end: "center center",
-                                    scrub: 1,
-                                },
+                                opacity: self.isActive ? 1 : 0.3,
+                                scale: self.isActive ? 1 : 0.95,
+                                duration: 0.6,
+                                ease: "power2.out",
                             });
-                        });
-                    }
-                },
-            );
+
+                            if (numberIndicator) {
+                                gsap.to(numberIndicator, {
+                                    color: self.isActive ? "#ffffff" : "rgba(255,255,255,0.2)",
+                                    duration: 0.4,
+                                });
+                            }
+                        },
+                    });
+                });
+            });
+
+            mm.add("(prefers-reduced-motion: reduce)", () => {
+                gsap.set(steps, { opacity: 1, scale: 1 });
+            });
         },
         { scope: sectionRef },
     );
 
-    return { sectionRef, containerRef };
+    return { sectionRef, containerRef, lineRef };
 }
