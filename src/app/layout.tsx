@@ -28,7 +28,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="pt-BR" className={`${plusJakartaSans.variable} ${dmSans.variable} h-full antialiased`}>
+        <html
+            lang="pt-BR"
+            className={`${plusJakartaSans.variable} ${dmSans.variable} h-full antialiased bg-background text-foreground`}
+        >
             <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent selection:text-accent-foreground font-sans">
                 <SmoothScrollProvider>
                     <div className="flex flex-col min-h-screen">

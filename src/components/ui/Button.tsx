@@ -76,7 +76,13 @@ function useFlairEffect() {
     return { refCallback, flairRef };
 }
 
-function ButtonFlair({ variant, flairRef }: { variant: ButtonProps["variant"]; flairRef: React.RefObject<HTMLSpanElement | null> }) {
+function ButtonFlair({
+    variant,
+    flairRef,
+}: {
+    variant: ButtonProps["variant"];
+    flairRef: React.RefObject<HTMLSpanElement | null>;
+}) {
     return (
         <span
             ref={flairRef}

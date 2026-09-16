@@ -4,20 +4,33 @@ import { Button } from "../ui/Button";
 
 export function Footer() {
     return (
-        <footer className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden flex flex-col relative">
-            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10 flex flex-col">
-                <div className="w-full flex flex-col items-center justify-center text-center py-16 md:py-24 mb-8 md:mb-16">
-                    <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-medium tracking-tighter text-white leading-[1.05] max-w-4xl mb-12">
-                        Tem um projeto em mente? <br className="hidden md:block" />
-                        <span className="text-neutral-500">Vamos criar algo que vale a pena.</span>
+        <footer
+            id="contact"
+            className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden flex flex-col relative"
+        >
+            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10 flex flex-col relative pt-8 md:pt-12">
+                <div className="w-full min-h-[50vh] flex flex-col items-center justify-center text-center py-28 md:py-36 mb-24 md:mb-32 rounded-3xl bg-surface-raised/40 border border-white/5 relative overflow-hidden backdrop-blur-md">
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-white/4 via-transparent to-transparent pointer-events-none" />
+
+                    <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-medium tracking-tighter text-white leading-[1.05] max-w-5xl mb-8 relative z-10">
+                        Vamos construir algo <br className="hidden md:block" />
+                        <span className="text-neutral-500 italic">memorável</span> juntos?
                     </h2>
 
-                    <Button href="/contact" variant="secondary" showArrow className="px-10 py-5">
-                        Iniciar conversa
+                    <p className="text-neutral-400 text-lg md:text-xl max-w-2xl mb-12 relative z-10">
+                        Se você busca uma engenharia de ponta aliada a uma estética premium, meu inbox está sempre
+                        aberto para novos desafios.
+                    </p>
+
+                    <Button
+                        href="/contact"
+                        variant="primary"
+                        showArrow
+                        className="px-10 py-5 text-base md:text-lg relative z-10 shadow-[0_0_40px_-10px_rgba(255,255,255,0.2)]"
+                    >
+                        Iniciar projeto
                     </Button>
                 </div>
-
-                <div className="w-full h-px bg-white/10 mb-16 md:mb-20" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                     <div className="lg:col-span-5 flex flex-col">
