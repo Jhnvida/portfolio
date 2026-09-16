@@ -1,15 +1,56 @@
+"use client";
+
 import Link from "next/link";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "../../data/navigation";
 import { Button } from "../ui/Button";
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export function Footer() {
+    const ctaRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                if (!ctaRef.current) return;
+
+                gsap.fromTo(
+                    ctaRef.current,
+                    { scale: 0.9, opacity: 0, y: 50 },
+                    {
+                        scale: 1,
+                        opacity: 1,
+                        y: 0,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: ctaRef.current,
+                            start: "top 95%",
+                            end: "center center",
+                            scrub: true,
+                        },
+                    },
+                );
+            });
+        },
+        { scope: ctaRef },
+    );
+
     return (
         <footer
             id="contact"
             className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden flex flex-col relative"
         >
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10 flex flex-col relative pt-8 md:pt-12">
-                <div className="w-full min-h-[50vh] flex flex-col items-center justify-center text-center py-28 md:py-36 mb-24 md:mb-32 rounded-3xl bg-surface-raised/40 border border-white/5 relative overflow-hidden backdrop-blur-md">
+                <div
+                    ref={ctaRef}
+                    className="w-full min-h-[50vh] flex flex-col items-center justify-center text-center py-28 md:py-36 mb-24 md:mb-32 rounded-3xl bg-surface-raised/40 border border-white/5 relative overflow-hidden backdrop-blur-md"
+                >
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-white/4 via-transparent to-transparent pointer-events-none" />
 
                     <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-medium tracking-tighter text-white leading-[1.05] max-w-5xl mb-8 relative z-10">
