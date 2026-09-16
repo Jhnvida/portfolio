@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { cn } from "../../lib/utils";
+import { useMagnetic } from "../../hooks/animations/useMagnetic";
 
 type ButtonBaseProps = {
     children: React.ReactNode;
@@ -25,13 +26,8 @@ type ButtonAsElementProps = ButtonBaseProps & {
 
 type ButtonProps = ButtonAsLinkProps | ButtonAsElementProps;
 
-function useFlairEffect() {
-    const elementRef = useRef<HTMLElement | null>(null);
+function useFlairEffect(elementRef: React.RefObject<HTMLElement | null>) {
     const flairRef = useRef<HTMLSpanElement | null>(null);
-
-    const refCallback = (el: HTMLElement | null) => {
-        elementRef.current = el;
-    };
 
     useEffect(() => {
         const btn = elementRef.current;
@@ -71,9 +67,9 @@ function useFlairEffect() {
             btn.removeEventListener("mouseenter", handleMouseEnter as EventListener);
             btn.removeEventListener("mouseleave", handleMouseLeave as EventListener);
         };
-    }, []);
+    }, [elementRef]);
 
-    return { refCallback, flairRef };
+    return { flairRef };
 }
 
 function ButtonFlair({
@@ -114,7 +110,9 @@ function ButtonContent({ children, showArrow }: { children: React.ReactNode; sho
 }
 
 export function Button({ children, className, showArrow = true, variant = "primary", ...props }: ButtonProps) {
-    const { refCallback, flairRef } = useFlairEffect();
+    const buttonRef = useRef<HTMLElement>(null);
+    const { flairRef } = useFlairEffect(buttonRef);
+    useMagnetic(buttonRef, 0.4);
 
     const sharedClassName = cn(
         "relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium transition-colors px-6 py-3 tracking-wide",
@@ -133,7 +131,7 @@ export function Button({ children, className, showArrow = true, variant = "prima
         return (
             <Link
                 href={href}
-                ref={refCallback as unknown as React.Ref<HTMLAnchorElement>}
+                ref={buttonRef as unknown as React.Ref<HTMLAnchorElement>}
                 className={sharedClassName}
                 {...rest}
             >
@@ -149,7 +147,7 @@ export function Button({ children, className, showArrow = true, variant = "prima
     return React.createElement(
         Tag,
         {
-            ref: refCallback,
+            ref: buttonRef,
             className: sharedClassName,
             ...(rest as React.HTMLAttributes<HTMLElement>),
         },
