@@ -10,11 +10,11 @@ export function Hero() {
     return (
         <div
             id="hero"
-            className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-32 pb-16"
+            className="relative w-full min-h-[85vh] flex flex-col justify-start overflow-hidden bg-background pt-32 md:pt-40 lg:pt-48 pb-16 md:pb-24"
         >
             <div
                 ref={containerRef}
-                className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start justify-center"
+                className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start"
             >
                 <h1
                     ref={titleRef}

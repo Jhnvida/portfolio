@@ -9,9 +9,9 @@ export function WorkShowcase() {
     const { containerRef } = useWorkPage();
 
     return (
-        <div ref={containerRef} className="w-full bg-background min-h-screen">
-            <div className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-32 pb-16">
-                <div className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start justify-center">
+        <div ref={containerRef} className="w-full bg-background">
+            <div className="relative w-full min-h-[85vh] flex flex-col justify-start overflow-hidden bg-background pt-32 md:pt-40 lg:pt-48 pb-16 md:pb-24">
+                <div className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start">
                     <h1 className="text-white text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] font-medium tracking-tighter leading-none md:leading-[0.95] max-w-full lg:max-w-6xl mix-blend-difference wrap-break-word">
                         <SplitText text="Trabalho selecionado." />
                     </h1>
