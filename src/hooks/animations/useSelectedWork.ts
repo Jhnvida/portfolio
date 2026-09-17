@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { getWorkPinHandlers } from "../../lib/workPinBridge";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -36,6 +37,7 @@ export function useSelectedWork() {
 
                 const track = trackRef.current;
                 const cards = gsap.utils.toArray<HTMLElement>(".project-card", track);
+                const handlers = getWorkPinHandlers();
 
                 const getScrollAmount = () => {
                     return -(track.scrollWidth - window.innerWidth);
@@ -51,8 +53,14 @@ export function useSelectedWork() {
                         pin: true,
                         scrub: 1,
                         invalidateOnRefresh: true,
+                        onEnter: handlers?.onEnter,
+                        onLeave: handlers?.onLeave,
+                        onEnterBack: handlers?.onEnterBack,
+                        onLeaveBack: handlers?.onLeaveBack,
                     },
                 });
+
+                handlers?.onPinSetupDone(true);
 
                 cards.forEach((card) => {
                     const parallaxBg = card.querySelector(".parallax-bg");
@@ -92,6 +100,8 @@ export function useSelectedWork() {
                         },
                     });
                 });
+
+                getWorkPinHandlers()?.onPinSetupDone(false);
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {
@@ -99,6 +109,8 @@ export function useSelectedWork() {
                 if (elements?.length) gsap.set(elements, { opacity: 1, y: 0 });
                 const cards = gsap.utils.toArray<HTMLElement>(".project-card");
                 if (cards.length) gsap.set(cards, { opacity: 1, y: 0 });
+
+                getWorkPinHandlers()?.onPinSetupDone(false);
             });
         },
         { scope: sectionRef },
