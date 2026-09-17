@@ -17,39 +17,41 @@ export function Services() {
             <SectionHeader title="Serviços" className="relative z-10 mb-12" />
 
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-                <div className="flex flex-col border-t border-white/10">
+                <div className="w-full flex flex-col border-t border-white/10">
                     {SERVICES.map((service, index) => {
                         const formattedIndex = (index + 1).toString().padStart(2, "0");
 
                         return (
                             <div
                                 key={service.id}
-                                className="service-card group relative border-b border-white/10 py-12 md:py-16 flex flex-col lg:flex-row items-baseline gap-6 lg:gap-12 transition-colors cursor-default overflow-hidden"
+                                className="service-card group relative border-b border-white/10 py-12 md:py-16 flex flex-col lg:flex-row items-baseline gap-6 lg:gap-12 cursor-default overflow-hidden origin-left opacity-30 scale-95 [&.is-active]:opacity-100 [&.is-active]:scale-100 transition-all duration-700 ease-out"
                             >
                                 <div className="service-glow absolute w-75 h-75 md:w-125 md:h-125 rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent pointer-events-none opacity-0 z-0 top-0 left-0" />
 
-                                <span className="relative z-10 text-sm font-mono text-neutral-500 w-12 shrink-0">
+                                <span className="relative z-10 text-sm font-mono text-neutral-500 w-8 md:w-12 shrink-0">
                                     {formattedIndex}
                                 </span>
 
-                                <div className="relative z-10 flex flex-col gap-4">
-                                    <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest block lg:hidden">
-                                        {service.tags}
-                                    </p>
-                                    <h3 className="text-4xl md:text-5xl lg:text-7xl font-medium tracking-tighter text-neutral-400 transition-colors group-hover:text-white">
-                                        {service.title}
-                                    </h3>
-                                </div>
+                                <div className="relative z-10 flex-1 flex flex-col lg:flex-row gap-6 lg:gap-12 justify-between w-full">
+                                    <div className="flex flex-col gap-4 max-w-3xl">
+                                        <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest block lg:hidden">
+                                            {service.tags}
+                                        </p>
+                                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-neutral-400 transition-colors duration-500 group-[.is-active]:text-white">
+                                            {service.title}
+                                        </h3>
+                                    </div>
 
-                                <div className="relative z-10 lg:ml-auto lg:opacity-0 lg:translate-y-4 transition-all duration-500 ease-out lg:group-hover:opacity-100 lg:group-hover:translate-y-0 flex flex-col gap-6 max-w-md mt-6 lg:mt-0">
-                                    <p className="text-sm md:text-base text-neutral-400 leading-relaxed">
-                                        {service.description}
-                                    </p>
+                                    <div className="flex flex-col gap-6 lg:max-w-sm lg:opacity-0 lg:translate-y-4 transition-all duration-500 ease-out group-[.is-active]:opacity-100 group-[.is-active]:translate-y-0 mt-4 lg:mt-0">
+                                        <p className="text-sm md:text-base text-neutral-400 leading-relaxed">
+                                            {service.description}
+                                        </p>
 
-                                    <div>
-                                        <Button href="/contact" variant="secondary" className="px-6 py-3 text-sm">
-                                            {service.ctaLabel}
-                                        </Button>
+                                        <div>
+                                            <Button href="/contact" variant="secondary" className="px-6 py-3 text-sm">
+                                                {service.ctaLabel}
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
