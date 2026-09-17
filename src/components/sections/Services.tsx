@@ -26,7 +26,7 @@ export function Services() {
                                 key={service.id}
                                 className="service-card group relative border-b border-white/10 py-12 md:py-16 flex flex-col lg:flex-row items-baseline gap-6 lg:gap-12 transition-colors cursor-default overflow-hidden"
                             >
-                                <div className="service-glow absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent pointer-events-none opacity-0 z-0 top-0 left-0" />
+                                <div className="service-glow absolute w-75 h-75 md:w-125 md:h-125 rounded-full bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent pointer-events-none opacity-0 z-0 top-0 left-0" />
 
                                 <span className="relative z-10 text-sm font-mono text-neutral-500 w-12 shrink-0">
                                     {formattedIndex}
