@@ -28,13 +28,7 @@ export function WorkShowcase() {
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 py-16 md:py-24">
                 <div className="flex flex-col gap-24 md:gap-32 items-center">
                     {PROJECTS.map((project, index) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            index={index}
-                            priority={index < 2}
-                            layout="stack"
-                        />
+                        <ProjectCard key={project.id} project={project} priority={index < 2} layout="stack" />
                     ))}
                 </div>
             </div>

@@ -7,12 +7,10 @@ import { cn } from "../../lib/utils";
 interface ProjectCardProps {
     project: Project;
     priority?: boolean;
-    index: number;
     layout?: "rail" | "stack";
 }
 
-export function ProjectCard({ project, priority = false, index, layout = "rail" }: ProjectCardProps) {
-    const formattedIndex = (index + 1).toString().padStart(2, "0");
+export function ProjectCard({ project, priority = false, layout = "rail" }: ProjectCardProps) {
     const layoutClasses = layout === "rail" ? "w-[85vw] md:w-[70vw] shrink-0 snap-center" : "w-full max-w-6xl mx-auto";
 
     return (
@@ -37,16 +35,7 @@ export function ProjectCard({ project, priority = false, index, layout = "rail" 
                 <div className="absolute inset-0 bg-linear-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
             </div>
 
-            <div className="absolute inset-0 p-6 md:p-10 lg:p-14 flex flex-col justify-between">
-                <div className="flex items-center gap-3">
-                    <span className="text-[10px] md:text-xs uppercase tracking-widest text-neutral-400 font-mono bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                        {formattedIndex}
-                    </span>
-                    <span className="text-[10px] md:text-xs uppercase tracking-widest text-white font-mono bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                        {project.category}
-                    </span>
-                </div>
-
+            <div className="absolute inset-0 p-6 md:p-10 lg:p-14 flex flex-col justify-end">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]">
                     <div className="flex flex-col max-w-2xl">
                         <h3 className="text-3xl md:text-5xl lg:text-[4rem] font-medium tracking-tighter text-white leading-[1.05] mb-4 md:mb-6">
