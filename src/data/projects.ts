@@ -7,7 +7,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Alpha",
         category: "Full-Stack Web App",
         impact: "+40% Conversão",
-        image: "/images/projects/project-alpha.jpg",
+        image: "/images/project-alpha.jpg",
         slug: "project-alpha",
     },
     {
@@ -16,7 +16,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Beta",
         category: "UI/UX & Design System",
         impact: "Zero Inconsistências",
-        image: "/images/projects/project-beta.jpg",
+        image: "/images/project-beta.jpg",
         slug: "project-beta",
     },
     {
@@ -25,7 +25,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Gamma",
         category: "Backend & Cloud",
         impact: "-60% Custos AWS",
-        image: "/images/projects/project-gamma.jpg",
+        image: "/images/project-gamma.jpg",
         slug: "project-gamma",
     },
     {
@@ -34,7 +34,7 @@ export const MOCK_PROJECTS: Project[] = [
         client: "Projeto Delta",
         category: "Product Design",
         impact: "+2x Retenção",
-        image: "/images/projects/project-delta.jpg",
+        image: "/images/project-delta.jpg",
         slug: "project-delta",
     },
 ];
