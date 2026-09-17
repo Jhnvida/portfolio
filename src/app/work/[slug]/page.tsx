@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { MOCK_PROJECTS } from "../../../data/projects";
+import { PROJECTS } from "../../../data/projects";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const project = MOCK_PROJECTS.find((p) => p.slug === slug);
+    const project = PROJECTS.find((p) => p.slug === slug);
 
     if (project) {
         return {

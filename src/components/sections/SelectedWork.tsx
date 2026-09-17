@@ -1,6 +1,6 @@
 "use client";
 
-import { MOCK_PROJECTS } from "../../data/projects";
+import { PROJECTS } from "../../data/projects";
 import { useSelectedWork } from "../../hooks/animations/useSelectedWork";
 import { Button } from "../ui/Button";
 import { ProjectCard } from "../ui/ProjectCard";
@@ -33,7 +33,7 @@ export function SelectedWork() {
                         ref={trackRef}
                         className="flex gap-4 md:gap-8 lg:gap-12 px-6 md:px-12 lg:px-24 w-full md:w-max overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none no-scrollbar pb-12 md:pb-0"
                     >
-                        {MOCK_PROJECTS.map((project, index) => (
+                        {PROJECTS.map((project, index) => (
                             <ProjectCard key={project.id} project={project} index={index} priority={index < 2} />
                         ))}
                     </div>

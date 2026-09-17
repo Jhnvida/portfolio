@@ -1,6 +1,6 @@
 import { Project } from "../types";
 
-export const MOCK_PROJECTS: Project[] = [
+export const PROJECTS: Project[] = [
     {
         id: "1",
         title: "Portfólio",
