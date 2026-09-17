@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { PROJECTS } from "../../../data/projects";
+import { CaseHero } from "../../../components/case/CaseHero";
+import { CaseEditorialBlock } from "../../../components/case/CaseEditorialBlock";
+import { CaseMediaBlock } from "../../../components/case/CaseMediaBlock";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
@@ -17,8 +21,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-export default async function WorkDetailsPage() {
+export default async function WorkDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const project = PROJECTS.find((p) => p.slug === slug);
+
+    if (!project) {
+        notFound();
+    }
+
     return (
-        <main className="w-full max-w-(--container-page) mx-auto min-h-screen pt-24 pb-12 px-6 md:px-12 lg:px-24"></main>
+        <main className="w-full bg-background min-h-screen">
+            <CaseHero project={project} />
+
+            <div className="w-full flex flex-col pb-24">
+                {project.content.map((block, idx) => {
+                    if (block.type === "editorial") {
+                        return <CaseEditorialBlock key={idx} block={block} />;
+                    }
+
+                    if (block.type === "media") {
+                        return <CaseMediaBlock key={idx} block={block} />;
+                    }
+
+                    return null;
+                })}
+            </div>
+        </main>
     );
 }
