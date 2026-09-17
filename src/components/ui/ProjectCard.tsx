@@ -2,23 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { Project } from "../../types";
 import { Button } from "./Button";
+import { cn } from "../../lib/utils";
 
 interface ProjectCardProps {
     project: Project;
     priority?: boolean;
     index: number;
+    layout?: "rail" | "stack";
 }
 
-export function ProjectCard({ project, priority = false, index }: ProjectCardProps) {
+export function ProjectCard({ project, priority = false, index, layout = "rail" }: ProjectCardProps) {
     const formattedIndex = (index + 1).toString().padStart(2, "0");
+    const layoutClasses = layout === "rail" ? "w-[85vw] md:w-[70vw] shrink-0 snap-center" : "w-full max-w-6xl mx-auto";
 
     return (
         <Link
             href={`/work/${project.slug}`}
-            className="project-card group relative w-[85vw] md:w-[70vw] shrink-0 h-[60vh] md:h-[75vh] rounded-sm overflow-hidden snap-center block focus:outline-none bg-surface-raised border border-white/5"
+            className={cn(
+                "project-card group relative h-[60vh] md:h-[75vh] rounded-sm overflow-hidden block focus:outline-none bg-surface-raised border border-white/5",
+                layoutClasses,
+            )}
         >
             <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
-                <div className="parallax-bg absolute inset-0 w-[120%] h-full left-[-10%]">
+                <div className="parallax-bg absolute inset-0 w-[120%] h-[120%] left-[-10%] top-[-10%]">
                     <Image
                         src={project.image}
                         alt={project.title}
