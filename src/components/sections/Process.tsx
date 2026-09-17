@@ -13,10 +13,10 @@ export function Process() {
 
             <div
                 ref={containerRef}
-                className="w-full max-w-5xl mx-auto px-6 md:px-12 lg:px-24 relative flex gap-8 md:gap-16"
+                className="w-full max-w-5xl mx-auto px-6 md:px-12 lg:px-24 relative flex gap-8 md:gap-16 lg:gap-24"
             >
-                <div className="relative w-8 md:w-16 shrink-0 flex flex-col items-center">
-                    <div className="absolute top-2 bottom-2 w-[1px] bg-white/10 z-0">
+                <div className="relative w-px shrink-0 flex flex-col items-center z-0">
+                    <div className="absolute top-2 bottom-2 w-px bg-white/10">
                         <div
                             ref={lineRef}
                             className="w-full h-full bg-white origin-top"
@@ -25,20 +25,20 @@ export function Process() {
                     </div>
                 </div>
 
-                <div className="flex-1 flex flex-col gap-24 md:gap-40 pb-12">
+                <div className="flex-1 flex flex-col gap-24 md:gap-32 pb-12 z-10">
                     {PROCESS_STEPS.map((step) => (
                         <div
                             key={step.id}
-                            className="process-step relative z-10 flex flex-col gap-6"
+                            className="process-step relative flex flex-col md:flex-row gap-6 md:gap-12 origin-left"
                             style={{ opacity: 0.3, transform: "scale(0.95)" }}
                         >
-                            <div className="absolute -left-12 md:-left-24 top-0 w-8 md:w-16 flex justify-center bg-background py-2">
-                                <span className="process-number text-2xl md:text-4xl font-medium tracking-tighter text-white/20 transition-colors duration-500">
+                            <div className="w-12 md:w-20 shrink-0 pt-1 md:pt-2">
+                                <span className="process-number text-3xl md:text-5xl font-medium tracking-tighter text-white/20 block">
                                     {step.number}
                                 </span>
                             </div>
 
-                            <div className="process-content">
+                            <div className="process-content flex-1">
                                 <h3 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6">
                                     {step.title}
                                 </h3>

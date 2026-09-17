@@ -53,7 +53,8 @@ export function useProcess() {
                             if (numberIndicator) {
                                 gsap.to(numberIndicator, {
                                     color: self.isActive ? "#ffffff" : "rgba(255,255,255,0.2)",
-                                    duration: 0.4,
+                                    duration: 0.6,
+                                    ease: "power2.out",
                                 });
                             }
                         },
