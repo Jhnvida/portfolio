@@ -6,6 +6,14 @@ export interface Project {
     impact: string;
     image: string;
     slug: string;
+    stack: string[];
+    year: string;
+    overview: string;
+    challenge?: string;
+    solution?: string;
+    liveUrl?: string;
+    githubUrl?: string;
+    featured: boolean;
 }
 
 export interface ProcessStep {
