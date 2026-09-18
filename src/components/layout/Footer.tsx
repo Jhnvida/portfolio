@@ -2,18 +2,11 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "../../data/navigation";
 import { Button } from "../ui/Button";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
-
 export function Footer() {
     const footerRef = useRef<HTMLElement>(null);
-
-    useGSAP(() => {}, { scope: footerRef });
 
     return (
         <footer

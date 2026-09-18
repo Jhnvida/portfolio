@@ -16,6 +16,8 @@ export function useServices() {
             const serviceCards = gsap.utils.toArray<HTMLElement>(".service-card");
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
+                const cleanups: (() => void)[] = [];
+
                 serviceCards.forEach((card) => {
                     const glow = card.querySelector(".service-glow") as HTMLElement;
 
@@ -50,13 +52,17 @@ export function useServices() {
                         card.addEventListener("mouseenter", onMouseEnter);
                         card.addEventListener("mouseleave", onMouseLeave);
 
-                        return () => {
+                        cleanups.push(() => {
                             card.removeEventListener("mousemove", onMouseMove);
                             card.removeEventListener("mouseenter", onMouseEnter);
                             card.removeEventListener("mouseleave", onMouseLeave);
-                        };
+                        });
                     }
                 });
+
+                return () => {
+                    cleanups.forEach((cleanup) => cleanup());
+                };
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {

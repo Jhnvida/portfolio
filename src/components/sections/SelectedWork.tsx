@@ -4,6 +4,7 @@ import { PROJECTS } from "../../data/projects";
 import { useSelectedWork } from "../../hooks/animations/useSelectedWork";
 import { Button } from "../ui/Button";
 import { ProjectCard } from "../ui/ProjectCard";
+import { SectionHeader } from "../ui/SectionHeader";
 
 export function SelectedWork() {
     const { sectionRef, headerRef, trackRef } = useSelectedWork();
@@ -13,12 +14,7 @@ export function SelectedWork() {
             <div ref={sectionRef} className="w-full pt-24 pb-0 md:pb-24 relative">
                 <div className="relative w-full max-w-(--container-page) mx-auto flex flex-col md:flex-row md:items-center justify-between px-6 md:px-12 lg:px-24 mb-12">
                     <div ref={headerRef} className="flex-1">
-                        <p
-                            data-header-anim
-                            className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400"
-                        >
-                            Trabalhos Selecionados
-                        </p>
+                        <SectionHeader title="Trabalhos Selecionados" className="px-0 md:px-0 lg:px-0 mb-0" />
                     </div>
 
                     <div data-header-anim className="mt-6 md:mt-0 hidden md:block">
