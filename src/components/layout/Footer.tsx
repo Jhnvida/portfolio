@@ -23,12 +23,12 @@ export function Footer() {
 
                     <a
                         href="mailto:joao.vida.andre@gmail.com"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-neutral-200 hover:text-white group border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 px-5 py-2.5 rounded-none transition-all w-fit"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-neutral-200 hover:text-white group border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 px-5 py-2.5 rounded-none transition-all duration-200 w-fit"
                     >
                         <span>joao.vida.andre@gmail.com</span>
                         <ArrowUpRight
                             size={15}
-                            className="text-neutral-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                            className="text-neutral-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 ease-out"
                         />
                     </a>
                 </div>
@@ -44,7 +44,7 @@ export function Footer() {
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
-                                        className="text-neutral-400 hover:text-neutral-100 transition-colors"
+                                        className="text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
                                     >
                                         {link.label}
                                     </Link>
@@ -65,12 +65,12 @@ export function Footer() {
                                         href={link.href}
                                         target={link.href.startsWith("http") ? "_blank" : undefined}
                                         rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                        className="text-neutral-400 hover:text-neutral-100 transition-colors inline-flex items-center gap-1 group"
+                                        className="text-neutral-400 hover:text-neutral-100 transition-colors duration-200 inline-flex items-center gap-1 group"
                                     >
                                         <span>{link.label}</span>
                                         <ArrowUpRight
                                             size={12}
-                                            className="opacity-0 group-hover:opacity-70 transition-opacity"
+                                            className="opacity-0 group-hover:opacity-70 transition-all duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                         />
                                     </a>
                                 </li>
@@ -84,7 +84,7 @@ export function Footer() {
                         </span>
 
                         <p className="text-neutral-400 leading-relaxed">
-                            Brasil · Atuação e colaboração remota global.
+                            Jaguariúna, São Paulo · Disponível para trabalho remoto global.
                         </p>
                     </div>
                 </div>

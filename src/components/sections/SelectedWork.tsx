@@ -18,17 +18,38 @@ export function SelectedWork() {
             const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from("[data-work-header]", {
+                const headerTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: "[data-work-header]",
                         start: "top 85%",
                         once: true,
                     },
-                    y: 24,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
+                    defaults: { ease: "power4.out" },
                 });
+
+                headerTl
+                    .from("[data-work-tag]", {
+                        y: 10,
+                        opacity: 0,
+                        duration: 0.6,
+                    })
+                    .from(
+                        "[data-work-mask-title]",
+                        {
+                            yPercent: 105,
+                            duration: 0.9,
+                        },
+                        "-=0.45"
+                    )
+                    .from(
+                        "[data-work-desc]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.7,
+                        },
+                        "-=0.55"
+                    );
 
                 const cards = containerRef.current?.querySelectorAll("[data-work-card]");
                 if (cards) {
@@ -41,11 +62,27 @@ export function SelectedWork() {
                             },
                             y: 28,
                             opacity: 0,
-                            duration: 0.8,
-                            ease: "power2.out",
+                            duration: 0.85,
+                            ease: "power4.out",
                         });
                     });
                 }
+
+                gsap.fromTo(
+                    "[data-work-hairline]",
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        transformOrigin: "left center",
+                        duration: 0.9,
+                        ease: "power3.inOut",
+                        scrollTrigger: {
+                            trigger: "[data-work-hairline]",
+                            start: "top 95%",
+                            once: true,
+                        },
+                    }
+                );
             });
         },
         { scope: containerRef }
@@ -55,17 +92,19 @@ export function SelectedWork() {
         <section
             ref={containerRef}
             id="work"
-            className="w-full py-16 md:py-24 border-b border-neutral-800/60 scroll-mt-12"
+            className="w-full pt-16 md:pt-24 relative scroll-mt-12"
         >
-            <div className="w-full px-6 md:px-8 flex flex-col gap-10">
+            <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
                 <div data-work-header className="flex flex-col gap-2">
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                    <span data-work-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Projetos Selecionados
                     </span>
-                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
-                        Trabalhos em destaque
-                    </h2>
-                    <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
+                    <div className="overflow-hidden pb-1">
+                        <h2 data-work-mask-title className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
+                            Trabalhos em destaque
+                        </h2>
+                    </div>
+                    <p data-work-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Criações autorais e estudos de caso desenvolvidos com esmero no design, microinterações e engenharia web moderna.
                     </p>
                 </div>
@@ -84,6 +123,8 @@ export function SelectedWork() {
                     </Button>
                 </div>
             </div>
+
+            <div data-work-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
         </section>
     );
 }

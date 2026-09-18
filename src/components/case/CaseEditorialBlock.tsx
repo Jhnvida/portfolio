@@ -20,35 +20,64 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
             const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from(containerRef.current, {
+                const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: containerRef.current,
                         start: "top 85%",
                         once: true,
                     },
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.7,
-                    ease: "power2.out",
+                    defaults: { ease: "power4.out" },
                 });
+
+                tl.from("[data-editorial-title]", {
+                    yPercent: 105,
+                    duration: 0.8,
+                })
+                .from(
+                    "[data-editorial-content]",
+                    {
+                        y: 18,
+                        opacity: 0,
+                        duration: 0.8,
+                    },
+                    "-=0.5"
+                );
+
+                gsap.fromTo(
+                    "[data-editorial-hairline]",
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        transformOrigin: "left center",
+                        duration: 0.9,
+                        ease: "power3.inOut",
+                        scrollTrigger: {
+                            trigger: "[data-editorial-hairline]",
+                            start: "top 95%",
+                            once: true,
+                        },
+                    }
+                );
             });
         },
         { scope: containerRef }
     );
 
     return (
-        <section ref={containerRef} className="w-full py-12 md:py-16 border-b border-neutral-800/60">
-            <div className="w-full px-6 md:px-8">
+        <section ref={containerRef} className="w-full pt-12 md:pt-16 relative">
+            <div className="w-full px-6 md:px-8 pb-12 md:pb-16">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                     <div className="md:col-span-4">
                         {block.title && (
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
-                                {block.title}
-                            </h2>
+                            <div className="overflow-hidden pb-1 sticky top-20">
+                                <h2 data-editorial-title className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                                    {block.title}
+                                </h2>
+                            </div>
                         )}
                     </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-6">
+                    <div data-editorial-content className="md:col-span-8 flex flex-col gap-6">
                         {block.paragraphs.map((paragraph, idx) => (
                             <p key={idx} className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
                                 {paragraph}
@@ -71,6 +100,8 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                     </div>
                 </div>
             </div>
+
+            <div data-editorial-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
         </section>
     );
 }

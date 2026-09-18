@@ -33,29 +33,75 @@ export function Philosophy() {
             const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
-                const tl = gsap.timeline({
+                const headerTl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: containerRef.current,
+                        trigger: "[data-philosophy-header]",
                         start: "top 85%",
                         once: true,
                     },
+                    defaults: { ease: "power4.out" },
                 });
 
-                tl.from("[data-philosophy-header]", {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.7,
-                    ease: "power2.out",
-                }).from(
-                    "[data-philosophy-card]",
-                    {
-                        y: 24,
+                headerTl
+                    .from("[data-philosophy-tag]", {
+                        y: 10,
                         opacity: 0,
-                        duration: 0.7,
-                        stagger: 0.15,
-                        ease: "power2.out",
-                    },
-                    "-=0.4"
+                        duration: 0.6,
+                    })
+                    .from(
+                        "[data-philosophy-mask-title]",
+                        {
+                            yPercent: 105,
+                            duration: 0.9,
+                        },
+                        "-=0.45"
+                    )
+                    .from(
+                        "[data-philosophy-desc]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.7,
+                        },
+                        "-=0.55"
+                    )
+                    .fromTo(
+                        "[data-philosophy-hairline]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.9,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.5"
+                    )
+                    .from(
+                        "[data-philosophy-card]",
+                        {
+                            y: 20,
+                            opacity: 0,
+                            duration: 0.8,
+                            stagger: 0.08,
+                            ease: "power4.out",
+                        },
+                        "-=0.6"
+                    );
+
+                gsap.fromTo(
+                    "[data-philosophy-bottom-hairline]",
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        transformOrigin: "left center",
+                        duration: 0.9,
+                        ease: "power3.inOut",
+                        scrollTrigger: {
+                            trigger: "[data-philosophy-bottom-hairline]",
+                            start: "top 95%",
+                            once: true,
+                        },
+                    }
                 );
             });
         },
@@ -66,27 +112,31 @@ export function Philosophy() {
         <section
             ref={containerRef}
             id="philosophy"
-            className="w-full py-16 md:py-24 border-b border-neutral-800/60"
+            className="w-full pt-16 md:pt-24 relative"
         >
-            <div className="w-full px-6 md:px-8 flex flex-col gap-10">
+            <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
                 <div data-philosophy-header className="flex flex-col gap-2">
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                    <span data-philosophy-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Filosofia & Abordagem
                     </span>
-                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
-                        Menos artifícios, mais consistência e usabilidade.
-                    </h2>
-                    <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
+                    <div className="overflow-hidden pb-1">
+                        <h2 data-philosophy-mask-title className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
+                            Menos artifícios, mais consistência e usabilidade.
+                        </h2>
+                    </div>
+                    <p data-philosophy-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Princípios claros que orientam cada decisão de interface, ritmo tipográfico e arquitetura de software.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 pt-2">
+                <div data-philosophy-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {pillars.map((pillar) => (
                         <div
                             key={pillar.title}
                             data-philosophy-card
-                            className="flex flex-col gap-3 p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors"
+                            className="flex flex-col gap-3 p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors duration-200"
                         >
                             <h3 className="text-lg font-medium text-neutral-200 tracking-tight">
                                 {pillar.title}
@@ -98,6 +148,8 @@ export function Philosophy() {
                     ))}
                 </div>
             </div>
+
+            <div data-philosophy-bottom-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
         </section>
     );
 }

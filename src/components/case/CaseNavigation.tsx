@@ -32,8 +32,24 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                     y: 16,
                     opacity: 0,
                     duration: 0.7,
-                    ease: "power2.out",
+                    ease: "power4.out",
                 });
+
+                gsap.fromTo(
+                    "[data-nav-hairline]",
+                    { scaleX: 0 },
+                    {
+                        scaleX: 1,
+                        transformOrigin: "left center",
+                        duration: 0.9,
+                        ease: "power3.inOut",
+                        scrollTrigger: {
+                            trigger: "[data-nav-hairline]",
+                            start: "top 95%",
+                            once: true,
+                        },
+                    }
+                );
             });
         },
         { scope: containerRef }
@@ -42,33 +58,37 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
     return (
         <div
             ref={containerRef}
-            className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-neutral-800/60"
+            className="w-full relative"
         >
-            <Link
-                href="/work"
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
-            >
-                <ArrowLeft size={14} />
-                <span>Todos os projetos</span>
-            </Link>
-
-            {nextProject && nextProject.slug !== currentSlug && (
+            <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <Link
-                    href={`/work/${nextProject.slug}`}
-                    className="group flex flex-col items-start sm:items-end"
+                    href="/work"
+                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 group"
                 >
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-1">
-                        Próximo projeto
-                    </span>
-                    <span className="text-lg md:text-xl font-medium text-neutral-200 group-hover:text-white transition-colors inline-flex items-center gap-1.5">
-                        {nextProject.title}
-                        <ArrowRight
-                            size={16}
-                            className="transition-transform group-hover:translate-x-1"
-                        />
-                    </span>
+                    <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
+                    <span>Todos os projetos</span>
                 </Link>
-            )}
+
+                {nextProject && nextProject.slug !== currentSlug && (
+                    <Link
+                        href={`/work/${nextProject.slug}`}
+                        className="group flex flex-col items-start sm:items-end"
+                    >
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-1">
+                            Próximo projeto
+                        </span>
+                        <span className="text-lg md:text-xl font-medium text-neutral-200 group-hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5">
+                            {nextProject.title}
+                            <ArrowRight
+                                size={16}
+                                className="transition-transform duration-200 group-hover:translate-x-1"
+                            />
+                        </span>
+                    </Link>
+                )}
+            </div>
+
+            <div data-nav-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
         </div>
     );
 }

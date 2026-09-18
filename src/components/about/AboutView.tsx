@@ -32,27 +32,73 @@ export function AboutView() {
             const mm = gsap.matchMedia();
 
             mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from("[data-about-header]", {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
+                const headerTl = gsap.timeline({
+                    defaults: { ease: "power4.out" },
                 });
+
+                headerTl
+                    .from("[data-about-tag]", {
+                        y: 10,
+                        opacity: 0,
+                        duration: 0.6,
+                    })
+                    .from(
+                        "[data-about-mask-title]",
+                        {
+                            yPercent: 105,
+                            duration: 0.9,
+                        },
+                        "-=0.45"
+                    )
+                    .from(
+                        "[data-about-desc]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.7,
+                        },
+                        "-=0.55"
+                    );
 
                 const sections = containerRef.current?.querySelectorAll("[data-about-section]");
                 if (sections) {
                     sections.forEach((sec) => {
-                        gsap.from(sec, {
+                        const line = sec.querySelector("[data-about-hairline]");
+                        const content = sec.querySelector("[data-about-content]");
+
+                        const secTl = gsap.timeline({
                             scrollTrigger: {
                                 trigger: sec,
                                 start: "top 85%",
                                 once: true,
                             },
-                            y: 24,
-                            opacity: 0,
-                            duration: 0.8,
-                            ease: "power2.out",
                         });
+
+                        if (line) {
+                            secTl.fromTo(
+                                line,
+                                { scaleX: 0 },
+                                {
+                                    scaleX: 1,
+                                    transformOrigin: "left center",
+                                    duration: 0.9,
+                                    ease: "power3.inOut",
+                                }
+                            );
+                        }
+
+                        if (content) {
+                            secTl.from(
+                                content,
+                                {
+                                    y: 18,
+                                    opacity: 0,
+                                    duration: 0.75,
+                                    ease: "power4.out",
+                                },
+                                "-=0.6"
+                            );
+                        }
                     });
                 }
             });
@@ -62,116 +108,116 @@ export function AboutView() {
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
-            <div
-                data-about-header
-                className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 border-b border-neutral-800/60"
-            >
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
+            <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
+                <span data-about-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
                     Sobre Mim
                 </span>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 mb-6 leading-tight">
-                    Construo coisas por curiosidade, gosto de aprender fazendo.
-                </h1>
-                <p className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-2xl font-normal">
+                <div className="overflow-hidden pb-1 mb-6">
+                    <h1 data-about-mask-title className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight">
+                        Construo coisas por curiosidade, gosto de aprender fazendo.
+                    </h1>
+                </div>
+                <p data-about-desc className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-2xl font-normal">
                     Sou uma pessoa curiosa que gosta de tecnologia, design de produto e engenharia web. Encontrei no código uma forma de tirar ideias da cabeça e transformar conceitos em interfaces reais que funcionam com naturalidade na tela.
                 </p>
             </div>
 
-            <div
-                data-about-section
-                className="w-full px-6 md:px-8 py-12 md:py-16 border-b border-neutral-800/60"
-            >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                    <div className="md:col-span-4">
-                        <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
-                            Minha visão
-                        </h2>
-                    </div>
+            <div data-about-section className="w-full relative">
+                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                        <div className="md:col-span-4">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                                Minha visão
+                            </h2>
+                        </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-6 max-w-2xl">
-                        <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
-                            Não sou uma agência nem pretendo fingir que tenho dezenas de clientes comerciais. A maior parte do que você vê por aqui nasceu do interesse genuíno de experimentar: uma biblioteca que eu queria testar, um conceito visual que me chamou atenção ou uma ideia que pareceu desafiador colocar no mundo.
-                        </p>
-                        <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
-                            Apesar disso, levo a sério o acabamento de tudo que produzo. Gosto de pensar na usabilidade real, no conforto tipográfico e na clareza do código. Para mim, um projeto autoral merece o mesmo esmero e carinho de qualquer produto digital de ponta.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                data-about-section
-                className="w-full px-6 md:px-8 py-12 md:py-16 border-b border-neutral-800/60"
-            >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                    <div className="md:col-span-4">
-                        <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
-                            Como aprendo
-                        </h2>
-                    </div>
-
-                    <div className="md:col-span-8 flex flex-col gap-6 max-w-2xl">
-                        <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
-                            Meu processo de aprendizado sempre foi mão na massa. Em vez de apenas ler documentações de forma passiva, prefiro construir um projeto do zero para resolver uma questão prática. É nesse movimento contínuo de construir, quebrar, consertar e refinar que a evolução acontece.
-                        </p>
-                        <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
-                            Construo minha trajetória dia após dia, explorando com entusiasmo as ferramentas modernas da web e sempre receptivo a novas técnicas e perspectivas de produto.
-                        </p>
+                        <div className="md:col-span-8 flex flex-col gap-6 max-w-2xl">
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
+                                Não sou uma agência nem pretendo fingir que tenho dezenas de clientes comerciais. A maior parte do que você vê por aqui nasceu do interesse genuíno de experimentar: uma biblioteca que eu queria testar, um conceito visual que me chamou atenção ou uma ideia que pareceu desafiador colocar no mundo.
+                            </p>
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
+                                Apesar disso, levo a sério o acabamento de tudo que produzo. Gosto de pensar na usabilidade real, no conforto tipográfico e na clareza do código. Para mim, um projeto autoral merece o mesmo esmero e carinho de qualquer produto digital de ponta.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div
-                data-about-section
-                className="w-full px-6 md:px-8 py-12 md:py-16 border-b border-neutral-800/60"
-            >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-                    <div className="md:col-span-4">
-                        <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
-                            Stack & Ferramentas
-                        </h2>
-                    </div>
+            <div data-about-section className="w-full relative">
+                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                        <div className="md:col-span-4">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                                Como aprendo
+                            </h2>
+                        </div>
 
-                    <div className="md:col-span-8 flex flex-col gap-8 max-w-2xl">
-                        {TOOLS_AND_TECH.map((group) => (
-                            <div key={group.category} className="flex flex-col gap-3">
-                                <h3 className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
-                                    {group.category}
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {group.items.map((item) => (
-                                        <Badge key={item} variant="outline" className="text-xs py-1 px-3 text-neutral-300 rounded-none">
-                                            {item}
-                                        </Badge>
-                                    ))}
+                        <div className="md:col-span-8 flex flex-col gap-6 max-w-2xl">
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
+                                Meu processo de aprendizado sempre foi mão na massa. Em vez de apenas ler documentações de forma passiva, prefiro construir um projeto do zero para resolver uma questão prática. É nesse movimento contínuo de construir, quebrar, consertar e refinar que a evolução acontece.
+                            </p>
+                            <p className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
+                                Construo minha trajetória dia após dia, explorando com entusiasmo as ferramentas modernas da web e sempre receptivo a novas técnicas e perspectivas de produto.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div data-about-section className="w-full relative">
+                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                        <div className="md:col-span-4">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                                Stack & Ferramentas
+                            </h2>
+                        </div>
+
+                        <div className="md:col-span-8 flex flex-col gap-8 max-w-2xl">
+                            {TOOLS_AND_TECH.map((group) => (
+                                <div key={group.category} className="flex flex-col gap-3">
+                                    <h3 className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+                                        {group.category}
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {group.items.map((item) => (
+                                            <Badge key={item} variant="outline" className="text-xs py-1 px-3 text-neutral-300 rounded-none">
+                                                {item}
+                                            </Badge>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div
-                data-about-section
-                className="w-full px-6 md:px-8 py-16 md:py-20 flex flex-col items-start gap-6 border-b border-neutral-800/60"
-            >
-                <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
-                    Conexão
-                </span>
-                <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
-                    Quer trocar uma ideia?
-                </h2>
-                <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
-                    Se você gostou de algum projeto, tem uma pergunta técnica sobre como algo foi feito ou simplesmente quer conversar sobre design e front-end, mande uma mensagem.
-                </p>
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <Button href="/contact" variant="primary" showArrow size="md">
-                        Entrar em contato
-                    </Button>
-                    <Button href="/work" variant="secondary" size="md">
-                        Ver projetos
-                    </Button>
+            <div data-about-section className="w-full relative">
+                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-content className="w-full px-6 md:px-8 py-16 md:py-20 flex flex-col items-start gap-6">
+                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                        Conexão
+                    </span>
+                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
+                        Quer trocar uma ideia?
+                    </h2>
+                    <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
+                        Se você gostou de algum projeto, tem uma pergunta técnica sobre como algo foi feito ou simplesmente quer conversar sobre design e front-end, mande uma mensagem.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <Button href="/contact" variant="primary" showArrow size="md">
+                            Entrar em contato
+                        </Button>
+                        <Button href="/work" variant="secondary" size="md">
+                            Ver projetos
+                        </Button>
+                    </div>
                 </div>
+                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
             </div>
         </main>
     );
