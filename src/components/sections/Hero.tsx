@@ -20,7 +20,7 @@ export function Hero() {
                     ref={titleRef}
                     className="text-white text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] font-medium tracking-tighter leading-none md:leading-[0.95] max-w-full lg:max-w-6xl mix-blend-difference wrap-break-word"
                 >
-                    <SplitText text="Engenharia de software focada em interfaces refinadas." />
+                    <SplitText text="Gosto de criar coisas e transformar ideias em projetos para a web." />
                 </h1>
 
                 <div
@@ -28,13 +28,20 @@ export function Hero() {
                     data-anim
                 >
                     <p className="text-neutral-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                        Desenvolvimento full-stack de alto desempenho para produtos digitais que não aceitam
-                        mediocridade técnica ou visual.
+                        Desenvolvedor focado em construir interfaces bem cuidadas, explorar tecnologias modernas e tirar
+                        projetos do papel com atenção a cada detalhe.
                     </p>
 
-                    <div className="flex md:justify-end items-start mt-4 md:mt-0">
+                    <div className="flex flex-wrap md:justify-end items-center gap-4 mt-4 md:mt-0">
                         <Button href="/work" variant="primary" className="px-8 py-4 text-sm md:text-base font-medium">
-                            Ver trabalhos
+                            Ver projetos
+                        </Button>
+                        <Button
+                            href="/about"
+                            variant="secondary"
+                            className="px-6 py-4 text-sm md:text-base font-medium"
+                        >
+                            Sobre mim
                         </Button>
                     </div>
                 </div>

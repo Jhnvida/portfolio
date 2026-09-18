@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { WorkShowcase } from "../../components/sections";
 
 export const metadata: Metadata = {
-    title: "Trabalhos",
-    description: "Casos de estudo de projetos que unem estética premium e performance extrema.",
+    title: "Projetos",
+    description: "Projetos autorais e experimentos desenvolvidos com cuidado no design e na engenharia web.",
 };
 
 export default function WorkPage() {

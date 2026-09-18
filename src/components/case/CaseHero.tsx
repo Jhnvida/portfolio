@@ -1,8 +1,8 @@
 "use client";
 
+import { useHero } from "../../hooks/animations/useHero";
 import { Project } from "../../types";
 import { SplitText } from "../ui/SplitText";
-import { useHero } from "../../hooks/animations/useHero";
 
 interface CaseHeroProps {
     project: Project;
@@ -26,8 +26,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                     data-anim
                 >
                     <div className="flex flex-col gap-2">
-                        <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">Cliente</span>
-                        <span className="text-base md:text-lg text-white font-medium">{project.client}</span>
+                        <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">Origem</span>
+                        <span className="text-base md:text-lg text-white font-medium">
+                            {project.category || project.client}
+                        </span>
                     </div>
 
                     <div className="flex flex-col gap-2">
@@ -36,8 +38,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">Papel</span>
-                        <span className="text-base md:text-lg text-white font-medium">{project.impact}</span>
+                        <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">Foco</span>
+                        <span className="text-base md:text-lg text-white font-medium">
+                            {project.role || project.impact}
+                        </span>
                     </div>
 
                     <div className="flex flex-col gap-2">
@@ -48,6 +52,20 @@ export function CaseHero({ project }: CaseHeroProps) {
                         </span>
                     </div>
                 </div>
+
+                {project.githubUrl && (
+                    <div className="mt-8 flex items-center gap-4" data-anim>
+                        <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2 hover:border-white/30"
+                        >
+                            <span>Ver repositório no GitHub</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                )}
             </div>
         </section>
     );

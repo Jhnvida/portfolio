@@ -2,31 +2,31 @@ import { ProcessStep } from "../types";
 
 export const PROCESS_STEPS: ProcessStep[] = [
     {
-        id: "discovery",
+        id: "curiosity",
         number: "01",
-        title: "Descoberta & Arquitetura",
+        title: "Curiosidade & Ideia",
         description:
-            "Entendimento profundo do escopo e mapeamento da arquitetura de dados e UX antes da primeira linha de código.",
+            "Tudo começa com a vontade de construir: um conceito visual que imaginei, uma ferramenta nova que quis testar ou uma ideia que pareceu interessante tirar do papel.",
     },
     {
-        id: "engineering",
+        id: "prototyping",
         number: "02",
-        title: "Engenharia & Performance",
+        title: "Exploração & Código",
         description:
-            "Desenvolvimento full-stack robusto, priorizando código limpo, lógica escalável e altíssima performance estrutural.",
+            "Mão na massa para validar a ideia rápido. Construo a base, experimento abordagens e estruturo o código com ferramentas modernas e foco em simplicidade.",
     },
     {
-        id: "refinement",
+        id: "craft",
         number: "03",
-        title: "Refinamento & Interação",
+        title: "Cuidado com os Detalhes",
         description:
-            "Polimento visual cirúrgico e implementação de microinterações fluidas com GSAP, unindo estética premium e funcionalidade.",
+            "Onde o projeto ganha vida: calibrar tipografia, ritmo de animações, estados de foco, espaçamentos e garantir uma navegação fluida e agradável.",
     },
     {
-        id: "deploy",
+        id: "learning",
         number: "04",
-        title: "Deploy & Evolução",
+        title: "Aprendizado Contínuo",
         description:
-            "Lançamento impecável, otimização contínua de métricas (SEO/Performance) e suporte analítico para garantir escala.",
+            "Colocar no ar, testar na prática e entender o que funcionou bem. Cada projeto finalizado traz aprendizados que levo para a próxima criação.",
     },
 ];

@@ -1,8 +1,10 @@
 export interface Project {
     id: string;
     title: string;
-    client: string;
-    impact: string;
+    category: string;
+    client?: string;
+    role: string;
+    impact?: string;
     image: string;
     slug: string;
     stack: string[];
@@ -40,4 +42,5 @@ export interface ServiceItem {
     tags: string;
     description: string;
     ctaLabel: string;
+    ctaHref?: string;
 }

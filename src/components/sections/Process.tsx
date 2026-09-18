@@ -9,7 +9,7 @@ export function Process() {
 
     return (
         <section id="process" ref={sectionRef} className="w-full bg-background relative py-24 md:py-32">
-            <SectionHeader title="Processo" className="relative z-10 mb-16 md:mb-24" />
+            <SectionHeader title="Como eu crio" className="relative z-10 mb-16 md:mb-24" />
 
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">
                 <div ref={containerRef} className="w-full flex gap-6 md:gap-12 lg:gap-16">

@@ -10,16 +10,18 @@ export function Services() {
 
     return (
         <section
-            id="services"
+            id="explorations"
             ref={sectionRef}
             className="w-full bg-background relative overflow-hidden flex flex-col py-24 md:py-32"
         >
-            <SectionHeader title="Serviços" className="relative z-10 mb-12" />
+            <SectionHeader title="Interesses & Explorações" className="relative z-10 mb-12" />
 
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 relative z-10">
                 <div className="w-full flex flex-col border-t border-white/10">
                     {SERVICES.map((service, index) => {
                         const formattedIndex = (index + 1).toString().padStart(2, "0");
+                        const href = service.ctaHref || "/work";
+                        const isExternal = href.startsWith("http");
 
                         return (
                             <div
@@ -48,7 +50,13 @@ export function Services() {
                                         </p>
 
                                         <div>
-                                            <Button href="/contact" variant="secondary" className="px-6 py-3 text-sm">
+                                            <Button
+                                                href={href}
+                                                target={isExternal ? "_blank" : undefined}
+                                                rel={isExternal ? "noopener noreferrer" : undefined}
+                                                variant="secondary"
+                                                className="px-6 py-3 text-sm"
+                                            >
                                                 {service.ctaLabel}
                                             </Button>
                                         </div>

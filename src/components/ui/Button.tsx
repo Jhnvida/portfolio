@@ -3,8 +3,8 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import { cn } from "../../lib/utils";
 import { useMagnetic } from "../../hooks/animations/useMagnetic";
+import { cn } from "../../lib/utils";
 
 type ButtonBaseProps = {
     children: React.ReactNode;

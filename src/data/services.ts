@@ -2,30 +2,33 @@ import { ServiceItem } from "../types";
 
 export const SERVICES: ServiceItem[] = [
     {
-        id: "full-stack",
+        id: "interfaces",
         number: "01",
-        title: "Desenvolvimento Full-Stack",
-        tags: "Next.js / Node.js / Cloud Architecture",
+        title: "Interfaces & Interatividade",
+        tags: "React / GSAP / Tailwind CSS / Motion",
         description:
-            "Desenvolvimento ponta-a-ponta de aplicações web escaláveis. Foco em arquitetura robusta, performance extrema e código limpo para produtos que precisam crescer com estabilidade.",
-        ctaLabel: "Iniciar projeto",
+            "Gosto de projetar e desenvolver interfaces com cuidado visual, ritmo e microinterações que tornem o uso natural e agradável.",
+        ctaLabel: "Ver projetos",
+        ctaHref: "/work",
     },
     {
-        id: "ui-ux",
+        id: "frontend",
         number: "02",
-        title: "Engenharia de Interfaces & Motion",
-        tags: "React / GSAP / Tailwind CSS",
+        title: "Desenvolvimento Web Moderno",
+        tags: "Next.js / TypeScript / APIs / Web Standards",
         description:
-            "Criação de front-ends imersivos e premium. Transformo designs em experiências interativas hiperfluidas, com animações a 60fps e acessibilidade de primeira classe.",
-        ctaLabel: "Criar experiência",
+            "Construo projetos explorando o ecossistema moderno de JavaScript e TypeScript, priorizando código claro, boa estrutura e decisões práticas.",
+        ctaLabel: "Ver no GitHub",
+        ctaHref: "https://github.com/Jhnvida",
     },
     {
-        id: "consulting",
+        id: "experiments",
         number: "03",
-        title: "Consultoria & Refatoração",
-        tags: "Code Review / Performance / Escalabilidade",
+        title: "Ideias & Projetos Autorais",
+        tags: "Storytelling / Prototipagem / Criação",
         description:
-            "Auditoria de bases de código existentes, otimização de performance (Web Vitals) e reestruturação arquitetural para destravar o crescimento do seu produto digital.",
-        ctaLabel: "Agendar auditoria",
+            "Gosto de transformar curiosidade em código. Tiro ideias da cabeça para testar ferramentas, explorar novas linguagens visuais e aprender na prática.",
+        ctaLabel: "Conhecer trajetória",
+        ctaHref: "/about",
     },
 ];

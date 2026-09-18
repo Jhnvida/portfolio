@@ -25,8 +25,8 @@ export function Footer() {
                         </Link>
 
                         <p className="text-neutral-400 text-base md:text-lg max-w-sm leading-relaxed mb-8">
-                            Engenharia de software focada em interfaces refinadas. Desenvolvimento full-stack unindo
-                            arquitetura robusta e estética premium.
+                            Gosto de construir projetos para a web, experimentar ideias e cuidar de cada detalhe visual
+                            e interativo.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-4">
@@ -34,8 +34,8 @@ export function Footer() {
                                 <Button
                                     key={social.label}
                                     href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                     variant="dark"
                                     className="px-5 py-2.5 text-sm"
                                 >
@@ -72,16 +72,21 @@ export function Footer() {
                         </h4>
 
                         <ul className="flex flex-col gap-4">
-                            {FOOTER_LINKS.contact.map((link) => (
-                                <li key={link.label}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
-                                    >
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            ))}
+                            {FOOTER_LINKS.contact.map((link) => {
+                                const isExternal = link.href.startsWith("http");
+                                return (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            target={isExternal ? "_blank" : undefined}
+                                            rel={isExternal ? "noopener noreferrer" : undefined}
+                                            className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </div>

@@ -40,7 +40,7 @@ export function Header() {
                         : "max-w-(--container-page) mx-auto py-8 px-6 md:px-12 lg:px-24 bg-transparent border-transparent"
                 }`}
             >
-                <div className="flex-1 flex justify-start z-50">
+                <div className="flex justify-start z-50">
                     <Link
                         href="/"
                         className="font-heading font-medium text-xl md:text-2xl tracking-tighter text-white hover:text-white/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
@@ -50,9 +50,9 @@ export function Header() {
                     </Link>
                 </div>
 
-                <DesktopNav />
+                <div className="hidden md:flex items-center gap-8">
+                    <DesktopNav />
 
-                <div className="hidden md:flex flex-1 justify-end items-center">
                     <Link
                         href="/contact"
                         className="group flex items-center gap-1.5 text-[13px] md:text-sm font-medium text-neutral-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-2 py-1"
@@ -65,7 +65,7 @@ export function Header() {
                     </Link>
                 </div>
 
-                <div className="flex flex-1 justify-end md:hidden z-50">
+                <div className="flex md:hidden z-50">
                     <button
                         className="p-2 text-neutral-300 hover:text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full bg-white/3 border border-white/8"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}

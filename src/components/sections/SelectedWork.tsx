@@ -14,12 +14,12 @@ export function SelectedWork() {
             <div ref={sectionRef} className="w-full pt-24 pb-0 md:pb-24 relative">
                 <div className="relative w-full max-w-(--container-page) mx-auto flex flex-col md:flex-row md:items-center justify-between px-6 md:px-12 lg:px-24 mb-12">
                     <div ref={headerRef} className="flex-1">
-                        <SectionHeader title="Trabalhos Selecionados" className="px-0 md:px-0 lg:px-0 mb-0" />
+                        <SectionHeader title="Projetos Recentes" className="px-0 md:px-0 lg:px-0 mb-0" />
                     </div>
 
                     <div data-header-anim className="mt-6 md:mt-0 hidden md:block">
                         <Button href="/work" variant="ghost" className="px-5 py-2.5 text-xs md:text-sm">
-                            Explorar todos os cases
+                            Ver todos os projetos
                         </Button>
                     </div>
                 </div>

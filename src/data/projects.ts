@@ -4,8 +4,10 @@ export const PROJECTS: Project[] = [
     {
         id: "1",
         title: "Portfólio",
-        client: "Projeto Pessoal",
-        impact: "Performance e Imersão",
+        category: "Projeto Autoral",
+        client: "Projeto Autoral",
+        role: "Design & Desenvolvimento Front-End",
+        impact: "Exploração de Interfaces & Motion",
         image: "/images/portfolio.svg",
         slug: "portfolio",
         stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "GSAP", "Lenis"],
@@ -20,28 +22,30 @@ export const PROJECTS: Project[] = [
             },
             {
                 type: "editorial",
-                title: "Contexto",
+                title: "Por que decidi criar",
                 paragraphs: [
-                    "Um metaestudo de caso sobre desenvolvimento criativo e engenharia front-end. O portfólio não apenas apresenta os projetos, mas atua como a própria demonstração das minhas capacidades técnicas em interações complexas, tipografia fluida e otimização extrema.",
+                    "Criei este espaço como um laboratório próprio: um lugar para testar ideias visuais, experimentar novas ferramentas da web e mostrar de verdade as coisas que venho construindo.",
+                    "Mais do que uma vitrine estática, quis que a navegação em si fosse prazerosa — explorando microinterações, tipografia fluida e animações que parecessem naturais.",
                 ],
             },
             {
                 type: "editorial",
-                title: "O Desafio",
+                title: "O que explorei",
                 paragraphs: [
-                    "Construir uma experiência rica em animações orientadas à rolagem (scroll-driven animations) sem sacrificar a performance (60fps), garantindo uma navegação coesa com um sistema de trilhos de progresso personalizado.",
+                    "Queria entender na prática como orquestrar animações orientadas à rolagem sem pesar o carregamento ou comprometer a fluidez da página.",
+                    "O objetivo era encontrar um equilíbrio: uma interface expressiva e com personalidade, mas que mantivesse a clareza e respeitasse a experiência de quem navega.",
                 ],
             },
             {
                 type: "editorial",
-                title: "Solução",
+                title: "Como foi construído",
                 paragraphs: [
-                    "Utilizei GSAP combinado com Lenis para a orquestração de uma rolagem extremamente suave e animações fixadas (pinned). A arquitetura de CSS moderno (Tailwind v4) foi essencial para criar layouts fluidos, resultando em um bundle eficiente.",
+                    "Usei Next.js com React 19 e Tailwind CSS v4 para a estrutura, integrando GSAP e Lenis para o controle de rolagem e efeitos magnéticos. O processo envolveu muitos testes de ritmo visual, espaçamento e acessibilidade para usuários que preferem movimento reduzido.",
                 ],
                 list: [
-                    "Sincronização entre GSAP e Lenis",
-                    "Sistema de Design Componentizado",
-                    "Acessibilidade de Motion respeitada",
+                    "Sincronização suave de rolagem com GSAP e Lenis",
+                    "Componentização limpa com Tailwind v4",
+                    "Respeito às preferências de movimento reduzido",
                 ],
             },
             {
@@ -57,8 +61,10 @@ export const PROJECTS: Project[] = [
     {
         id: "2",
         title: "A Nossa Jornada",
+        category: "Projeto Pessoal",
         client: "Projeto Pessoal",
-        impact: "Memórias Imersivas",
+        role: "Storytelling & Desenvolvimento Web",
+        impact: "Linha do Tempo Interativa",
         image: "/images/our-journey.svg",
         slug: "our-journey",
         stack: ["React 19", "TypeScript", "Vite", "React Router", "Supabase", "Motion"],
@@ -73,23 +79,23 @@ export const PROJECTS: Project[] = [
             },
             {
                 type: "editorial",
-                title: "Contexto",
+                title: "Por que decidi criar",
                 paragraphs: [
-                    "Uma plataforma interativa de storytelling e linha do tempo criada para registrar e reviver memórias importantes. O projeto traduz sentimentos em experiências visuais interativas por meio de um design sensível e delicado.",
+                    "Uma plataforma interativa de storytelling e linha do tempo feita para guardar e reviver memórias especiais. O projeto nasceu do desejo de transformar lembranças em uma experiência digital acolhedora, fugindo da frieza das redes sociais convencionais.",
                 ],
             },
             {
                 type: "editorial",
-                title: "O Desafio",
+                title: "O que explorei",
                 paragraphs: [
-                    "Como organizar dados cronológicos (momentos, fotos e textos) de forma não linear ou iterativa, mantendo a sensação de uma jornada unificada e altamente interativa?",
+                    "Como organizar dados cronológicos — datas, fotos, textos e pequenos relatos — em uma interface fluida que convidasse à leitura e transmitisse afeto através do design.",
                 ],
             },
             {
                 type: "editorial",
-                title: "Solução Técnica",
+                title: "Como foi construído",
                 paragraphs: [
-                    "Adotei o React Router para transições fluidas e o Supabase para persistência de dados em tempo real. A componentização robusta, combinada com Framer Motion (Motion), permite coreografar a entrada dos eventos na linha do tempo.",
+                    "Desenvolvi a interface em React com TypeScript e Vite para manter o fluxo de desenvolvimento rápido e leve. As animações de entrada dos eventos foram feitas com Motion, e utilizei o Supabase para armazenamento e sincronização de dados de forma simples e direta.",
                 ],
             },
             {

@@ -88,7 +88,7 @@ export function useProgressRail(sectionIds: string[]) {
                                     onLeave: () => deactivate(id),
                                     onEnterBack: () => activate(id),
                                     onLeaveBack: () => deactivate(id),
-                                })
+                                }),
                             );
                         });
                 },

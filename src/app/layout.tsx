@@ -21,9 +21,9 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
     title: {
         template: "%s / João Vida",
-        default: "Full-Stack Engineer / João Vida",
+        default: "João Vida / Criações e Desenvolvimento Web",
     },
-    description: "Engenharia de software focada em interfaces refinadas e produtos digitais de alto desempenho.",
+    description: "Projetos autorais, desenvolvimento de interfaces e explorações na web criados por João Vida.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

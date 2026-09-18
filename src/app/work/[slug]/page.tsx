@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PROJECTS } from "../../../data/projects";
-import { CaseHero } from "../../../components/case/CaseHero";
 import { CaseEditorialBlock } from "../../../components/case/CaseEditorialBlock";
+import { CaseHero } from "../../../components/case/CaseHero";
 import { CaseMediaBlock } from "../../../components/case/CaseMediaBlock";
+import { PROJECTS } from "../../../data/projects";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "../../lib/utils";
 import { Project } from "../../types";
 import { Button } from "./Button";
-import { cn } from "../../lib/utils";
 
 interface ProjectCardProps {
     project: Project;
@@ -42,9 +42,9 @@ export function ProjectCard({ project, priority = false, layout = "rail" }: Proj
                             {project.title}
                         </h3>
                         <div className="flex flex-wrap items-center gap-4 text-sm md:text-base text-neutral-300">
-                            <span className="font-medium text-white">{project.client}</span>
+                            <span className="font-medium text-white">{project.category || project.client}</span>
                             <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                            <span className="text-neutral-400">{project.impact}</span>
+                            <span className="text-neutral-400">{project.role || project.impact}</span>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@ export function ProjectCard({ project, priority = false, layout = "rail" }: Proj
                             showArrow
                             className="px-6 py-3 text-sm md:opacity-0 md:-translate-x-4 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]"
                         >
-                            Ver case
+                            Ver projeto
                         </Button>
                     </div>
                 </div>

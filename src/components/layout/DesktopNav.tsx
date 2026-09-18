@@ -8,7 +8,7 @@ export function DesktopNav() {
     const pathname = usePathname();
 
     return (
-        <nav className="hidden md:flex flex-none gap-8 text-sm font-medium">
+        <nav className="flex items-center gap-8 text-sm font-medium">
             {HEADER_LINKS.map((link) => {
                 const isActive = pathname === link.href;
                 return (

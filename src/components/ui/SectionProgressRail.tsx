@@ -1,13 +1,13 @@
 "use client";
 
-import { useSmoothScroll } from "../providers/SmoothScrollProvider";
 import { useProgressRail } from "../../hooks/animations/useProgressRail";
+import { useSmoothScroll } from "../providers/SmoothScrollProvider";
 
 const SECTIONS = [
     { id: "hero", label: "Início" },
-    { id: "work", label: "Trabalhos" },
-    { id: "process", label: "Processo" },
-    { id: "services", label: "Serviços" },
+    { id: "work", label: "Projetos" },
+    { id: "process", label: "Como crio" },
+    { id: "explorations", label: "Explorações" },
     { id: "contact", label: "Contato" },
 ];
 
