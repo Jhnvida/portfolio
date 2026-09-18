@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
+import { useRef } from "react";
 import { Project } from "../../types";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
@@ -30,87 +30,87 @@ export function CaseHero({ project }: CaseHeroProps) {
                     opacity: 0,
                     duration: 0.6,
                 })
-                .from(
-                    "[data-case-tag]",
-                    {
-                        y: 10,
-                        opacity: 0,
-                        duration: 0.5,
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-case-mask-title]",
-                    {
-                        yPercent: 105,
-                        duration: 0.9,
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-case-subtitle]",
-                    {
-                        y: 14,
-                        opacity: 0,
-                        duration: 0.7,
-                    },
-                    "-=0.55"
-                )
-                .fromTo(
-                    "[data-case-hairline]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.9,
-                        ease: "power3.inOut",
-                    },
-                    "-=0.5"
-                )
-                .from(
-                    "[data-case-meta-item]",
-                    {
-                        y: 14,
-                        opacity: 0,
-                        stagger: 0.06,
-                        duration: 0.65,
-                    },
-                    "-=0.6"
-                )
-                .fromTo(
-                    "[data-case-hairline-2]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.9,
-                        ease: "power3.inOut",
-                    },
-                    "-=0.5"
-                )
-                .from(
-                    "[data-case-footer]",
-                    {
-                        y: 10,
-                        opacity: 0,
-                        duration: 0.6,
-                    },
-                    "-=0.6"
-                )
-                .fromTo(
-                    "[data-case-bottom-hairline]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.9,
-                        ease: "power3.inOut",
-                    },
-                    "-=0.6"
-                );
+                    .from(
+                        "[data-case-tag]",
+                        {
+                            y: 10,
+                            opacity: 0,
+                            duration: 0.5,
+                        },
+                        "-=0.4",
+                    )
+                    .from(
+                        "[data-case-mask-title]",
+                        {
+                            yPercent: 105,
+                            duration: 0.9,
+                        },
+                        "-=0.4",
+                    )
+                    .from(
+                        "[data-case-subtitle]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.7,
+                        },
+                        "-=0.55",
+                    )
+                    .fromTo(
+                        "[data-case-hairline]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.9,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.5",
+                    )
+                    .from(
+                        "[data-case-meta-item]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            stagger: 0.06,
+                            duration: 0.65,
+                        },
+                        "-=0.6",
+                    )
+                    .fromTo(
+                        "[data-case-hairline-2]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.9,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.5",
+                    )
+                    .from(
+                        "[data-case-footer]",
+                        {
+                            y: 10,
+                            opacity: 0,
+                            duration: 0.6,
+                        },
+                        "-=0.6",
+                    )
+                    .fromTo(
+                        "[data-case-bottom-hairline]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.9,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.6",
+                    );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
@@ -124,7 +124,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                         href="/work"
                         className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none group"
                     >
-                        <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
+                        <ArrowLeft
+                            size={14}
+                            className="transition-transform duration-200 group-hover:-translate-x-0.5"
+                        />
                         <span>Voltar para projetos</span>
                     </Link>
                 </div>
@@ -135,7 +138,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </span>
 
                     <div className="overflow-hidden pb-1">
-                        <h1 data-case-mask-title className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.15]">
+                        <h1
+                            data-case-mask-title
+                            className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.15]"
+                        >
                             {project.title}
                         </h1>
                     </div>
@@ -166,23 +172,8 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </div>
 
                     <div data-case-meta-item className="flex flex-col gap-1.5">
-                        <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono">Repositório</span>
-                        {project.githubUrl ? (
-                            <a
-                                href={project.githubUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-sm font-medium text-neutral-200 hover:text-white transition-colors duration-200 group"
-                            >
-                                <span>GitHub</span>
-                                <ArrowUpRight
-                                    size={14}
-                                    className="opacity-60 group-hover:opacity-100 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                                />
-                            </a>
-                        ) : (
-                            <span className="text-sm text-neutral-500">Privado</span>
-                        )}
+                        <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono">Papel</span>
+                        <span className="text-sm md:text-base text-neutral-200 font-medium">{project.role}</span>
                     </div>
                 </div>
 
@@ -219,7 +210,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                 </div>
             </div>
 
-            <div data-case-bottom-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div
+                data-case-bottom-hairline
+                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+            />
         </section>
     );
 }

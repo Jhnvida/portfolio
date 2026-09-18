@@ -3,7 +3,8 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,8 @@ export function useSmoothScroll(): Lenis | null {
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+    const pathname = usePathname();
+    const isPopStateRef = useRef(false);
 
     useEffect(() => {
         const lenis = new Lenis({
@@ -35,11 +38,43 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
 
+        const handlePopState = () => {
+            isPopStateRef.current = true;
+        };
+
+        window.addEventListener("popstate", handlePopState);
+
         return () => {
+            window.removeEventListener("popstate", handlePopState);
             lenis.destroy();
             gsap.ticker.remove(update);
         };
     }, []);
+
+    useEffect(() => {
+        if (!lenisInstance) return;
+
+        if (isPopStateRef.current) {
+            isPopStateRef.current = false;
+            requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+            });
+            return;
+        }
+
+        if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+                lenisInstance.scrollTo(target as HTMLElement, { immediate: true });
+            }
+        } else {
+            lenisInstance.scrollTo(0, { immediate: true });
+        }
+
+        requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+        });
+    }, [pathname, lenisInstance]);
 
     return <SmoothScrollContext.Provider value={lenisInstance}>{children}</SmoothScrollContext.Provider>;
 }

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
 import { ReactNode } from "react";
 import { cn } from "../../lib/utils";
 
@@ -30,9 +30,7 @@ export function Badge({ children, className, variant = "default", dot = false, d
                             <span className="relative inline-flex h-2 w-2 bg-emerald-500" />
                         </>
                     )}
-                    {dotColor === "neutral" && (
-                        <span className="relative inline-flex h-2 w-2 bg-neutral-400" />
-                    )}
+                    {dotColor === "neutral" && <span className="relative inline-flex h-2 w-2 bg-neutral-400" />}
                 </span>
             )}
             <span>{children}</span>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,7 +54,7 @@ export function Philosophy() {
                             yPercent: 105,
                             duration: 0.9,
                         },
-                        "-=0.45"
+                        "-=0.45",
                     )
                     .from(
                         "[data-philosophy-desc]",
@@ -63,7 +63,7 @@ export function Philosophy() {
                             opacity: 0,
                             duration: 0.7,
                         },
-                        "-=0.55"
+                        "-=0.55",
                     )
                     .fromTo(
                         "[data-philosophy-hairline]",
@@ -74,7 +74,7 @@ export function Philosophy() {
                             duration: 0.9,
                             ease: "power3.inOut",
                         },
-                        "-=0.5"
+                        "-=0.5",
                     )
                     .from(
                         "[data-philosophy-card]",
@@ -85,7 +85,7 @@ export function Philosophy() {
                             stagger: 0.08,
                             ease: "power4.out",
                         },
-                        "-=0.6"
+                        "-=0.6",
                     );
 
                 gsap.fromTo(
@@ -101,31 +101,31 @@ export function Philosophy() {
                             start: "top 95%",
                             once: true,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
-        <section
-            ref={containerRef}
-            id="philosophy"
-            className="w-full pt-16 md:pt-24 relative"
-        >
+        <section ref={containerRef} id="philosophy" className="w-full pt-16 md:pt-24 relative">
             <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
                 <div data-philosophy-header className="flex flex-col gap-2">
                     <span data-philosophy-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Filosofia & Abordagem
                     </span>
                     <div className="overflow-hidden pb-1">
-                        <h2 data-philosophy-mask-title className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
+                        <h2
+                            data-philosophy-mask-title
+                            className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100"
+                        >
                             Menos artifícios, mais consistência e usabilidade.
                         </h2>
                     </div>
                     <p data-philosophy-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
-                        Princípios claros que orientam cada decisão de interface, ritmo tipográfico e arquitetura de software.
+                        Princípios claros que orientam cada decisão de interface, ritmo tipográfico e arquitetura de
+                        software.
                     </p>
                 </div>
 
@@ -138,18 +138,17 @@ export function Philosophy() {
                             data-philosophy-card
                             className="flex flex-col gap-3 p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors duration-200"
                         >
-                            <h3 className="text-lg font-medium text-neutral-200 tracking-tight">
-                                {pillar.title}
-                            </h3>
-                            <p className="text-sm text-neutral-400 leading-relaxed">
-                                {pillar.description}
-                            </p>
+                            <h3 className="text-lg font-medium text-neutral-200 tracking-tight">{pillar.title}</h3>
+                            <p className="text-sm text-neutral-400 leading-relaxed">{pillar.description}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div data-philosophy-bottom-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div
+                data-philosophy-bottom-hairline
+                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+            />
         </section>
     );
 }

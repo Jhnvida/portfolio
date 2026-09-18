@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
+import { useRef } from "react";
 import { Project } from "../../types";
 import { Badge } from "./Badge";
 
@@ -38,11 +38,11 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                             end: "bottom top",
                             scrub: 1.2,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: cardRef }
+        { scope: cardRef },
     );
 
     return (
@@ -79,13 +79,20 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                         </div>
 
                         <div className="p-2 rounded-none border border-neutral-800 text-neutral-400 group-hover:text-white group-hover:border-neutral-600 transition-colors duration-200 shrink-0">
-                            <ArrowUpRight size={16} className="transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            <ArrowUpRight
+                                size={16}
+                                className="transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            />
                         </div>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
                         {project.stack.map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-[11px] py-0.5 px-2.5 text-neutral-400 rounded-none">
+                            <Badge
+                                key={tech}
+                                variant="outline"
+                                className="text-[11px] py-0.5 px-2.5 text-neutral-400 rounded-none"
+                            >
                                 {tech}
                             </Badge>
                         ))}

@@ -1,29 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight, Code2, Mail } from "lucide-react";
+import gsap from "gsap";
+import { ArrowUpRight, BriefcaseBusiness, Code2, Mail } from "lucide-react";
+import { useRef } from "react";
 import { Button } from "../ui/Button";
-
-function LinkedInIcon({ size = 18 }: { size?: number }) {
-    return (
-        <svg
-            width={size}
-            height={size}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-            <rect x="2" y="9" width="4" height="12" />
-            <circle cx="4" cy="4" r="2" />
-        </svg>
-    );
-}
 
 const CONTACT_CHANNELS = [
     {
@@ -47,7 +28,7 @@ const CONTACT_CHANNELS = [
         value: "linkedin.com/in/jaoandre/",
         description: "Rede profissional para acompanhar trajetória e histórico de trabalho.",
         href: "https://www.linkedin.com/in/jaoandre/",
-        icon: LinkedInIcon,
+        icon: BriefcaseBusiness,
         actionLabel: "Conectar perfil",
     },
 ];
@@ -69,84 +50,94 @@ export function ContactView() {
                     opacity: 0,
                     duration: 0.5,
                 })
-                .from(
-                    "[data-contact-mask-title]",
-                    {
-                        yPercent: 105,
-                        duration: 0.8,
-                    },
-                    "-=0.35"
-                )
-                .from(
-                    "[data-contact-desc]",
-                    {
-                        y: 14,
-                        opacity: 0,
-                        duration: 0.6,
-                    },
-                    "-=0.45"
-                )
-                .fromTo(
-                    "[data-contact-header-hairline]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.8,
-                        ease: "power3.inOut",
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-contact-card]",
-                    {
-                        y: 20,
-                        opacity: 0,
-                        duration: 0.7,
-                        stagger: 0.07,
-                        clearProps: "transform,opacity",
-                    },
-                    "-=0.5"
-                )
-                .fromTo(
-                    "[data-contact-footer-hairline]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.8,
-                        ease: "power3.inOut",
-                    },
-                    "-=0.4"
-                )
-                .from(
-                    "[data-contact-footer]",
-                    {
-                        y: 14,
-                        opacity: 0,
-                        duration: 0.6,
-                        clearProps: "transform,opacity",
-                    },
-                    "-=0.5"
-                );
+                    .from(
+                        "[data-contact-mask-title]",
+                        {
+                            yPercent: 105,
+                            duration: 0.8,
+                        },
+                        "-=0.35",
+                    )
+                    .from(
+                        "[data-contact-desc]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.6,
+                        },
+                        "-=0.45",
+                    )
+                    .fromTo(
+                        "[data-contact-header-hairline]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.8,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.4",
+                    )
+                    .from(
+                        "[data-contact-card]",
+                        {
+                            y: 20,
+                            opacity: 0,
+                            duration: 0.7,
+                            stagger: 0.07,
+                            clearProps: "transform,opacity",
+                        },
+                        "-=0.5",
+                    )
+                    .fromTo(
+                        "[data-contact-footer-hairline]",
+                        { scaleX: 0 },
+                        {
+                            scaleX: 1,
+                            transformOrigin: "left center",
+                            duration: 0.8,
+                            ease: "power3.inOut",
+                        },
+                        "-=0.4",
+                    )
+                    .from(
+                        "[data-contact-footer]",
+                        {
+                            y: 14,
+                            opacity: 0,
+                            duration: 0.6,
+                            clearProps: "transform,opacity",
+                        },
+                        "-=0.5",
+                    );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
             <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
-                <span data-contact-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
+                <span
+                    data-contact-tag
+                    className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block"
+                >
                     Contato
                 </span>
                 <div className="overflow-hidden pb-1 mb-6">
-                    <h1 data-contact-mask-title className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight">
+                    <h1
+                        data-contact-mask-title
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight"
+                    >
                         Vamos conversar.
                     </h1>
                 </div>
-                <p data-contact-desc className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal">
-                    Gostou de algum projeto, quer tirar uma dúvida sobre como algo foi construído ou conversar sobre uma oportunidade de trabalho? Meus canais estão abertos.
+                <p
+                    data-contact-desc
+                    className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal"
+                >
+                    Gostou de algum projeto, quer tirar uma dúvida sobre como algo foi construído ou conversar sobre uma
+                    oportunidade de trabalho? Meus canais estão abertos.
                 </p>
             </div>
 
@@ -182,9 +173,7 @@ export function ContactView() {
                                         <h2 className="text-lg font-medium text-neutral-200 group-hover:text-white transition-colors duration-200">
                                             {channel.title}
                                         </h2>
-                                        <p className="text-xs font-mono text-neutral-400 break-all">
-                                            {channel.value}
-                                        </p>
+                                        <p className="text-xs font-mono text-neutral-400 break-all">{channel.value}</p>
                                     </div>
 
                                     <p className="text-xs md:text-sm text-neutral-400 leading-relaxed pt-1">

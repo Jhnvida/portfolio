@@ -6,11 +6,7 @@ import { CaseMediaBlock } from "../../../components/case/CaseMediaBlock";
 import { CaseNavigation } from "../../../components/case/CaseNavigation";
 import { PROJECTS } from "../../../data/projects";
 
-export async function generateMetadata({
-    params,
-}: {
-    params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const project = PROJECTS.find((p) => p.slug === slug);
 
@@ -26,11 +22,7 @@ export async function generateMetadata({
     };
 }
 
-export default async function WorkDetailsPage({
-    params,
-}: {
-    params: Promise<{ slug: string }>;
-}) {
+export default async function WorkDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const currentIndex = PROJECTS.findIndex((p) => p.slug === slug);
 

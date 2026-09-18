@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { ProjectCard } from "../ui/ProjectCard";
+import { useRef } from "react";
 import { Project } from "../../types";
+import { ProjectCard } from "../ui/ProjectCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,7 +37,7 @@ export function WorkView({ projects }: WorkViewProps) {
                             yPercent: 105,
                             duration: 0.9,
                         },
-                        "-=0.45"
+                        "-=0.45",
                     )
                     .from(
                         "[data-work-desc]",
@@ -46,7 +46,7 @@ export function WorkView({ projects }: WorkViewProps) {
                             opacity: 0,
                             duration: 0.7,
                         },
-                        "-=0.55"
+                        "-=0.55",
                     )
                     .fromTo(
                         "[data-work-header-hairline]",
@@ -57,7 +57,7 @@ export function WorkView({ projects }: WorkViewProps) {
                             duration: 0.9,
                             ease: "power3.inOut",
                         },
-                        "-=0.5"
+                        "-=0.5",
                     );
 
                 const cards = containerRef.current?.querySelectorAll("[data-work-card]");
@@ -78,22 +78,28 @@ export function WorkView({ projects }: WorkViewProps) {
                 }
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
             <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
                 <span data-work-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
-                    Arquivo de Projetos
+                    Meus Projetos
                 </span>
+
                 <div className="overflow-hidden pb-1 mb-4">
-                    <h1 data-work-mask-title className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight">
+                    <h1
+                        data-work-mask-title
+                        className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight"
+                    >
                         Projetos e criações.
                     </h1>
                 </div>
+
                 <p data-work-desc className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl">
-                    Uma seleção de projetos autorais e estudos de caso desenvolvidos com rigor visual, microinterações cuidadas e foco na experiência real de quem usa.
+                    Uma seleção de projetos autorais e estudos de caso desenvolvidos com rigor visual, microinterações
+                    cuidadas e foco na experiência real de quem usa.
                 </p>
             </div>
 

@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 import { CaseBlock } from "../../types";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,15 +32,14 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                 tl.from("[data-editorial-title]", {
                     yPercent: 105,
                     duration: 0.8,
-                })
-                .from(
+                }).from(
                     "[data-editorial-content]",
                     {
                         y: 18,
                         opacity: 0,
                         duration: 0.8,
                     },
-                    "-=0.5"
+                    "-=0.5",
                 );
 
                 gsap.fromTo(
@@ -56,11 +55,11 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                             start: "top 95%",
                             once: true,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
@@ -70,7 +69,10 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                     <div className="md:col-span-4">
                         {block.title && (
                             <div className="overflow-hidden pb-1 sticky top-20">
-                                <h2 data-editorial-title className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                                <h2
+                                    data-editorial-title
+                                    className="text-xs font-mono uppercase tracking-widest text-neutral-500"
+                                >
                                     {block.title}
                                 </h2>
                             </div>
@@ -101,7 +103,10 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                 </div>
             </div>
 
-            <div data-editorial-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div
+                data-editorial-hairline
+                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+            />
         </section>
     );
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
+import { useRef } from "react";
 import { Project } from "../../types";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -48,18 +48,15 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                             start: "top 95%",
                             once: true,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
-        <div
-            ref={containerRef}
-            className="w-full relative"
-        >
+        <div ref={containerRef} className="w-full relative">
             <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <Link
                     href="/work"
@@ -70,10 +67,7 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                 </Link>
 
                 {nextProject && nextProject.slug !== currentSlug && (
-                    <Link
-                        href={`/work/${nextProject.slug}`}
-                        className="group flex flex-col items-start sm:items-end"
-                    >
+                    <Link href={`/work/${nextProject.slug}`} className="group flex flex-col items-start sm:items-end">
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-1">
                             Próximo projeto
                         </span>

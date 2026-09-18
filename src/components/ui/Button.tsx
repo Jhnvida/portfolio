@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
 import React, { ReactNode } from "react";
 import { cn } from "../../lib/utils";
 

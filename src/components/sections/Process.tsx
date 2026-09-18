@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 import { PROCESS_STEPS } from "../../data/process";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -37,7 +37,7 @@ export function Process() {
                             yPercent: 105,
                             duration: 0.9,
                         },
-                        "-=0.45"
+                        "-=0.45",
                     )
                     .from(
                         "[data-process-desc]",
@@ -46,7 +46,7 @@ export function Process() {
                             opacity: 0,
                             duration: 0.7,
                         },
-                        "-=0.55"
+                        "-=0.55",
                     );
 
                 const items = containerRef.current?.querySelectorAll("[data-process-item]");
@@ -72,7 +72,7 @@ export function Process() {
                                     transformOrigin: "left center",
                                     duration: 0.9,
                                     ease: "power3.inOut",
-                                }
+                                },
                             );
                         }
 
@@ -85,7 +85,7 @@ export function Process() {
                                     duration: 0.7,
                                     ease: "power4.out",
                                 },
-                                "-=0.6"
+                                "-=0.6",
                             );
                         }
                     });
@@ -104,31 +104,31 @@ export function Process() {
                             start: "top 95%",
                             once: true,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     return (
-        <section
-            ref={containerRef}
-            id="process"
-            className="w-full pt-16 md:pt-24 relative"
-        >
+        <section ref={containerRef} id="process" className="w-full pt-16 md:pt-24 relative">
             <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
                 <div data-process-header className="flex flex-col gap-2">
                     <span data-process-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Processo Criativo
                     </span>
                     <div className="overflow-hidden pb-1">
-                        <h2 data-process-mask-title className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
+                        <h2
+                            data-process-mask-title
+                            className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100"
+                        >
                             Como eu crio
                         </h2>
                     </div>
                     <p data-process-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
-                        Um fluxo transparente e iterativo que conecta imaginação inicial, prototipagem rápida e refino visual contínuo.
+                        Um fluxo transparente e iterativo que conecta imaginação inicial, prototipagem rápida e refino
+                        visual contínuo.
                     </p>
                 </div>
 
@@ -158,7 +158,10 @@ export function Process() {
                 </div>
             </div>
 
-            <div data-process-bottom-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div
+                data-process-bottom-hairline
+                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+            />
         </section>
     );
 }

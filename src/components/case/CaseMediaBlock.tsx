@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import { useRef } from "react";
 import { CaseBlock } from "../../types";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -47,7 +47,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             end: "bottom top",
                             scrub: 1.2,
                         },
-                    }
+                    },
                 );
 
                 gsap.fromTo(
@@ -63,11 +63,11 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             start: "top 95%",
                             once: true,
                         },
-                    }
+                    },
                 );
             });
         },
-        { scope: containerRef }
+        { scope: containerRef },
     );
 
     if (layout === "full") {
@@ -86,13 +86,12 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             />
                         </div>
                     </div>
-                    {item.alt && (
-                        <span className="text-xs font-mono text-neutral-500 px-1">
-                            {item.alt}
-                        </span>
-                    )}
+                    {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
                 </div>
-                <div data-media-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div
+                    data-media-hairline
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                />
             </section>
         );
     }
@@ -105,7 +104,10 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         {items.map((item, idx) => (
                             <div key={idx} className="flex flex-col gap-2">
                                 <div className="relative w-full aspect-4/3 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
-                                    <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
+                                    <div
+                                        data-parallax-image
+                                        className="absolute inset-0 w-full h-full will-change-transform"
+                                    >
                                         <Image
                                             src={item.src}
                                             alt={item.alt || `Case detail ${idx + 1}`}
@@ -116,15 +118,16 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                     </div>
                                 </div>
                                 {item.alt && (
-                                    <span className="text-xs font-mono text-neutral-500 px-1">
-                                        {item.alt}
-                                    </span>
+                                    <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>
                                 )}
                             </div>
                         ))}
                     </div>
                 </div>
-                <div data-media-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div
+                    data-media-hairline
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                />
             </section>
         );
     }
@@ -144,13 +147,12 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         />
                     </div>
                 </div>
-                {item.alt && (
-                    <span className="text-xs font-mono text-neutral-500 px-1">
-                        {item.alt}
-                    </span>
-                )}
+                {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
             </div>
-            <div data-media-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div
+                data-media-hairline
+                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+            />
         </section>
     );
 }

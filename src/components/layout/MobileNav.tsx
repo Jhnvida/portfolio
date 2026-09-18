@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "../providers/ViewTransitionsProvider";
 import { usePathname } from "next/navigation";
 import { HEADER_LINKS } from "../../data/navigation";
 import { cn } from "../../lib/utils";

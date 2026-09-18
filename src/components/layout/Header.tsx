@@ -1,8 +1,8 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Link } from "../providers/ViewTransitionsProvider";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
 
