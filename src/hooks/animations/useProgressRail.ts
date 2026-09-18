@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import { registerWorkPinHandlers, resetWorkPinBridge } from "../../lib/workPinBridge";
+import { registerWorkPinHandlers } from "../../lib/workPinBridge";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,7 +50,7 @@ export function useProgressRail(sectionIds: string[]) {
                 if (el) gsap.set(el, { height: 16, backgroundColor: "rgba(255, 255, 255, 0.15)" });
             });
 
-            registerWorkPinHandlers({
+            const unregisterWorkPin = registerWorkPinHandlers({
                 onEnter: () => activate("work"),
                 onLeave: () => deactivate("work"),
                 onEnterBack: () => activate("work"),
@@ -82,13 +82,13 @@ export function useProgressRail(sectionIds: string[]) {
                             createdTriggers.push(
                                 ScrollTrigger.create({
                                     trigger: el,
-                                    start: "top center",
-                                    end: "bottom center",
+                                    start: id === "contact" ? "top 75%" : "top center",
+                                    end: id === "contact" ? "bottom bottom" : "bottom center",
                                     onEnter: () => activate(id),
                                     onLeave: () => deactivate(id),
                                     onEnterBack: () => activate(id),
                                     onLeaveBack: () => deactivate(id),
-                                }),
+                                })
                             );
                         });
                 },
@@ -96,7 +96,7 @@ export function useProgressRail(sectionIds: string[]) {
 
             return () => {
                 createdTriggers.forEach((st) => st.kill());
-                resetWorkPinBridge();
+                unregisterWorkPin();
             };
         },
         { scope: containerRef, dependencies: [sectionIds] },

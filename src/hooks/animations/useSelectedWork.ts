@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import { getWorkPinHandlers } from "../../lib/workPinBridge";
+import { getWorkPinHandlers, setWorkPinState } from "../../lib/workPinBridge";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -60,7 +60,7 @@ export function useSelectedWork() {
                     },
                 });
 
-                handlers?.onPinSetupDone(true);
+                const cleanupPinState = setWorkPinState(true);
 
                 cards.forEach((card) => {
                     const parallaxBg = card.querySelector(".parallax-bg");
@@ -82,6 +82,10 @@ export function useSelectedWork() {
                         );
                     }
                 });
+
+                return () => {
+                    cleanupPinState();
+                };
             });
 
             mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
@@ -101,16 +105,19 @@ export function useSelectedWork() {
                     });
                 });
 
-                getWorkPinHandlers()?.onPinSetupDone(false);
+                const cleanupPinState = setWorkPinState(false);
+                return () => cleanupPinState();
             });
 
             mm.add("(prefers-reduced-motion: reduce)", () => {
                 const elements = sectionRef.current?.querySelectorAll("[data-header-anim]");
                 if (elements?.length) gsap.set(elements, { opacity: 1, y: 0 });
+
                 const cards = gsap.utils.toArray<HTMLElement>(".project-card");
                 if (cards.length) gsap.set(cards, { opacity: 1, y: 0 });
 
-                getWorkPinHandlers()?.onPinSetupDone(false);
+                const cleanupPinState = setWorkPinState(false);
+                return () => cleanupPinState();
             });
         },
         { scope: sectionRef },
