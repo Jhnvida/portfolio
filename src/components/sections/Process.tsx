@@ -118,6 +118,7 @@ export function Process() {
                     <span data-process-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Processo Criativo
                     </span>
+
                     <div className="overflow-hidden pb-1">
                         <h2
                             data-process-mask-title
@@ -126,6 +127,7 @@ export function Process() {
                             Como eu crio
                         </h2>
                     </div>
+
                     <p data-process-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Um fluxo transparente e iterativo que conecta imaginação inicial, prototipagem rápida e refino
                         visual contínuo.
@@ -135,7 +137,8 @@ export function Process() {
                 <div className="flex flex-col">
                     {PROCESS_STEPS.map((step) => (
                         <div key={step.id} data-process-item className="flex flex-col">
-                            <div data-process-line className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                            <div data-process-line className="w-full h-px bg-neutral-800/60 origin-left" />
+
                             <div
                                 data-process-content
                                 className="py-6 md:py-7 flex flex-col md:flex-row md:items-baseline justify-between gap-3 md:gap-8 group transition-colors duration-200 hover:bg-neutral-900/10 px-2 -mx-2 rounded-none"
@@ -154,13 +157,14 @@ export function Process() {
                             </div>
                         </div>
                     ))}
-                    <div data-process-line className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+
+                    <div data-process-line className="w-full h-px bg-neutral-800/60 origin-left" />
                 </div>
             </div>
 
             <div
                 data-process-bottom-hairline
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
             />
         </section>
     );

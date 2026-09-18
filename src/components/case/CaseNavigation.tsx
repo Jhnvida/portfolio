@@ -4,9 +4,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Link } from "../providers/ViewTransitionsProvider";
 import { useRef } from "react";
 import { Project } from "../../types";
+import { Link } from "../providers/ViewTransitionsProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,6 +71,7 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-1">
                             Próximo projeto
                         </span>
+
                         <span className="text-lg md:text-xl font-medium text-neutral-200 group-hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5">
                             {nextProject.title}
                             <ArrowRight
@@ -82,7 +83,7 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                 )}
             </div>
 
-            <div data-nav-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-nav-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />
         </div>
     );
 }

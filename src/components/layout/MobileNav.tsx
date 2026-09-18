@@ -1,10 +1,10 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { Link } from "../providers/ViewTransitionsProvider";
 import { usePathname } from "next/navigation";
 import { HEADER_LINKS } from "../../data/navigation";
 import { cn } from "../../lib/utils";
+import { Link } from "../providers/ViewTransitionsProvider";
 
 interface MobileNavProps {
     isOpen: boolean;
@@ -19,7 +19,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     return (
         <div
             id="mobile-menu"
-            className="fixed inset-0 top-[57px] z-50 bg-[#050505]/95 backdrop-blur-xl flex flex-col p-6 md:hidden border-b border-neutral-800 animate-in fade-in duration-200"
+            className="fixed inset-0 top-14.25 z-50 bg-[#050505]/95 backdrop-blur-xl flex flex-col p-6 md:hidden border-b border-neutral-800 animate-in fade-in duration-200"
         >
             <nav className="flex flex-col gap-4 text-xl font-medium pt-4">
                 {HEADER_LINKS.map((link) => {

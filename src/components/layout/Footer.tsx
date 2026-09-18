@@ -24,8 +24,8 @@ export function Footer() {
                             </h3>
 
                             <p className="text-sm text-neutral-400 leading-relaxed">
-                                Aberto a conversar sobre projetos de design, engenharia front-end e explorações criativas
-                                para a web.
+                                Aberto a conversar sobre projetos de design, engenharia front-end e explorações
+                                criativas para a web.
                             </p>
                         </div>
 
@@ -89,7 +89,9 @@ export function Footer() {
                         </span>
 
                         <p className="text-neutral-400 leading-relaxed">
-                            Jaguariúna, São Paulo · Disponível para trabalho remoto global.
+                            Jaguariúna, São Paulo
+                            <br />
+                            Disponível para trabalho remoto global.
                         </p>
                     </div>
                 </div>

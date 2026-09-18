@@ -115,6 +115,7 @@ export function Philosophy() {
                     <span data-philosophy-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Filosofia & Abordagem
                     </span>
+
                     <div className="overflow-hidden pb-1">
                         <h2
                             data-philosophy-mask-title
@@ -123,13 +124,14 @@ export function Philosophy() {
                             Menos artifícios, mais consistência e usabilidade.
                         </h2>
                     </div>
+
                     <p data-philosophy-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Princípios claros que orientam cada decisão de interface, ritmo tipográfico e arquitetura de
                         software.
                     </p>
                 </div>
 
-                <div data-philosophy-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-philosophy-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                     {pillars.map((pillar) => (
@@ -147,7 +149,7 @@ export function Philosophy() {
 
             <div
                 data-philosophy-bottom-hairline
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
             />
         </section>
     );

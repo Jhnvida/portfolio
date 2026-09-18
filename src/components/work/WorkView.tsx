@@ -103,7 +103,7 @@ export function WorkView({ projects }: WorkViewProps) {
                 </p>
             </div>
 
-            <div data-work-header-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-work-header-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
             <div className="w-full px-6 md:px-8 py-12 md:py-16">
                 <div className="grid grid-cols-1 gap-8">

@@ -124,6 +124,7 @@ export function ContactView() {
                 >
                     Contato
                 </span>
+
                 <div className="overflow-hidden pb-1 mb-6">
                     <h1
                         data-contact-mask-title
@@ -132,6 +133,7 @@ export function ContactView() {
                         Vamos conversar.
                     </h1>
                 </div>
+
                 <p
                     data-contact-desc
                     className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal"
@@ -141,7 +143,7 @@ export function ContactView() {
                 </p>
             </div>
 
-            <div data-contact-header-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-contact-header-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
             <div className="w-full px-6 md:px-8 py-12 md:py-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
@@ -163,6 +165,7 @@ export function ContactView() {
                                         <div className="p-2.5 rounded-none bg-neutral-950 border border-neutral-800 text-neutral-300 group-hover:text-white transition-colors duration-200">
                                             <Icon size={18} />
                                         </div>
+
                                         <ArrowUpRight
                                             size={16}
                                             className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
@@ -192,7 +195,7 @@ export function ContactView() {
                 </div>
             </div>
 
-            <div data-contact-footer-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-contact-footer-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
             <div
                 data-contact-footer

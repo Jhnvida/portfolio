@@ -1,6 +1,6 @@
-import { Link } from "../providers/ViewTransitionsProvider";
 import { ReactNode } from "react";
 import { cn } from "../../lib/utils";
+import { Link } from "../providers/ViewTransitionsProvider";
 
 interface BadgeProps {
     children: ReactNode;

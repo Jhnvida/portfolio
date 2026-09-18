@@ -66,17 +66,20 @@ export function Hero() {
                                 Construo interfaces digitais
                             </span>
                         </span>
+
                         <span className="block overflow-hidden pb-1">
                             <span data-hero-mask-line className="block">
                                 com rigor visual, código limpo
                             </span>
                         </span>
+
                         <span className="block overflow-hidden pb-1">
                             <span data-hero-mask-line className="block">
                                 e atenção obsessiva aos detalhes.
                             </span>
                         </span>
                     </h1>
+
                     <div className="overflow-hidden">
                         <p
                             data-hero-subtitle
@@ -99,7 +102,7 @@ export function Hero() {
                 </div>
             </div>
 
-            <div data-hero-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-hero-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />
         </section>
     );
 }

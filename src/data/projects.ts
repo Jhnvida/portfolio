@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
         client: "Projeto Autoral",
         role: "Design & Desenvolvimento Front-End",
         impact: "Exploração de Interfaces & Motion",
-        image: "/images/portfolio.svg",
+        image: "/images/portfolio.png",
         slug: "portfolio",
         stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Lenis"],
         year: "2026",
@@ -18,7 +18,7 @@ export const PROJECTS: Project[] = [
             {
                 type: "media",
                 layout: "full",
-                items: [{ src: "/images/portfolio.svg", type: "image", alt: "Visão geral do Portfólio" }],
+                items: [{ src: "/images/portfolio.png", type: "image", alt: "Visão geral do Portfólio" }],
             },
             {
                 type: "editorial",
@@ -52,8 +52,8 @@ export const PROJECTS: Project[] = [
                 type: "media",
                 layout: "grid-2",
                 items: [
-                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 1" },
-                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 2" },
+                    { src: "/images/portfolio.png", type: "image", alt: "Detalhe 1" },
+                    { src: "/images/portfolio.png", type: "image", alt: "Detalhe 2" },
                 ],
             },
         ],
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
         client: "Projeto Pessoal",
         role: "Storytelling & Desenvolvimento Web",
         impact: "Linha do Tempo Interativa",
-        image: "/images/our-journey.svg",
+        image: "/images/our-journey.png",
         slug: "our-journey",
         stack: ["React", "TypeScript", "Vite", "React Router", "Supabase", "Motion"],
         year: "2026",
@@ -75,7 +75,7 @@ export const PROJECTS: Project[] = [
             {
                 type: "media",
                 layout: "full",
-                items: [{ src: "/images/our-journey.svg", type: "image", alt: "Preview da linha do tempo" }],
+                items: [{ src: "/images/our-journey.png", type: "image", alt: "Preview da linha do tempo" }],
             },
             {
                 type: "editorial",
@@ -102,8 +102,8 @@ export const PROJECTS: Project[] = [
                 type: "media",
                 layout: "grid-2",
                 items: [
-                    { src: "/images/our-journey.svg", type: "image", alt: "Detalhe 1" },
-                    { src: "/images/our-journey.svg", type: "image", alt: "Detalhe 2" },
+                    { src: "/images/our-journey.png", type: "image", alt: "Detalhe 1" },
+                    { src: "/images/our-journey.png", type: "image", alt: "Detalhe 2" },
                 ],
             },
         ],

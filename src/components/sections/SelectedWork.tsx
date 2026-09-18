@@ -95,6 +95,7 @@ export function SelectedWork() {
                     <span data-work-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Projetos Selecionados
                     </span>
+
                     <div className="overflow-hidden pb-1">
                         <h2
                             data-work-mask-title
@@ -103,6 +104,7 @@ export function SelectedWork() {
                             Trabalhos em destaque
                         </h2>
                     </div>
+
                     <p data-work-desc className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Criações autorais e estudos de caso desenvolvidos com esmero no design, microinterações e
                         engenharia web moderna.
@@ -124,7 +126,7 @@ export function SelectedWork() {
                 </div>
             </div>
 
-            <div data-work-hairline className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left" />
+            <div data-work-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />
         </section>
     );
 }

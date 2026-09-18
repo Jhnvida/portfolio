@@ -134,7 +134,8 @@ export function AboutView() {
             </div>
 
             <div data-about-section className="w-full relative">
-                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
+
                 <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
@@ -161,7 +162,8 @@ export function AboutView() {
             </div>
 
             <div data-about-section className="w-full relative">
-                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
+
                 <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
@@ -187,7 +189,8 @@ export function AboutView() {
             </div>
 
             <div data-about-section className="w-full relative">
-                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
+
                 <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
@@ -221,23 +224,28 @@ export function AboutView() {
             </div>
 
             <div data-about-section className="w-full relative">
-                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
+
                 <div data-about-content className="w-full px-6 md:px-8 py-16 md:py-20 flex flex-col items-start gap-6">
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Próximo Passo</span>
+
                     <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
                         Conheça os projetos na prática.
                     </h2>
+
                     <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
                         Veja como esses princípios de usabilidade, precisão tipográfica e engenharia front-end ganham
                         vida no arquivo de criações.
                     </p>
+
                     <div className="pt-2">
                         <Button href="/work" variant="primary" showArrow size="md">
                             Ver arquivo de projetos
                         </Button>
                     </div>
                 </div>
-                <div data-about-hairline className="w-full h-[1px] bg-neutral-800/60 origin-left" />
+
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
             </div>
         </main>
     );

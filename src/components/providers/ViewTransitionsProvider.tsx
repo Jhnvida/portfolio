@@ -20,9 +20,7 @@ const ViewTransitionsContext = createContext<((cb: () => void) => void) | null>(
 function useBrowserNativeTransitions() {
     const pathname = usePathname();
     const currentPathname = useRef(pathname);
-    const [currentViewTransition, setCurrentViewTransition] = useState<
-        [Promise<void>, () => void] | null
-    >(null);
+    const [currentViewTransition, setCurrentViewTransition] = useState<[Promise<void>, () => void] | null>(null);
 
     useEffect(() => {
         if (!("startViewTransition" in document)) {
@@ -36,16 +34,15 @@ function useBrowserNativeTransitions() {
             });
 
             const pendingStartViewTransition = new Promise<void>((resolve) => {
-                (document as unknown as { startViewTransition: (cb: () => Promise<void>) => void }).startViewTransition(() => {
-                    resolve();
-                    return pendingViewTransition;
-                });
+                (document as unknown as { startViewTransition: (cb: () => Promise<void>) => void }).startViewTransition(
+                    () => {
+                        resolve();
+                        return pendingViewTransition;
+                    },
+                );
             });
 
-            setCurrentViewTransition([
-                pendingStartViewTransition,
-                pendingViewTransitionResolve!,
-            ]);
+            setCurrentViewTransition([pendingStartViewTransition, pendingViewTransitionResolve!]);
         };
 
         window.addEventListener("popstate", onPopState);
@@ -81,9 +78,7 @@ export function ViewTransitions({ children }: { children: ReactNode }) {
     useBrowserNativeTransitions();
 
     return (
-        <ViewTransitionsContext.Provider value={setFinishViewTransition}>
-            {children}
-        </ViewTransitionsContext.Provider>
+        <ViewTransitionsContext.Provider value={setFinishViewTransition}>{children}</ViewTransitionsContext.Provider>
     );
 }
 
@@ -93,10 +88,7 @@ export function useTransitionRouter() {
 
     const triggerTransition = useCallback(
         (cb: () => void) => {
-            if (
-                "startViewTransition" in document &&
-                !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ) {
+            if ("startViewTransition" in document && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                 (document as unknown as { startViewTransition: (cb: () => Promise<void>) => void }).startViewTransition(
                     () =>
                         new Promise<void>((resolve) => {
@@ -108,27 +100,27 @@ export function useTransitionRouter() {
                                     resolve();
                                 }
                             });
-                        })
+                        }),
                 );
             } else {
                 cb();
             }
         },
-        [finishContext]
+        [finishContext],
     );
 
     const push = useCallback(
         (href: string, options?: { scroll?: boolean }) => {
             triggerTransition(() => router.push(href, options));
         },
-        [router, triggerTransition]
+        [router, triggerTransition],
     );
 
     const replace = useCallback(
         (href: string, options?: { scroll?: boolean }) => {
             triggerTransition(() => router.replace(href, options));
         },
-        [router, triggerTransition]
+        [router, triggerTransition],
     );
 
     return useMemo(
@@ -137,7 +129,7 @@ export function useTransitionRouter() {
             push,
             replace,
         }),
-        [router, push, replace]
+        [router, push, replace],
     );
 }
 
@@ -177,14 +169,16 @@ export function Link(props: LinkProps) {
             }
 
             const hrefStr = href.toString();
-            if (hrefStr.startsWith("http") || hrefStr.startsWith("mailto:") || hrefStr.startsWith("tel:") || hrefStr.startsWith("#")) {
+            if (
+                hrefStr.startsWith("http") ||
+                hrefStr.startsWith("mailto:") ||
+                hrefStr.startsWith("tel:") ||
+                hrefStr.startsWith("#")
+            ) {
                 return;
             }
 
-            if (
-                "startViewTransition" in document &&
-                !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ) {
+            if ("startViewTransition" in document && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                 e.preventDefault();
                 const navigate = replace ? router.replace : router.push;
                 navigate(as ? as.toString() : hrefStr, {
@@ -192,7 +186,7 @@ export function Link(props: LinkProps) {
                 });
             }
         },
-        [onClick, href, as, replace, scroll, router]
+        [onClick, href, as, replace, scroll, router],
     );
 
     return <NextLink {...props} onClick={handleClick} />;

@@ -81,16 +81,19 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                 src={item.src}
                                 alt={item.alt || "Case media"}
                                 fill
+                                loading="eager"
                                 sizes="(max-width: 768px) 100vw, 896px"
                                 className="object-cover"
                             />
                         </div>
                     </div>
+
                     {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
                 </div>
+
                 <div
                     data-media-hairline
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                    className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
                 />
             </section>
         );
@@ -117,6 +120,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                         />
                                     </div>
                                 </div>
+
                                 {item.alt && (
                                     <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>
                                 )}
@@ -124,9 +128,10 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         ))}
                     </div>
                 </div>
+
                 <div
                     data-media-hairline
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                    className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
                 />
             </section>
         );
@@ -147,12 +152,11 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         />
                     </div>
                 </div>
+
                 {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
             </div>
-            <div
-                data-media-hairline
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
-            />
+
+            <div data-media-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />
         </section>
     );
 }

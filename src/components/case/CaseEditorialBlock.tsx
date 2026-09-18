@@ -105,7 +105,7 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
 
             <div
                 data-editorial-hairline
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
             />
         </section>
     );

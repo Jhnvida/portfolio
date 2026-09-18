@@ -2,10 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import { Link } from "../providers/ViewTransitionsProvider";
+import { ArrowLeft } from "lucide-react";
 import { useRef } from "react";
 import { Project } from "../../types";
+import { Link } from "../providers/ViewTransitionsProvider";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 
@@ -151,7 +151,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </p>
                 </div>
 
-                <div data-case-hairline className="w-full h-[1px] bg-neutral-800/70 origin-left" />
+                <div data-case-hairline className="w-full h-px bg-neutral-800/70 origin-left" />
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 w-full gap-6">
                     <div data-case-meta-item className="flex flex-col gap-1.5">
@@ -177,7 +177,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </div>
                 </div>
 
-                <div data-case-hairline-2 className="w-full h-[1px] bg-neutral-800/70 origin-left" />
+                <div data-case-hairline-2 className="w-full h-px bg-neutral-800/70 origin-left" />
 
                 <div
                     data-case-footer
@@ -212,7 +212,7 @@ export function CaseHero({ project }: CaseHeroProps) {
 
             <div
                 data-case-bottom-hairline
-                className="absolute bottom-0 left-0 w-full h-[1px] bg-neutral-800/60 origin-left"
+                className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
             />
         </section>
     );

@@ -1,9 +1,9 @@
 "use client";
 
-import { Link } from "../providers/ViewTransitionsProvider";
 import { usePathname } from "next/navigation";
 import { HEADER_LINKS } from "../../data/navigation";
 import { cn } from "../../lib/utils";
+import { Link } from "../providers/ViewTransitionsProvider";
 
 export function DesktopNav() {
     const pathname = usePathname();
