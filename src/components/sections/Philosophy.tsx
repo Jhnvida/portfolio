@@ -1,4 +1,15 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export function Philosophy() {
+    const containerRef = useRef<HTMLElement>(null);
+
     const pillars = [
         {
             title: "Interfaces & Usabilidade",
@@ -17,10 +28,48 @@ export function Philosophy() {
         },
     ];
 
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        once: true,
+                    },
+                });
+
+                tl.from("[data-philosophy-header]", {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.7,
+                    ease: "power2.out",
+                }).from(
+                    "[data-philosophy-card]",
+                    {
+                        y: 24,
+                        opacity: 0,
+                        duration: 0.7,
+                        stagger: 0.15,
+                        ease: "power2.out",
+                    },
+                    "-=0.4"
+                );
+            });
+        },
+        { scope: containerRef }
+    );
+
     return (
-        <section id="philosophy" className="w-full py-16 md:py-24 border-b border-neutral-800/60">
+        <section
+            ref={containerRef}
+            id="philosophy"
+            className="w-full py-16 md:py-24 border-b border-neutral-800/60"
+        >
             <div className="w-full px-6 md:px-8 flex flex-col gap-10">
-                <div className="flex flex-col gap-2">
+                <div data-philosophy-header className="flex flex-col gap-2">
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Filosofia & Abordagem
                     </span>
@@ -36,6 +85,7 @@ export function Philosophy() {
                     {pillars.map((pillar) => (
                         <div
                             key={pillar.title}
+                            data-philosophy-card
                             className="flex flex-col gap-3 p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors"
                         >
                             <h3 className="text-lg font-medium text-neutral-200 tracking-tight">

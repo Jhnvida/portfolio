@@ -1,12 +1,43 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { CaseBlock } from "../../types";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface CaseEditorialBlockProps {
     block: Extract<CaseBlock, { type: "editorial" }>;
 }
 
 export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
+    const containerRef = useRef<HTMLElement>(null);
+
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.from(containerRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.7,
+                    ease: "power2.out",
+                });
+            });
+        },
+        { scope: containerRef }
+    );
+
     return (
-        <section className="w-full py-12 md:py-16 border-b border-neutral-800/60">
+        <section ref={containerRef} className="w-full py-12 md:py-16 border-b border-neutral-800/60">
             <div className="w-full px-6 md:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                     <div className="md:col-span-4">

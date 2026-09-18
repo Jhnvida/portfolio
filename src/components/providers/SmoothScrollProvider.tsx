@@ -1,7 +1,11 @@
 "use client";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SmoothScrollContext = createContext<Lenis | null>(null);
 
@@ -22,18 +26,18 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
         queueMicrotask(() => setLenisInstance(lenis));
 
-        let animationFrameId: number;
+        lenis.on("scroll", ScrollTrigger.update);
 
-        function raf(time: number) {
-            lenis.raf(time);
-            animationFrameId = requestAnimationFrame(raf);
-        }
+        const update = (time: number) => {
+            lenis.raf(time * 1000);
+        };
 
-        animationFrameId = requestAnimationFrame(raf);
+        gsap.ticker.add(update);
+        gsap.ticker.lagSmoothing(0);
 
         return () => {
-            cancelAnimationFrame(animationFrameId);
             lenis.destroy();
+            gsap.ticker.remove(update);
         };
     }, []);
 

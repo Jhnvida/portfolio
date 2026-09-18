@@ -1,5 +1,10 @@
+"use client";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
 import { Project } from "../../types";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
@@ -9,18 +14,67 @@ interface CaseHeroProps {
 }
 
 export function CaseHero({ project }: CaseHeroProps) {
-    return (
-        <section className="relative w-full flex flex-col justify-start pt-12 md:pt-16 pb-12 md:pb-16 border-b border-neutral-800/60">
-            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8">
-                <Link
-                    href="/work"
-                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none"
-                >
-                    <ArrowLeft size={14} />
-                    <span>Voltar para projetos</span>
-                </Link>
+    const containerRef = useRef<HTMLElement>(null);
 
-                <div className="flex flex-col gap-3 max-w-3xl">
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                const tl = gsap.timeline({
+                    defaults: { ease: "power2.out", duration: 0.7 },
+                });
+
+                tl.from("[data-case-back]", {
+                    y: 10,
+                    opacity: 0,
+                })
+                    .from(
+                        "[data-case-header]",
+                        {
+                            y: 20,
+                            opacity: 0,
+                        },
+                        "-=0.5",
+                    )
+                    .from(
+                        "[data-case-meta]",
+                        {
+                            y: 15,
+                            opacity: 0,
+                        },
+                        "-=0.5",
+                    )
+                    .from(
+                        "[data-case-footer]",
+                        {
+                            y: 10,
+                            opacity: 0,
+                        },
+                        "-=0.5",
+                    );
+            });
+        },
+        { scope: containerRef },
+    );
+
+    return (
+        <section
+            ref={containerRef}
+            className="relative w-full flex flex-col justify-start pt-12 md:pt-16 pb-12 md:pb-16 border-b border-neutral-800/60"
+        >
+            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8">
+                <div data-case-back>
+                    <Link
+                        href="/work"
+                        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none"
+                    >
+                        <ArrowLeft size={14} />
+                        <span>Voltar para projetos</span>
+                    </Link>
+                </div>
+
+                <div data-case-header className="flex flex-col gap-3 max-w-3xl">
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Estudo de caso autoral
                     </span>
@@ -34,7 +88,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 w-full gap-6 border-t border-neutral-800/70 pt-8">
+                <div
+                    data-case-meta
+                    className="grid grid-cols-2 sm:grid-cols-4 w-full gap-6 border-t border-neutral-800/70 pt-8"
+                >
                     <div className="flex flex-col gap-1.5">
                         <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono">Origem</span>
                         <span className="text-sm md:text-base text-neutral-200 font-medium">
@@ -73,7 +130,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </div>
                 </div>
 
-                <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-neutral-800/70 pt-6">
+                <div
+                    data-case-footer
+                    className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-neutral-800/70 pt-6"
+                >
                     <div className="flex flex-wrap items-center gap-1.5">
                         <span className="text-xs font-mono text-neutral-500 mr-2">Stack:</span>
 

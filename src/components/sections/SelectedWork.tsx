@@ -1,12 +1,64 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import { PROJECTS } from "../../data/projects";
 import { Button } from "../ui/Button";
 import { ProjectCard } from "../ui/ProjectCard";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function SelectedWork() {
+    const containerRef = useRef<HTMLElement>(null);
+
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.from("[data-work-header]", {
+                    scrollTrigger: {
+                        trigger: "[data-work-header]",
+                        start: "top 85%",
+                        once: true,
+                    },
+                    y: 24,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                });
+
+                const cards = containerRef.current?.querySelectorAll("[data-work-card]");
+                if (cards) {
+                    cards.forEach((card) => {
+                        gsap.from(card, {
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 85%",
+                                once: true,
+                            },
+                            y: 28,
+                            opacity: 0,
+                            duration: 0.8,
+                            ease: "power2.out",
+                        });
+                    });
+                }
+            });
+        },
+        { scope: containerRef }
+    );
+
     return (
-        <section id="work" className="w-full py-16 md:py-24 border-b border-neutral-800/60 scroll-mt-12">
+        <section
+            ref={containerRef}
+            id="work"
+            className="w-full py-16 md:py-24 border-b border-neutral-800/60 scroll-mt-12"
+        >
             <div className="w-full px-6 md:px-8 flex flex-col gap-10">
-                <div className="flex flex-col gap-2">
+                <div data-work-header className="flex flex-col gap-2">
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Projetos Selecionados
                     </span>
@@ -20,7 +72,9 @@ export function SelectedWork() {
 
                 <div className="grid grid-cols-1 gap-8">
                     {PROJECTS.map((project, index) => (
-                        <ProjectCard key={project.id} project={project} priority={index === 0} />
+                        <div key={project.id} data-work-card>
+                            <ProjectCard project={project} priority={index === 0} />
+                        </div>
                     ))}
                 </div>
 

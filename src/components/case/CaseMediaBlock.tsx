@@ -1,17 +1,47 @@
+"use client";
+
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { CaseBlock } from "../../types";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface CaseMediaBlockProps {
     block: Extract<CaseBlock, { type: "media" }>;
 }
 
 export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
+    const containerRef = useRef<HTMLElement>(null);
     const { layout, items } = block;
+
+    useGSAP(
+        () => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(prefers-reduced-motion: no-preference)", () => {
+                gsap.from(containerRef.current, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        once: true,
+                    },
+                    y: 24,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                });
+            });
+        },
+        { scope: containerRef }
+    );
 
     if (layout === "full") {
         const item = items[0];
         return (
-            <section className="w-full py-8 md:py-12 border-b border-neutral-800/60">
+            <section ref={containerRef} className="w-full py-8 md:py-12 border-b border-neutral-800/60">
                 <div className="w-full px-6 md:px-8 flex flex-col gap-3">
                     <div className="relative w-full aspect-16/10 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
                         <Image
@@ -34,7 +64,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
 
     if (layout === "grid-2") {
         return (
-            <section className="w-full py-8 md:py-12 border-b border-neutral-800/60">
+            <section ref={containerRef} className="w-full py-8 md:py-12 border-b border-neutral-800/60">
                 <div className="w-full px-6 md:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                         {items.map((item, idx) => (
@@ -63,7 +93,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
 
     const item = items[0];
     return (
-        <section className="w-full py-8 md:py-12 border-b border-neutral-800/60">
+        <section ref={containerRef} className="w-full py-8 md:py-12 border-b border-neutral-800/60">
             <div className="w-full px-6 md:px-8 flex flex-col gap-2">
                 <div className="relative w-full aspect-video rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
                     <Image
