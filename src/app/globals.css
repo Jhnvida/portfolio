@@ -2,13 +2,18 @@
 
 :root {
     --color-surface-dark: #050505;
+    --color-surface-card: #0d0d0d;
     --color-surface-raised: #141414;
-    --color-text-primary: #ffffff;
-    --color-text-muted: #a0a0a0;
-    --color-border-subtle: #1f1f1f;
-    --color-accent: #ffffff;
-    --color-accent-text: #050505;
-    --container-page: 1400px;
+    --color-surface-hover: #1a1a1a;
+
+    --color-text-primary: #fafafa;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+
+    --color-border-hairline: #1f1f1f;
+    --color-border-subtle: #262626;
+
+    --color-accent-green: #22c55e;
 }
 
 @theme inline {
@@ -16,12 +21,16 @@
     --color-foreground: var(--color-text-primary);
 
     --color-surface: var(--color-surface-dark);
+    --color-surface-card: var(--color-surface-card);
     --color-surface-raised: var(--color-surface-raised);
+    --color-surface-hover: var(--color-surface-hover);
+
     --color-text: var(--color-text-primary);
+    --color-text-secondary: var(--color-text-secondary);
     --color-text-muted: var(--color-text-muted);
-    --color-border: var(--color-border-subtle);
-    --color-accent: var(--color-accent);
-    --color-accent-foreground: var(--color-accent-text);
+
+    --color-border: var(--color-border-hairline);
+    --color-border-subtle: var(--color-border-subtle);
 
     --font-heading: var(--font-heading);
     --font-sans: var(--font-sans);
@@ -31,17 +40,34 @@ body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-html,
-body,
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
+}
+
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }

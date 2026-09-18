@@ -1,6 +1,4 @@
 export * from "./Hero";
-export * from "./MarqueeStack";
+export * from "./Philosophy";
 export * from "./Process";
 export * from "./SelectedWork";
-export * from "./Services";
-export * from "./WorkShowcase";

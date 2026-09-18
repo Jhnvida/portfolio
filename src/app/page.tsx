@@ -1,15 +1,12 @@
-import { Hero, MarqueeStack, Process, SelectedWork, Services } from "../components/sections";
-import { SectionProgressRail } from "../components/ui/SectionProgressRail";
+import { Hero, Philosophy, Process, SelectedWork } from "../components/sections";
 
 export default function Home() {
     return (
-        <main className="w-full pt-32 pb-12 relative">
-            <SectionProgressRail />
+        <main className="w-full flex flex-col">
             <Hero />
-            <MarqueeStack />
             <SelectedWork />
+            <Philosophy />
             <Process />
-            <Services />
         </main>
     );
 }

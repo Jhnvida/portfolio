@@ -1,6 +1,7 @@
 export const HEADER_LINKS = [
     { label: "Projetos", href: "/work" },
     { label: "Sobre", href: "/about" },
+    { label: "Contato", href: "/contact" },
 ];
 
 export const FOOTER_LINKS = {
@@ -24,11 +25,10 @@ export const SOCIAL_LINKS = [
 ];
 
 export const STACK_ITEMS = [
-    "Next.js & React",
+    "Next.js",
+    "React",
     "TypeScript",
     "Tailwind CSS",
-    "GSAP & Motion",
-    "UI & Design de Interfaces",
-    "Projetos Autorais",
-    "Aprender Construindo",
+    "UI & Product Design",
+    "Design Systems",
 ];

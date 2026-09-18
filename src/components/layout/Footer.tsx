@@ -1,63 +1,50 @@
-"use client";
-
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "../../data/navigation";
-import { Button } from "../ui/Button";
 
 export function Footer() {
-    const footerRef = useRef<HTMLElement>(null);
-
     return (
-        <footer
-            id="contact"
-            ref={footerRef}
-            className="w-full border-t border-white/10 bg-background pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden flex flex-col relative"
-        >
-            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 z-10 flex flex-col relative pt-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
-                    <div className="lg:col-span-5 flex flex-col">
-                        <Link
-                            href="/"
-                            className="font-heading font-bold text-2xl tracking-tight text-white mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm"
-                        >
-                            João Vida
-                        </Link>
+        <footer id="contact" className="w-full border-t border-neutral-800/80 bg-[#050505]">
+            <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col gap-12">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-neutral-800/60">
+                    <div className="max-w-md flex flex-col gap-2">
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                            Contato direto
+                        </span>
 
-                        <p className="text-neutral-400 text-base md:text-lg max-w-sm leading-relaxed mb-8">
-                            Gosto de construir projetos para a web, experimentar ideias e cuidar de cada detalhe visual
-                            e interativo.
+                        <h3 className="text-xl md:text-2xl font-medium tracking-tight text-neutral-100">
+                            Vamos construir algo juntos?
+                        </h3>
+
+                        <p className="text-sm text-neutral-400 leading-relaxed">
+                            Aberto a conversar sobre projetos de design, engenharia front-end e explorações criativas para a web.
                         </p>
-
-                        <div className="flex flex-wrap items-center gap-4">
-                            {SOCIAL_LINKS.map((social) => (
-                                <Button
-                                    key={social.label}
-                                    href={social.href}
-                                    target={social.href.startsWith("http") ? "_blank" : undefined}
-                                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                    variant="dark"
-                                    className="px-5 py-2.5 text-sm"
-                                >
-                                    {social.label}
-                                </Button>
-                            ))}
-                        </div>
                     </div>
 
-                    <div className="hidden lg:block lg:col-span-3"></div>
+                    <a
+                        href="mailto:joao.vida.andre@gmail.com"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-neutral-200 hover:text-white group border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 px-5 py-2.5 rounded-none transition-all w-fit"
+                    >
+                        <span>joao.vida.andre@gmail.com</span>
+                        <ArrowUpRight
+                            size={15}
+                            className="text-neutral-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                        />
+                    </a>
+                </div>
 
-                    <div className="lg:col-span-2 flex flex-col">
-                        <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+                    <div className="flex flex-col gap-3">
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                             Navegação
-                        </h4>
+                        </span>
 
-                        <ul className="flex flex-col gap-4">
+                        <ul className="flex flex-col gap-2">
                             {FOOTER_LINKS.navigation.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
-                                        className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
+                                        className="text-neutral-400 hover:text-neutral-100 transition-colors"
                                     >
                                         {link.label}
                                     </Link>
@@ -66,34 +53,46 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div className="lg:col-span-2 flex flex-col">
-                        <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 mb-6">
-                            Contato
-                        </h4>
+                    <div className="flex flex-col gap-3">
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                            Canais
+                        </span>
 
-                        <ul className="flex flex-col gap-4">
-                            {FOOTER_LINKS.contact.map((link) => {
-                                const isExternal = link.href.startsWith("http");
-                                return (
-                                    <li key={link.label}>
-                                        <a
-                                            href={link.href}
-                                            target={isExternal ? "_blank" : undefined}
-                                            rel={isExternal ? "noopener noreferrer" : undefined}
-                                            className="text-neutral-400 hover:text-white transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm px-1"
-                                        >
-                                            {link.label}
-                                        </a>
-                                    </li>
-                                );
-                            })}
+                        <ul className="flex flex-col gap-2">
+                            {SOCIAL_LINKS.map((link) => (
+                                <li key={link.label}>
+                                    <a
+                                        href={link.href}
+                                        target={link.href.startsWith("http") ? "_blank" : undefined}
+                                        rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                                        className="text-neutral-400 hover:text-neutral-100 transition-colors inline-flex items-center gap-1 group"
+                                    >
+                                        <span>{link.label}</span>
+                                        <ArrowUpRight
+                                            size={12}
+                                            className="opacity-0 group-hover:opacity-70 transition-opacity"
+                                        />
+                                    </a>
+                                </li>
+                            ))}
                         </ul>
                     </div>
-                </div>
-            </div>
 
-            <div className="w-full absolute bottom-0 left-0 pointer-events-none flex justify-center items-end select-none translate-y-1/3">
-                <span className="text-[15vw] font-bold text-white/2 tracking-tighter whitespace-nowrap">JOÃO VIDA</span>
+                    <div className="flex flex-col gap-3 col-span-2 sm:col-span-1">
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+                            Localização
+                        </span>
+
+                        <p className="text-neutral-400 leading-relaxed">
+                            Brasil · Atuação e colaboração remota global.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="pt-8 border-t border-neutral-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+                    <p>© {new Date().getFullYear()} João Vida. Todos os direitos reservados.</p>
+                    <p className="text-neutral-600">Construído com Next.js & Tailwind CSS</p>
+                </div>
             </div>
         </footer>
     );

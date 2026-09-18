@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HEADER_LINKS } from "../../data/navigation";
+import { cn } from "../../lib/utils";
 
 interface MobileNavProps {
     isOpen: boolean;
@@ -13,14 +14,14 @@ interface MobileNavProps {
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     const pathname = usePathname();
 
+    if (!isOpen) return null;
+
     return (
         <div
             id="mobile-menu"
-            className={`fixed inset-0 bg-[#050505]/95 backdrop-blur-xl flex flex-col justify-center items-center gap-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden -z-10 ${
-                isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-            }`}
+            className="fixed inset-0 top-[57px] z-50 bg-[#050505]/95 backdrop-blur-xl flex flex-col p-6 md:hidden border-b border-neutral-800 animate-in fade-in duration-200"
         >
-            <nav className="flex flex-col items-center gap-10 text-3xl font-medium tracking-tight">
+            <nav className="flex flex-col gap-4 text-xl font-medium pt-4">
                 {HEADER_LINKS.map((link) => {
                     const isActive = pathname === link.href;
                     return (
@@ -28,29 +29,17 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                             key={link.label}
                             href={link.href}
                             aria-current={isActive ? "page" : undefined}
-                            className={`transition-colors focus-visible:outline-none ${
-                                isActive ? "text-white" : "text-neutral-300 hover:text-white"
-                            }`}
+                            className={cn(
+                                "flex items-center justify-between py-2 transition-colors",
+                                isActive ? "text-white font-semibold" : "text-neutral-400 hover:text-white",
+                            )}
                             onClick={onClose}
                         >
-                            {link.label}
+                            <span>{link.label}</span>
+                            <ArrowUpRight size={18} className="opacity-40" />
                         </Link>
                     );
                 })}
-
-                <div className="w-12 h-px bg-white/10 my-4" />
-
-                <Link
-                    href="/contact"
-                    aria-current={pathname === "/contact" ? "page" : undefined}
-                    className={`flex items-center gap-2 text-xl transition-colors focus-visible:outline-none ${
-                        pathname === "/contact" ? "text-white" : "text-neutral-300 hover:text-white"
-                    }`}
-                    onClick={onClose}
-                >
-                    Contato
-                    <ArrowUpRight size={20} className="opacity-70" />
-                </Link>
             </nav>
         </div>
     );

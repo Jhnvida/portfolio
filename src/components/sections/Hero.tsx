@@ -1,51 +1,32 @@
-"use client";
-
-import { useHero } from "../../hooks/animations/useHero";
 import { Button } from "../ui/Button";
-import { SplitText } from "../ui/SplitText";
 
 export function Hero() {
-    const { containerRef, titleRef } = useHero();
-
     return (
-        <div
+        <section
             id="hero"
-            className="relative w-full min-h-[85vh] flex flex-col justify-start overflow-hidden bg-background pt-32 md:pt-40 lg:pt-48 pb-16 md:pb-24"
+            className="w-full pt-16 pb-16 md:pt-24 md:pb-24 border-b border-neutral-800/60"
         >
-            <div
-                ref={containerRef}
-                className="relative z-10 w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col items-start"
-            >
-                <h1
-                    ref={titleRef}
-                    className="text-white text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] font-medium tracking-tighter leading-none md:leading-[0.95] max-w-full lg:max-w-6xl mix-blend-difference wrap-break-word"
-                >
-                    <SplitText text="Gosto de criar coisas e transformar ideias em projetos para a web." />
-                </h1>
-
-                <div
-                    className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 w-full gap-8 md:gap-12 border-t border-white/10 pt-8"
-                    data-anim
-                >
-                    <p className="text-neutral-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                        Desenvolvedor focado em construir interfaces bem cuidadas, explorar tecnologias modernas e tirar
-                        projetos do papel com atenção a cada detalhe.
+            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8">
+                <div className="flex flex-col gap-6 max-w-2xl">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.15]">
+                        Construo interfaces digitais com rigor visual, código limpo e atenção obsessiva aos detalhes.
+                    </h1>
+                    <p className="text-base md:text-lg text-neutral-400 leading-relaxed font-normal">
+                        Sou João Vida, engenheiro front-end e designer de produto. Crio experiências digitais
+                        autênticas unindo precisão estética, arquitetura moderna e usabilidade
+                        intuitiva, sem ruídos desnecessários.
                     </p>
+                </div>
 
-                    <div className="flex flex-wrap md:justify-end items-center gap-4 mt-4 md:mt-0">
-                        <Button href="/work" variant="primary" className="px-8 py-4 text-sm md:text-base font-medium">
-                            Ver projetos
-                        </Button>
-                        <Button
-                            href="/about"
-                            variant="secondary"
-                            className="px-6 py-4 text-sm md:text-base font-medium"
-                        >
-                            Sobre mim
-                        </Button>
-                    </div>
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <Button href="#work" variant="primary" showArrow size="md">
+                        Ver projetos
+                    </Button>
+                    <Button href="/about" variant="secondary" size="md">
+                        Sobre mim
+                    </Button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

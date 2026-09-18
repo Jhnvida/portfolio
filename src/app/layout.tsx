@@ -21,23 +21,26 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
     title: {
         template: "%s / João Vida",
-        default: "João Vida / Criações e Desenvolvimento Web",
+        default: "Criações e Desenvolvimento Web / João Vida",
     },
-    description: "Projetos autorais, desenvolvimento de interfaces e explorações na web criados por João Vida.",
+    description:
+        "Portfólio autoral de João Vida. Design de produto digital, engenharia front-end e explorações na web com rigor técnico e cuidado estético.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html
             lang="pt-BR"
-            className={`${plusJakartaSans.variable} ${dmSans.variable} h-full antialiased bg-background text-foreground`}
+            className={`${plusJakartaSans.variable} ${dmSans.variable} h-full antialiased bg-[#050505] text-[#fafafa]`}
         >
-            <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent selection:text-accent-foreground font-sans">
+            <body className="min-h-full bg-[#050505] text-[#fafafa] selection:bg-neutral-800 selection:text-white font-sans">
                 <SmoothScrollProvider>
-                    <div className="flex flex-col min-h-screen">
-                        <Header />
-                        <main className="flex-1">{children}</main>
-                        <Footer />
+                    <div className="w-full bg-[#050505] min-h-screen flex justify-center">
+                        <div className="w-full max-w-4xl mx-auto min-h-screen border-x border-neutral-800/50 bg-[#050505] flex flex-col relative">
+                            <Header />
+                            <div className="flex-1 flex flex-col w-full">{children}</div>
+                            <Footer />
+                        </div>
                     </div>
                 </SmoothScrollProvider>
             </body>
