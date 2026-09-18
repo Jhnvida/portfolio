@@ -83,15 +83,15 @@ export function WorkView({ projects }: WorkViewProps) {
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
-            <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
+            <div className="w-full px-6 md:px-8 pt-12 sm:pt-16 md:pt-24 pb-10 sm:pb-12 md:pb-16 relative">
                 <span data-work-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
                     Meus Projetos
                 </span>
 
-                <div className="overflow-hidden pb-1 mb-4">
+                <div className="overflow-hidden pb-1.5 mb-4">
                     <h1
                         data-work-mask-title
-                        className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight"
+                        className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-tight"
                     >
                         Projetos e criações.
                     </h1>
@@ -105,8 +105,8 @@ export function WorkView({ projects }: WorkViewProps) {
 
             <div data-work-header-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-            <div className="w-full px-6 md:px-8 py-12 md:py-16">
-                <div className="grid grid-cols-1 gap-8">
+            <div className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
+                <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-12">
                     {projects.map((project, index) => (
                         <div key={project.id} data-work-card>
                             <ProjectCard project={project} priority={index === 0} />

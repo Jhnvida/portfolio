@@ -63,12 +63,12 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
     );
 
     return (
-        <section ref={containerRef} className="w-full pt-12 md:pt-16 relative">
-            <div className="w-full px-6 md:px-8 pb-12 md:pb-16">
+        <section ref={containerRef} className="w-full pt-10 sm:pt-12 md:pt-16 relative">
+            <div className="w-full px-6 md:px-8 pb-10 sm:pb-12 md:pb-16">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                     <div className="md:col-span-4">
                         {block.title && (
-                            <div className="overflow-hidden pb-1 sticky top-20">
+                            <div className="overflow-hidden pb-1 md:sticky md:top-20">
                                 <h2
                                     data-editorial-title
                                     className="text-xs font-mono uppercase tracking-widest text-neutral-500"

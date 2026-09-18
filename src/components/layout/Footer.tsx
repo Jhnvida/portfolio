@@ -11,7 +11,7 @@ export function Footer() {
 
     return (
         <footer id="contact" className="w-full border-t border-neutral-800/80 bg-[#050505]">
-            <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col gap-12">
+            <div className="w-full px-6 md:px-8 pt-12 md:pt-16 pb-[calc(3rem+env(safe-area-inset-bottom,0px))] md:pb-16 flex flex-col gap-12">
                 {!isContactPage && (
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-neutral-800/60">
                         <div className="max-w-md flex flex-col gap-2">
@@ -31,7 +31,7 @@ export function Footer() {
 
                         <a
                             href="mailto:joao.vida.andre@gmail.com"
-                            className="inline-flex items-center gap-2 text-sm font-medium text-neutral-200 hover:text-white group border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 px-5 py-2.5 rounded-none transition-all duration-200 w-fit"
+                            className="inline-flex items-center gap-2 min-h-11 text-sm font-medium text-neutral-200 hover:text-white group border border-neutral-800 hover:border-neutral-600 bg-neutral-900/40 px-5 py-2.5 rounded-none transition-all duration-200 w-fit"
                         >
                             <span>joao.vida.andre@gmail.com</span>
                             <ArrowUpRight
@@ -46,12 +46,12 @@ export function Footer() {
                     <div className="flex flex-col gap-3">
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Navegação</span>
 
-                        <ul className="flex flex-col gap-2">
+                        <ul className="flex flex-col gap-1 sm:gap-2">
                             {FOOTER_LINKS.navigation.map((link) => (
                                 <li key={link.label}>
                                     <Link
                                         href={link.href}
-                                        className="text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
+                                        className="inline-flex items-center min-h-9 sm:min-h-0 text-neutral-400 hover:text-neutral-100 transition-colors duration-200"
                                     >
                                         {link.label}
                                     </Link>
@@ -63,14 +63,14 @@ export function Footer() {
                     <div className="flex flex-col gap-3">
                         <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Canais</span>
 
-                        <ul className="flex flex-col gap-2">
+                        <ul className="flex flex-col gap-1 sm:gap-2">
                             {SOCIAL_LINKS.map((link) => (
                                 <li key={link.label}>
                                     <a
                                         href={link.href}
                                         target={link.href.startsWith("http") ? "_blank" : undefined}
                                         rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                        className="text-neutral-400 hover:text-neutral-100 transition-colors duration-200 inline-flex items-center gap-1 group"
+                                        className="min-h-9 sm:min-h-0 text-neutral-400 hover:text-neutral-100 transition-colors duration-200 inline-flex items-center gap-1 group"
                                     >
                                         <span>{link.label}</span>
                                         <ArrowUpRight

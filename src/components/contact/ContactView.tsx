@@ -117,7 +117,7 @@ export function ContactView() {
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
-            <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
+            <div className="w-full px-6 md:px-8 pt-12 sm:pt-16 md:pt-24 pb-10 sm:pb-12 md:pb-16 relative">
                 <span
                     data-contact-tag
                     className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block"
@@ -125,10 +125,10 @@ export function ContactView() {
                     Contato
                 </span>
 
-                <div className="overflow-hidden pb-1 mb-6">
+                <div className="overflow-hidden pb-1.5 mb-6">
                     <h1
                         data-contact-mask-title
-                        className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight"
+                        className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-tight"
                     >
                         Vamos conversar.
                     </h1>
@@ -145,8 +145,8 @@ export function ContactView() {
 
             <div data-contact-header-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-            <div className="w-full px-6 md:px-8 py-12 md:py-16">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            <div className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                     {CONTACT_CHANNELS.map((channel) => {
                         const Icon = channel.icon;
                         const isExternal = channel.href.startsWith("http");
@@ -158,7 +158,7 @@ export function ContactView() {
                                 href={channel.href}
                                 target={isExternal ? "_blank" : undefined}
                                 rel={isExternal ? "noopener noreferrer" : undefined}
-                                className="group flex flex-col justify-between p-6 rounded-none border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 hover:bg-neutral-900/50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
+                                className="group flex flex-col justify-between p-5 sm:p-6 rounded-none border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 hover:bg-neutral-900/50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
                             >
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-center justify-between">
@@ -199,7 +199,7 @@ export function ContactView() {
 
             <div
                 data-contact-footer
-                className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+                className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
             >
                 <p className="text-xs md:text-sm text-neutral-500 max-w-md">
                     Prefiro conversas transparentes, diretas e sem burocracia. Respondo tão rápido quanto possível.

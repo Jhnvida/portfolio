@@ -35,22 +35,6 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                 });
 
                 gsap.fromTo(
-                    "[data-parallax-image]",
-                    { yPercent: -6, scale: 1.08 },
-                    {
-                        yPercent: 6,
-                        scale: 1.08,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: containerRef.current,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1.2,
-                        },
-                    },
-                );
-
-                gsap.fromTo(
                     "[data-media-hairline]",
                     { scaleX: 0 },
                     {
@@ -62,6 +46,24 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             trigger: "[data-media-hairline]",
                             start: "top 95%",
                             once: true,
+                        },
+                    },
+                );
+            });
+
+            mm.add("(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)", () => {
+                gsap.fromTo(
+                    "[data-parallax-image]",
+                    { yPercent: -6, scale: 1.08 },
+                    {
+                        yPercent: 6,
+                        scale: 1.08,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: containerRef.current,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1.2,
                         },
                     },
                 );

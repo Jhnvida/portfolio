@@ -109,8 +109,8 @@ export function Philosophy() {
     );
 
     return (
-        <section ref={containerRef} id="philosophy" className="w-full pt-16 md:pt-24 relative">
-            <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
+        <section ref={containerRef} id="philosophy" className="w-full pt-12 sm:pt-16 md:pt-24 relative">
+            <div className="w-full px-6 md:px-8 flex flex-col gap-8 sm:gap-10 pb-12 sm:pb-16 md:pb-24">
                 <div data-philosophy-header className="flex flex-col gap-2">
                     <span data-philosophy-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Filosofia & Abordagem
@@ -133,12 +133,12 @@ export function Philosophy() {
 
                 <div data-philosophy-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                     {pillars.map((pillar) => (
                         <div
                             key={pillar.title}
                             data-philosophy-card
-                            className="flex flex-col gap-3 p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors duration-200"
+                            className="flex flex-col gap-3 p-5 sm:p-6 rounded-none border border-neutral-800/70 bg-neutral-900/20 hover:border-neutral-700/80 transition-colors duration-200"
                         >
                             <h3 className="text-lg font-medium text-neutral-200 tracking-tight">{pillar.title}</h3>
                             <p className="text-sm text-neutral-400 leading-relaxed">{pillar.description}</p>

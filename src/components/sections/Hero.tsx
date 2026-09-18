@@ -57,23 +57,23 @@ export function Hero() {
     );
 
     return (
-        <section ref={containerRef} id="hero" className="w-full pt-16 md:pt-24 relative">
-            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8 pb-16 md:pb-24">
+        <section ref={containerRef} id="hero" className="w-full pt-12 sm:pt-16 md:pt-24 relative">
+            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8 pb-12 sm:pb-16 md:pb-24">
                 <div className="flex flex-col gap-6 max-w-2xl">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.15]">
-                        <span className="block overflow-hidden pb-1">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-[1.15]">
+                        <span className="block overflow-hidden pb-1.5">
                             <span data-hero-mask-line className="block">
                                 Construo interfaces digitais
                             </span>
                         </span>
 
-                        <span className="block overflow-hidden pb-1">
+                        <span className="block overflow-hidden pb-1.5">
                             <span data-hero-mask-line className="block">
                                 com rigor visual, código limpo
                             </span>
                         </span>
 
-                        <span className="block overflow-hidden pb-1">
+                        <span className="block overflow-hidden pb-1.5">
                             <span data-hero-mask-line className="block">
                                 e atenção obsessiva aos detalhes.
                             </span>

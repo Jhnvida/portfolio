@@ -42,10 +42,18 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
             isPopStateRef.current = true;
         };
 
+        const handleResize = () => {
+            ScrollTrigger.refresh();
+        };
+
         window.addEventListener("popstate", handlePopState);
+        window.addEventListener("resize", handleResize);
+        window.addEventListener("orientationchange", handleResize);
 
         return () => {
             window.removeEventListener("popstate", handlePopState);
+            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("orientationchange", handleResize);
             lenis.destroy();
             gsap.ticker.remove(update);
         };

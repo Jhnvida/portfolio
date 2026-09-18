@@ -108,17 +108,17 @@ export function AboutView() {
 
     return (
         <main ref={containerRef} className="w-full flex flex-col">
-            <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 relative">
+            <div className="w-full px-6 md:px-8 pt-12 sm:pt-16 md:pt-24 pb-10 sm:pb-12 md:pb-16 relative">
                 <span
                     data-about-tag
                     className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block"
                 >
                     Sobre Mim
                 </span>
-                <div className="overflow-hidden pb-1 mb-6">
+                <div className="overflow-hidden pb-1.5 mb-6">
                     <h1
                         data-about-mask-title
-                        className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-tight"
+                        className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-tight"
                     >
                         Construo coisas por curiosidade, gosto de aprender fazendo.
                     </h1>
@@ -136,10 +136,10 @@ export function AboutView() {
             <div data-about-section className="w-full relative">
                 <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
                                 Minha visão
                             </h2>
                         </div>
@@ -164,10 +164,10 @@ export function AboutView() {
             <div data-about-section className="w-full relative">
                 <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
                                 Como aprendo
                             </h2>
                         </div>
@@ -191,10 +191,10 @@ export function AboutView() {
             <div data-about-section className="w-full relative">
                 <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-                <div data-about-content className="w-full px-6 md:px-8 py-12 md:py-16">
+                <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
                                 Stack & Ferramentas
                             </h2>
                         </div>
@@ -226,7 +226,10 @@ export function AboutView() {
             <div data-about-section className="w-full relative">
                 <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-                <div data-about-content className="w-full px-6 md:px-8 py-16 md:py-20 flex flex-col items-start gap-6">
+                <div
+                    data-about-content
+                    className="w-full px-6 md:px-8 py-12 sm:py-16 md:py-20 flex flex-col items-start gap-6"
+                >
                     <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Próximo Passo</span>
 
                     <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">

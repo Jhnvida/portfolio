@@ -116,13 +116,13 @@ export function CaseHero({ project }: CaseHeroProps) {
     return (
         <section
             ref={containerRef}
-            className="relative w-full flex flex-col justify-start pt-12 md:pt-16 pb-12 md:pb-16"
+            className="relative w-full flex flex-col justify-start pt-10 sm:pt-12 md:pt-16 pb-10 sm:pb-12 md:pb-16"
         >
             <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8">
                 <div data-case-back>
                     <Link
                         href="/work"
-                        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none group"
+                        className="inline-flex items-center gap-2 min-h-11 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none group"
                     >
                         <ArrowLeft
                             size={14}
@@ -137,10 +137,10 @@ export function CaseHero({ project }: CaseHeroProps) {
                         Estudo de caso autoral
                     </span>
 
-                    <div className="overflow-hidden pb-1">
+                    <div className="overflow-hidden pb-1.5">
                         <h1
                             data-case-mask-title
-                            className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.15]"
+                            className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-[1.15]"
                         >
                             {project.title}
                         </h1>
@@ -153,7 +153,7 @@ export function CaseHero({ project }: CaseHeroProps) {
 
                 <div data-case-hairline className="w-full h-px bg-neutral-800/70 origin-left" />
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 w-full gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 w-full gap-4 sm:gap-6">
                     <div data-case-meta-item className="flex flex-col gap-1.5">
                         <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono">Origem</span>
                         <span className="text-sm md:text-base text-neutral-200 font-medium">

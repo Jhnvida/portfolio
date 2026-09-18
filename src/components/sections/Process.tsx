@@ -112,8 +112,8 @@ export function Process() {
     );
 
     return (
-        <section ref={containerRef} id="process" className="w-full pt-16 md:pt-24 relative">
-            <div className="w-full px-6 md:px-8 flex flex-col gap-10 pb-16 md:pb-24">
+        <section ref={containerRef} id="process" className="w-full pt-12 sm:pt-16 md:pt-24 relative">
+            <div className="w-full px-6 md:px-8 flex flex-col gap-8 sm:gap-10 pb-12 sm:pb-16 md:pb-24">
                 <div data-process-header className="flex flex-col gap-2">
                     <span data-process-tag className="text-xs font-mono uppercase tracking-widest text-neutral-500">
                         Processo Criativo

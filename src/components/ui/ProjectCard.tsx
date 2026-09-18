@@ -24,7 +24,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
         () => {
             const mm = gsap.matchMedia();
 
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
+            mm.add("(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)", () => {
                 gsap.fromTo(
                     "[data-parallax-image]",
                     { yPercent: -6, scale: 1.08 },
@@ -51,7 +51,6 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                 href={`/work/${project.slug}`}
                 className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
             >
-                {/* 1. Imagem sem container externo */}
                 <div className="relative w-full aspect-16/10 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950 group-hover:border-neutral-700 transition-colors duration-200">
                     <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
                         <Image
@@ -65,7 +64,6 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                     </div>
                 </div>
 
-                {/* 2. Conteúdo tipográfico e metadados */}
                 <div className="flex flex-col gap-2.5 pt-1">
                     <div className="flex items-baseline justify-between gap-4">
                         <div className="flex items-baseline gap-2.5">
