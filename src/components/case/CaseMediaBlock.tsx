@@ -11,9 +11,15 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
     if (layout === "full") {
         const item = items[0];
         return (
-            <section className="w-full bg-black relative py-8 md:py-16">
+            <section className="w-full bg-black relative">
                 <div className="w-full relative h-[60vh] md:h-[85vh]">
-                    <Image src={item.src} alt={item.alt || "Case media"} fill className="object-cover" />
+                    <Image
+                        src={item.src}
+                        alt={item.alt || "Case media"}
+                        fill
+                        loading="eager"
+                        className="object-cover"
+                    />
                 </div>
             </section>
         );
@@ -21,7 +27,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
 
     if (layout === "grid-2") {
         return (
-            <section className="w-full bg-background relative py-8 md:py-16">
+            <section className="w-full bg-background relative">
                 <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                         {items.map((item, idx) => (
@@ -39,6 +45,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
     }
 
     const item = items[0];
+
     return (
         <section className="w-full bg-background relative py-8 md:py-16">
             <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">

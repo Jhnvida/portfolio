@@ -26,23 +26,10 @@ export const PROJECTS: Project[] = [
                 ],
             },
             {
-                type: "media",
-                layout: "container",
-                items: [{ src: "/images/portfolio.svg", type: "image", alt: "Detalhe tipográfico" }],
-            },
-            {
                 type: "editorial",
                 title: "O Desafio",
                 paragraphs: [
                     "Construir uma experiência rica em animações orientadas à rolagem (scroll-driven animations) sem sacrificar a performance (60fps), garantindo uma navegação coesa com um sistema de trilhos de progresso personalizado.",
-                ],
-            },
-            {
-                type: "media",
-                layout: "grid-2",
-                items: [
-                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 1" },
-                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 2" },
                 ],
             },
             {
@@ -55,6 +42,14 @@ export const PROJECTS: Project[] = [
                     "Sincronização entre GSAP e Lenis",
                     "Sistema de Design Componentizado",
                     "Acessibilidade de Motion respeitada",
+                ],
+            },
+            {
+                type: "media",
+                layout: "grid-2",
+                items: [
+                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 1" },
+                    { src: "/images/portfolio.svg", type: "image", alt: "Detalhe 2" },
                 ],
             },
         ],
@@ -72,15 +67,16 @@ export const PROJECTS: Project[] = [
         githubUrl: "https://github.com/Jhnvida/our-journey",
         content: [
             {
-                type: "editorial",
-                paragraphs: [
-                    "Uma plataforma interativa de storytelling e linha do tempo criada para registrar e reviver memórias importantes. O projeto traduz sentimentos em experiências visuais interativas por meio de um design sensível e delicado.",
-                ],
-            },
-            {
                 type: "media",
                 layout: "full",
                 items: [{ src: "/images/our-journey.svg", type: "image", alt: "Preview da linha do tempo" }],
+            },
+            {
+                type: "editorial",
+                title: "Contexto",
+                paragraphs: [
+                    "Uma plataforma interativa de storytelling e linha do tempo criada para registrar e reviver memórias importantes. O projeto traduz sentimentos em experiências visuais interativas por meio de um design sensível e delicado.",
+                ],
             },
             {
                 type: "editorial",
@@ -94,6 +90,14 @@ export const PROJECTS: Project[] = [
                 title: "Solução Técnica",
                 paragraphs: [
                     "Adotei o React Router para transições fluidas e o Supabase para persistência de dados em tempo real. A componentização robusta, combinada com Framer Motion (Motion), permite coreografar a entrada dos eventos na linha do tempo.",
+                ],
+            },
+            {
+                type: "media",
+                layout: "grid-2",
+                items: [
+                    { src: "/images/our-journey.svg", type: "image", alt: "Detalhe 1" },
+                    { src: "/images/our-journey.svg", type: "image", alt: "Detalhe 2" },
                 ],
             },
         ],
