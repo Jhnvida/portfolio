@@ -1,55 +1,75 @@
-import { ArrowUpRight, BriefcaseBusiness, Code2, Mail } from "lucide-react";
+import { ArrowUpRight, Code2, Mail } from "lucide-react";
 import type { Metadata } from "next";
 import { Button } from "../../components/ui/Button";
 
 export const metadata: Metadata = {
     title: "Contato",
-    description: "Vamos trocar uma ideia. Canais diretos para conversar sobre projetos, ideias e tecnologia.",
+    description: "Canais diretos para conversar sobre projetos, ideias e desenvolvimento web com João Vida.",
 };
+
+function LinkedInIcon({ size = 18 }: { size?: number }) {
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+        </svg>
+    );
+}
 
 const CONTACT_CHANNELS = [
     {
         title: "E-mail",
         value: "joao.vida.andre@gmail.com",
-        description: "A melhor forma de me mandar uma mensagem direta sobre qualquer assunto.",
+        description: "Melhor canal para propostas de projetos, colaborações ou mensagens diretas.",
         href: "mailto:joao.vida.andre@gmail.com",
         icon: Mail,
-        actionLabel: "Enviar mensagem",
+        actionLabel: "Enviar e-mail",
     },
     {
         title: "GitHub",
         value: "github.com/Jhnvida",
-        description: "Onde estão os códigos dos projetos, experimentos e o que estou construindo.",
+        description: "Repositórios com códigos-fonte, experimentos e projetos em andamento.",
         href: "https://github.com/Jhnvida",
         icon: Code2,
-        actionLabel: "Ver perfil",
+        actionLabel: "Explorar código",
     },
     {
         title: "LinkedIn",
         value: "linkedin.com/in/jaoandre",
-        description: "Para acompanhar minha trajetória e conectar profissionalmente.",
+        description: "Rede profissional para acompanhar trajetória e histórico de trabalho.",
         href: "https://www.linkedin.com/in/jaoandre/",
-        icon: BriefcaseBusiness,
-        actionLabel: "Conectar",
+        icon: LinkedInIcon,
+        actionLabel: "Conectar perfil",
     },
 ];
 
 export default function ContactPage() {
     return (
-        <main className="w-full bg-background min-h-screen pt-36 md:pt-48 pb-24">
-            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24 flex flex-col">
-                <div className="flex flex-col gap-6 max-w-3xl border-b border-white/10 pb-16">
-                    <span className="text-xs uppercase font-mono tracking-[0.2em] text-neutral-500">Contato</span>
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tighter text-white leading-[1.02]">
-                        Vamos conversar.
-                    </h1>
-                    <p className="text-neutral-400 text-lg md:text-2xl leading-relaxed mt-4 font-light">
-                        Gostou de algum projeto, quer tirar uma dúvida sobre como algo foi feito ou trocar uma ideia
-                        sobre design e tecnologia? Meus canais estão sempre abertos.
-                    </p>
-                </div>
+        <main className="w-full flex flex-col">
+            <div className="w-full px-6 md:px-8 pt-16 md:pt-24 pb-12 md:pb-16 border-b border-neutral-800/60">
+                <span className="text-xs font-mono uppercase tracking-widest text-neutral-500 mb-4 block">
+                    Contato
+                </span>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 mb-6 leading-tight">
+                    Vamos conversar.
+                </h1>
+                <p className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal">
+                    Gostou de algum projeto, quer tirar uma dúvida sobre como algo foi construído ou conversar sobre uma oportunidade de trabalho? Meus canais estão abertos.
+                </p>
+            </div>
 
-                <div className="py-16 md:py-24 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 border-b border-white/10">
+            <div className="w-full px-6 md:px-8 py-12 md:py-16 border-b border-neutral-800/60">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
                     {CONTACT_CHANNELS.map((channel) => {
                         const Icon = channel.icon;
                         const isExternal = channel.href.startsWith("http");
@@ -60,26 +80,35 @@ export default function ContactPage() {
                                 href={channel.href}
                                 target={isExternal ? "_blank" : undefined}
                                 rel={isExternal ? "noopener noreferrer" : undefined}
-                                className="group flex flex-col justify-between p-8 rounded-sm bg-surface-raised border border-white/8 hover:border-white/20 transition-all duration-500"
+                                className="group flex flex-col justify-between p-6 rounded-none border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 hover:bg-neutral-900/50 transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
                             >
-                                <div className="flex flex-col">
-                                    <div className="flex items-center justify-between mb-8">
-                                        <div className="p-3 rounded-full bg-white/5 text-white/80 group-hover:text-white group-hover:bg-white/10 transition-colors">
-                                            <Icon size={22} />
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="p-2.5 rounded-none bg-neutral-950 border border-neutral-800 text-neutral-300 group-hover:text-white transition-colors">
+                                            <Icon size={18} />
                                         </div>
                                         <ArrowUpRight
-                                            size={18}
-                                            className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300"
+                                            size={16}
+                                            className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                                         />
                                     </div>
 
-                                    <h2 className="text-xl font-medium text-white mb-2">{channel.title}</h2>
-                                    <p className="text-sm font-mono text-neutral-400 mb-4 break-all">{channel.value}</p>
-                                    <p className="text-sm text-neutral-400 leading-relaxed">{channel.description}</p>
+                                    <div className="flex flex-col gap-1 pt-2">
+                                        <h2 className="text-lg font-medium text-neutral-200 group-hover:text-white transition-colors">
+                                            {channel.title}
+                                        </h2>
+                                        <p className="text-xs font-mono text-neutral-400 break-all">
+                                            {channel.value}
+                                        </p>
+                                    </div>
+
+                                    <p className="text-xs md:text-sm text-neutral-400 leading-relaxed pt-1">
+                                        {channel.description}
+                                    </p>
                                 </div>
 
-                                <div className="mt-8 pt-4 border-t border-white/5">
-                                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-300 group-hover:text-white transition-colors">
+                                <div className="mt-6 pt-4 border-t border-neutral-800/60">
+                                    <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors">
                                         {channel.actionLabel} →
                                     </span>
                                 </div>
@@ -87,15 +116,15 @@ export default function ContactPage() {
                         );
                     })}
                 </div>
+            </div>
 
-                <div className="pt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                    <p className="text-neutral-500 text-sm">
-                        Prefiro contatos diretos e sem burocracia. Respondo assim que possível.
-                    </p>
-                    <Button href="/work" variant="secondary" className="px-6 py-3 text-sm">
-                        Ver projetos
-                    </Button>
-                </div>
+            <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <p className="text-xs md:text-sm text-neutral-500 max-w-md">
+                    Prefiro conversas transparentes, diretas e sem burocracia. Respondo tão rápido quanto possível.
+                </p>
+                <Button href="/work" variant="secondary" size="md">
+                    Ver projetos
+                </Button>
             </div>
         </main>
     );

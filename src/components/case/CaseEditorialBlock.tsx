@@ -6,36 +6,33 @@ interface CaseEditorialBlockProps {
 
 export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
     return (
-        <section className="w-full bg-background relative py-16 md:py-24">
-            <div className="w-full max-w-(--container-page) mx-auto px-6 md:px-12 lg:px-24">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                    <div className="lg:col-span-4">
+        <section className="w-full py-12 md:py-16 border-b border-neutral-800/60">
+            <div className="w-full px-6 md:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                    <div className="md:col-span-4">
                         {block.title && (
-                            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 sticky top-20">
                                 {block.title}
                             </h2>
                         )}
                     </div>
 
-                    <div className="lg:col-span-8 flex flex-col gap-8">
+                    <div className="md:col-span-8 flex flex-col gap-6">
                         {block.paragraphs.map((paragraph, idx) => (
-                            <p
-                                key={idx}
-                                className="text-xl md:text-2xl text-neutral-300 leading-relaxed max-w-3xl font-light"
-                            >
+                            <p key={idx} className="text-base md:text-lg text-neutral-300 leading-relaxed font-normal">
                                 {paragraph}
                             </p>
                         ))}
 
                         {block.list && block.list.length > 0 && (
-                            <ul className="mt-8 flex flex-col gap-4">
+                            <ul className="mt-4 flex flex-col gap-3 pt-4 border-t border-neutral-800/60">
                                 {block.list.map((item, idx) => (
                                     <li
                                         key={idx}
-                                        className="flex items-start gap-4 text-lg md:text-xl text-neutral-400"
+                                        className="flex items-start gap-3 text-sm md:text-base text-neutral-400"
                                     >
-                                        <span className="text-white/20 mt-1.5 font-mono text-sm">0{idx + 1}</span>
-                                        {item}
+                                        <span className="text-neutral-600 select-none pt-0.5">—</span>
+                                        <span className="text-neutral-300">{item}</span>
                                     </li>
                                 ))}
                             </ul>
