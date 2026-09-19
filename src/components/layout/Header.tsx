@@ -3,6 +3,7 @@
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSmoothScroll } from "../providers/SmoothScrollProvider";
 import { Link } from "../providers/ViewTransitionsProvider";
 import { DesktopNav } from "./DesktopNav";
 import { MobileNav } from "./MobileNav";
@@ -10,21 +11,27 @@ import { MobileNav } from "./MobileNav";
 export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
+    const [prevPathname, setPrevPathname] = useState(pathname);
+    const lenis = useSmoothScroll();
 
-    useEffect(() => {
+    if (prevPathname !== pathname) {
+        setPrevPathname(pathname);
         setIsMenuOpen(false);
-    }, [pathname]);
+    }
 
     useEffect(() => {
         if (isMenuOpen) {
             document.body.style.overflow = "hidden";
+            lenis?.stop();
         } else {
             document.body.style.overflow = "unset";
+            lenis?.start();
         }
         return () => {
             document.body.style.overflow = "unset";
+            lenis?.start();
         };
-    }, [isMenuOpen]);
+    }, [isMenuOpen, lenis]);
 
     return (
         <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-[#050505]/85 border-b border-neutral-800/60 pt-[env(safe-area-inset-top,0px)]">

@@ -6,6 +6,12 @@ import { CaseMediaBlock } from "../../../components/case/CaseMediaBlock";
 import { CaseNavigation } from "../../../components/case/CaseNavigation";
 import { PROJECTS } from "../../../data/projects";
 
+export function generateStaticParams() {
+    return PROJECTS.map((project) => ({
+        slug: project.slug,
+    }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const project = PROJECTS.find((p) => p.slug === slug);

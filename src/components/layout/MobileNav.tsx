@@ -2,7 +2,7 @@
 
 import { ArrowUpRight, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { HEADER_LINKS } from "../../data/navigation";
 import { cn } from "../../lib/utils";
@@ -13,13 +13,15 @@ interface MobileNavProps {
     onClose: () => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
     const pathname = usePathname();
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    const mounted = useSyncExternalStore(
+        emptySubscribe,
+        () => true,
+        () => false,
+    );
 
     useEffect(() => {
         if (!isOpen) return;

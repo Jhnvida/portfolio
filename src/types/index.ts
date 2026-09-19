@@ -9,7 +9,6 @@ export interface Project {
     slug: string;
     stack: string[];
     year: string;
-    liveUrl?: string;
     githubUrl?: string;
     featured: boolean;
     content: CaseBlock[];

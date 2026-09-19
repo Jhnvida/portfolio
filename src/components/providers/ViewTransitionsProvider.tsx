@@ -66,14 +66,37 @@ function useBrowserNativeTransitions() {
 }
 
 export function ViewTransitions({ children }: { children: ReactNode }) {
-    const [finishViewTransition, setFinishViewTransition] = useState<(() => void) | null>(null);
+    const finishViewTransitionRef = useRef<(() => void) | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const pathname = usePathname();
+
+    const setFinishViewTransition = useCallback((cb: () => void) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+
+        const result = cb();
+        const resolve = typeof result === "function" ? result : cb;
+        finishViewTransitionRef.current = resolve;
+
+        timeoutRef.current = setTimeout(() => {
+            if (finishViewTransitionRef.current) {
+                finishViewTransitionRef.current();
+                finishViewTransitionRef.current = null;
+            }
+        }, 500);
+    }, []);
 
     useEffect(() => {
-        if (finishViewTransition) {
-            finishViewTransition();
-            setFinishViewTransition(null);
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
         }
-    }, [finishViewTransition]);
+        if (finishViewTransitionRef.current) {
+            finishViewTransitionRef.current();
+            finishViewTransitionRef.current = null;
+        }
+    }, [pathname]);
 
     useBrowserNativeTransitions();
 
@@ -152,7 +175,7 @@ function isModifiedEvent(event: React.MouseEvent<HTMLAnchorElement>) {
 
 export function Link(props: LinkProps) {
     const router = useTransitionRouter();
-    const { href, as, replace, scroll, onClick, ...rest } = props;
+    const { href, as, replace, scroll, onClick } = props;
 
     const handleClick = useCallback(
         (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -175,6 +198,10 @@ export function Link(props: LinkProps) {
                 hrefStr.startsWith("tel:") ||
                 hrefStr.startsWith("#")
             ) {
+                return;
+            }
+
+            if (typeof window !== "undefined" && hrefStr === window.location.pathname) {
                 return;
             }
 

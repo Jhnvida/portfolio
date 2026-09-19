@@ -48,14 +48,6 @@ export const PROJECTS: Project[] = [
                     "Respeito às preferências de movimento reduzido",
                 ],
             },
-            {
-                type: "media",
-                layout: "grid-2",
-                items: [
-                    { src: "/images/portfolio.png", type: "image", alt: "Detalhe 1" },
-                    { src: "/images/portfolio.png", type: "image", alt: "Detalhe 2" },
-                ],
-            },
         ],
     },
     {
@@ -96,14 +88,6 @@ export const PROJECTS: Project[] = [
                 title: "Como foi construído",
                 paragraphs: [
                     "Desenvolvi a interface em React com TypeScript e Vite para manter o fluxo de desenvolvimento rápido e leve. As animações de entrada dos eventos foram feitas com Motion, e utilizei o Supabase para armazenamento e sincronização de dados de forma simples e direta.",
-                ],
-            },
-            {
-                type: "media",
-                layout: "grid-2",
-                items: [
-                    { src: "/images/our-journey.png", type: "image", alt: "Detalhe 1" },
-                    { src: "/images/our-journey.png", type: "image", alt: "Detalhe 2" },
                 ],
             },
         ],
