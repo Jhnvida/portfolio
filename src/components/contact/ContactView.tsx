@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowUpRight, BriefcaseBusiness, Code2, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Code2, Mail } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "../ui/Button";
 
@@ -185,8 +185,12 @@ export function ContactView() {
                                 </div>
 
                                 <div className="mt-6 pt-4 border-t border-neutral-800/60">
-                                    <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors duration-200">
-                                        {channel.actionLabel} →
+                                    <span className="inline-flex items-center gap-1.5 text-xs font-mono tracking-wide text-neutral-400 group-hover:text-white transition-colors duration-200">
+                                        <span>{channel.actionLabel}</span>
+                                        <ArrowRight
+                                            size={13}
+                                            className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                                        />
                                     </span>
                                 </div>
                             </a>

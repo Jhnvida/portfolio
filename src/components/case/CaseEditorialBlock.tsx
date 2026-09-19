@@ -69,10 +69,7 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                     <div className="md:col-span-4">
                         {block.title && (
                             <div className="overflow-hidden pb-1 md:sticky md:top-20">
-                                <h2
-                                    data-editorial-title
-                                    className="text-xs font-mono uppercase tracking-widest text-neutral-500"
-                                >
+                                <h2 data-editorial-title className="text-xs font-mono tracking-wider text-neutral-400">
                                     {block.title}
                                 </h2>
                             </div>

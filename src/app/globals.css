@@ -77,34 +77,38 @@ body {
         navigation: auto;
     }
 
+    ::view-transition-group(root) {
+        animation-duration: 320ms;
+    }
+
     ::view-transition-old(root) {
-        animation: 220ms cubic-bezier(0.22, 1, 0.36, 1) both vt-out;
+        animation: 280ms cubic-bezier(0.76, 0, 0.24, 1) both vt-shutter-out;
+        z-index: 1;
     }
 
     ::view-transition-new(root) {
-        animation: 280ms cubic-bezier(0.22, 1, 0.36, 1) both vt-in;
+        animation: 320ms cubic-bezier(0.16, 1, 0.3, 1) both vt-shutter-in;
+        z-index: 2;
     }
 }
 
-@keyframes vt-out {
+@keyframes vt-shutter-out {
     from {
         opacity: 1;
-        transform: translateY(0);
+        filter: brightness(1);
     }
     to {
-        opacity: 0;
-        transform: translateY(-8px);
+        opacity: 0.35;
+        filter: brightness(0.65);
     }
 }
 
-@keyframes vt-in {
+@keyframes vt-shutter-in {
     from {
-        opacity: 0;
-        transform: translateY(8px);
+        clip-path: inset(0 50% 0 50%);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+        clip-path: inset(0 0% 0 0%);
     }
 }
 

@@ -139,7 +139,7 @@ export function AboutView() {
                 <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
+                            <h2 className="text-xs font-mono tracking-wider text-neutral-400 md:sticky md:top-20">
                                 Minha visão
                             </h2>
                         </div>
@@ -167,7 +167,7 @@ export function AboutView() {
                 <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
+                            <h2 className="text-xs font-mono tracking-wider text-neutral-400 md:sticky md:top-20">
                                 Como aprendo
                             </h2>
                         </div>
@@ -194,7 +194,7 @@ export function AboutView() {
                 <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
                         <div className="md:col-span-4">
-                            <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500 md:sticky md:top-20">
+                            <h2 className="text-xs font-mono tracking-wider text-neutral-400 md:sticky md:top-20">
                                 Stack & Ferramentas
                             </h2>
                         </div>
@@ -202,7 +202,7 @@ export function AboutView() {
                         <div className="md:col-span-8 flex flex-col gap-8 max-w-2xl">
                             {TOOLS_AND_TECH.map((group) => (
                                 <div key={group.category} className="flex flex-col gap-3">
-                                    <h3 className="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+                                    <h3 className="text-xs font-mono text-neutral-400 tracking-wider">
                                         {group.category}
                                     </h3>
                                     <div className="flex flex-wrap gap-2">

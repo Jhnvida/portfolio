@@ -60,7 +60,7 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
             <div className="w-full px-6 md:px-8 py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <Link
                     href="/work"
-                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 group"
+                    className="inline-flex items-center gap-2 text-xs font-mono tracking-wide text-neutral-400 hover:text-white transition-colors duration-200 group"
                 >
                     <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-0.5" />
                     <span>Todos os projetos</span>

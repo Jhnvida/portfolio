@@ -122,7 +122,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                 <div data-case-back>
                     <Link
                         href="/work"
-                        className="inline-flex items-center gap-2 min-h-11 text-xs font-mono uppercase tracking-wider text-neutral-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none group"
+                        className="inline-flex items-center gap-2 min-h-11 text-xs font-mono tracking-wide text-neutral-400 hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none group"
                     >
                         <ArrowLeft
                             size={14}
@@ -184,7 +184,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                     className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                 >
                     <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-xs font-mono text-neutral-500 mr-2">Stack:</span>
+                        <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono mr-2">Stack</span>
 
                         {project.stack.map((tech) => (
                             <Badge key={tech} variant="outline" className="text-xs py-0.5 px-2.5 rounded-none">
