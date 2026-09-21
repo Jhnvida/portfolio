@@ -2,12 +2,9 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { Project } from "../../types";
 import { ProjectCard } from "../ui/ProjectCard";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface WorkViewProps {
     projects: Project[];

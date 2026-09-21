@@ -2,15 +2,12 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 import { Project } from "../../types";
 import { Link } from "../providers/ViewTransitionsProvider";
 import { Badge } from "./Badge";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectCardProps {
     project: Project;
@@ -24,19 +21,37 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
         () => {
             const mm = gsap.matchMedia();
 
-            mm.add("(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)", () => {
+            mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
                 gsap.fromTo(
                     "[data-parallax-image]",
-                    { yPercent: -6, scale: 1.08 },
+                    { yPercent: -9, scale: 1.22 },
                     {
-                        yPercent: 6,
-                        scale: 1.08,
+                        yPercent: 9,
+                        scale: 1.22,
                         ease: "none",
                         scrollTrigger: {
                             trigger: cardRef.current,
                             start: "top bottom",
                             end: "bottom top",
-                            scrub: 1.2,
+                            scrub: true,
+                        },
+                    },
+                );
+            });
+
+            mm.add("(prefers-reduced-motion: no-preference) and (max-width: 767px)", () => {
+                gsap.fromTo(
+                    "[data-parallax-image]",
+                    { yPercent: -6, scale: 1.15 },
+                    {
+                        yPercent: 6,
+                        scale: 1.15,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: cardRef.current,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true,
                         },
                     },
                 );
@@ -59,7 +74,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                             fill
                             priority={priority}
                             sizes="(max-width: 768px) 100vw, 896px"
-                            className="object-cover transition-[filter] duration-200 group-hover:contrast-105 group-hover:brightness-105"
+                            className="object-cover transition-[filter] duration-200 group-hover:brightness-105"
                         />
                     </div>
                 </div>

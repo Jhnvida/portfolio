@@ -2,12 +2,9 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TOOLS_AND_TECH = [
     {

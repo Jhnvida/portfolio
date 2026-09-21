@@ -2,11 +2,8 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { PROCESS_STEPS } from "../../data/process";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Process() {
     const containerRef = useRef<HTMLElement>(null);

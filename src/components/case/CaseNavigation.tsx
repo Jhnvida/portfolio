@@ -2,13 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { Project } from "../../types";
 import { Link } from "../providers/ViewTransitionsProvider";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface CaseNavigationProps {
     nextProject?: Project;

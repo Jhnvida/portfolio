@@ -2,12 +2,9 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useRef } from "react";
 import { CaseBlock } from "../../types";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface CaseMediaBlockProps {
     block: Extract<CaseBlock, { type: "media" }>;
@@ -51,22 +48,48 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                 );
             });
 
-            mm.add("(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine)", () => {
-                gsap.fromTo(
-                    "[data-parallax-image]",
-                    { yPercent: -6, scale: 1.08 },
-                    {
-                        yPercent: 6,
-                        scale: 1.08,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: containerRef.current,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: 1.2,
+            mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
+                const images = containerRef.current?.querySelectorAll<HTMLElement>("[data-parallax-image]");
+                images?.forEach((img) => {
+                    const cardWrapper = img.parentElement;
+                    gsap.fromTo(
+                        img,
+                        { yPercent: -9, scale: 1.22 },
+                        {
+                            yPercent: 9,
+                            scale: 1.22,
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: cardWrapper || containerRef.current,
+                                start: "top bottom",
+                                end: "bottom top",
+                                scrub: true,
+                            },
                         },
-                    },
-                );
+                    );
+                });
+            });
+
+            mm.add("(prefers-reduced-motion: no-preference) and (max-width: 767px)", () => {
+                const images = containerRef.current?.querySelectorAll<HTMLElement>("[data-parallax-image]");
+                images?.forEach((img) => {
+                    const cardWrapper = img.parentElement;
+                    gsap.fromTo(
+                        img,
+                        { yPercent: -6, scale: 1.15 },
+                        {
+                            yPercent: 6,
+                            scale: 1.15,
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: cardWrapper || containerRef.current,
+                                start: "top bottom",
+                                end: "bottom top",
+                                scrub: true,
+                            },
+                        },
+                    );
+                });
             });
         },
         { scope: containerRef },
@@ -83,7 +106,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                 src={item.src}
                                 alt={item.alt || "Case media"}
                                 fill
-                                loading="eager"
+                                priority
                                 sizes="(max-width: 768px) 100vw, 896px"
                                 className="object-cover"
                             />

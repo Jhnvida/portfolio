@@ -2,13 +2,10 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { PROJECTS } from "../../data/projects";
 import { Button } from "../ui/Button";
 import { ProjectCard } from "../ui/ProjectCard";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function SelectedWork() {
     const containerRef = useRef<HTMLElement>(null);

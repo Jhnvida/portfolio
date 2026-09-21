@@ -2,11 +2,8 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import { CaseBlock } from "../../types";
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface CaseEditorialBlockProps {
     block: Extract<CaseBlock, { type: "editorial" }>;
