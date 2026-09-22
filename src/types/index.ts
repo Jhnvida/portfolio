@@ -33,3 +33,11 @@ export interface ProcessStep {
     title: string;
     description: string;
 }
+
+export interface ExperienceItem {
+    id: string;
+    role: string;
+    company: string;
+    period: string;
+    description: string[];
+}

@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import { EXPERIENCES } from "../../data/experience";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 
@@ -180,6 +181,52 @@ export function AboutView() {
                                 Construo minha trajetória dia após dia, explorando com entusiasmo as ferramentas
                                 modernas da web e sempre receptivo a novas técnicas e perspectivas de produto.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div data-about-section className="w-full relative">
+                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
+
+                <div data-about-content className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+                        <div className="md:col-span-4">
+                            <h2 className="text-xs font-mono tracking-wider text-neutral-400 md:sticky md:top-20">
+                                Experiência Profissional
+                            </h2>
+                        </div>
+
+                        <div className="md:col-span-8 flex flex-col gap-10 max-w-2xl">
+                            {EXPERIENCES.map((exp) => (
+                                <div key={exp.id} className="flex flex-col gap-3">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs font-mono text-neutral-500">
+                                            {exp.period}
+                                        </span>
+                                        <h3 className="text-base md:text-lg font-medium text-neutral-100">
+                                            {exp.role}
+                                        </h3>
+                                        <p className="text-sm text-neutral-400 font-normal">
+                                            {exp.company}
+                                        </p>
+                                    </div>
+
+                                    <ul className="flex flex-col gap-2.5 pt-1">
+                                        {exp.description.map((bullet, idx) => (
+                                            <li
+                                                key={idx}
+                                                className="flex items-start gap-2.5 text-sm md:text-base text-neutral-300 leading-relaxed font-normal"
+                                            >
+                                                <span className="text-neutral-600 select-none pt-0.5 shrink-0">
+                                                    —
+                                                </span>
+                                                <span>{bullet}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
