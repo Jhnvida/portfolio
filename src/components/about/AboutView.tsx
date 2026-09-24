@@ -4,8 +4,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import { EXPERIENCES } from "../../data/experience";
-import { Badge } from "../ui/Badge";
-import { Button } from "../ui/Button";
 
 const TOOLS_AND_TECH = [
     {
@@ -39,12 +37,14 @@ export function AboutView() {
                         y: 10,
                         opacity: 0,
                         duration: 0.6,
+                        clearProps: "all",
                     })
                     .from(
                         "[data-about-mask-title]",
                         {
                             yPercent: 105,
                             duration: 0.9,
+                            clearProps: "transform",
                         },
                         "-=0.45",
                     )
@@ -54,6 +54,7 @@ export function AboutView() {
                             y: 14,
                             opacity: 0,
                             duration: 0.7,
+                            clearProps: "all",
                         },
                         "-=0.55",
                     );
@@ -61,26 +62,29 @@ export function AboutView() {
                 const sections = containerRef.current?.querySelectorAll("[data-about-section]");
                 if (sections) {
                     sections.forEach((sec) => {
-                        const line = sec.querySelector("[data-about-hairline]");
+                        const lines = sec.querySelectorAll("[data-about-hairline]");
                         const content = sec.querySelector("[data-about-content]");
 
                         const secTl = gsap.timeline({
                             scrollTrigger: {
                                 trigger: sec,
-                                start: "top 85%",
+                                start: "top 88%",
                                 once: true,
+                                fastScrollEnd: true,
+                                preventOverlaps: true,
                             },
                         });
 
-                        if (line) {
+                        if (lines.length > 0) {
                             secTl.fromTo(
-                                line,
+                                lines,
                                 { scaleX: 0 },
                                 {
                                     scaleX: 1,
                                     transformOrigin: "left center",
                                     duration: 0.9,
                                     ease: "power3.inOut",
+                                    clearProps: "all",
                                 },
                             );
                         }
@@ -93,6 +97,7 @@ export function AboutView() {
                                     opacity: 0,
                                     duration: 0.75,
                                     ease: "power4.out",
+                                    clearProps: "all",
                                 },
                                 "-=0.6",
                             );
@@ -201,15 +206,11 @@ export function AboutView() {
                             {EXPERIENCES.map((exp) => (
                                 <div key={exp.id} className="flex flex-col gap-3">
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-xs font-mono text-neutral-500">
-                                            {exp.period}
-                                        </span>
+                                        <span className="text-xs font-mono text-neutral-500">{exp.period}</span>
                                         <h3 className="text-base md:text-lg font-medium text-neutral-100">
                                             {exp.role}
                                         </h3>
-                                        <p className="text-sm text-neutral-400 font-normal">
-                                            {exp.company}
-                                        </p>
+                                        <p className="text-sm text-neutral-400 font-normal">{exp.company}</p>
                                     </div>
 
                                     <ul className="flex flex-col gap-2.5 pt-1">
@@ -218,9 +219,7 @@ export function AboutView() {
                                                 key={idx}
                                                 className="flex items-start gap-2.5 text-sm md:text-base text-neutral-300 leading-relaxed font-normal"
                                             >
-                                                <span className="text-neutral-600 select-none pt-0.5 shrink-0">
-                                                    —
-                                                </span>
+                                                <span className="text-neutral-600 select-none pt-0.5 shrink-0">—</span>
                                                 <span>{bullet}</span>
                                             </li>
                                         ))}
@@ -243,52 +242,21 @@ export function AboutView() {
                             </h2>
                         </div>
 
-                        <div className="md:col-span-8 flex flex-col gap-8 max-w-2xl">
+                        <div className="md:col-span-8 flex flex-col gap-6 max-w-2xl">
                             {TOOLS_AND_TECH.map((group) => (
-                                <div key={group.category} className="flex flex-col gap-3">
-                                    <h3 className="text-xs font-mono text-neutral-400 tracking-wider">
+                                <div
+                                    key={group.category}
+                                    className="flex flex-col gap-2 pb-6 border-b border-neutral-800/40 last:border-b-0 last:pb-0"
+                                >
+                                    <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-500">
                                         {group.category}
                                     </h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {group.items.map((item) => (
-                                            <Badge
-                                                key={item}
-                                                variant="outline"
-                                                className="text-xs py-1 px-3 text-neutral-300 rounded-none"
-                                            >
-                                                {item}
-                                            </Badge>
-                                        ))}
-                                    </div>
+                                    <p className="text-sm sm:text-base text-neutral-300 font-normal leading-relaxed">
+                                        {group.items.join(" · ")}
+                                    </p>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div data-about-section className="w-full relative">
-                <div data-about-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
-
-                <div
-                    data-about-content
-                    className="w-full px-6 md:px-8 py-12 sm:py-16 md:py-20 flex flex-col items-start gap-6"
-                >
-                    <span className="text-xs font-mono uppercase tracking-widest text-neutral-500">Próximo Passo</span>
-
-                    <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-neutral-100">
-                        Conheça os projetos na prática.
-                    </h2>
-
-                    <p className="text-sm md:text-base text-neutral-400 max-w-xl leading-relaxed">
-                        Veja como esses princípios de usabilidade, precisão tipográfica e engenharia front-end ganham
-                        vida no arquivo de criações.
-                    </p>
-
-                    <div className="pt-2">
-                        <Button href="/work" variant="primary" showArrow size="md">
-                            Ver arquivo de projetos
-                        </Button>
                     </div>
                 </div>
 

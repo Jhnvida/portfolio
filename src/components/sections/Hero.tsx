@@ -21,6 +21,7 @@ export function Hero() {
                     yPercent: 105,
                     duration: 0.95,
                     stagger: 0.07,
+                    clearProps: "transform",
                 })
                     .from(
                         "[data-hero-subtitle]",
@@ -28,6 +29,7 @@ export function Hero() {
                             yPercent: 105,
                             opacity: 0.3,
                             duration: 0.85,
+                            clearProps: "all",
                         },
                         "-=0.65",
                     )
@@ -37,6 +39,7 @@ export function Hero() {
                             y: 12,
                             opacity: 0,
                             duration: 0.7,
+                            clearProps: "all",
                         },
                         "-=0.55",
                     )
@@ -48,9 +51,22 @@ export function Hero() {
                             transformOrigin: "left center",
                             duration: 0.9,
                             ease: "power3.inOut",
+                            clearProps: "all",
                         },
                         "-=0.6",
                     );
+
+                gsap.to("[data-hero-content]", {
+                    y: 28,
+                    opacity: 0.45,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top top",
+                        end: "bottom 20%",
+                        scrub: true,
+                    },
+                });
             });
         },
         { scope: containerRef },
@@ -58,7 +74,10 @@ export function Hero() {
 
     return (
         <section ref={containerRef} id="hero" className="w-full pt-12 sm:pt-16 md:pt-24 relative">
-            <div className="w-full px-6 md:px-8 flex flex-col items-start gap-8 pb-12 sm:pb-16 md:pb-24">
+            <div
+                data-hero-content
+                className="w-full px-6 md:px-8 flex flex-col items-start gap-8 pb-12 sm:pb-16 md:pb-24 will-change-transform"
+            >
                 <div className="flex flex-col gap-6 max-w-2xl">
                     <h1 className="text-2xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-100 leading-[1.2] sm:leading-[1.15]">
                         <span className="block overflow-hidden pb-1.5">

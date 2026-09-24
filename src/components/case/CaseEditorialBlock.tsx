@@ -20,8 +20,10 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: "top 85%",
+                        start: "top 88%",
                         once: true,
+                        fastScrollEnd: true,
+                        preventOverlaps: true,
                     },
                     defaults: { ease: "power4.out" },
                 });
@@ -29,12 +31,14 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                 tl.from("[data-editorial-title]", {
                     yPercent: 105,
                     duration: 0.8,
+                    clearProps: "transform",
                 }).from(
                     "[data-editorial-content]",
                     {
                         y: 18,
                         opacity: 0,
                         duration: 0.8,
+                        clearProps: "all",
                     },
                     "-=0.5",
                 );
@@ -47,10 +51,13 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                         transformOrigin: "left center",
                         duration: 0.9,
                         ease: "power3.inOut",
+                        clearProps: "all",
                         scrollTrigger: {
                             trigger: "[data-editorial-hairline]",
-                            start: "top 95%",
+                            start: "top 92%",
                             once: true,
+                            fastScrollEnd: true,
+                            preventOverlaps: true,
                         },
                     },
                 );

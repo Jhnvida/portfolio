@@ -18,8 +18,10 @@ export function SelectedWork() {
                 const headerTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: "[data-work-header]",
-                        start: "top 85%",
+                        start: "top 88%",
                         once: true,
+                        fastScrollEnd: true,
+                        preventOverlaps: true,
                     },
                     defaults: { ease: "power4.out" },
                 });
@@ -29,12 +31,14 @@ export function SelectedWork() {
                         y: 10,
                         opacity: 0,
                         duration: 0.6,
+                        clearProps: "all",
                     })
                     .from(
                         "[data-work-mask-title]",
                         {
                             yPercent: 105,
                             duration: 0.9,
+                            clearProps: "transform",
                         },
                         "-=0.45",
                     )
@@ -44,6 +48,7 @@ export function SelectedWork() {
                             y: 14,
                             opacity: 0,
                             duration: 0.7,
+                            clearProps: "all",
                         },
                         "-=0.55",
                     );
@@ -54,13 +59,16 @@ export function SelectedWork() {
                         gsap.from(card, {
                             scrollTrigger: {
                                 trigger: card,
-                                start: "top 85%",
+                                start: "top 88%",
                                 once: true,
+                                fastScrollEnd: true,
+                                preventOverlaps: true,
                             },
-                            y: 28,
+                            y: 20,
                             opacity: 0,
-                            duration: 0.85,
+                            duration: 0.75,
                             ease: "power4.out",
+                            clearProps: "all",
                         });
                     });
                 }
@@ -71,12 +79,14 @@ export function SelectedWork() {
                     {
                         scaleX: 1,
                         transformOrigin: "left center",
-                        duration: 0.9,
+                        duration: 0.85,
                         ease: "power3.inOut",
+                        clearProps: "all",
                         scrollTrigger: {
                             trigger: "[data-work-hairline]",
-                            start: "top 95%",
+                            start: "top 92%",
                             once: true,
+                            fastScrollEnd: true,
                         },
                     },
                 );

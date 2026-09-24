@@ -18,11 +18,17 @@ export function DesktopNav() {
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
                         className={cn(
-                            "relative transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-sm py-1",
-                            isActive ? "text-neutral-100 font-semibold" : "text-neutral-400 hover:text-neutral-100",
+                            "relative transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400 rounded-none py-1.5",
+                            isActive ? "text-neutral-100" : "text-neutral-400 hover:text-neutral-100",
                         )}
                     >
-                        {link.label}
+                        <span>{link.label}</span>
+                        {isActive && (
+                            <span
+                                aria-hidden="true"
+                                className="absolute bottom-0 left-0 right-0 h-px bg-neutral-200 transition-all duration-200"
+                            />
+                        )}
                     </Link>
                 );
             })}

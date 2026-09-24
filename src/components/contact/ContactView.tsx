@@ -2,39 +2,41 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Code2, Mail } from "lucide-react";
-import { useRef } from "react";
-import { Button } from "../ui/Button";
+import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { useRef, useState } from "react";
 
-const CONTACT_CHANNELS = [
+const CHANNELS = [
     {
-        title: "E-mail",
-        value: "joao.vida.andre@gmail.com",
-        description: "Melhor canal para propostas de projetos, colaborações ou mensagens diretas.",
-        href: "mailto:joao.vida.andre@gmail.com",
-        icon: Mail,
-        actionLabel: "Enviar e-mail",
-    },
-    {
+        id: "github",
+        tag: "Código & Repositórios",
         title: "GitHub",
-        value: "github.com/Jhnvida",
-        description: "Repositórios com códigos-fonte, experimentos e projetos em andamento.",
+        handle: "github.com/Jhnvida",
         href: "https://github.com/Jhnvida",
-        icon: Code2,
-        actionLabel: "Explorar código",
+        description: "Códigos-fonte, protótipos e implementações de projetos autorais.",
     },
     {
+        id: "linkedin",
+        tag: "Rede Profissional",
         title: "LinkedIn",
-        value: "linkedin.com/in/jaoandre/",
-        description: "Rede profissional para acompanhar trajetória e histórico de trabalho.",
+        handle: "linkedin.com/in/jaoandre",
         href: "https://www.linkedin.com/in/jaoandre/",
-        icon: BriefcaseBusiness,
-        actionLabel: "Conectar perfil",
+        description: "Trajetória profissional, histórico de trabalho e conexões no setor.",
     },
 ];
 
 export function ContactView() {
     const containerRef = useRef<HTMLElement>(null);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText("joao.vida.andre@gmail.com");
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2400);
+        } catch {
+            setCopied(false);
+        }
+    };
 
     useGSAP(
         () => {
@@ -49,12 +51,14 @@ export function ContactView() {
                     y: 10,
                     opacity: 0,
                     duration: 0.5,
+                    clearProps: "all",
                 })
                     .from(
                         "[data-contact-mask-title]",
                         {
                             yPercent: 105,
                             duration: 0.8,
+                            clearProps: "transform",
                         },
                         "-=0.35",
                     )
@@ -64,6 +68,7 @@ export function ContactView() {
                             y: 14,
                             opacity: 0,
                             duration: 0.6,
+                            clearProps: "all",
                         },
                         "-=0.45",
                     )
@@ -75,40 +80,30 @@ export function ContactView() {
                             transformOrigin: "left center",
                             duration: 0.8,
                             ease: "power3.inOut",
+                            clearProps: "all",
                         },
                         "-=0.4",
                     )
                     .from(
-                        "[data-contact-card]",
+                        "[data-contact-sidebar]",
                         {
-                            y: 20,
+                            y: 16,
                             opacity: 0,
                             duration: 0.7,
-                            stagger: 0.07,
-                            clearProps: "transform,opacity",
+                            clearProps: "all",
                         },
                         "-=0.5",
-                    )
-                    .fromTo(
-                        "[data-contact-footer-hairline]",
-                        { scaleX: 0 },
-                        {
-                            scaleX: 1,
-                            transformOrigin: "left center",
-                            duration: 0.8,
-                            ease: "power3.inOut",
-                        },
-                        "-=0.4",
                     )
                     .from(
-                        "[data-contact-footer]",
+                        "[data-contact-channel]",
                         {
-                            y: 14,
+                            y: 16,
                             opacity: 0,
-                            duration: 0.6,
-                            clearProps: "transform,opacity",
+                            duration: 0.7,
+                            stagger: 0.08,
+                            clearProps: "all",
                         },
-                        "-=0.5",
+                        "-=0.6",
                     );
             });
         },
@@ -138,79 +133,124 @@ export function ContactView() {
                     data-contact-desc
                     className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl font-normal"
                 >
-                    Gostou de algum projeto, quer tirar uma dúvida sobre como algo foi construído ou conversar sobre uma
-                    oportunidade de trabalho? Meus canais estão abertos.
+                    Aberto a dialogar sobre projetos de engenharia front-end, design de interfaces ou novas
+                    oportunidades profissionais.
                 </p>
             </div>
 
             <div data-contact-header-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
 
-            <div className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-                    {CONTACT_CHANNELS.map((channel) => {
-                        const Icon = channel.icon;
-                        const isExternal = channel.href.startsWith("http");
+            <div className="w-full px-6 md:px-8 py-12 sm:py-16 md:py-20">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start">
+                    <div data-contact-sidebar className="md:col-span-5 md:sticky md:top-24 flex flex-col gap-6">
+                        <div className="flex flex-col gap-2">
+                            <span className="text-xs font-mono uppercase tracking-wider text-neutral-500">
+                                Comunicação Direta
+                            </span>
+                            <p className="text-sm md:text-base text-neutral-300 leading-relaxed font-normal">
+                                Prefiro conversas transparentes, sem camadas de burocracia. Se tiver uma proposta, uma
+                                dúvida técnica ou quiser falar sobre uma ideia, basta enviar uma mensagem.
+                            </p>
+                        </div>
 
-                        return (
+                        <div className="flex flex-col gap-3 pt-4 border-t border-neutral-800/60 font-mono text-xs text-neutral-400">
+                            <div className="flex items-center justify-between">
+                                <span className="text-neutral-500">Localização</span>
+                                <span className="text-neutral-300">Jaguariúna, SP · Brasil</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="text-neutral-500">Fuso Horário</span>
+                                <span className="text-neutral-300">BRT (UTC-3)</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="text-neutral-500">Disponibilidade</span>
+                                <span className="text-neutral-300">Trabalho Remoto</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="md:col-span-7 flex flex-col">
+                        <div
+                            data-contact-channel
+                            className="flex flex-col pb-8 sm:pb-10 border-b border-neutral-800/60"
+                        >
+                            <span className="text-xs font-mono uppercase tracking-wider text-neutral-500 mb-2">
+                                Canal Principal
+                            </span>
+
                             <a
-                                key={channel.title}
-                                data-contact-card
-                                href={channel.href}
-                                target={isExternal ? "_blank" : undefined}
-                                rel={isExternal ? "noopener noreferrer" : undefined}
-                                className="group flex flex-col justify-between p-5 sm:p-6 rounded-none border border-neutral-800/80 bg-neutral-900/30 hover:border-neutral-700 hover:bg-neutral-900/50 transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
+                                href="mailto:joao.vida.andre@gmail.com"
+                                className="text-xl sm:text-2xl md:text-3xl font-medium text-neutral-100 hover:text-white tracking-tight break-all transition-colors duration-200"
                             >
-                                <div className="flex flex-col gap-4">
-                                    <div className="flex items-center justify-between">
-                                        <div className="p-2.5 rounded-none bg-neutral-950 border border-neutral-800 text-neutral-300 group-hover:text-white transition-colors duration-200">
-                                            <Icon size={18} />
-                                        </div>
+                                joao.vida.andre@gmail.com
+                            </a>
 
-                                        <ArrowUpRight
-                                            size={16}
-                                            className="text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
-                                        />
-                                    </div>
+                            <div className="flex items-center gap-3 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={handleCopyEmail}
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-mono text-neutral-300 hover:text-white border border-neutral-800 hover:border-neutral-700 bg-neutral-900/40 rounded-none transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
+                                    aria-label="Copiar endereço de e-mail"
+                                >
+                                    {copied ? (
+                                        <>
+                                            <Check size={13} className="text-emerald-400" />
+                                            <span className="text-emerald-400">
+                                                Copiado para a área de transferência
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy size={13} className="text-neutral-400" />
+                                            <span>Copiar e-mail</span>
+                                        </>
+                                    )}
+                                </button>
 
-                                    <div className="flex flex-col gap-1 pt-2">
-                                        <h2 className="text-lg font-medium text-neutral-200 group-hover:text-white transition-colors duration-200">
+                                <a
+                                    href="mailto:joao.vida.andre@gmail.com"
+                                    className="inline-flex items-center gap-1 text-xs font-mono text-neutral-400 hover:text-neutral-200 transition-colors duration-200"
+                                >
+                                    <span>Abrir no cliente</span>
+                                    <ArrowUpRight size={13} />
+                                </a>
+                            </div>
+                        </div>
+
+                        {CHANNELS.map((channel) => (
+                            <a
+                                key={channel.id}
+                                data-contact-channel
+                                href={channel.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group flex flex-col py-6 sm:py-8 border-b border-neutral-800/60 transition-colors duration-200 hover:bg-neutral-900/10 px-2 -mx-2 rounded-none"
+                            >
+                                <div className="flex items-baseline justify-between gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-xs font-mono text-neutral-500">{channel.tag}</span>
+                                        <h2 className="text-lg md:text-xl font-medium text-neutral-200 group-hover:text-white transition-colors duration-200">
                                             {channel.title}
                                         </h2>
-                                        <p className="text-xs font-mono text-neutral-400 break-all">{channel.value}</p>
                                     </div>
 
-                                    <p className="text-xs md:text-sm text-neutral-400 leading-relaxed pt-1">
-                                        {channel.description}
-                                    </p>
-                                </div>
-
-                                <div className="mt-6 pt-4 border-t border-neutral-800/60">
-                                    <span className="inline-flex items-center gap-1.5 text-xs font-mono tracking-wide text-neutral-400 group-hover:text-white transition-colors duration-200">
-                                        <span>{channel.actionLabel}</span>
-                                        <ArrowRight
-                                            size={13}
-                                            className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                                    <div className="flex items-center text-neutral-500 group-hover:text-white transition-colors duration-200 shrink-0">
+                                        <ArrowUpRight
+                                            size={18}
+                                            className="transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                         />
-                                    </span>
+                                    </div>
                                 </div>
+
+                                <p className="text-xs font-mono text-neutral-400 pt-2">{channel.handle}</p>
+
+                                <p className="text-sm text-neutral-400 leading-relaxed pt-1 max-w-md">
+                                    {channel.description}
+                                </p>
                             </a>
-                        );
-                    })}
+                        ))}
+                    </div>
                 </div>
-            </div>
-
-            <div data-contact-footer-hairline className="w-full h-px bg-neutral-800/60 origin-left" />
-
-            <div
-                data-contact-footer
-                className="w-full px-6 md:px-8 py-10 sm:py-12 md:py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-            >
-                <p className="text-xs md:text-sm text-neutral-500 max-w-md">
-                    Prefiro conversas transparentes, diretas e sem burocracia. Respondo tão rápido quanto possível.
-                </p>
-                <Button href="/work" variant="secondary" size="md">
-                    Ver projetos
-                </Button>
             </div>
         </main>
     );

@@ -89,9 +89,9 @@ export function Footer() {
                         </span>
 
                         <p className="text-neutral-400 leading-relaxed">
-                            Jaguariúna, São Paulo
+                            Jaguariúna, São Paulo · BRT (UTC-3)
                             <br />
-                            Disponível para trabalho remoto global.
+                            Disponível para trabalho remoto.
                         </p>
                     </div>
                 </div>

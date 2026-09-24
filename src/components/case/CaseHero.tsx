@@ -6,7 +6,6 @@ import { ArrowLeft } from "lucide-react";
 import { useRef } from "react";
 import { Project } from "../../types";
 import { Link } from "../providers/ViewTransitionsProvider";
-import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 
 interface CaseHeroProps {
@@ -29,6 +28,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                     y: 10,
                     opacity: 0,
                     duration: 0.6,
+                    clearProps: "all",
                 })
                     .from(
                         "[data-case-tag]",
@@ -36,6 +36,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             y: 10,
                             opacity: 0,
                             duration: 0.5,
+                            clearProps: "all",
                         },
                         "-=0.4",
                     )
@@ -44,6 +45,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                         {
                             yPercent: 105,
                             duration: 0.9,
+                            clearProps: "transform",
                         },
                         "-=0.4",
                     )
@@ -53,6 +55,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             y: 14,
                             opacity: 0,
                             duration: 0.7,
+                            clearProps: "all",
                         },
                         "-=0.55",
                     )
@@ -64,6 +67,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             transformOrigin: "left center",
                             duration: 0.9,
                             ease: "power3.inOut",
+                            clearProps: "all",
                         },
                         "-=0.5",
                     )
@@ -74,6 +78,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             opacity: 0,
                             stagger: 0.06,
                             duration: 0.65,
+                            clearProps: "all",
                         },
                         "-=0.6",
                     )
@@ -85,6 +90,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             transformOrigin: "left center",
                             duration: 0.9,
                             ease: "power3.inOut",
+                            clearProps: "all",
                         },
                         "-=0.5",
                     )
@@ -94,6 +100,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             y: 10,
                             opacity: 0,
                             duration: 0.6,
+                            clearProps: "all",
                         },
                         "-=0.6",
                     )
@@ -105,6 +112,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                             transformOrigin: "left center",
                             duration: 0.9,
                             ease: "power3.inOut",
+                            clearProps: "all",
                         },
                         "-=0.6",
                     );
@@ -183,14 +191,9 @@ export function CaseHero({ project }: CaseHeroProps) {
                     data-case-footer
                     className="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                 >
-                    <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-xs uppercase tracking-wider text-neutral-500 font-mono mr-2">Stack</span>
-
-                        {project.stack.map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-xs py-0.5 px-2.5 rounded-none">
-                                {tech}
-                            </Badge>
-                        ))}
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-mono text-neutral-300">
+                        <span className="uppercase tracking-wider text-neutral-500 mr-1 select-none">Stack</span>
+                        <span>{project.stack.join(" · ")}</span>
                     </div>
 
                     {project.githubUrl && (

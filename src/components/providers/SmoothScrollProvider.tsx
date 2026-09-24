@@ -20,6 +20,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     const isPopStateRef = useRef(false);
 
     useEffect(() => {
+        if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+            window.history.scrollRestoration = "manual";
+        }
+
         const lenis = new Lenis({
             duration: 1.0,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -37,6 +41,12 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
 
         gsap.ticker.add(update);
         gsap.ticker.lagSmoothing(0);
+
+        if (typeof document !== "undefined" && "fonts" in document) {
+            document.fonts.ready.then(() => {
+                ScrollTrigger.refresh();
+            });
+        }
 
         const handlePopState = () => {
             isPopStateRef.current = true;
@@ -65,11 +75,18 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
             lenisInstance.scrollTo(0, { immediate: true });
         }
 
+        const rafId = requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+        });
+
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
-        }, 120);
+        }, 360);
 
-        return () => clearTimeout(timer);
+        return () => {
+            cancelAnimationFrame(rafId);
+            clearTimeout(timer);
+        };
     }, [pathname, lenisInstance]);
 
     return <SmoothScrollContext.Provider value={lenisInstance}>{children}</SmoothScrollContext.Provider>;

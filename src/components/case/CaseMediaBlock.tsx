@@ -22,13 +22,16 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                 gsap.from("[data-media-wrapper]", {
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: "top 85%",
+                        start: "top 88%",
                         once: true,
+                        fastScrollEnd: true,
+                        preventOverlaps: true,
                     },
                     y: 24,
                     opacity: 0,
                     duration: 0.85,
                     ease: "power4.out",
+                    clearProps: "all",
                 });
 
                 gsap.fromTo(
@@ -39,10 +42,13 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         transformOrigin: "left center",
                         duration: 0.9,
                         ease: "power3.inOut",
+                        clearProps: "all",
                         scrollTrigger: {
                             trigger: "[data-media-hairline]",
-                            start: "top 95%",
+                            start: "top 92%",
                             once: true,
+                            fastScrollEnd: true,
+                            preventOverlaps: true,
                         },
                     },
                 );
@@ -99,7 +105,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
         const item = items[0];
         return (
             <section ref={containerRef} className="w-full pt-8 md:pt-12 relative">
-                <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-3 pb-8 md:pb-12">
+                <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-2.5 pb-8 md:pb-12">
                     <div className="relative w-full aspect-16/10 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
                         <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
                             <Image
@@ -113,7 +119,14 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         </div>
                     </div>
 
-                    {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
+                    {item.alt && (
+                        <div className="flex items-baseline justify-between gap-4 text-xs font-mono text-neutral-500 pt-1 px-0.5">
+                            <span className="text-neutral-400">— {item.alt}</span>
+                            <span className="text-neutral-600 uppercase tracking-wider text-[11px] shrink-0 hidden sm:inline">
+                                Registro Visual
+                            </span>
+                        </div>
+                    )}
                 </div>
 
                 <div
@@ -147,7 +160,9 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                 </div>
 
                                 {item.alt && (
-                                    <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>
+                                    <div className="flex items-baseline justify-between gap-2 text-xs font-mono text-neutral-500 pt-1 px-0.5">
+                                        <span className="text-neutral-400 truncate">— {item.alt}</span>
+                                    </div>
                                 )}
                             </div>
                         ))}
@@ -165,7 +180,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
     const item = items[0];
     return (
         <section ref={containerRef} className="w-full pt-8 md:pt-12 relative">
-            <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-2 pb-8 md:pb-12">
+            <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-2.5 pb-8 md:pb-12">
                 <div className="relative w-full aspect-video rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
                     <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
                         <Image
@@ -178,7 +193,14 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                     </div>
                 </div>
 
-                {item.alt && <span className="text-xs font-mono text-neutral-500 px-1">{item.alt}</span>}
+                {item.alt && (
+                    <div className="flex items-baseline justify-between gap-4 text-xs font-mono text-neutral-500 pt-1 px-0.5">
+                        <span className="text-neutral-400">— {item.alt}</span>
+                        <span className="text-neutral-600 uppercase tracking-wider text-[11px] shrink-0 hidden sm:inline">
+                            Registro Visual
+                        </span>
+                    </div>
+                )}
             </div>
 
             <div data-media-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />

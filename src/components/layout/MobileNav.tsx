@@ -44,7 +44,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Navegação principal"
-            className="fixed inset-0 z-50 bg-[#050505] flex flex-col justify-between md:hidden touch-manipulation"
+            className="fixed inset-0 z-50 bg-[#050505] flex flex-col justify-between md:hidden touch-manipulation transition-opacity duration-200 animate-in fade-in"
         >
             <div className="w-full border-b border-neutral-800/60 bg-[#050505] pt-[env(safe-area-inset-top,0px)]">
                 <div className="w-full px-6 md:px-8 py-3.5 sm:py-4 flex items-center justify-between">
