@@ -4,6 +4,7 @@ import { CaseEditorialBlock } from "../../../components/case/CaseEditorialBlock"
 import { CaseHero } from "../../../components/case/CaseHero";
 import { CaseMediaBlock } from "../../../components/case/CaseMediaBlock";
 import { CaseNavigation } from "../../../components/case/CaseNavigation";
+import { Page } from "../../../components/layout/Page";
 import { PROJECTS } from "../../../data/projects";
 
 export function generateStaticParams() {
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (project) {
         return {
             title: project.title,
-            description: project.impact,
+            description: project.summary,
         };
     }
 
@@ -40,7 +41,7 @@ export default async function WorkDetailsPage({ params }: { params: Promise<{ sl
     const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
 
     return (
-        <main className="w-full flex flex-col">
+        <Page className="flex flex-col items-center">
             <CaseHero project={project} />
 
             <div className="w-full flex flex-col">
@@ -58,6 +59,6 @@ export default async function WorkDetailsPage({ params }: { params: Promise<{ sl
             </div>
 
             <CaseNavigation nextProject={nextProject} currentSlug={project.slug} />
-        </main>
+        </Page>
     );
 }

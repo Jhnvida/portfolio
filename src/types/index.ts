@@ -1,6 +1,7 @@
 export interface Project {
     id: string;
     title: string;
+    summary: string;
     category: string;
     client?: string;
     role: string;
@@ -26,13 +27,6 @@ export type CaseBlock =
           layout: "full" | "container" | "grid-2";
           items: { src: string; type: "image" | "video"; alt?: string }[];
       };
-
-export interface ProcessStep {
-    id: string;
-    number: string;
-    title: string;
-    description: string;
-}
 
 export interface ExperienceItem {
     id: string;

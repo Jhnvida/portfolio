@@ -1,90 +1,40 @@
 import { ArrowUpRight } from "lucide-react";
-import React, { ReactNode } from "react";
+import Link from "next/link";
+import { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/utils";
-import { Link } from "../providers/ViewTransitionsProvider";
 
-type ButtonBaseProps = {
-    children: ReactNode;
-    className?: string;
-    showArrow?: boolean;
-    variant?: "primary" | "secondary" | "dark" | "ghost";
-    size?: "sm" | "md" | "lg";
-};
-
-type ButtonAsLinkProps = ButtonBaseProps & {
+type ButtonProps = {
     href: string;
-    as?: never;
-} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href">;
+    children: ReactNode;
+    variant?: "primary" | "secondary";
+    external?: boolean;
+    className?: string;
+} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">;
 
-type ButtonAsElementProps = ButtonBaseProps & {
-    href?: never;
-    as?: "button" | "div" | "span";
-} & React.ButtonHTMLAttributes<HTMLButtonElement> &
-    React.HTMLAttributes<HTMLDivElement>;
+const VARIANTS = {
+    primary: "bg-ink text-bg hover:bg-ink/85",
+    secondary: "bg-bg text-ink shadow-[0_0_0_1px_var(--color-line)] hover:shadow-[0_0_0_1px_var(--color-ink-3)]",
+} as const;
 
-export type ButtonProps = ButtonAsLinkProps | ButtonAsElementProps;
-
-export function Button({
-    children,
-    className,
-    showArrow = false,
-    variant = "primary",
-    size = "md",
-    ...props
-}: ButtonProps) {
-    const sizeClasses = {
-        sm: "px-3.5 py-2 text-xs min-h-[44px]",
-        md: "px-5 py-2.5 text-sm min-h-[44px]",
-        lg: "px-6 py-3.5 text-base min-h-[48px]",
-    }[size];
-
-    const variantClasses = {
-        primary: "bg-white text-black hover:bg-neutral-200 border border-transparent shadow-sm",
-        secondary:
-            "bg-neutral-900/40 text-neutral-200 border border-neutral-800 hover:border-neutral-700 hover:bg-neutral-900/80 hover:text-white",
-        dark: "bg-transparent text-neutral-300 border border-neutral-800 hover:border-neutral-600 hover:text-white",
-        ghost: "bg-transparent text-neutral-400 hover:text-white hover:bg-neutral-900/50",
-    }[variant];
-
-    const sharedClasses = cn(
-        "inline-flex items-center justify-center font-medium tracking-tight transition-all duration-200 group cursor-pointer select-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400",
-        sizeClasses,
-        variantClasses,
+export function Button({ href, children, variant = "primary", external = false, className, ...rest }: ButtonProps) {
+    const classes = cn(
+        "inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-meta font-medium whitespace-nowrap transition-[background-color,box-shadow] duration-200",
+        VARIANTS[variant],
         className,
     );
 
-    const content = (
-        <span className="inline-flex items-center gap-2">
-            {children}
-            {showArrow && (
-                <ArrowUpRight
-                    size={size === "sm" ? 14 : 16}
-                    className="shrink-0 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5 text-current opacity-70 group-hover:opacity-100"
-                />
-            )}
-        </span>
-    );
-
-    if ("href" in props && props.href !== undefined) {
-        const { href, ...rest } = props as ButtonAsLinkProps;
+    if (external) {
         return (
-            <Link href={href} className={sharedClasses} {...rest}>
-                {content}
-            </Link>
+            <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...rest}>
+                {children}
+                <ArrowUpRight aria-hidden size={14} strokeWidth={2} className="-mr-1 opacity-60" />
+            </a>
         );
     }
 
-    const { as = "button", ...rest } = props as ButtonAsElementProps;
-    const Tag = as;
-
-    return React.createElement(
-        Tag,
-        {
-            className: sharedClasses,
-            ...(rest as React.HTMLAttributes<HTMLElement>),
-        },
-        content,
+    return (
+        <Link href={href} className={classes} {...rest}>
+            {children}
+        </Link>
     );
 }
-
-Button.displayName = "Button";

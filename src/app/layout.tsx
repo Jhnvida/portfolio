@@ -1,51 +1,43 @@
-import type { Metadata } from "next";
-import { DM_Sans, Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Newsreader } from "next/font/google";
 import { ReactNode } from "react";
-import { Footer } from "../components/layout/Footer";
-import { Header } from "../components/layout/Header";
-import { SmoothScrollProvider } from "../components/providers/SmoothScrollProvider";
-import { ViewTransitions } from "../components/providers/ViewTransitionsProvider";
+import { SiteFooter } from "../components/layout/SiteFooter";
+import { SiteHeader } from "../components/layout/SiteHeader";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const geist = Geist({
     subsets: ["latin"],
-    variable: "--font-heading",
+    variable: "--font-geist",
     display: "swap",
 });
 
-const dmSans = DM_Sans({
+const newsreader = Newsreader({
     subsets: ["latin"],
-    variable: "--font-sans",
+    style: ["normal", "italic"],
+    variable: "--font-serif",
     display: "swap",
 });
 
 export const metadata: Metadata = {
     title: {
         template: "%s / João Vida",
-        default: "Criações e Desenvolvimento Web / João Vida",
+        default: "Desenvolvedor Full Stack / João Vida",
     },
     description:
-        "Portfólio autoral de João Vida. Design de produto digital, engenharia front-end e explorações na web com rigor técnico e cuidado estético.",
+        "Portfólio de João Vida, desenvolvedor full stack em Jaguariúna, SP. Interfaces em React e Vue.js, sistemas em Node.js e PHP.",
+};
+
+export const viewport: Viewport = {
+    themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html
-            lang="pt-BR"
-            className={`${plusJakartaSans.variable} ${dmSans.variable} h-full antialiased bg-[#050505] text-[#fafafa]`}
-        >
-            <body className="min-h-full bg-[#050505] text-[#fafafa] selection:bg-neutral-800 selection:text-white font-sans overflow-x-clip">
-                <SmoothScrollProvider>
-                    <ViewTransitions>
-                        <div className="w-full bg-[#050505] min-h-dvh flex justify-center overflow-x-clip">
-                            <div className="w-full max-w-4xl mx-auto min-h-dvh border-x border-neutral-800/50 bg-[#050505] flex flex-col relative overflow-x-clip">
-                                <Header />
-                                <div className="flex-1 flex flex-col w-full">{children}</div>
-                                <Footer />
-                            </div>
-                        </div>
-                    </ViewTransitions>
-                </SmoothScrollProvider>
+        <html lang="pt-BR" className={`${geist.variable} ${newsreader.variable}`}>
+            <body className="flex min-h-dvh flex-col bg-bg text-ink">
+                <SiteHeader />
+                <div className="flex flex-1 flex-col">{children}</div>
+                <SiteFooter />
             </body>
         </html>
     );

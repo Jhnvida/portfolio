@@ -1,209 +1,74 @@
-"use client";
-
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import Image from "next/image";
-import { useRef } from "react";
 import { CaseBlock } from "../../types";
+import { LayoutGrid } from "../layout/LayoutGrid";
 
 interface CaseMediaBlockProps {
     block: Extract<CaseBlock, { type: "media" }>;
 }
 
 export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
-    const containerRef = useRef<HTMLElement>(null);
     const { layout, items } = block;
-
-    useGSAP(
-        () => {
-            const mm = gsap.matchMedia();
-
-            mm.add("(prefers-reduced-motion: no-preference)", () => {
-                gsap.from("[data-media-wrapper]", {
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 88%",
-                        once: true,
-                        fastScrollEnd: true,
-                        preventOverlaps: true,
-                    },
-                    y: 24,
-                    opacity: 0,
-                    duration: 0.85,
-                    ease: "power4.out",
-                    clearProps: "all",
-                });
-
-                gsap.fromTo(
-                    "[data-media-hairline]",
-                    { scaleX: 0 },
-                    {
-                        scaleX: 1,
-                        transformOrigin: "left center",
-                        duration: 0.9,
-                        ease: "power3.inOut",
-                        clearProps: "all",
-                        scrollTrigger: {
-                            trigger: "[data-media-hairline]",
-                            start: "top 92%",
-                            once: true,
-                            fastScrollEnd: true,
-                            preventOverlaps: true,
-                        },
-                    },
-                );
-            });
-
-            mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", () => {
-                const images = containerRef.current?.querySelectorAll<HTMLElement>("[data-parallax-image]");
-                images?.forEach((img) => {
-                    const cardWrapper = img.parentElement;
-                    gsap.fromTo(
-                        img,
-                        { yPercent: -9, scale: 1.22 },
-                        {
-                            yPercent: 9,
-                            scale: 1.22,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: cardWrapper || containerRef.current,
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: true,
-                            },
-                        },
-                    );
-                });
-            });
-
-            mm.add("(prefers-reduced-motion: no-preference) and (max-width: 767px)", () => {
-                const images = containerRef.current?.querySelectorAll<HTMLElement>("[data-parallax-image]");
-                images?.forEach((img) => {
-                    const cardWrapper = img.parentElement;
-                    gsap.fromTo(
-                        img,
-                        { yPercent: -6, scale: 1.15 },
-                        {
-                            yPercent: 6,
-                            scale: 1.15,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: cardWrapper || containerRef.current,
-                                start: "top bottom",
-                                end: "bottom top",
-                                scrub: true,
-                            },
-                        },
-                    );
-                });
-            });
-        },
-        { scope: containerRef },
-    );
 
     if (layout === "full") {
         const item = items[0];
         return (
-            <section ref={containerRef} className="w-full pt-8 md:pt-12 relative">
-                <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-2.5 pb-8 md:pb-12">
-                    <div className="relative w-full aspect-16/10 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
-                        <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
+            <section className="w-full py-10 sm:py-16">
+                <LayoutGrid>
+                    <div className="col-span-4 sm:col-span-8 lg:col-span-12">
+                        <div className="relative aspect-16/10 w-full overflow-hidden rounded-media">
                             <Image
                                 src={item.src}
-                                alt={item.alt || "Case media"}
+                                alt={item.alt || "Registro visual do projeto"}
                                 fill
                                 priority
-                                sizes="(max-width: 768px) 100vw, 896px"
-                                className="object-cover"
+                                sizes="(max-width: 1024px) 100vw, 1200px"
+                                className="object-contain"
                             />
                         </div>
                     </div>
-
-                    {item.alt && (
-                        <div className="flex items-baseline justify-between gap-4 text-xs font-mono text-neutral-500 pt-1 px-0.5">
-                            <span className="text-neutral-400">— {item.alt}</span>
-                            <span className="text-neutral-600 uppercase tracking-wider text-[11px] shrink-0 hidden sm:inline">
-                                Registro Visual
-                            </span>
-                        </div>
-                    )}
-                </div>
-
-                <div
-                    data-media-hairline
-                    className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
-                />
+                </LayoutGrid>
             </section>
         );
     }
 
     if (layout === "grid-2") {
         return (
-            <section ref={containerRef} className="w-full pt-8 md:pt-12 relative">
-                <div data-media-wrapper className="w-full px-6 md:px-8 pb-8 md:pb-12">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        {items.map((item, idx) => (
-                            <div key={idx} className="flex flex-col gap-2">
-                                <div className="relative w-full aspect-4/3 rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
-                                    <div
-                                        data-parallax-image
-                                        className="absolute inset-0 w-full h-full will-change-transform"
-                                    >
-                                        <Image
-                                            src={item.src}
-                                            alt={item.alt || `Case detail ${idx + 1}`}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, 440px"
-                                            className="object-cover"
-                                        />
-                                    </div>
-                                </div>
-
-                                {item.alt && (
-                                    <div className="flex items-baseline justify-between gap-2 text-xs font-mono text-neutral-500 pt-1 px-0.5">
-                                        <span className="text-neutral-400 truncate">— {item.alt}</span>
-                                    </div>
-                                )}
+            <section className="w-full py-10 sm:py-16">
+                <LayoutGrid>
+                    {items.map((item, idx) => (
+                        <div key={idx} className="col-span-4 sm:col-span-4 lg:col-span-6 mb-6 sm:mb-0">
+                            <div className="relative aspect-4/3 w-full overflow-hidden rounded-media">
+                                <Image
+                                    src={item.src}
+                                    alt={item.alt || `Registro visual ${idx + 1}`}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 580px"
+                                    className="object-contain"
+                                />
                             </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div
-                    data-media-hairline
-                    className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left"
-                />
+                        </div>
+                    ))}
+                </LayoutGrid>
             </section>
         );
     }
 
     const item = items[0];
     return (
-        <section ref={containerRef} className="w-full pt-8 md:pt-12 relative">
-            <div data-media-wrapper className="w-full px-6 md:px-8 flex flex-col gap-2.5 pb-8 md:pb-12">
-                <div className="relative w-full aspect-video rounded-none overflow-hidden border border-neutral-800/80 bg-neutral-950">
-                    <div data-parallax-image className="absolute inset-0 w-full h-full will-change-transform">
+        <section className="w-full py-10 sm:py-16">
+            <LayoutGrid>
+                <div className="col-span-4 sm:col-span-8 lg:col-span-12">
+                    <div className="relative aspect-video w-full overflow-hidden rounded-media">
                         <Image
                             src={item.src}
-                            alt={item.alt || "Case media"}
+                            alt={item.alt || "Registro visual do projeto"}
                             fill
-                            sizes="(max-width: 768px) 100vw, 896px"
-                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 1200px"
+                            className="object-contain"
                         />
                     </div>
                 </div>
-
-                {item.alt && (
-                    <div className="flex items-baseline justify-between gap-4 text-xs font-mono text-neutral-500 pt-1 px-0.5">
-                        <span className="text-neutral-400">— {item.alt}</span>
-                        <span className="text-neutral-600 uppercase tracking-wider text-[11px] shrink-0 hidden sm:inline">
-                            Registro Visual
-                        </span>
-                    </div>
-                )}
-            </div>
-
-            <div data-media-hairline className="absolute bottom-0 left-0 w-full h-px bg-neutral-800/60 origin-left" />
+            </LayoutGrid>
         </section>
     );
 }
