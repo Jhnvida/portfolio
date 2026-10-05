@@ -4,8 +4,8 @@ import { Page } from "../../components/layout/Page";
 import { ListRow } from "../../components/ui/ListRow";
 import { SectionHeader } from "../../components/ui/SectionHeader";
 import { WorkFeaturedProjects } from "../../components/work/WorkFeaturedProjects";
-import { WorkMotion } from "../../components/work/WorkMotion";
 import { PROJECTS } from "../../data/projects";
+import { enter } from "../../lib/motion";
 
 export const metadata: Metadata = {
     title: "Projetos",
@@ -16,13 +16,13 @@ export default function WorkPage() {
     return (
         <Page className="flex flex-col pt-16 pb-24 sm:pt-24 sm:pb-32">
             <LayoutGrid>
-                <WorkMotion>
-                    <SectionHeader title="Projetos em Destaque" data-work-header-featured />
+                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
+                    <SectionHeader title="Projetos em Destaque" {...enter(0)} />
 
                     <WorkFeaturedProjects projects={PROJECTS}>
                         <div className="flex flex-col">
-                            {PROJECTS.map((project) => (
-                                <div key={project.id} data-work-item-featured>
+                            {PROJECTS.map((project, idx) => (
+                                <div key={project.id} {...enter(1 + idx)}>
                                     <ListRow
                                         href={`/work/${project.slug}`}
                                         title={project.title}
@@ -36,10 +36,10 @@ export default function WorkPage() {
                     </WorkFeaturedProjects>
 
                     <div className="pt-20 sm:pt-24">
-                        <SectionHeader title="Arquivo & Trajetória" data-work-header-archive />
+                        <SectionHeader title="Arquivo & Trajetória" {...enter(PROJECTS.length + 1)} />
 
                         <div className="flex flex-col">
-                            <div data-work-item-archive>
+                            <div {...enter(PROJECTS.length + 2)}>
                                 <ListRow
                                     title="Assist Soluções em TI"
                                     muted
@@ -48,7 +48,7 @@ export default function WorkPage() {
                                     stackedOnMobile
                                 />
                             </div>
-                            <div data-work-item-archive>
+                            <div {...enter(PROJECTS.length + 3)}>
                                 <ListRow
                                     title="UniFAJ — Ciência da Computação"
                                     muted
@@ -57,7 +57,7 @@ export default function WorkPage() {
                                     stackedOnMobile
                                 />
                             </div>
-                            <div data-work-item-archive>
+                            <div {...enter(PROJECTS.length + 4)}>
                                 <ListRow
                                     title="ETEC Pedro Ferreira Alves"
                                     muted
@@ -68,7 +68,7 @@ export default function WorkPage() {
                             </div>
                         </div>
                     </div>
-                </WorkMotion>
+                </div>
             </LayoutGrid>
         </Page>
     );

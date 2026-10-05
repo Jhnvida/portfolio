@@ -1,44 +1,41 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { ContextWeather } from "../components/home/ContextWeather";
-import { HomeHeroMotion } from "../components/home/HomeHeroMotion";
-import { HomeSectionMotion, HomeWorkMotion } from "../components/home/HomeWorkMotion";
 import { LayoutGrid } from "../components/layout/LayoutGrid";
 import { Page } from "../components/layout/Page";
+import { Reveal } from "../components/motion/Reveal";
 import { Button } from "../components/ui/Button";
 import { ListRow } from "../components/ui/ListRow";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { WorkFeaturedProjects } from "../components/work/WorkFeaturedProjects";
 import { PROJECTS } from "../data/projects";
 import { CONTACT_ANCHOR } from "../data/site";
+import { enter } from "../lib/motion";
 
 export default function HomePage() {
     return (
         <Page className="flex flex-col">
             <section className="w-full pt-16 pb-16 sm:pt-24 sm:pb-20">
                 <LayoutGrid>
-                    <HomeHeroMotion>
-                        <div data-hero-part>
+                    <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-8">
+                        <div {...enter(0)}>
                             <ContextWeather />
                         </div>
 
                         <div className="flex flex-col gap-6">
-                            <h1
-                                data-hero-part
-                                className="text-display font-medium text-ink leading-[1.22] tracking-[-0.03em]"
-                            >
+                            <h1 {...enter(1)} className="text-display font-medium text-ink leading-[1.22] tracking-[-0.03em]">
                                 Sou João Vida, desenvolvedor de software. Crio sites e interfaces digitais com rigor
                                 técnico e cuidado visual.
                             </h1>
 
-                            <p data-hero-part className="text-body text-ink-2 leading-relaxed">
+                            <p {...enter(2)} className="text-body text-ink-2 leading-relaxed">
                                 Uno minha experiência em desenvolvimento web à atenção aos detalhes de cada interface —
                                 da tipografia ao comportamento em diferentes telas. Desenvolvo projetos sob medida para
                                 quem precisa de um site bem construído, funcional e fácil de usar. Estou aberto a novos
                                 projetos e disponível para conversar sobre a sua ideia.
                             </p>
 
-                            <div data-hero-part className="mt-4 flex flex-wrap items-center gap-3">
+                            <div {...enter(3)} className="mt-4 flex flex-wrap items-center gap-3">
                                 <Button href={`#${CONTACT_ANCHOR}`} variant="primary">
                                     Conversar sobre um projeto
                                 </Button>
@@ -47,16 +44,16 @@ export default function HomePage() {
                                 </Button>
                             </div>
                         </div>
-                    </HomeHeroMotion>
+                    </div>
                 </LayoutGrid>
             </section>
 
             <section className="w-full pb-20 sm:pb-24">
                 <LayoutGrid>
-                    <HomeWorkMotion>
+                    <Reveal stagger className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                         <SectionHeader
                             title="Projetos em Destaque"
-                            data-home-work-header
+                            data-reveal-item=""
                             action={
                                 <Link
                                     href="/work"
@@ -76,7 +73,7 @@ export default function HomePage() {
                         <WorkFeaturedProjects projects={PROJECTS}>
                             <div className="flex flex-col">
                                 {PROJECTS.map((project) => (
-                                    <div key={project.id} data-home-work-item>
+                                    <div key={project.id} data-reveal-item="">
                                         <ListRow
                                             href={`/work/${project.slug}`}
                                             title={project.title}
@@ -88,17 +85,17 @@ export default function HomePage() {
                                 ))}
                             </div>
                         </WorkFeaturedProjects>
-                    </HomeWorkMotion>
+                    </Reveal>
                 </LayoutGrid>
             </section>
 
             <section className="w-full pb-24 sm:pb-32">
                 <LayoutGrid>
-                    <HomeSectionMotion>
-                        <SectionHeader title="Capacidades & Escopos de Atuação" data-home-section-header />
+                    <Reveal stagger className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
+                        <SectionHeader title="Capacidades & Escopos de Atuação" data-reveal-item="" />
 
                         <div className="flex flex-col">
-                            <div data-home-section-item>
+                            <div data-reveal-item="">
                                 <ListRow
                                     title="Sites Institucionais & Editoriais"
                                     subtitle="Páginas rápidas, tipografia refinada e atenção a design responsivo"
@@ -106,7 +103,7 @@ export default function HomePage() {
                                     stackedOnMobile
                                 />
                             </div>
-                            <div data-home-section-item>
+                            <div data-reveal-item="">
                                 <ListRow
                                     title="Aplicações Web & Painéis"
                                     subtitle="Interfaces reativas com React ou Vue, integração com APIs REST e bancos de dados"
@@ -114,7 +111,7 @@ export default function HomePage() {
                                     stackedOnMobile
                                 />
                             </div>
-                            <div data-home-section-item>
+                            <div data-reveal-item="">
                                 <ListRow
                                     title="Design de Interação & Motion"
                                     subtitle="Microinterações fluidas, transições de estado e respeito a acessibilidade"
@@ -123,7 +120,7 @@ export default function HomePage() {
                                 />
                             </div>
                         </div>
-                    </HomeSectionMotion>
+                    </Reveal>
                 </LayoutGrid>
             </section>
         </Page>

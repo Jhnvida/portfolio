@@ -1,6 +1,6 @@
 import { CaseBlock } from "../../types";
 import { LayoutGrid } from "../layout/LayoutGrid";
-import { CaseEditorialMotion } from "./CaseEditorialMotion";
+import { Reveal } from "../motion/Reveal";
 
 interface CaseEditorialBlockProps {
     block: Extract<CaseBlock, { type: "editorial" }>;
@@ -8,7 +8,7 @@ interface CaseEditorialBlockProps {
 
 export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
     return (
-        <CaseEditorialMotion>
+        <Reveal as="section" className="w-full py-10 sm:py-14">
             <LayoutGrid>
                 {block.title ? (
                     <>
@@ -40,6 +40,6 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                     </div>
                 )}
             </LayoutGrid>
-        </CaseEditorialMotion>
+        </Reveal>
     );
 }

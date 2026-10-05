@@ -79,6 +79,64 @@
     font-variant-numeric: tabular-nums;
 }
 
+:root {
+    --duration-press: 150ms;
+    --duration-overlay: 240ms;
+    --duration-morph: 360ms;
+    --duration-enter: 640ms;
+    --duration-media: 900ms;
+    --stagger: 60ms;
+    --distance-enter: 12px;
+    --distance-media: 20px;
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(var(--distance, var(--distance-enter)));
+    }
+}
+
+@keyframes settle {
+    from {
+        transform: scale(1.03);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-enter] {
+        animation: enter var(--duration-enter) var(--ease-out-soft) backwards;
+        animation-delay: calc(var(--i, 0) * var(--stagger));
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+    [data-reveal="idle"] [data-reveal-item],
+    [data-reveal="idle"][data-reveal-item] {
+        animation: enter var(--duration-enter) var(--ease-out-soft) 3s backwards;
+    }
+
+    [data-reveal="ready"] [data-reveal-item],
+    [data-reveal="ready"][data-reveal-item] {
+        opacity: 0;
+    }
+
+    [data-reveal="visible"] [data-reveal-item],
+    [data-reveal="visible"][data-reveal-item] {
+        animation: enter var(--duration-enter) var(--ease-out-soft) backwards;
+        animation-delay: calc(var(--i, 0) * var(--stagger) + var(--reveal-offset, 0ms));
+    }
+
+    [data-reveal-variant="media"] {
+        --distance: var(--distance-media);
+        --duration-enter: var(--duration-media);
+    }
+
+    [data-reveal="visible"][data-reveal-variant="media"] img {
+        animation: settle calc(var(--duration-media) + 300ms) var(--ease-out-soft) var(--reveal-offset, 0ms) backwards;
+    }
+}
+
 ::view-transition {
     pointer-events: none;
 }
@@ -96,17 +154,26 @@
     animation: none;
 }
 
+::view-transition-group(nav-pill) {
+    animation-duration: var(--duration-morph);
+    animation-timing-function: var(--ease-out-soft);
+}
+
+::view-transition-old(nav-pill) {
+    display: none;
+}
+
+::view-transition-new(nav-pill) {
+    animation: none;
+    height: 100%;
+}
+
 ::view-transition-old(.page) {
     animation: 140ms ease-in both vt-fade-out;
 }
 
 ::view-transition-new(.page) {
     animation: 260ms var(--ease-out-soft) 100ms both vt-fade-in;
-}
-
-::view-transition-group(.media) {
-    animation-duration: 420ms;
-    animation-timing-function: var(--ease-out-soft);
 }
 
 @keyframes vt-fade-out {

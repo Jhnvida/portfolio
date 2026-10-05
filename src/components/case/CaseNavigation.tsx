@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Project } from "../../types";
 import { LayoutGrid } from "../layout/LayoutGrid";
+import { Reveal } from "../motion/Reveal";
 
 interface CaseNavigationProps {
     nextProject?: Project;
@@ -12,7 +13,7 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
     if (!nextProject || nextProject.slug === currentSlug) return null;
 
     return (
-        <nav aria-label="Navegação entre projetos" className="w-full py-16 sm:py-24 border-t border-line mt-12">
+        <Reveal as="nav" aria-label="Navegação entre projetos" className="w-full py-16 sm:py-24 border-t border-line mt-12">
             <LayoutGrid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-4">
                     <span className="text-meta text-ink-3">Próximo Projeto</span>
@@ -36,6 +37,6 @@ export function CaseNavigation({ nextProject, currentSlug }: CaseNavigationProps
                     </Link>
                 </div>
             </LayoutGrid>
-        </nav>
+        </Reveal>
     );
 }

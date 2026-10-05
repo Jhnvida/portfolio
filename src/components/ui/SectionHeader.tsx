@@ -1,14 +1,9 @@
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/utils";
 
-interface SectionHeaderProps {
+interface SectionHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
     title: ReactNode;
     action?: ReactNode;
-    className?: string;
-    "data-work-header-featured"?: boolean | string;
-    "data-work-header-archive"?: boolean | string;
-    "data-home-work-header"?: boolean | string;
-    "data-home-section-header"?: boolean | string;
 }
 
 export function SectionHeader({ title, action, className, ...rest }: SectionHeaderProps) {

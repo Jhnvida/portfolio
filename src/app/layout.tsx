@@ -3,6 +3,7 @@ import { Geist, Newsreader } from "next/font/google";
 import { ReactNode } from "react";
 import { SiteFooter } from "../components/layout/SiteFooter";
 import { SiteHeader } from "../components/layout/SiteHeader";
+import { SITE } from "../data/site";
 import "./globals.css";
 
 const geist = Geist({
@@ -20,11 +21,10 @@ const newsreader = Newsreader({
 
 export const metadata: Metadata = {
     title: {
-        template: "%s / João Vida",
-        default: "Desenvolvedor Full Stack / João Vida",
+        template: `%s / ${SITE.name}`,
+        default: `${SITE.role} / ${SITE.name}`,
     },
-    description:
-        "Portfólio de João Vida, desenvolvedor full stack em Jaguariúna, SP. Interfaces em React e Vue.js, sistemas em Node.js e PHP.",
+    description: `Portfólio de ${SITE.name}, desenvolvedor full stack em ${SITE.location.city}, ${SITE.location.region}. Interfaces em React e Vue.js, sistemas em Node.js e PHP.`,
 };
 
 export const viewport: Viewport = {

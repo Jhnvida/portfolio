@@ -1,6 +1,8 @@
+import { SITE } from "../../data/site";
+import { enter } from "../../lib/motion";
 import { cn } from "../../lib/utils";
+import { Reveal } from "../motion/Reveal";
 import { ListRow } from "../ui/ListRow";
-import { AboutMotion } from "./AboutMotion";
 
 interface AboutViewProps {
     className?: string;
@@ -8,32 +10,34 @@ interface AboutViewProps {
 
 export function AboutView({ className }: AboutViewProps) {
     return (
-        <AboutMotion>
+        <div className="w-full">
             <div className={cn("flex w-full flex-col gap-20", className)}>
-                <div data-about-header className="mb-2">
+                <div {...enter(0)} className="mb-2">
                     <span className="text-meta text-ink-3">Sobre</span>
                 </div>
 
                 <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-5 sm:gap-x-6 gap-y-10 lg:gap-y-12 items-start">
                     <div
-                        data-about-card
+                        {...enter(1)}
                         className="order-2 lg:order-1 col-span-4 sm:col-span-8 lg:col-span-4 flex flex-col gap-6"
                     >
                         <div className="flex flex-col gap-1.5">
                             <span className="text-meta text-ink-3">Perfil</span>
-                            <h2 className="text-title font-medium text-ink">João Vida</h2>
-                            <span className="text-meta text-ink-2">Desenvolvedor Full Stack</span>
+                            <h2 className="text-title font-medium text-ink">{SITE.name}</h2>
+                            <span className="text-meta text-ink-2">{SITE.role}</span>
                         </div>
 
                         <div className="flex flex-col gap-3 pt-6 border-t border-line text-meta text-ink-2 sm:grid sm:grid-cols-3 sm:gap-6 lg:flex lg:flex-col lg:gap-3">
                             <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-1 lg:flex-row lg:items-center lg:justify-between">
                                 <span className="text-ink-3">Localização</span>
-                                <span className="text-ink">Jaguariúna, SP</span>
+                                <span className="text-ink">
+                                    {SITE.location.city}, {SITE.location.region}
+                                </span>
                             </div>
 
                             <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-1 lg:flex-row lg:items-center lg:justify-between">
                                 <span className="text-ink-3">Fuso Horário</span>
-                                <span className="text-ink">BRT (UTC−3)</span>
+                                <span className="text-ink">{SITE.location.timeZoneLabel}</span>
                             </div>
 
                             <div className="flex items-center justify-between sm:flex-col sm:items-start sm:gap-1 lg:flex-row lg:items-center lg:justify-between">
@@ -44,7 +48,7 @@ export function AboutView({ className }: AboutViewProps) {
                     </div>
 
                     <div
-                        data-about-bio
+                        {...enter(1)}
                         className="order-1 lg:order-2 col-span-4 sm:col-span-8 lg:col-span-8 flex flex-col gap-6 text-body text-ink-2 leading-relaxed"
                     >
                         <p className="text-ink font-medium">
@@ -68,7 +72,7 @@ export function AboutView({ className }: AboutViewProps) {
                     </div>
                 </div>
 
-                <section data-about-section className="flex flex-col pt-12 sm:pt-14 border-t border-line">
+                <Reveal as="section" className="flex flex-col pt-12 sm:pt-14 border-t border-line">
                     <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-5 sm:gap-x-6 gap-y-6 sm:gap-y-0 items-start">
                         <div className="col-span-4 sm:col-span-3 lg:col-span-4 flex flex-col gap-1">
                             <span className="text-meta text-ink-3">Trajetória</span>
@@ -90,9 +94,9 @@ export function AboutView({ className }: AboutViewProps) {
                             />
                         </div>
                     </div>
-                </section>
+                </Reveal>
 
-                <section data-about-section className="flex flex-col pt-12 sm:pt-14 border-t border-line">
+                <Reveal as="section" className="flex flex-col pt-12 sm:pt-14 border-t border-line">
                     <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-5 sm:gap-x-6 gap-y-6 sm:gap-y-0 items-start">
                         <div className="col-span-4 sm:col-span-3 lg:col-span-4 flex flex-col gap-1">
                             <span className="text-meta text-ink-3">Educação</span>
@@ -114,9 +118,9 @@ export function AboutView({ className }: AboutViewProps) {
                             />
                         </div>
                     </div>
-                </section>
+                </Reveal>
 
-                <section data-about-section className="flex flex-col pt-12 sm:pt-14 border-t border-line">
+                <Reveal as="section" className="flex flex-col pt-12 sm:pt-14 border-t border-line">
                     <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-5 sm:gap-x-6 gap-y-6 sm:gap-y-0 items-start">
                         <div className="col-span-4 sm:col-span-3 lg:col-span-4 flex flex-col gap-1">
                             <span className="text-meta text-ink-3">Competências</span>
@@ -139,8 +143,8 @@ export function AboutView({ className }: AboutViewProps) {
                             />
                         </div>
                     </div>
-                </section>
+                </Reveal>
             </div>
-        </AboutMotion>
+        </div>
     );
 }

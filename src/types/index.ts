@@ -27,11 +27,3 @@ export type CaseBlock =
           layout: "full" | "container" | "grid-2";
           items: { src: string; type: "image" | "video"; alt?: string }[];
       };
-
-export interface ExperienceItem {
-    id: string;
-    role: string;
-    company: string;
-    period: string;
-    description: string[];
-}

@@ -1,9 +1,8 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { CSSProperties } from "react";
 
-if (typeof window !== "undefined") {
-    gsap.registerPlugin(useGSAP, ScrollTrigger);
+export function enter(index = 0) {
+    return {
+        "data-enter": "",
+        style: { "--i": index } as CSSProperties,
+    };
 }
-
-export { gsap, ScrollTrigger, useGSAP };

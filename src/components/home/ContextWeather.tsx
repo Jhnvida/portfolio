@@ -1,3 +1,5 @@
+import { SITE } from "../../data/site";
+
 interface WeatherData {
     temperature: number;
     description: string;
@@ -26,8 +28,9 @@ const WMO_WEATHER_CODES: Record<number, string> = {
 
 async function getJaguariunaWeather(): Promise<WeatherData | null> {
     try {
+        const timezone = encodeURIComponent(SITE.location.timeZone);
         const res = await fetch(
-            "https://api.open-meteo.com/v1/forecast?latitude=-22.70&longitude=-46.99&current=temperature_2m,weather_code&timezone=America%2FSao_Paulo",
+            `https://api.open-meteo.com/v1/forecast?latitude=-22.70&longitude=-46.99&current=temperature_2m,weather_code&timezone=${timezone}`,
             { next: { revalidate: 900 } },
         );
 
@@ -58,7 +61,9 @@ export async function ContextWeather() {
 
     return (
         <div className="flex items-center gap-2 text-meta text-ink-3">
-            <span className="text-ink-2 font-medium">Jaguariúna, SP</span>
+            <span className="text-ink-2 font-medium">
+                {SITE.location.city}, {SITE.location.region}
+            </span>
             <span>·</span>
             {weather ? (
                 <>
@@ -67,7 +72,7 @@ export async function ContextWeather() {
                     <span>{weather.description}</span>
                 </>
             ) : (
-                <span>BRT (UTC−3)</span>
+                <span>{SITE.location.timeZoneLabel}</span>
             )}
         </div>
     );

@@ -25,10 +25,17 @@ export function NavPill() {
                                 aria-current={active ? "page" : undefined}
                                 className={cn(
                                     "relative inline-flex h-8 items-center rounded-full px-2.5 sm:px-3 text-meta transition-colors duration-200 before:absolute before:content-[''] before:-inset-y-1.5 before:inset-x-0 sm:before:hidden",
-                                    active ? "bg-surface-strong font-medium text-ink" : "text-ink-2 hover:text-ink",
+                                    active ? "font-medium text-ink" : "text-ink-2 hover:text-ink",
                                 )}
                             >
-                                {link.label}
+                                {active && (
+                                    <span
+                                        aria-hidden="true"
+                                        style={{ viewTransitionName: "nav-pill" }}
+                                        className="absolute inset-0 -z-10 rounded-full bg-surface-strong"
+                                    />
+                                )}
+                                <span className="relative z-10">{link.label}</span>
                             </Link>
                         </li>
                     );

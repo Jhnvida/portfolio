@@ -18,7 +18,8 @@ const VARIANTS = {
 
 export function Button({ href, children, variant = "primary", external = false, className, ...rest }: ButtonProps) {
     const classes = cn(
-        "inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-meta font-medium whitespace-nowrap transition-[background-color,box-shadow] duration-200",
+        "group inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-meta font-medium whitespace-nowrap",
+        "transition-[background-color,box-shadow,transform] duration-200 active:scale-[0.97] active:duration-150",
         VARIANTS[variant],
         className,
     );
@@ -27,7 +28,12 @@ export function Button({ href, children, variant = "primary", external = false, 
         return (
             <a href={href} target="_blank" rel="noopener noreferrer" className={classes} {...rest}>
                 {children}
-                <ArrowUpRight aria-hidden size={14} strokeWidth={2} className="-mr-1 opacity-60" />
+                <ArrowUpRight
+                    aria-hidden
+                    size={14}
+                    strokeWidth={2}
+                    className="-mr-1 opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
             </a>
         );
     }

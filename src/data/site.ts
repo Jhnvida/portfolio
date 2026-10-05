@@ -1,6 +1,5 @@
 export const SITE = {
     name: "João Vida",
-    fullName: "João André Vida da Silva",
     role: "Desenvolvedor Full Stack",
     email: "joao.vida.andre@gmail.com",
     location: {
@@ -8,8 +7,7 @@ export const SITE = {
         region: "SP",
         country: "Brasil",
         timeZone: "America/Sao_Paulo",
-        timeZoneLabel: "BRT · UTC−3",
-        coordinates: "22°42′S 46°59′W",
+        timeZoneLabel: "BRT (UTC−3)",
     },
 } as const;
 
