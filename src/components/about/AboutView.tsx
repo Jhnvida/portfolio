@@ -48,21 +48,22 @@ export function AboutView({ className }: AboutViewProps) {
                         className="col-span-4 sm:col-span-4 lg:col-span-8 flex flex-col gap-6 text-body text-ink-2 leading-relaxed"
                     >
                         <p className="text-ink font-medium">
-                            Minha atuação profissional combina engenharia de software full stack com um apreço constante
-                            pela experiência de quem utiliza a aplicação.
+                            Minha atuação combina engenharia de software e atenção à experiência de quem navega. Gosto
+                            de criar interfaces claras, cuidadosas e agradáveis de usar, apoiadas por uma base técnica
+                            bem construída.
                         </p>
 
                         <p>
-                            Ao longo da minha trajetória, participei ativamente de projetos de ponta a ponta: do
-                            levantamento e entendimento de regras de negócio à implementação de regras de backend,
-                            consumo e criação de APIs REST e modelagem em bancos relacionais.
+                            Na minha experiência profissional, trabalhei no desenvolvimento e na evolução de aplicações
+                            web, participando de diferentes etapas — do entendimento das necessidades à implementação de
+                            interfaces, APIs e integrações. Essa vivência fortaleceu meu olhar para além da tela: um bom
+                            produto também precisa funcionar bem por dentro.
                         </p>
 
                         <p>
-                            Gosto de trabalhar em equipes colaborativas sob metodologias ágeis, onde boas práticas de
-                            versionamento, clareza na comunicação e foco no usuário guiam o dia a dia. Fora do ambiente
-                            corporativo, dedico tempo para construir ferramentas autorais e explorar o estado da arte do
-                            design digital.
+                            Nos projetos autorais, exploro especialmente o encontro entre tecnologia, tipografia e
+                            movimento. Também estou aberto a desenvolver sites e experiências digitais para quem busca
+                            esse cuidado visual aliado a uma construção técnica consistente.
                         </p>
                     </div>
                 </div>
@@ -120,10 +121,18 @@ export function AboutView({ className }: AboutViewProps) {
 
                         <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col">
                             <ListRow title="Linguagens" value="PHP · JavaScript · TypeScript" stackedOnMobile />
-                            <ListRow title="Front-end" value="React · Vue.js · HTML5 · CSS3 · Tailwind CSS" stackedOnMobile />
+                            <ListRow
+                                title="Front-end"
+                                value="React · Vue.js · HTML5 · CSS3 · Tailwind CSS"
+                                stackedOnMobile
+                            />
                             <ListRow title="Back-end" value="Node.js · Express · PHP · APIs REST" stackedOnMobile />
                             <ListRow title="Bancos de Dados" value="MySQL · PostgreSQL" stackedOnMobile />
-                            <ListRow title="Ferramentas & Práticas" value="Git · Docker · Metodologias Ágeis" stackedOnMobile />
+                            <ListRow
+                                title="Ferramentas & Práticas"
+                                value="Git · Docker · Metodologias Ágeis"
+                                stackedOnMobile
+                            />
                         </div>
                     </div>
                 </section>

@@ -3,6 +3,7 @@ import { HomeHeroMotion } from "../components/home/HomeHeroMotion";
 import { LayoutGrid } from "../components/layout/LayoutGrid";
 import { Page } from "../components/layout/Page";
 import { Button } from "../components/ui/Button";
+import { CONTACT_ANCHOR } from "../data/site";
 
 export default function HomePage() {
     return (
@@ -19,29 +20,23 @@ export default function HomePage() {
                                 data-hero-part
                                 className="text-display font-medium text-ink leading-[1.22] tracking-[-0.03em]"
                             >
-                                Sou João Vida, desenvolvedor de software focado em construir sistemas que funcionam com
-                                clareza e interfaces que parecem naturais na tela.
+                                Sou João Vida, desenvolvedor de software. Crio sites e interfaces digitais com rigor
+                                técnico e cuidado visual.
                             </h1>
 
                             <p data-hero-part className="text-body text-ink-2 leading-relaxed">
-                                Gosto do desafio de transformar processos complexos em ferramentas simples e agradáveis
-                                de usar. Nos últimos anos, trabalhei no desenvolvimento e na evolução de aplicações web
-                                reais — lidando tanto com a criação de interfaces responsivas quanto com a estruturação
-                                de APIs REST e a otimização de bancos de dados para operações críticas.
-                            </p>
-
-                            <p data-hero-part className="text-body text-ink-2 leading-relaxed">
-                                Sempre tive interesse genuíno pelo ponto de encontro entre rigor técnico e cuidado
-                                visual. Enxergo o código como um meio de dar vida a soluções sólidas, onde cada detalhe
-                                de espaçamento, tipografia e fluxo de dados existe por um motivo claro.
+                                Uno minha experiência em desenvolvimento web à atenção aos detalhes de cada interface —
+                                da tipografia ao comportamento em diferentes telas. Desenvolvo projetos sob medida para
+                                quem precisa de um site bem construído, funcional e fácil de usar. Estou aberto a novos
+                                projetos e disponível para conversar sobre a sua ideia.
                             </p>
 
                             <div data-hero-part className="mt-4 flex flex-wrap items-center gap-3">
-                                <Button href="/work" variant="primary">
-                                    Ver projetos
+                                <Button href={`#${CONTACT_ANCHOR}`} variant="primary">
+                                    Conversar sobre um projeto
                                 </Button>
-                                <Button href="/about" variant="secondary">
-                                    Mais sobre mim
+                                <Button href="/work" variant="secondary">
+                                    Ver projetos
                                 </Button>
                             </div>
                         </div>

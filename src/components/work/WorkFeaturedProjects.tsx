@@ -157,9 +157,9 @@ export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProject
             >
                 <div
                     className={cn(
-                        "relative w-[280px] aspect-[45/32] overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80",
-                        "transition-[opacity,transform] duration-[220ms] ease-out origin-center",
-                        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.96]",
+                        "relative w-70 aspect-45/32 overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80",
+                        "transition-[opacity,scale] duration-240 ease-out origin-center",
+                        isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.94]",
                     )}
                 >
                     {projects.map((project) => (

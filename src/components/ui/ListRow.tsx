@@ -62,9 +62,7 @@ export function ListRow({
                         <span
                             className={cn(
                                 "tabular transition-colors duration-200",
-                                stackedOnMobile
-                                    ? "sm:shrink-0 break-words text-ink-2 sm:text-ink"
-                                    : "shrink-0",
+                                stackedOnMobile ? "sm:shrink-0 wrap-break-word text-ink-2 sm:text-ink" : "shrink-0",
                                 muted ? "text-ink-3" : "text-ink",
                             )}
                         >
@@ -72,13 +70,9 @@ export function ListRow({
                         </span>
                     )}
                 </span>
+
                 {subtitle && (
-                    <span
-                        className={cn(
-                            "text-ink-3 transition-colors duration-200",
-                            href && "group-hover:text-ink-2",
-                        )}
-                    >
+                    <span className={cn("text-ink-3 transition-colors duration-200", href && "group-hover:text-ink-2")}>
                         {subtitle}
                     </span>
                 )}

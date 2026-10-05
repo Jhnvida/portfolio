@@ -21,20 +21,27 @@ export function CaseHero({ project }: CaseHeroProps) {
                             href="/work"
                             className="group inline-flex items-center gap-2 text-meta text-ink-3 transition-colors duration-200 hover:text-ink"
                         >
-                            <ArrowLeft size={14} className="transition-transform duration-200 group-hover:-translate-x-1" />
+                            <ArrowLeft
+                                size={14}
+                                className="transition-transform duration-200 group-hover:-translate-x-1"
+                            />
                             <span>Voltar para projetos</span>
                         </Link>
                     </div>
 
-                    <div className="flex flex-col gap-4 max-w-[44rem]">
+                    <div className="flex flex-col gap-4 max-w-176">
                         <div data-case-meta className="flex items-center gap-2.5">
                             <span className="text-meta text-ink-3">{project.category}</span>
                             <Badge>{project.year}</Badge>
                         </div>
 
-                        <h1 data-case-title className="text-display font-medium text-ink">{project.title}</h1>
+                        <h1 data-case-title className="text-display font-medium text-ink">
+                            {project.title}
+                        </h1>
 
-                        <p data-case-summary className="text-body text-ink-2 leading-relaxed">{project.summary}</p>
+                        <p data-case-summary className="text-body text-ink-2 leading-relaxed">
+                            {project.summary}
+                        </p>
                     </div>
 
                     <div data-case-rows className="mt-10 flex flex-col border-t border-line pt-2">
