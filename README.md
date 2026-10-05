@@ -12,7 +12,6 @@ Portfólio autoral e laboratório criativo desenvolvido para apresentar criaçõ
 - **Processo Criativo ("Como eu crio")**: Apresentação detalhada das etapas de ideação, prototipagem, refinamento visual e aprendizado contínuo.
 - **Sobre Mim (`/about`)**: Trajetória, visão sobre engenharia front-end e lista de tecnologias e ferramentas de trabalho utilizadas.
 - **Contato Direto (`/contact`)**: Acesso descomplicado aos canais de contato (E-mail, GitHub e LinkedIn) sem formulários corporativos.
-- **Rolagem Suave (Lenis + GSAP)**: Rolagem inercial suave integrada ao ScrollTrigger com respeito às preferências de movimento reduzido (`prefers-reduced-motion`).
 - **Transições Suaves de Navegação**: Navegação fluida entre rotas aproveitando a View Transitions API nativa dos navegadores modernos.
 
 ## Tecnologias Utilizadas
@@ -23,7 +22,6 @@ Portfólio autoral e laboratório criativo desenvolvido para apresentar criaçõ
     - [TypeScript](https://www.typescriptlang.org/)
     - [Tailwind CSS v4](https://tailwindcss.com/) para estilização moderna
     - [GSAP 3](https://gsap.com/) e [@gsap/react](https://gsap.com/resources/React/) (com ScrollTrigger) para orquestração de animações
-    - [Lenis](https://lenis.darkroom.engineering/) para rolagem inercial suave
     - [Lucide React](https://lucide.dev/) para ícones da interface
 - **Ferramentas & Build:**
     - [pnpm](https://pnpm.io/) como gerenciador de pacotes
