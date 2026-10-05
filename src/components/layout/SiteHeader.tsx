@@ -9,8 +9,8 @@ export function SiteHeader() {
             style={{ viewTransitionName: "site-header" }}
             className="relative z-10 w-full pt-[max(1.25rem,env(safe-area-inset-top))] pb-6"
         >
-            <LayoutGrid className="items-center">
-                <div className="col-span-2 sm:col-span-2 lg:col-span-3 flex items-center">
+            <LayoutGrid className="flex items-center justify-between sm:justify-normal sm:grid">
+                <div className="shrink-0 sm:col-span-2 lg:col-span-3 flex items-center">
                     <Link
                         href="/"
                         aria-label={`${SITE.name}, página inicial`}
@@ -22,7 +22,7 @@ export function SiteHeader() {
                     </Link>
                 </div>
 
-                <div className="col-span-2 sm:col-span-4 lg:col-span-6 flex justify-center">
+                <div className="sm:col-span-4 lg:col-span-6 flex justify-end sm:justify-center">
                     <NavPill />
                 </div>
 

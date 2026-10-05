@@ -1,5 +1,4 @@
 import { CONTACT_ANCHOR, SITE, SOCIAL_LINKS } from "../../data/site";
-import { CopyEmailButton } from "../ui/CopyEmailButton";
 
 export function SiteFooter() {
     const year = new Date().getFullYear();
@@ -11,8 +10,8 @@ export function SiteFooter() {
                 aria-labelledby="contact-title"
                 className="mx-auto flex min-h-112 w-full max-w-[60rem] scroll-mt-4 flex-col rounded-panel bg-surface sm:min-h-136"
             >
-                <div className="flex flex-1 flex-col items-center justify-center gap-7 py-20 px-6 text-center">
-                    <div className="flex flex-col items-center">
+                <div className="flex flex-1 flex-col items-center justify-center py-20 px-6 text-center">
+                    <div className="flex flex-col items-center gap-2">
                         <h2 id="contact-title" className="text-display font-medium">
                             Vamos conversar
                         </h2>
@@ -23,8 +22,6 @@ export function SiteFooter() {
                             {SITE.email}
                         </a>
                     </div>
-
-                    <CopyEmailButton email={SITE.email} />
                 </div>
 
                 <div className="border-t border-line/60 py-6 px-6 sm:px-8">

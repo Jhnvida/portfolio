@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LayoutGrid } from "../../components/layout/LayoutGrid";
 import { Page } from "../../components/layout/Page";
 import { ListRow } from "../../components/ui/ListRow";
+import { WorkFeaturedProjects } from "../../components/work/WorkFeaturedProjects";
 import { WorkMotion } from "../../components/work/WorkMotion";
 import { PROJECTS } from "../../data/projects";
 
@@ -19,18 +20,21 @@ export default function WorkPage() {
                         <span className="text-meta text-ink-3">Projetos em Destaque</span>
                     </div>
 
-                    <div className="flex flex-col">
-                        {PROJECTS.map((project) => (
-                            <div key={project.id} data-work-item-featured>
-                                <ListRow
-                                    href={`/work/${project.slug}`}
-                                    title={project.title}
-                                    subtitle={`${project.category} · ${project.stack.join(" · ")}`}
-                                    value={project.year}
-                                />
-                            </div>
-                        ))}
-                    </div>
+                    <WorkFeaturedProjects projects={PROJECTS}>
+                        <div className="flex flex-col">
+                            {PROJECTS.map((project) => (
+                                <div key={project.id} data-work-item-featured>
+                                    <ListRow
+                                        href={`/work/${project.slug}`}
+                                        title={project.title}
+                                        subtitle={`${project.category} · ${project.stack.join(" · ")}`}
+                                        value={project.year}
+                                        previewImage={project.image}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </WorkFeaturedProjects>
 
                     <div data-work-divider className="mt-16 border-t border-line" />
 

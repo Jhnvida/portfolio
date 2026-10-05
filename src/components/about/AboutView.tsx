@@ -12,7 +12,7 @@ export function AboutView({ className }: AboutViewProps) {
             <div className={cn("flex w-full flex-col gap-20", className)}>
                 <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-5 sm:gap-x-6 gap-y-12 items-start">
                     <div data-about-card className="col-span-4 sm:col-span-4 lg:col-span-4 flex flex-col gap-4">
-                        <div className="flex flex-col justify-between rounded-panel bg-surface p-7 sm:p-8 aspect-4/5">
+                        <div className="flex flex-col justify-between rounded-panel bg-surface p-7 sm:p-8 aspect-auto lg:aspect-4/5 gap-6">
                             <div className="flex flex-col gap-1.5">
                                 <span className="text-meta text-ink-3">Perfil</span>
                                 <span className="text-title font-medium text-ink">João Vida</span>
@@ -119,11 +119,11 @@ export function AboutView({ className }: AboutViewProps) {
                         </div>
 
                         <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col">
-                            <ListRow title="Linguagens" value="PHP · JavaScript · TypeScript" />
-                            <ListRow title="Front-end" value="React · Vue.js · HTML5 · CSS3 · Tailwind CSS" />
-                            <ListRow title="Back-end" value="Node.js · Express · PHP · APIs REST" />
-                            <ListRow title="Bancos de Dados" value="MySQL · PostgreSQL" />
-                            <ListRow title="Ferramentas & Práticas" value="Git · Docker · Metodologias Ágeis" />
+                            <ListRow title="Linguagens" value="PHP · JavaScript · TypeScript" stackedOnMobile />
+                            <ListRow title="Front-end" value="React · Vue.js · HTML5 · CSS3 · Tailwind CSS" stackedOnMobile />
+                            <ListRow title="Back-end" value="Node.js · Express · PHP · APIs REST" stackedOnMobile />
+                            <ListRow title="Bancos de Dados" value="MySQL · PostgreSQL" stackedOnMobile />
+                            <ListRow title="Ferramentas & Práticas" value="Git · Docker · Metodologias Ágeis" stackedOnMobile />
                         </div>
                     </div>
                 </section>
