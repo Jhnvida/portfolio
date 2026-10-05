@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CaseBlock } from "../../types";
 import { LayoutGrid } from "../layout/LayoutGrid";
+import { CaseImageReveal } from "./CaseImageReveal";
 
 interface CaseMediaBlockProps {
     block: Extract<CaseBlock, { type: "media" }>;
@@ -15,7 +16,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
             <section className="w-full py-10 sm:py-16">
                 <LayoutGrid>
                     <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                        <div className="relative aspect-16/10 w-full overflow-hidden rounded-media">
+                        <CaseImageReveal className="relative aspect-16/10 w-full overflow-hidden rounded-media">
                             <Image
                                 src={item.src}
                                 alt={item.alt || "Registro visual do projeto"}
@@ -24,7 +25,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                 sizes="(max-width: 1024px) 100vw, 1200px"
                                 className="object-contain"
                             />
-                        </div>
+                        </CaseImageReveal>
                     </div>
                 </LayoutGrid>
             </section>
@@ -37,7 +38,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                 <LayoutGrid>
                     {items.map((item, idx) => (
                         <div key={idx} className="col-span-4 sm:col-span-4 lg:col-span-6 mb-6 sm:mb-0">
-                            <div className="relative aspect-4/3 w-full overflow-hidden rounded-media">
+                            <CaseImageReveal className="relative aspect-4/3 w-full overflow-hidden rounded-media">
                                 <Image
                                     src={item.src}
                                     alt={item.alt || `Registro visual ${idx + 1}`}
@@ -45,7 +46,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                                     sizes="(max-width: 768px) 100vw, 580px"
                                     className="object-contain"
                                 />
-                            </div>
+                            </CaseImageReveal>
                         </div>
                     ))}
                 </LayoutGrid>
@@ -58,7 +59,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
         <section className="w-full py-10 sm:py-16">
             <LayoutGrid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                    <div className="relative aspect-video w-full overflow-hidden rounded-media">
+                    <CaseImageReveal className="relative aspect-video w-full overflow-hidden rounded-media">
                         <Image
                             src={item.src}
                             alt={item.alt || "Registro visual do projeto"}
@@ -66,7 +67,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             sizes="(max-width: 1024px) 100vw, 1200px"
                             className="object-contain"
                         />
-                    </div>
+                    </CaseImageReveal>
                 </div>
             </LayoutGrid>
         </section>

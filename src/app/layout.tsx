@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="pt-BR" className={`${geist.variable} ${newsreader.variable}`}>
+        <html lang="pt-BR" data-scroll-behavior="smooth" className={`${geist.variable} ${newsreader.variable}`}>
             <body className="flex min-h-dvh flex-col bg-bg text-ink">
                 <SiteHeader />
                 <div className="flex flex-1 flex-col">{children}</div>
