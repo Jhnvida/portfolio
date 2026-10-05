@@ -45,9 +45,9 @@ export function CaseHero({ project }: CaseHeroProps) {
                     </div>
 
                     <div data-case-rows className="mt-10 flex flex-col border-t border-line pt-2">
-                        <ListRow title="Papel" value={project.role} />
-                        {project.impact && <ListRow title="Foco" value={project.impact} />}
-                        <ListRow title="Tecnologias" value={project.stack.join(" · ")} />
+                        <ListRow title="Papel" value={project.role} stackedOnMobile />
+                        {project.impact && <ListRow title="Foco" value={project.impact} stackedOnMobile />}
+                        <ListRow title="Tecnologias" value={project.stack.join(" · ")} stackedOnMobile />
                     </div>
 
                     {project.githubUrl && (

@@ -14,16 +14,29 @@ export function AboutMotion({ children }: AboutMotionProps) {
         () => {
             if (!containerRef.current) return;
 
+            const header = containerRef.current.querySelector<HTMLElement>("[data-about-header]");
             const profileCard = containerRef.current.querySelector<HTMLElement>("[data-about-card]");
             const bioText = containerRef.current.querySelector<HTMLElement>("[data-about-bio]");
             const sections = containerRef.current.querySelectorAll<HTMLElement>("[data-about-section]");
 
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             if (prefersReducedMotion) {
+                if (header) gsap.set(header, { opacity: 1, y: 0, clearProps: "all" });
                 if (profileCard) gsap.set(profileCard, { opacity: 1, y: 0, clearProps: "all" });
                 if (bioText) gsap.set(bioText, { opacity: 1, y: 0, clearProps: "all" });
                 if (sections.length) gsap.set(sections, { opacity: 1, y: 0, clearProps: "all" });
                 return;
+            }
+
+            if (header) {
+                gsap.set(header, { opacity: 0, y: 10 });
+                gsap.to(header, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: "power3.out",
+                    clearProps: "transform,opacity",
+                });
             }
 
             if (profileCard) {

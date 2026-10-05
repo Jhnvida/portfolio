@@ -16,7 +16,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
             <section className="w-full py-10 sm:py-16">
                 <LayoutGrid>
                     <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                        <CaseImageReveal className="relative aspect-16/10 w-full overflow-hidden rounded-media">
+                        <CaseImageReveal className="relative aspect-21/10 w-full overflow-hidden rounded-media">
                             <Image
                                 src={item.src}
                                 alt={item.alt || "Registro visual do projeto"}

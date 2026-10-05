@@ -85,7 +85,7 @@ export function WorkMotion({ children }: WorkMotionProps) {
                         duration: 0.55,
                         clearProps: "transform,opacity",
                     },
-                    "-=0.45",
+                    archiveDivider ? "-=0.45" : "-=0.2",
                 );
             }
 

@@ -158,7 +158,7 @@ export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProject
                 <div
                     className={cn(
                         "relative w-70 aspect-45/32 overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80",
-                        "transition-[opacity,scale] duration-240 ease-out origin-center",
+                        "transition-[opacity,transform,scale] duration-240 ease-out origin-center",
                         isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.94]",
                     )}
                 >
@@ -168,6 +168,7 @@ export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProject
                             src={project.image}
                             alt=""
                             fill
+                            priority
                             sizes="280px"
                             className={cn(
                                 "object-cover transition-opacity duration-200",
