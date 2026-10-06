@@ -1,10 +1,6 @@
-import { CaseBlock } from "../../types/project";
+import { EditorialProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
-
-interface EditorialProps {
-    block: Extract<CaseBlock, { type: "editorial" }>;
-}
 
 export function Editorial({ block }: EditorialProps) {
     return (

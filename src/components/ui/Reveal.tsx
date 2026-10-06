@@ -1,13 +1,7 @@
 "use client";
 
-import { ElementType, HTMLAttributes, ReactNode, useEffect, useRef } from "react";
-
-interface RevealProps extends HTMLAttributes<HTMLElement> {
-    children: ReactNode;
-    as?: ElementType;
-    stagger?: boolean;
-    variant?: "media";
-}
+import { useEffect, useRef } from "react";
+import { RevealProps } from "../../types";
 
 export function Reveal({ children, as: Tag = "div", stagger = false, variant, ...rest }: RevealProps) {
     const ref = useRef<HTMLElement>(null);

@@ -25,7 +25,10 @@ export default function HomePage() {
                         </div>
 
                         <div className="flex flex-col gap-6">
-                            <h1 {...enter(1)} className="text-display font-medium text-ink leading-[1.22] tracking-[-0.03em]">
+                            <h1
+                                {...enter(1)}
+                                className="text-display font-medium text-ink leading-[1.22] tracking-[-0.03em]"
+                            >
                                 Sou João Vida, desenvolvedor de software. Crio sites e interfaces digitais com rigor
                                 técnico e cuidado visual.
                             </h1>
@@ -79,7 +82,6 @@ export default function HomePage() {
                                         <ListRow
                                             href={`/work/${project.slug}`}
                                             title={project.title}
-                                            subtitle={`${project.category} · ${project.stack.join(" · ")}`}
                                             value={project.year}
                                             previewImage={project.image}
                                         />
@@ -98,28 +100,13 @@ export default function HomePage() {
 
                         <div className="flex flex-col">
                             <div data-reveal-item="">
-                                <ListRow
-                                    title="Sites Institucionais & Editoriais"
-                                    subtitle="Páginas rápidas, tipografia refinada e atenção a design responsivo"
-                                    value="Design & Front-End"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="Sites Institucionais & Editoriais" value="Design & Front-End" />
                             </div>
                             <div data-reveal-item="">
-                                <ListRow
-                                    title="Aplicações Web & Painéis"
-                                    subtitle="Interfaces reativas com React ou Vue, integração com APIs REST e bancos de dados"
-                                    value="Full Stack"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="Aplicações Web & Painéis" value="Full Stack" />
                             </div>
                             <div data-reveal-item="">
-                                <ListRow
-                                    title="Design de Interação & Motion"
-                                    subtitle="Microinterações fluidas, transições de estado e respeito a acessibilidade"
-                                    value="UI & Motion"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="Design de Interação & Motion" value="UI & Motion" />
                             </div>
                         </div>
                     </Reveal>

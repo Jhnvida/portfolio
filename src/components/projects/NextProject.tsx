@@ -1,13 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ProjectSummary } from "../../types/project";
+import { NextProjectProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
-
-interface NextProjectProps {
-    nextProject?: ProjectSummary;
-    currentSlug: string;
-}
 
 export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
     if (!nextProject || nextProject.slug === currentSlug) return null;
@@ -30,8 +25,9 @@ export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
                             <span className="text-display font-medium text-ink transition-colors duration-200 group-hover:text-ink-2">
                                 {nextProject.title}
                             </span>
-                            <span className="text-meta text-ink-3">
-                                {nextProject.category} — {nextProject.year}
+                            <span className="text-meta text-ink-2">
+                                {nextProject.category} <span className="text-ink-3">·</span>{" "}
+                                <span className="tabular">{nextProject.year}</span>
                             </span>
                         </div>
 

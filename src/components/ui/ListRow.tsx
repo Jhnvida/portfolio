@@ -1,19 +1,6 @@
 import Link from "next/link";
-import { ReactNode } from "react";
 import { cn } from "../../lib/utils";
-
-interface ListRowProps {
-    title: ReactNode;
-    leading?: ReactNode;
-    badge?: ReactNode;
-    subtitle?: ReactNode;
-    value?: ReactNode;
-    href?: string;
-    muted?: boolean;
-    className?: string;
-    previewImage?: string;
-    stackedOnMobile?: boolean;
-}
+import { ListRowProps } from "../../types";
 
 export function ListRow({
     title,
@@ -61,9 +48,9 @@ export function ListRow({
                     {value && (
                         <span
                             className={cn(
-                                "tabular transition-colors duration-200",
-                                stackedOnMobile ? "sm:shrink-0 wrap-break-word text-ink-2 sm:text-ink" : "shrink-0",
-                                muted ? "text-ink-3" : "text-ink",
+                                "tabular transition-colors duration-200 shrink-0",
+                                stackedOnMobile && "sm:shrink-0 wrap-break-word",
+                                muted ? "text-ink-3" : "text-ink-2",
                             )}
                         >
                             {value}
@@ -80,7 +67,7 @@ export function ListRow({
         </>
     );
 
-    const classes = cn("group flex gap-2.5 py-[7px] text-list", className);
+    const classes = cn("group flex gap-2.5 py-2 sm:py-2.5 text-list", className);
 
     if (href) {
         return (

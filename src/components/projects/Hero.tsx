@@ -1,15 +1,11 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { enter } from "../../lib/motion";
-import { Project } from "../../types/project";
+import { HeroProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 import { ListRow } from "../ui/ListRow";
-
-interface HeroProps {
-    project: Project;
-}
 
 export function Hero({ project }: HeroProps) {
     return (
@@ -19,7 +15,7 @@ export function Hero({ project }: HeroProps) {
                     <div {...enter(0)} className="mb-10">
                         <Link
                             href="/work"
-                            className="group inline-flex items-center gap-2 text-meta text-ink-3 transition-colors duration-200 hover:text-ink"
+                            className="group inline-flex items-center gap-2 text-meta text-ink-2 transition-colors duration-200 hover:text-ink"
                         >
                             <ArrowLeft
                                 size={14}

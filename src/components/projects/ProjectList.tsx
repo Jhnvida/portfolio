@@ -1,14 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "../../lib/utils";
-import { ProjectSummary } from "../../types/project";
-
-interface ProjectListProps {
-    children: ReactNode;
-    projects: ProjectSummary[];
-}
+import { ProjectListProps } from "../../types";
 
 const PREVIEW_WIDTH = 400;
 const PREVIEW_HEIGHT = 260;

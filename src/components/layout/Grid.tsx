@@ -1,11 +1,5 @@
-import { ElementType, ReactNode } from "react";
 import { cn } from "../../lib/utils";
-
-interface GridProps {
-    children: ReactNode;
-    as?: ElementType;
-    className?: string;
-}
+import { GridProps } from "../../types";
 
 export function Grid({ children, as: Component = "div", className }: GridProps) {
     return (

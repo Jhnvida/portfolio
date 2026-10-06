@@ -28,7 +28,6 @@ export default function WorkPage() {
                                     <ListRow
                                         href={`/work/${project.slug}`}
                                         title={project.title}
-                                        subtitle={`${project.category} · ${project.stack.join(" · ")}`}
                                         value={project.year}
                                         previewImage={project.image}
                                     />
@@ -42,33 +41,15 @@ export default function WorkPage() {
 
                         <div className="flex flex-col">
                             <div {...enter(projects.length + 2)}>
-                                <ListRow
-                                    title="Assist Soluções em TI"
-                                    muted
-                                    subtitle="Sistemas web, APIs REST e otimização de bancos de dados SQL"
-                                    value="2024–26"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="Assist Soluções em TI" value="2024–26" />
                             </div>
 
                             <div {...enter(projects.length + 3)}>
-                                <ListRow
-                                    title="UniFAJ — Ciência da Computação"
-                                    muted
-                                    subtitle="Projetos acadêmicos, estruturas de dados e arquitetura de software"
-                                    value="2023–26"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="UniFAJ — Ciência da Computação" value="2023–26" />
                             </div>
 
                             <div {...enter(projects.length + 4)}>
-                                <ListRow
-                                    title="ETEC Pedro Ferreira Alves"
-                                    muted
-                                    subtitle="Técnico em Informática para Internet · Fundamentos web e programação"
-                                    value="2020–22"
-                                    stackedOnMobile
-                                />
+                                <ListRow title="ETEC Pedro Ferreira Alves" value="2020–22" />
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,7 @@
 import Image from "next/image";
-import { CaseBlock } from "../../types/project";
+import { MediaProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
-
-interface MediaProps {
-    block: Extract<CaseBlock, { type: "media" }>;
-}
 
 export function Media({ block }: MediaProps) {
     const { layout, items } = block;
@@ -16,10 +12,7 @@ export function Media({ block }: MediaProps) {
             <section className="w-full py-10 sm:py-16">
                 <Grid>
                     <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                        <Reveal
-                            variant="media"
-                            className="relative aspect-21/10 w-full overflow-hidden rounded-media"
-                        >
+                        <Reveal variant="media" className="relative aspect-21/10 w-full overflow-hidden rounded-media">
                             <Image
                                 src={item.src}
                                 alt={item.alt || "Registro visual do projeto"}
@@ -65,10 +58,7 @@ export function Media({ block }: MediaProps) {
         <section className="w-full py-10 sm:py-16">
             <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                    <Reveal
-                        variant="media"
-                        className="relative aspect-video w-full overflow-hidden rounded-media"
-                    >
+                    <Reveal variant="media" className="relative aspect-video w-full overflow-hidden rounded-media">
                         <Image
                             src={item.src}
                             alt={item.alt || "Registro visual do projeto"}

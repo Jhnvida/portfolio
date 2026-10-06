@@ -1,9 +1,5 @@
 import { SITE } from "../../data/site";
-
-interface WeatherData {
-    temperature: number;
-    description: string;
-}
+import { WeatherData } from "../../types";
 
 const WMO_WEATHER_CODES: Record<number, string> = {
     0: "Céu limpo",

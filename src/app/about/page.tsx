@@ -3,6 +3,7 @@ import { Grid } from "../../components/layout/Grid";
 import { Page } from "../../components/layout/Page";
 import { ListRow } from "../../components/ui/ListRow";
 import { Reveal } from "../../components/ui/Reveal";
+import { EXPERIENCES } from "../../data/experience";
 import { SITE } from "../../data/site";
 import { enter } from "../../lib/motion";
 
@@ -57,22 +58,22 @@ export default function AboutPage() {
                                 className="order-1 lg:order-2 col-span-4 sm:col-span-8 lg:col-span-8 flex flex-col gap-6 text-body text-ink-2 leading-relaxed"
                             >
                                 <p className="text-ink font-medium">
-                                    Minha atuação combina engenharia de software e atenção à experiência de quem navega. Gosto
-                                    de criar interfaces claras, cuidadosas e agradáveis de usar, apoiadas por uma base técnica
-                                    bem construída.
+                                    Minha atuação combina engenharia de software e atenção à experiência de quem navega.
+                                    Gosto de criar interfaces claras, cuidadosas e agradáveis de usar, apoiadas por uma
+                                    base técnica bem construída.
                                 </p>
 
                                 <p>
-                                    Na minha experiência profissional, trabalhei no desenvolvimento e na evolução de aplicações
-                                    web, participando de diferentes etapas — do entendimento das necessidades à implementação de
-                                    interfaces, APIs e integrações. Essa vivência fortaleceu meu olhar para além da tela: um bom
-                                    produto também precisa funcionar bem por dentro.
+                                    Na minha experiência profissional, trabalhei no desenvolvimento e na evolução de
+                                    aplicações web, participando de diferentes etapas — do entendimento das necessidades
+                                    à implementação de interfaces, APIs e integrações. Essa vivência fortaleceu meu
+                                    olhar para além da tela: um bom produto também precisa funcionar bem por dentro.
                                 </p>
 
                                 <p>
-                                    Nos projetos autorais, exploro especialmente o encontro entre tecnologia, tipografia e
-                                    movimento. Também estou aberto a desenvolver sites e experiências digitais para quem busca
-                                    esse cuidado visual aliado a uma construção técnica consistente.
+                                    Nos projetos autorais, exploro especialmente o encontro entre tecnologia, tipografia
+                                    e movimento. Também estou aberto a desenvolver sites e experiências digitais para
+                                    quem busca esse cuidado visual aliado a uma construção técnica consistente.
                                 </p>
                             </div>
                         </div>
@@ -84,19 +85,23 @@ export default function AboutPage() {
                                     <h2 className="text-title font-medium text-ink">Experiência Profissional</h2>
                                 </div>
 
-                                <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col">
-                                    <ListRow
-                                        title="Assist Soluções em TI"
-                                        subtitle="Desenvolvedor de Software Júnior · PHP, JavaScript, APIs REST e otimização SQL"
-                                        value="2024–26"
-                                        stackedOnMobile
-                                    />
-                                    <ListRow
-                                        title="Assist Soluções em TI"
-                                        subtitle="Estagiário de Desenvolvimento · Manutenção de sistemas, melhorias de interface e consultas SQL"
-                                        value="2024"
-                                        stackedOnMobile
-                                    />
+                                <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col gap-8">
+                                    {EXPERIENCES.map((exp) => (
+                                        <div key={exp.company} className="flex flex-col">
+                                            <h3 className="text-body font-medium text-ink pb-1">{exp.company}</h3>
+                                            <div className="flex flex-col">
+                                                {exp.roles.map((role) => (
+                                                    <ListRow
+                                                        key={`${role.title}-${role.period}`}
+                                                        title={
+                                                            <span className="font-medium text-ink">{role.title}</span>
+                                                        }
+                                                        value={role.period}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </Reveal>
@@ -109,18 +114,8 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col">
-                                    <ListRow
-                                        title="Centro Universitário de Jaguariúna (UniFAJ)"
-                                        subtitle="Bacharelado em Ciência da Computação"
-                                        value="2023–26"
-                                        stackedOnMobile
-                                    />
-                                    <ListRow
-                                        title="ETEC Pedro Ferreira Alves"
-                                        subtitle="Técnico em Informática para Internet"
-                                        value="2020–22"
-                                        stackedOnMobile
-                                    />
+                                    <ListRow title="Ciência da Computação · UniFAJ" value="2023–26" />
+                                    <ListRow title="Técnico em Informática para Internet · ETEC" value="2020–22" />
                                 </div>
                             </div>
                         </Reveal>
@@ -139,7 +134,11 @@ export default function AboutPage() {
                                         value="React · Vue.js · HTML5 · CSS3 · Tailwind CSS"
                                         stackedOnMobile
                                     />
-                                    <ListRow title="Back-end" value="Node.js · Express · PHP · APIs REST" stackedOnMobile />
+                                    <ListRow
+                                        title="Back-end"
+                                        value="Node.js · Express · PHP · APIs REST"
+                                        stackedOnMobile
+                                    />
                                     <ListRow title="Bancos de Dados" value="MySQL · PostgreSQL" stackedOnMobile />
                                     <ListRow
                                         title="Ferramentas & Práticas"

@@ -1,15 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { AnchorHTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/utils";
-
-type ButtonProps = {
-    href: string;
-    children: ReactNode;
-    variant?: "primary" | "secondary";
-    external?: boolean;
-    className?: string;
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">;
+import { ButtonProps } from "../../types";
 
 const VARIANTS = {
     primary: "bg-ink text-bg hover:bg-ink/85",

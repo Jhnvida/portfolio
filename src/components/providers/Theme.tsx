@@ -2,14 +2,7 @@
 
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
 
-type Theme = "light" | "dark";
-
-interface ThemeContextType {
-    theme: Theme;
-    resolvedTheme: Theme;
-    setTheme: (theme: Theme) => void;
-    toggleTheme: () => void;
-}
+import { RawTheme, Theme, ThemeContextType } from "../../types";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -68,8 +61,6 @@ function subscribe(callback: () => void) {
 function notify() {
     themeListeners.forEach((l) => l());
 }
-
-type RawTheme = Theme | "system";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
     const rawTheme = useSyncExternalStore<RawTheme>(

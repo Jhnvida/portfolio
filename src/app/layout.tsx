@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Newsreader } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { ReactNode } from "react";
 import { Footer } from "../components/layout/Footer";
 import { Header } from "../components/layout/Header";
@@ -8,16 +8,9 @@ import { ThemeProvider } from "../components/providers/Theme";
 import { SITE } from "../data/site";
 import "./globals.css";
 
-const geist = Geist({
+const manrope = Manrope({
     subsets: ["latin"],
-    variable: "--font-geist",
-    display: "swap",
-});
-
-const newsreader = Newsreader({
-    subsets: ["latin"],
-    style: ["normal", "italic"],
-    variable: "--font-serif",
+    variable: "--font-manrope",
     display: "swap",
 });
 
@@ -52,7 +45,7 @@ const themeScript = `
 
 export default function RootLayout({ children }: { children: ReactNode }) {
     return (
-        <html lang="pt-BR" suppressHydrationWarning className={`${geist.variable} ${newsreader.variable}`}>
+        <html lang="pt-BR" suppressHydrationWarning className={manrope.variable}>
             <head>
                 <script dangerouslySetInnerHTML={{ __html: themeScript }} />
             </head>

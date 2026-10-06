@@ -23,7 +23,7 @@ export function Footer() {
 
                         <a
                             href={`mailto:${SITE.email}`}
-                            className="mt-2 text-[clamp(1.125rem,0.8rem+1.75vw,2.125rem)] leading-[1.2] font-medium tracking-[-0.028em] text-ink-3 transition-colors duration-200 hover:text-ink"
+                            className="mt-2 text-[clamp(1.125rem,0.8rem+1.75vw,2.125rem)] leading-[1.2] font-medium tracking-[-0.028em] text-ink-2 transition-colors duration-200 hover:text-ink"
                         >
                             {SITE.email}
                         </a>
