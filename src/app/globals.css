@@ -50,10 +50,49 @@
         text-rendering: optimizeLegibility;
     }
 
+    html.dark {
+        --color-bg: #0f0f0e;
+        --color-surface: #181817;
+        --color-surface-strong: #242422;
+        --color-line: #242422;
+        --color-ink: #f4f4f2;
+        --color-ink-2: #a3a29d;
+        --color-ink-3: #706f6a;
+        color-scheme: dark;
+    }
+
+    html.theme-transitioning,
+    html.theme-transitioning *,
+    html.theme-transitioning *::before,
+    html.theme-transitioning *::after {
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease,
+            color 200ms ease !important;
+        transition-delay: 0ms !important;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
-        html {
+        html:not(.lenis) {
             scroll-behavior: smooth;
         }
+    }
+
+    html.lenis,
+    html.lenis body {
+        height: auto;
+    }
+
+    .lenis.lenis-smooth {
+        scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+        overflow: hidden;
     }
 
     body {

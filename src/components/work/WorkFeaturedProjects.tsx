@@ -10,8 +10,8 @@ interface WorkFeaturedProjectsProps {
     projects: Project[];
 }
 
-const PREVIEW_WIDTH = 280;
-const PREVIEW_HEIGHT = 199;
+const PREVIEW_WIDTH = 400;
+const PREVIEW_HEIGHT = 260;
 const OFFSET_X = 20;
 const OFFSET_Y = 20;
 const VIEWPORT_PADDING = 16;
@@ -157,10 +157,10 @@ export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProject
             >
                 <div
                     className={cn(
-                        "relative w-70 aspect-45/32 overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80 origin-center",
-                        "transition-[opacity,transform] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "relative w-100 h-65 overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80 origin-center",
+                        "transition-[opacity,transform] ease-out-soft",
                         isVisible
-                            ? "duration-240 opacity-100 scale-100 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                            ? "duration-240 opacity-100 scale-100 ease-out-soft"
                             : "duration-150 opacity-0 scale-[0.96] ease-in",
                     )}
                 >
@@ -171,7 +171,8 @@ export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProject
                             alt=""
                             fill
                             loading="eager"
-                            sizes="280px"
+                            quality={90}
+                            sizes="(max-width: 1200px) 400px, 800px"
                             className={cn(
                                 "object-cover transition-opacity duration-200",
                                 activeImage === project.image ? "opacity-100" : "opacity-0",

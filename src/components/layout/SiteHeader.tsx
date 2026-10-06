@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CONTACT_ANCHOR, SITE } from "../../data/site";
+import { ThemeToggle } from "../theme/ThemeToggle";
 import { LayoutGrid } from "./LayoutGrid";
 import { NavPill } from "./NavPill";
 
@@ -23,11 +24,16 @@ export function SiteHeader() {
                     </Link>
                 </div>
 
-                <div className="sm:col-span-4 lg:col-span-6 flex justify-end sm:justify-center">
+                <div className="sm:col-span-4 lg:col-span-6 flex items-center justify-end sm:justify-center gap-1.5">
                     <NavPill />
+
+                    <div className="sm:hidden flex items-center">
+                        <ThemeToggle />
+                    </div>
                 </div>
 
-                <div className="hidden sm:flex sm:col-span-2 lg:col-span-3 justify-end items-center">
+                <div className="hidden sm:flex sm:col-span-2 lg:col-span-3 justify-end items-center gap-1">
+                    <ThemeToggle />
                     <a
                         href={`#${CONTACT_ANCHOR}`}
                         className="inline-flex h-8 items-center rounded-full px-3 text-meta text-ink-2 transition-colors duration-200 hover:text-ink"
