@@ -15,6 +15,8 @@ export interface Project {
     content: CaseBlock[];
 }
 
+export type ProjectSummary = Omit<Project, "content">;
+
 export type CaseBlock =
     | {
           type: "editorial";

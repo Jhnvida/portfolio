@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "../../lib/utils";
-import { Project } from "../../types/project";
+import { ProjectSummary } from "../../types/project";
 
 interface ProjectListProps {
     children: ReactNode;
-    projects: Project[];
+    projects: ProjectSummary[];
 }
 
 const PREVIEW_WIDTH = 400;

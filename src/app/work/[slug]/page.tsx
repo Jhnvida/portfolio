@@ -5,17 +5,17 @@ import { Editorial } from "../../../components/projects/Editorial";
 import { Hero } from "../../../components/projects/Hero";
 import { Media } from "../../../components/projects/Media";
 import { NextProject } from "../../../components/projects/NextProject";
-import { PROJECTS } from "../../../data/projects";
+import { getAllProjects, getNextProject, getProjectBySlug } from "../../../data/projects";
 
 export function generateStaticParams() {
-    return PROJECTS.map((project) => ({
+    return getAllProjects().map((project) => ({
         slug: project.slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const project = PROJECTS.find((p) => p.slug === slug);
+    const project = getProjectBySlug(slug);
 
     if (project) {
         return {
@@ -31,14 +31,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function WorkDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const currentIndex = PROJECTS.findIndex((p) => p.slug === slug);
+    const project = getProjectBySlug(slug);
 
-    if (currentIndex === -1) {
+    if (!project) {
         notFound();
     }
 
-    const project = PROJECTS[currentIndex];
-    const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
+    const nextProject = getNextProject(project.slug);
 
     return (
         <Page className="flex flex-col items-center">

@@ -8,11 +8,13 @@ import { Button } from "../components/ui/Button";
 import { ListRow } from "../components/ui/ListRow";
 import { Reveal } from "../components/ui/Reveal";
 import { SectionHeader } from "../components/ui/SectionHeader";
-import { PROJECTS } from "../data/projects";
+import { getFeaturedProjects } from "../data/projects";
 import { CONTACT_ANCHOR } from "../data/site";
 import { enter } from "../lib/motion";
 
 export default function HomePage() {
+    const featuredProjects = getFeaturedProjects();
+
     return (
         <Page className="flex flex-col">
             <section className="w-full pt-16 pb-16 sm:pt-24 sm:pb-20">
@@ -70,9 +72,9 @@ export default function HomePage() {
                             }
                         />
 
-                        <ProjectList projects={PROJECTS}>
+                        <ProjectList projects={featuredProjects}>
                             <div className="flex flex-col">
-                                {PROJECTS.map((project) => (
+                                {featuredProjects.map((project) => (
                                     <div key={project.id} data-reveal-item="">
                                         <ListRow
                                             href={`/work/${project.slug}`}
