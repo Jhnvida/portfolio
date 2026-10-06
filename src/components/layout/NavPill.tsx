@@ -26,14 +26,8 @@ export function NavPill({ isFloating, variant = "default", viewTransition = true
                                 href={link.href}
                                 aria-current={active ? "page" : undefined}
                                 className={cn(
-                                    "relative inline-flex h-8 items-center rounded-full px-2.5 sm:px-3.5 text-meta transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                                    floating
-                                        ? active
-                                            ? "font-medium text-white"
-                                            : "text-neutral-400 hover:text-white"
-                                        : active
-                                          ? "font-medium text-ink"
-                                          : "text-ink-2 hover:text-ink",
+                                    "relative inline-flex h-8 items-center rounded-full px-2.5 sm:px-3.5 text-meta transition-all duration-400 ease-out-soft",
+                                    active ? "font-medium text-ink" : "text-ink-2 hover:text-ink",
                                 )}
                             >
                                 {active && (
@@ -41,8 +35,8 @@ export function NavPill({ isFloating, variant = "default", viewTransition = true
                                         aria-hidden="true"
                                         style={viewTransition ? { viewTransitionName: "nav-pill" } : undefined}
                                         className={cn(
-                                            "absolute inset-0 -z-10 rounded-full transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                                            floating ? "bg-white/15" : "bg-surface-strong",
+                                            "absolute inset-0 -z-10 rounded-full transition-all duration-400 ease-out-soft",
+                                            floating ? "bg-surface-strong shadow-xs" : "bg-surface-strong",
                                         )}
                                     />
                                 )}

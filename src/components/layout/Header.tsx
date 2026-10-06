@@ -44,19 +44,19 @@ export function Header() {
             <div
                 className={cn(
                     "pointer-events-auto mx-auto flex items-center justify-between",
-                    "transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "transition-all duration-400 ease-out-soft",
                     isScrolled
                         ? [
-                              "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] max-w-[52rem]",
+                              "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] max-w-208",
                               "px-5 sm:px-7 py-2.5 sm:py-3",
                               "mt-1.5 sm:mt-2.5",
                               "rounded-full",
-                              "bg-[#141413]/92 dark:bg-[#141413]/92 backdrop-blur-md",
-                              "border border-white/10 dark:border-white/15",
-                              "shadow-xl shadow-black/25",
+                              "bg-surface/90 dark:bg-surface/85 backdrop-blur-md",
+                              "border border-line/80 dark:border-line",
+                              "shadow-lg shadow-ink/5 dark:shadow-2xl dark:shadow-black/40",
                           ]
                         : [
-                              "w-full max-w-[var(--grid-max-width)]",
+                              "w-full max-w-(--grid-max-width)",
                               "px-4 sm:px-6 py-3.5 sm:py-4",
                               "mt-0",
                               "rounded-full",
@@ -74,21 +74,14 @@ export function Header() {
                     >
                         <span
                             className={cn(
-                                "font-medium tracking-tight inline-flex items-center leading-normal transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                                "font-medium tracking-tight inline-flex items-center leading-normal text-ink group-hover:opacity-75 transition-all duration-400 ease-out-soft",
                                 isScrolled
-                                    ? "text-[1.0625rem] sm:text-[1.125rem] text-white group-hover:opacity-75"
-                                    : "text-[1.1875rem] sm:text-[1.25rem] text-ink group-hover:opacity-70",
+                                    ? "text-[1.0625rem] sm:text-[1.125rem]"
+                                    : "text-[1.1875rem] sm:text-[1.25rem]",
                             )}
                         >
                             {SITE.name}
-                            <span
-                                className={cn(
-                                    "ml-0.5 font-normal transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                                    isScrolled ? "text-neutral-500" : "text-ink-3",
-                                )}
-                            >
-                                .
-                            </span>
+                            <span className="ml-0.5 font-normal text-ink-3">.</span>
                         </span>
                     </Link>
                 </div>
@@ -98,20 +91,13 @@ export function Header() {
                 </div>
 
                 <div className="flex-1 flex items-center justify-end gap-1.5 sm:gap-2.5 shrink-0">
-                    <ThemeToggle
-                        className={cn(
-                            "transition-colors duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                            isScrolled
-                                ? "text-neutral-400 hover:text-white hover:bg-white/10"
-                                : "text-ink-2 hover:text-ink hover:bg-surface-strong/60",
-                        )}
-                    />
+                    <ThemeToggle className="text-ink-2 hover:text-ink hover:bg-surface-strong/70 transition-colors duration-200" />
                     <a
                         href={`#${CONTACT_ANCHOR}`}
                         className={cn(
-                            "group inline-flex items-center gap-1.5 sm:gap-2 rounded-full font-medium transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] whitespace-nowrap",
+                            "group inline-flex items-center gap-1.5 sm:gap-2 rounded-full font-medium transition-all duration-400 ease-out-soft whitespace-nowrap",
                             isScrolled
-                                ? "h-8.5 px-3.5 sm:px-4 text-xs sm:text-meta bg-white text-neutral-900 hover:bg-neutral-100 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                                ? "h-8.5 px-3.5 sm:px-4 text-xs sm:text-meta bg-ink text-bg hover:opacity-90 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
                                 : "h-9 px-3.5 sm:px-4 text-meta bg-surface-strong/70 text-ink hover:bg-surface-strong hover:text-ink",
                         )}
                     >
