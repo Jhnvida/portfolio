@@ -1,13 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { ContextWeather } from "../components/home/ContextWeather";
-import { LayoutGrid } from "../components/layout/LayoutGrid";
+import { Weather } from "../components/home/Weather";
+import { Grid } from "../components/layout/Grid";
 import { Page } from "../components/layout/Page";
-import { Reveal } from "../components/motion/Reveal";
+import { ProjectList } from "../components/projects/ProjectList";
 import { Button } from "../components/ui/Button";
 import { ListRow } from "../components/ui/ListRow";
+import { Reveal } from "../components/ui/Reveal";
 import { SectionHeader } from "../components/ui/SectionHeader";
-import { WorkFeaturedProjects } from "../components/work/WorkFeaturedProjects";
 import { PROJECTS } from "../data/projects";
 import { CONTACT_ANCHOR } from "../data/site";
 import { enter } from "../lib/motion";
@@ -16,10 +16,10 @@ export default function HomePage() {
     return (
         <Page className="flex flex-col">
             <section className="w-full pt-16 pb-16 sm:pt-24 sm:pb-20">
-                <LayoutGrid>
+                <Grid>
                     <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-8">
                         <div {...enter(0)}>
-                            <ContextWeather />
+                            <Weather />
                         </div>
 
                         <div className="flex flex-col gap-6">
@@ -45,11 +45,11 @@ export default function HomePage() {
                             </div>
                         </div>
                     </div>
-                </LayoutGrid>
+                </Grid>
             </section>
 
             <section className="w-full pb-20 sm:pb-24">
-                <LayoutGrid>
+                <Grid>
                     <Reveal stagger className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                         <SectionHeader
                             title="Projetos em Destaque"
@@ -70,7 +70,7 @@ export default function HomePage() {
                             }
                         />
 
-                        <WorkFeaturedProjects projects={PROJECTS}>
+                        <ProjectList projects={PROJECTS}>
                             <div className="flex flex-col">
                                 {PROJECTS.map((project) => (
                                     <div key={project.id} data-reveal-item="">
@@ -84,13 +84,13 @@ export default function HomePage() {
                                     </div>
                                 ))}
                             </div>
-                        </WorkFeaturedProjects>
+                        </ProjectList>
                     </Reveal>
-                </LayoutGrid>
+                </Grid>
             </section>
 
             <section className="w-full pb-24 sm:pb-32">
-                <LayoutGrid>
+                <Grid>
                     <Reveal stagger className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                         <SectionHeader title="Capacidades & Escopos de Atuação" data-reveal-item="" />
 
@@ -121,7 +121,7 @@ export default function HomePage() {
                             </div>
                         </div>
                     </Reveal>
-                </LayoutGrid>
+                </Grid>
             </section>
         </Page>
     );

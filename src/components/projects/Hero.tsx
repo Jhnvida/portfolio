@@ -1,20 +1,20 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { enter } from "../../lib/motion";
-import { Project } from "../../types";
-import { LayoutGrid } from "../layout/LayoutGrid";
+import { Project } from "../../types/project";
+import { Grid } from "../layout/Grid";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
 import { ListRow } from "../ui/ListRow";
 
-interface CaseHeroProps {
+interface HeroProps {
     project: Project;
 }
 
-export function CaseHero({ project }: CaseHeroProps) {
+export function Hero({ project }: HeroProps) {
     return (
         <header className="w-full pt-12 pb-16 sm:pt-16 sm:pb-20">
-            <LayoutGrid>
+            <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                     <div {...enter(0)} className="mb-10">
                         <Link
@@ -58,7 +58,7 @@ export function CaseHero({ project }: CaseHeroProps) {
                         </div>
                     )}
                 </div>
-            </LayoutGrid>
+            </Grid>
         </header>
     );
 }

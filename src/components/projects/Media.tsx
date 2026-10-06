@@ -1,20 +1,20 @@
 import Image from "next/image";
-import { CaseBlock } from "../../types";
-import { LayoutGrid } from "../layout/LayoutGrid";
-import { Reveal } from "../motion/Reveal";
+import { CaseBlock } from "../../types/project";
+import { Grid } from "../layout/Grid";
+import { Reveal } from "../ui/Reveal";
 
-interface CaseMediaBlockProps {
+interface MediaProps {
     block: Extract<CaseBlock, { type: "media" }>;
 }
 
-export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
+export function Media({ block }: MediaProps) {
     const { layout, items } = block;
 
     if (layout === "full") {
         const item = items[0];
         return (
             <section className="w-full py-10 sm:py-16">
-                <LayoutGrid>
+                <Grid>
                     <div className="col-span-4 sm:col-span-8 lg:col-span-12">
                         <Reveal
                             variant="media"
@@ -30,7 +30,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             />
                         </Reveal>
                     </div>
-                </LayoutGrid>
+                </Grid>
             </section>
         );
     }
@@ -38,7 +38,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
     if (layout === "grid-2") {
         return (
             <section className="w-full py-10 sm:py-16">
-                <LayoutGrid>
+                <Grid>
                     {items.map((item, idx) => (
                         <div key={idx} className="col-span-4 sm:col-span-4 lg:col-span-6 mb-6 sm:mb-0">
                             <Reveal
@@ -55,7 +55,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                             </Reveal>
                         </div>
                     ))}
-                </LayoutGrid>
+                </Grid>
             </section>
         );
     }
@@ -63,7 +63,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
     const item = items[0];
     return (
         <section className="w-full py-10 sm:py-16">
-            <LayoutGrid>
+            <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12">
                     <Reveal
                         variant="media"
@@ -78,7 +78,7 @@ export function CaseMediaBlock({ block }: CaseMediaBlockProps) {
                         />
                     </Reveal>
                 </div>
-            </LayoutGrid>
+            </Grid>
         </section>
     );
 }

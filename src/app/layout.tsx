@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Newsreader } from "next/font/google";
 import { ReactNode } from "react";
-import { SiteFooter } from "../components/layout/SiteFooter";
-import { SiteHeader } from "../components/layout/SiteHeader";
-import { SmoothScroll } from "../components/layout/SmoothScroll";
-import { ThemeProvider } from "../components/theme/ThemeProvider";
+import { Footer } from "../components/layout/Footer";
+import { Header } from "../components/layout/Header";
+import { SmoothScroll } from "../components/providers/SmoothScroll";
+import { ThemeProvider } from "../components/providers/Theme";
 import { SITE } from "../data/site";
 import "./globals.css";
 
@@ -59,9 +59,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <body className="flex min-h-dvh flex-col bg-bg text-ink">
                 <ThemeProvider>
                     <SmoothScroll>
-                        <SiteHeader />
+                        <Header />
                         <div className="flex flex-1 flex-col">{children}</div>
-                        <SiteFooter />
+                        <Footer />
                     </SmoothScroll>
                 </ThemeProvider>
             </body>

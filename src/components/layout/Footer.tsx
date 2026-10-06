@@ -1,6 +1,6 @@
 import { CONTACT_ANCHOR, SITE, SOCIAL_LINKS } from "../../data/site";
 
-export function SiteFooter() {
+export function Footer() {
     const year = new Date().getFullYear();
 
     return (

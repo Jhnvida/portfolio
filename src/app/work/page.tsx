@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { LayoutGrid } from "../../components/layout/LayoutGrid";
+import { Grid } from "../../components/layout/Grid";
 import { Page } from "../../components/layout/Page";
+import { ProjectList } from "../../components/projects/ProjectList";
 import { ListRow } from "../../components/ui/ListRow";
 import { SectionHeader } from "../../components/ui/SectionHeader";
-import { WorkFeaturedProjects } from "../../components/work/WorkFeaturedProjects";
 import { PROJECTS } from "../../data/projects";
 import { enter } from "../../lib/motion";
 
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 export default function WorkPage() {
     return (
         <Page className="flex flex-col pt-16 pb-24 sm:pt-24 sm:pb-32">
-            <LayoutGrid>
+            <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                     <SectionHeader title="Projetos em Destaque" {...enter(0)} />
 
-                    <WorkFeaturedProjects projects={PROJECTS}>
+                    <ProjectList projects={PROJECTS}>
                         <div className="flex flex-col">
                             {PROJECTS.map((project, idx) => (
                                 <div key={project.id} {...enter(1 + idx)}>
@@ -33,7 +33,7 @@ export default function WorkPage() {
                                 </div>
                             ))}
                         </div>
-                    </WorkFeaturedProjects>
+                    </ProjectList>
 
                     <div className="pt-20 sm:pt-24">
                         <SectionHeader title="Arquivo & Trajetória" {...enter(PROJECTS.length + 1)} />
@@ -69,7 +69,7 @@ export default function WorkPage() {
                         </div>
                     </div>
                 </div>
-            </LayoutGrid>
+            </Grid>
         </Page>
     );
 }

@@ -1,13 +1,13 @@
 import { ElementType, ReactNode } from "react";
 import { cn } from "../../lib/utils";
 
-interface LayoutGridProps {
+interface GridProps {
     children: ReactNode;
     as?: ElementType;
     className?: string;
 }
 
-export function LayoutGrid({ children, as: Component = "div", className }: LayoutGridProps) {
+export function Grid({ children, as: Component = "div", className }: GridProps) {
     return (
         <Component
             className={cn(

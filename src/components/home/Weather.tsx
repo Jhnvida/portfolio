@@ -56,7 +56,7 @@ async function getJaguariunaWeather(): Promise<WeatherData | null> {
     }
 }
 
-export async function ContextWeather() {
+export async function Weather() {
     const weather = await getJaguariunaWeather();
 
     return (

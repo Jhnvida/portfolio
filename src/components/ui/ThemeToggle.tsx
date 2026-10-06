@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
-import { useTheme } from "./ThemeProvider";
+import { useTheme } from "../providers/Theme";
 
 interface ThemeToggleProps {
     className?: string;

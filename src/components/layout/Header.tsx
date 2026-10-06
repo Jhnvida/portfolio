@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { CONTACT_ANCHOR, SITE } from "../../data/site";
-import { ThemeToggle } from "../theme/ThemeToggle";
-import { LayoutGrid } from "./LayoutGrid";
+import { ThemeToggle } from "../ui/ThemeToggle";
+import { Grid } from "./Grid";
 import { NavPill } from "./NavPill";
 
-export function SiteHeader() {
+export function Header() {
     return (
         <header
             style={{ viewTransitionName: "site-header" }}
             className="relative z-10 w-full pt-[max(1.25rem,env(safe-area-inset-top))] pb-6"
         >
-            <LayoutGrid className="flex items-center justify-between sm:justify-normal sm:grid">
+            <Grid className="flex items-center justify-between sm:justify-normal sm:grid">
                 <div className="shrink-0 sm:col-span-2 lg:col-span-3 flex items-center">
                     <Link
                         href="/"
@@ -41,7 +41,7 @@ export function SiteHeader() {
                         Contato
                     </a>
                 </div>
-            </LayoutGrid>
+            </Grid>
         </header>
     );
 }

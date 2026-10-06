@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "../../lib/utils";
-import { Project } from "../../types";
+import { Project } from "../../types/project";
 
-interface WorkFeaturedProjectsProps {
+interface ProjectListProps {
     children: ReactNode;
     projects: Project[];
 }
@@ -17,7 +17,7 @@ const OFFSET_Y = 20;
 const VIEWPORT_PADDING = 16;
 const LERP_FACTOR = 0.2;
 
-export function WorkFeaturedProjects({ children, projects }: WorkFeaturedProjectsProps) {
+export function ProjectList({ children, projects }: ProjectListProps) {
     const previewRef = useRef<HTMLDivElement>(null);
     const [activeImage, setActiveImage] = useState<string | null>(null);
     const [isVisible, setIsVisible] = useState(false);

@@ -1,15 +1,15 @@
-import { CaseBlock } from "../../types";
-import { LayoutGrid } from "../layout/LayoutGrid";
-import { Reveal } from "../motion/Reveal";
+import { CaseBlock } from "../../types/project";
+import { Grid } from "../layout/Grid";
+import { Reveal } from "../ui/Reveal";
 
-interface CaseEditorialBlockProps {
+interface EditorialProps {
     block: Extract<CaseBlock, { type: "editorial" }>;
 }
 
-export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
+export function Editorial({ block }: EditorialProps) {
     return (
         <Reveal as="section" className="w-full py-10 sm:py-14">
-            <LayoutGrid>
+            <Grid>
                 {block.title ? (
                     <>
                         <div className="col-span-4 sm:col-span-3 lg:col-span-4 mb-4 sm:mb-0">
@@ -39,7 +39,7 @@ export function CaseEditorialBlock({ block }: CaseEditorialBlockProps) {
                         ))}
                     </div>
                 )}
-            </LayoutGrid>
+            </Grid>
         </Reveal>
     );
 }
