@@ -20,7 +20,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     if (!isClient) {
         return (
             <div
-                className={cn("inline-flex h-8 w-8 items-center justify-center rounded-full opacity-0", className)}
+                className={cn(
+                    "inline-flex h-8.5 w-8.5 sm:h-8 sm:w-8 items-center justify-center rounded-full opacity-0",
+                    className,
+                )}
                 aria-hidden="true"
             />
         );
@@ -35,7 +38,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             aria-label={isDark ? "Mudar para tema claro" : "Mudar para tema escuro"}
             title={isDark ? "Tema claro" : "Tema escuro"}
             className={cn(
-                "group relative inline-flex h-8 w-8 items-center justify-center rounded-full text-ink-2 transition-colors duration-200 hover:text-ink hover:bg-surface-strong/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-ink",
+                "group relative inline-flex h-8.5 w-8.5 sm:h-8 sm:w-8 items-center justify-center rounded-full text-ink-2 transition-colors duration-200 hover:text-ink hover:bg-surface-strong/60 active:scale-95 focus-visible:outline-2 focus-visible:outline-ink",
                 className,
             )}
         >

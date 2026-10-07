@@ -23,18 +23,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-        { media: "(prefers-color-scheme: dark)", color: "#0f0f0e" },
-    ],
+    themeColor: "#ffffff",
 };
 
 const themeScript = `
 (function() {
     try {
         var stored = localStorage.getItem('portfolio-theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
+        if (stored === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -49,7 +45,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <head>
                 <script dangerouslySetInnerHTML={{ __html: themeScript }} />
             </head>
-            <body className="flex min-h-dvh flex-col bg-bg text-ink">
+
+            <body className="flex min-h-dvh flex-col bg-bg text-ink overflow-x-clip">
                 <ThemeProvider>
                     <SmoothScroll>
                         <Header />

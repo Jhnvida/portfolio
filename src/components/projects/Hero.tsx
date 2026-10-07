@@ -15,7 +15,7 @@ export function Hero({ project }: HeroProps) {
                     <div {...enter(0)} className="mb-10">
                         <Link
                             href="/work"
-                            className="group inline-flex items-center gap-2 text-meta text-ink-2 transition-colors duration-200 hover:text-ink"
+                            className="group inline-flex items-center gap-2 py-1 -my-1 text-meta text-ink-2 transition-colors duration-200 hover:text-ink"
                         >
                             <ArrowLeft
                                 size={14}

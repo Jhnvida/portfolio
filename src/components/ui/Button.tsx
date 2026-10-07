@@ -10,7 +10,7 @@ const VARIANTS = {
 
 export function Button({ href, children, variant = "primary", external = false, className, ...rest }: ButtonProps) {
     const classes = cn(
-        "group inline-flex h-9 items-center justify-center gap-1.5 rounded-full px-4 text-meta font-medium whitespace-nowrap",
+        "group inline-flex h-9.5 sm:h-9 items-center justify-center gap-1.5 rounded-full px-4 text-meta font-medium max-w-full text-center whitespace-nowrap",
         "transition-[background-color,box-shadow,transform] duration-200 active:scale-[0.97] active:duration-150",
         VARIANTS[variant],
         className,

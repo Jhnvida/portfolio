@@ -100,13 +100,19 @@ export default function HomePage() {
 
                         <div className="flex flex-col">
                             <div data-reveal-item="">
-                                <ListRow title="Sites Institucionais & Editoriais" value="Design & Front-End" />
+                                <ListRow
+                                    title="Sites Institucionais & Editoriais"
+                                    value="Design & Front-End"
+                                    stackedOnMobile
+                                />
                             </div>
+
                             <div data-reveal-item="">
-                                <ListRow title="Aplicações Web & Painéis" value="Full Stack" />
+                                <ListRow title="Aplicações Web & Painéis" value="Full Stack" stackedOnMobile />
                             </div>
+
                             <div data-reveal-item="">
-                                <ListRow title="Design de Interação & Motion" value="UI & Motion" />
+                                <ListRow title="Design de Interação & Motion" value="UI & Motion" stackedOnMobile />
                             </div>
                         </div>
                     </Reveal>

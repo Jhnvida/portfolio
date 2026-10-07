@@ -26,7 +26,7 @@ export function NavPill({ isFloating, variant = "default", viewTransition = true
                                 href={link.href}
                                 aria-current={active ? "page" : undefined}
                                 className={cn(
-                                    "relative inline-flex h-8 items-center rounded-full px-2.5 sm:px-3.5 text-meta transition-all duration-400 ease-out-soft",
+                                    "relative inline-flex h-8.5 sm:h-8 items-center rounded-full px-2 min-[360px]:px-2.5 min-[400px]:px-3 sm:px-3.5 text-xs sm:text-meta transition-all duration-400 ease-out-soft",
                                     active ? "font-medium text-ink" : "text-ink-2 hover:text-ink",
                                 )}
                             >

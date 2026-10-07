@@ -19,10 +19,10 @@ export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
 
                     <Link
                         href={`/work/${nextProject.slug}`}
-                        className="group flex items-baseline justify-between gap-4 py-2"
+                        className="group flex items-center justify-between gap-4 py-2 min-h-12"
                     >
-                        <div className="flex flex-col">
-                            <span className="text-display font-medium text-ink transition-colors duration-200 group-hover:text-ink-2">
+                        <div className="flex flex-col min-w-0">
+                            <span className="text-display font-medium text-ink transition-colors duration-200 group-hover:text-ink-2 truncate">
                                 {nextProject.title}
                             </span>
                             <span className="text-meta text-ink-2">
@@ -31,7 +31,7 @@ export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
                             </span>
                         </div>
 
-                        <div className="flex items-center text-ink transition-transform duration-200 group-hover:translate-x-1">
+                        <div className="flex items-center text-ink transition-transform duration-200 group-hover:translate-x-1 shrink-0">
                             <ArrowRight size={20} />
                         </div>
                     </Link>

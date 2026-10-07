@@ -97,6 +97,7 @@ export default function AboutPage() {
                                                             <span className="font-medium text-ink">{role.title}</span>
                                                         }
                                                         value={role.period}
+                                                        stackedOnMobile
                                                     />
                                                 ))}
                                             </div>
@@ -114,8 +115,12 @@ export default function AboutPage() {
                                 </div>
 
                                 <div className="col-span-4 sm:col-span-5 lg:col-span-8 flex flex-col">
-                                    <ListRow title="Ciência da Computação · UniFAJ" value="2023–26" />
-                                    <ListRow title="Técnico em Informática para Internet · ETEC" value="2020–22" />
+                                    <ListRow title="Ciência da Computação · UniFAJ" value="2023–26" stackedOnMobile />
+                                    <ListRow
+                                        title="Técnico em Informática para Internet · ETEC"
+                                        value="2020–22"
+                                        stackedOnMobile
+                                    />
                                 </div>
                             </div>
                         </Reveal>
