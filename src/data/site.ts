@@ -12,9 +12,9 @@ export const SITE = {
 } as const;
 
 export const NAV_LINKS = [
-    { label: "Início", href: "/" },
-    { label: "Projetos", href: "/work" },
-    { label: "Sobre", href: "/about" },
+    { id: "home", label: "Início" },
+    { id: "work", label: "Projetos" },
+    { id: "about", label: "Sobre" },
 ] as const;
 
 export const SOCIAL_LINKS = [

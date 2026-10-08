@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
 import { ReactNode } from "react";
+import { ContentSheet } from "../components/layout/ContentSheet";
 import { Footer } from "../components/layout/Footer";
-import { Header } from "../components/layout/Header";
+import { SheetProvider } from "../components/providers/SheetProvider";
 import { SmoothScroll } from "../components/providers/SmoothScroll";
 import { ThemeProvider } from "../components/providers/Theme";
 import { SITE } from "../data/site";
@@ -49,9 +50,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <body className="flex min-h-dvh flex-col bg-bg text-ink overflow-x-clip">
                 <ThemeProvider>
                     <SmoothScroll>
-                        <Header />
-                        <div className="flex flex-1 flex-col">{children}</div>
-                        <Footer />
+                        <SheetProvider>
+                            <div className="page-frame flex flex-1 flex-col">
+                                {children}
+                                <Footer />
+                            </div>
+                            <ContentSheet />
+                        </SheetProvider>
                     </SmoothScroll>
                 </ThemeProvider>
             </body>

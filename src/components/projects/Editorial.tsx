@@ -1,3 +1,4 @@
+import { Minus } from "lucide-react";
 import { EditorialProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
@@ -20,7 +21,12 @@ export function Editorial({ block }: EditorialProps) {
                                 <ul className="mt-2 flex flex-col gap-2.5 pt-4 border-t border-line text-list text-ink-2">
                                     {block.list.map((item, idx) => (
                                         <li key={idx} className="flex items-start gap-2.5">
-                                            <span className="text-ink-3 select-none leading-none pt-1">—</span>
+                                            <Minus
+                                                aria-hidden
+                                                size={12}
+                                                strokeWidth={2}
+                                                className="text-ink-3 shrink-0 mt-1 select-none"
+                                            />
                                             <span>{item}</span>
                                         </li>
                                     ))}

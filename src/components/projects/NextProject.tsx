@@ -4,8 +4,26 @@ import { NextProjectProps } from "../../types";
 import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
 
-export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
+export function NextProject({ nextProject, currentSlug, onSelectProject }: NextProjectProps) {
     if (!nextProject || nextProject.slug === currentSlug) return null;
+
+    const content = (
+        <>
+            <div className="flex flex-col min-w-0 text-left">
+                <span className="text-display font-medium text-ink transition-colors duration-200 group-hover:text-ink-2 truncate">
+                    {nextProject.title}
+                </span>
+                <span className="text-meta text-ink-2">
+                    {nextProject.category} <span className="text-ink-3">·</span>{" "}
+                    <span className="tabular">{nextProject.year}</span>
+                </span>
+            </div>
+
+            <div className="flex items-center text-ink transition-transform duration-200 group-hover:translate-x-1 shrink-0">
+                <ArrowRight size={18} strokeWidth={2} />
+            </div>
+        </>
+    );
 
     return (
         <Reveal
@@ -17,24 +35,22 @@ export function NextProject({ nextProject, currentSlug }: NextProjectProps) {
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-4">
                     <span className="text-meta text-ink-3">Próximo Projeto</span>
 
-                    <Link
-                        href={`/work/${nextProject.slug}`}
-                        className="group flex items-center justify-between gap-4 py-2 min-h-12"
-                    >
-                        <div className="flex flex-col min-w-0">
-                            <span className="text-display font-medium text-ink transition-colors duration-200 group-hover:text-ink-2 truncate">
-                                {nextProject.title}
-                            </span>
-                            <span className="text-meta text-ink-2">
-                                {nextProject.category} <span className="text-ink-3">·</span>{" "}
-                                <span className="tabular">{nextProject.year}</span>
-                            </span>
-                        </div>
-
-                        <div className="flex items-center text-ink transition-transform duration-200 group-hover:translate-x-1 shrink-0">
-                            <ArrowRight size={20} />
-                        </div>
-                    </Link>
+                    {onSelectProject ? (
+                        <button
+                            type="button"
+                            onClick={() => onSelectProject(nextProject.slug)}
+                            className="group flex w-full items-center justify-between gap-4 py-2 min-h-12 cursor-pointer"
+                        >
+                            {content}
+                        </button>
+                    ) : (
+                        <Link
+                            href={`/work/${nextProject.slug}`}
+                            className="group flex items-center justify-between gap-4 py-2 min-h-12"
+                        >
+                            {content}
+                        </Link>
+                    )}
                 </div>
             </Grid>
         </Reveal>

@@ -118,6 +118,9 @@
 }
 
 :root {
+    --page-guide-width: calc(100% - 1.5rem);
+    --page-guide-color: rgba(20, 20, 19, 0.08);
+
     --duration-press: 150ms;
     --duration-overlay: 240ms;
     --duration-morph: 360ms;
@@ -126,6 +129,74 @@
     --stagger: 60ms;
     --distance-enter: 12px;
     --distance-media: 20px;
+}
+
+@media (min-width: 640px) {
+    :root {
+        --page-guide-width: min(calc(100% - 3rem), 60rem);
+    }
+}
+
+html.dark {
+    --page-guide-color: rgba(244, 244, 242, 0.07);
+}
+
+.page-frame {
+    position: relative;
+    width: 100%;
+}
+
+.page-frame::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: var(--page-guide-width);
+    transform: translateX(-50%);
+    border-inline: 1px solid var(--page-guide-color);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.page-frame > * {
+    position: relative;
+    z-index: 1;
+}
+
+.section-framed,
+.section-frame-bottom {
+    position: relative;
+}
+
+.section-frame-top {
+    position: relative;
+}
+
+.section-frame-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--page-guide-width);
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: var(--page-guide-color);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.section-framed::after,
+.section-frame-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: var(--page-guide-width);
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: var(--page-guide-color);
+    pointer-events: none;
+    z-index: 1;
 }
 
 @keyframes enter {
@@ -138,6 +209,15 @@
 @keyframes settle {
     from {
         transform: scale(1.03);
+    }
+}
+
+@keyframes sheet-rise {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
     }
 }
 

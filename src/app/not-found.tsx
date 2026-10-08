@@ -24,10 +24,7 @@ export default function NotFound() {
 
                 <div {...enter(3)} className="mt-4 flex flex-wrap justify-center items-center gap-3">
                     <Button href="/" variant="primary">
-                        Página inicial
-                    </Button>
-                    <Button href="/work" variant="secondary">
-                        Ver projetos
+                        Voltar para a página inicial
                     </Button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes, ElementType, HTMLAttributes, ReactNode } from "react";
+import { ElementType, HTMLAttributes, ReactNode } from "react";
 import { CaseBlock, Project, ProjectSummary } from "./project";
 
 export interface ListRowProps {
@@ -8,19 +8,39 @@ export interface ListRowProps {
     subtitle?: ReactNode;
     value?: ReactNode;
     href?: string;
+    onClick?: () => void;
     muted?: boolean;
     className?: string;
     previewImage?: string;
     stackedOnMobile?: boolean;
 }
 
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "link";
+
 export type ButtonProps = {
-    href: string;
-    children: ReactNode;
-    variant?: "primary" | "secondary";
+    href?: string;
+    onClick?: () => void;
+    children?: ReactNode;
+    variant?: ButtonVariant;
     external?: boolean;
+    disabled?: boolean;
+    type?: "button" | "submit" | "reset";
     className?: string;
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href" | "className" | "children">;
+    icon?: ReactNode;
+    endIcon?: ReactNode;
+    "aria-label"?: string;
+};
+
+export type IconButtonProps = {
+    onClick?: () => void;
+    href?: string;
+    external?: boolean;
+    children: ReactNode;
+    "aria-label": string;
+    title?: string;
+    className?: string;
+    disabled?: boolean;
+};
 
 export interface RevealProps extends HTMLAttributes<HTMLElement> {
     children: ReactNode;
@@ -52,6 +72,7 @@ export interface NavPillProps {
 
 export interface HeroProps {
     project: Project;
+    onBack?: () => void;
 }
 
 export interface EditorialProps {
@@ -65,6 +86,7 @@ export interface MediaProps {
 export interface NextProjectProps {
     nextProject?: ProjectSummary;
     currentSlug: string;
+    onSelectProject?: (slug: string) => void;
 }
 
 export interface ProjectListProps {

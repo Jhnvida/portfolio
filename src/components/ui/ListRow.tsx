@@ -9,6 +9,7 @@ export function ListRow({
     subtitle,
     value,
     href,
+    onClick,
     muted,
     className,
     previewImage,
@@ -74,6 +75,22 @@ export function ListRow({
         stackedOnMobile ? "items-start sm:items-center" : "items-center",
         className,
     );
+
+    if (onClick) {
+        return (
+            <button
+                type="button"
+                onClick={onClick}
+                data-preview-image={previewImage}
+                className={cn(
+                    classes,
+                    "-mx-2 w-[calc(100%+1rem)] rounded-lg px-2 text-left cursor-pointer transition-colors duration-200 hover:bg-surface/70 active:bg-surface-strong",
+                )}
+            >
+                {content}
+            </button>
+        );
+    }
 
     if (href) {
         return (
