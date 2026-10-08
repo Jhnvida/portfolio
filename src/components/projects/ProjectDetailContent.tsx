@@ -1,10 +1,9 @@
-import { getNextProject, getProjectBySlug } from "../../data/projects";
+import { getProjectBySlug } from "../../data/projects";
 import { Grid } from "../layout/Grid";
 import { Button } from "../ui/Button";
 import { Editorial } from "./Editorial";
 import { Hero } from "./Hero";
 import { Media } from "./Media";
-import { NextProject } from "./NextProject";
 
 interface ProjectDetailContentProps {
     slug: string;
@@ -12,7 +11,7 @@ interface ProjectDetailContentProps {
     onSelectProject?: (slug: string) => void;
 }
 
-export function ProjectDetailContent({ slug, onBackToWork, onSelectProject }: ProjectDetailContentProps) {
+export function ProjectDetailContent({ slug, onBackToWork }: ProjectDetailContentProps) {
     const project = getProjectBySlug(slug);
 
     if (!project) {
@@ -30,12 +29,10 @@ export function ProjectDetailContent({ slug, onBackToWork, onSelectProject }: Pr
         );
     }
 
-    const nextProject = getNextProject(project.slug);
-
     return (
         <div className="w-full">
-            <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-12 sm:gap-16">
+            <Grid className="px-0 sm:px-0 md:px-0 max-w-none">
+                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-10 sm:gap-14">
                     <Hero project={project} onBack={onBackToWork} />
 
                     {project.content.map((block, idx) => {
@@ -49,12 +46,6 @@ export function ProjectDetailContent({ slug, onBackToWork, onSelectProject }: Pr
 
                         return null;
                     })}
-
-                    <NextProject
-                        nextProject={nextProject}
-                        currentSlug={project.slug}
-                        onSelectProject={onSelectProject}
-                    />
                 </div>
             </Grid>
         </div>

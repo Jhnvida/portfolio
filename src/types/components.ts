@@ -28,6 +28,7 @@ export type ButtonProps = {
     className?: string;
     icon?: ReactNode;
     endIcon?: ReactNode;
+    title?: string;
     "aria-label"?: string;
 };
 
@@ -85,6 +86,9 @@ export interface MediaProps {
 
 export interface NextProjectProps {
     nextProject?: ProjectSummary;
+    prevProject?: ProjectSummary;
+    currentNumber?: number;
+    totalProjects?: number;
     currentSlug: string;
     onSelectProject?: (slug: string) => void;
 }
@@ -92,4 +96,5 @@ export interface NextProjectProps {
 export interface ProjectListProps {
     children: ReactNode;
     projects: ProjectSummary[];
+    onHoverProject?: (image: string | null) => void;
 }

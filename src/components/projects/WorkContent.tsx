@@ -6,14 +6,15 @@ import { ProjectList } from "./ProjectList";
 
 interface WorkContentProps {
     onSelectProject?: (slug: string) => void;
+    onHoverProject?: (image: string | null) => void;
 }
 
-export function WorkContent({ onSelectProject }: WorkContentProps) {
+export function WorkContent({ onSelectProject, onHoverProject }: WorkContentProps) {
     const projects = getAllProjects();
 
     return (
         <div className="w-full">
-            <Grid>
+            <Grid className="px-0 sm:px-0 md:px-0 max-w-none">
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
                     <div className="pb-8 sm:pb-12">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-2 sm:mb-3 block">
@@ -28,13 +29,15 @@ export function WorkContent({ onSelectProject }: WorkContentProps) {
                         </p>
                     </div>
 
-                    <ProjectList projects={projects}>
+                    <ProjectList projects={projects} onHoverProject={onHoverProject}>
                         <div className="flex flex-col">
                             {projects.map((project, idx) => (
                                 <button
                                     key={project.id}
                                     type="button"
                                     onClick={onSelectProject ? () => onSelectProject(project.slug) : undefined}
+                                    onFocus={() => onHoverProject?.(project.image)}
+                                    onBlur={() => onHoverProject?.(null)}
                                     data-preview-image={project.image}
                                     {...enter(1 + idx)}
                                     className="group w-full text-left py-6 sm:py-8 border-b border-line/60 first:border-t first:border-line/60 transition-colors duration-200 cursor-pointer block hover:bg-surface/40 active:bg-surface/70 -mx-3 px-3 sm:-mx-4 sm:px-4 rounded-lg"

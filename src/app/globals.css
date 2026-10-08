@@ -42,6 +42,7 @@
     --text-meta--letter-spacing: 0.04em;
 
     --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-panel: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -267,6 +268,43 @@
     }
     to {
         transform: translateY(0);
+    }
+}
+
+@keyframes panel-slide-in {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes panel-slide-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.animate-panel-in {
+    animation: panel-slide-in 420ms var(--ease-panel) forwards;
+}
+
+.animate-panel-out {
+    animation: panel-slide-out 360ms var(--ease-panel) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-panel-in {
+        animation: vt-fade-in 200ms ease forwards !important;
+        transform: none !important;
+    }
+    .animate-panel-out {
+        animation: vt-fade-out 150ms ease forwards !important;
+        transform: none !important;
     }
 }
 

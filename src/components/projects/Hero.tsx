@@ -25,6 +25,7 @@ export function Hero({ project }: HeroProps) {
                 <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Ficha Técnica</span>
 
                 <div className="flex flex-col">
+                    {project.client && <ListRow title="Cliente" value={project.client} stackedOnMobile />}
                     <ListRow title="Papel" value={project.role} stackedOnMobile />
                     {project.impact && <ListRow title="Foco" value={project.impact} stackedOnMobile />}
                     <ListRow title="Tecnologias" value={project.stack.join(" · ")} stackedOnMobile />

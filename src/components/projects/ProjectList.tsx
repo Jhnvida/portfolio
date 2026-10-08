@@ -1,181 +1,56 @@
 "use client";
 
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "../../lib/utils";
+import { useCallback, useEffect, useRef } from "react";
 import { ProjectListProps } from "../../types";
 
-const PREVIEW_WIDTH = 400;
-const PREVIEW_HEIGHT = 260;
-const OFFSET_X = 20;
-const OFFSET_Y = 20;
-const VIEWPORT_PADDING = 16;
-const LERP_FACTOR = 0.2;
+export function ProjectList({ children, onHoverProject }: ProjectListProps) {
+    const leaveTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-export function ProjectList({ children, projects }: ProjectListProps) {
-    const previewRef = useRef<HTMLDivElement>(null);
-    const [activeImage, setActiveImage] = useState<string | null>(null);
-    const [isVisible, setIsVisible] = useState(false);
-
-    const isVisibleRef = useRef(false);
-    const hasPositionRef = useRef(false);
-    const targetPos = useRef({ x: 0, y: 0 });
-    const currentPos = useRef({ x: 0, y: 0 });
-    const rafId = useRef<number | null>(null);
-
-    const checkSupport = useCallback(() => {
-        if (typeof window === "undefined") return false;
-        const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        return hasFinePointer && !prefersReducedMotion;
-    }, []);
-
-    const calculatePosition = useCallback((clientX: number, clientY: number) => {
-        let x = clientX + OFFSET_X;
-        let y = clientY + OFFSET_Y;
-
-        if (typeof window !== "undefined") {
-            if (x + PREVIEW_WIDTH > window.innerWidth - VIEWPORT_PADDING) {
-                x = clientX - PREVIEW_WIDTH - OFFSET_X;
-            }
-            if (y + PREVIEW_HEIGHT > window.innerHeight - VIEWPORT_PADDING) {
-                y = clientY - PREVIEW_HEIGHT - OFFSET_Y;
-            }
-
-            x = Math.max(VIEWPORT_PADDING, x);
-            y = Math.max(VIEWPORT_PADDING, y);
+    const clearLeaveTimer = useCallback(() => {
+        if (leaveTimerRef.current) {
+            clearTimeout(leaveTimerRef.current);
+            leaveTimerRef.current = null;
         }
-
-        return { x, y };
     }, []);
-
-    const animate = useCallback(() => {
-        function loop() {
-            currentPos.current.x += (targetPos.current.x - currentPos.current.x) * LERP_FACTOR;
-            currentPos.current.y += (targetPos.current.y - currentPos.current.y) * LERP_FACTOR;
-
-            if (previewRef.current) {
-                previewRef.current.style.transform = `translate3d(${currentPos.current.x.toFixed(1)}px, ${currentPos.current.y.toFixed(1)}px, 0)`;
-            }
-
-            const dx = Math.abs(targetPos.current.x - currentPos.current.x);
-            const dy = Math.abs(targetPos.current.y - currentPos.current.y);
-
-            if (dx > 0.15 || dy > 0.15) {
-                rafId.current = requestAnimationFrame(loop);
-            } else {
-                rafId.current = null;
-            }
-        }
-
-        loop();
-    }, []);
-
-    const startRaf = useCallback(() => {
-        if (rafId.current === null) {
-            rafId.current = requestAnimationFrame(animate);
-        }
-    }, [animate]);
 
     useEffect(() => {
-        const handleWindowBlur = () => {
-            setIsVisible(false);
-            isVisibleRef.current = false;
-        };
-
-        window.addEventListener("blur", handleWindowBlur);
         return () => {
-            window.removeEventListener("blur", handleWindowBlur);
-            if (rafId.current !== null) {
-                cancelAnimationFrame(rafId.current);
-            }
+            clearLeaveTimer();
         };
-    }, []);
+    }, [clearLeaveTimer]);
 
-    const handlePointerOver = (e: React.PointerEvent) => {
-        if (!checkSupport()) return;
-        const target = (e.target as HTMLElement).closest<HTMLElement>("[data-preview-image]");
-        if (target) {
-            const imageSrc = target.getAttribute("data-preview-image");
-            if (imageSrc) {
-                setActiveImage(imageSrc);
-                setIsVisible(true);
-                isVisibleRef.current = true;
-
-                const { x, y } = calculatePosition(e.clientX, e.clientY);
-                if (!hasPositionRef.current) {
-                    currentPos.current = { x, y };
-                    targetPos.current = { x, y };
-                    hasPositionRef.current = true;
-                    if (previewRef.current) {
-                        previewRef.current.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
-                    }
-                } else {
-                    targetPos.current = { x, y };
+    const handlePointerOver = useCallback(
+        (e: React.PointerEvent) => {
+            const target = (e.target as HTMLElement).closest<HTMLElement>("[data-preview-image]");
+            if (target) {
+                clearLeaveTimer();
+                const imageSrc = target.getAttribute("data-preview-image");
+                if (imageSrc) {
+                    onHoverProject?.(imageSrc);
                 }
-                startRaf();
             }
-        }
-    };
+        },
+        [onHoverProject, clearLeaveTimer],
+    );
 
-    const handlePointerOut = (e: React.PointerEvent) => {
-        const related = e.relatedTarget as HTMLElement | null;
-        const nextTarget = related?.closest<HTMLElement>("[data-preview-image]");
-        if (!nextTarget) {
-            setIsVisible(false);
-            isVisibleRef.current = false;
-            hasPositionRef.current = false;
-        }
-    };
-
-    const handlePointerMove = (e: React.PointerEvent) => {
-        if (!isVisibleRef.current || !checkSupport()) return;
-        const { x, y } = calculatePosition(e.clientX, e.clientY);
-        targetPos.current = { x, y };
-        startRaf();
-    };
+    const handlePointerOut = useCallback(
+        (e: React.PointerEvent) => {
+            const related = e.relatedTarget as HTMLElement | null;
+            const nextTarget = related?.closest<HTMLElement>("[data-preview-image]");
+            if (!nextTarget) {
+                clearLeaveTimer();
+                leaveTimerRef.current = setTimeout(() => {
+                    onHoverProject?.(null);
+                    leaveTimerRef.current = null;
+                }, 60);
+            }
+        },
+        [onHoverProject, clearLeaveTimer],
+    );
 
     return (
-        <div
-            onPointerOver={handlePointerOver}
-            onPointerOut={handlePointerOut}
-            onPointerMove={handlePointerMove}
-            className="relative"
-        >
+        <div onPointerOver={handlePointerOver} onPointerOut={handlePointerOut} className="relative">
             {children}
-
-            <div
-                ref={previewRef}
-                aria-hidden="true"
-                className="pointer-events-none fixed top-0 left-0 z-30 hidden [@media(hover:hover)_and_(pointer:fine)]:block"
-                style={{ willChange: "transform" }}
-            >
-                <div
-                    className={cn(
-                        "relative w-100 h-65 overflow-hidden rounded-media bg-surface shadow-xl shadow-ink/8 border border-line/80 origin-center",
-                        "transition-[opacity,transform] ease-out-soft",
-                        isVisible
-                            ? "duration-240 opacity-100 scale-100 ease-out-soft"
-                            : "duration-150 opacity-0 scale-[0.96] ease-in",
-                    )}
-                >
-                    {projects.map((project) => (
-                        <Image
-                            key={project.id}
-                            src={project.image}
-                            alt=""
-                            fill
-                            loading="eager"
-                            quality={90}
-                            sizes="(max-width: 1200px) 400px, 800px"
-                            className={cn(
-                                "object-cover transition-opacity duration-200",
-                                activeImage === project.image ? "opacity-100" : "opacity-0",
-                            )}
-                        />
-                    ))}
-                </div>
-            </div>
         </div>
     );
 }

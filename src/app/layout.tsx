@@ -52,8 +52,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <SmoothScroll>
                         <SheetProvider>
                             <div className="page-frame flex flex-1 flex-col">
+                                <div
+                                    aria-hidden="true"
+                                    className="section-frame-bottom h-28 sm:h-44 md:h-52 w-full pointer-events-none select-none"
+                                />
+
                                 {children}
                                 <Footer />
+
                                 <div
                                     aria-hidden="true"
                                     className="section-frame-bottom h-28 sm:h-44 md:h-52 w-full pointer-events-none select-none"

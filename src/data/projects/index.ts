@@ -41,3 +41,28 @@ export function getNextProject(currentSlug: string): ProjectSummary | undefined 
     const nextIndex = (currentIndex + 1) % PROJECTS.length;
     return toSummary(PROJECTS[nextIndex]);
 }
+
+export function getPreviousProject(currentSlug: string): ProjectSummary | undefined {
+    const currentIndex = PROJECTS.findIndex((project) => project.slug === currentSlug);
+    if (currentIndex === -1) return undefined;
+
+    const prevIndex = (currentIndex - 1 + PROJECTS.length) % PROJECTS.length;
+    return toSummary(PROJECTS[prevIndex]);
+}
+
+export function getProjectNavigation(currentSlug: string) {
+    const currentIndex = PROJECTS.findIndex((project) => project.slug === currentSlug);
+    if (currentIndex === -1) return null;
+
+    const total = PROJECTS.length;
+    const prevIndex = (currentIndex - 1 + total) % total;
+    const nextIndex = (currentIndex + 1) % total;
+
+    return {
+        currentIndex,
+        currentNumber: currentIndex + 1,
+        total,
+        prevProject: toSummary(PROJECTS[prevIndex]),
+        nextProject: toSummary(PROJECTS[nextIndex]),
+    };
+}

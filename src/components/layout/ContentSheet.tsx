@@ -2,30 +2,35 @@
 
 import { ArrowLeft, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getAllProjects } from "../../data/projects";
 import { AboutContent } from "../about/AboutContent";
 import { ProjectDetailContent } from "../projects/ProjectDetailContent";
+import { ProjectPreviewStage } from "../projects/ProjectPreviewStage";
 import { WorkContent } from "../projects/WorkContent";
 import { useSheet } from "../providers/SheetProvider";
 import { useSmoothScroll } from "../providers/SmoothScroll";
-import { Button, IconButton } from "../ui/Button";
-import { Grid } from "./Grid";
 
 export function ContentSheet() {
     const { sheet, isOpen, closeSheet, backToWork, openProject } = useSheet();
     const { getLenis, registerModalScroll } = useSmoothScroll();
+    const allProjects = getAllProjects();
     const contentScrollRef = useRef<HTMLDivElement>(null);
     const contentInnerRef = useRef<HTMLDivElement>(null);
+    const dialogRef = useRef<HTMLElement>(null);
+    const closeButtonRef = useRef<HTMLButtonElement>(null);
     const triggerElementRef = useRef<HTMLElement | null>(null);
     const [isClosing, setIsClosing] = useState(false);
+    const [hoveredImage, setHoveredImage] = useState<string | null>(null);
 
     const handleClose = useCallback(() => {
         setIsClosing(true);
+        setHoveredImage(null);
         setTimeout(() => {
             closeSheet();
             setIsClosing(false);
             triggerElementRef.current?.focus?.();
         }, 360);
-    }, [closeSheet]);
+    }, [closeSheet, setHoveredImage]);
 
     useEffect(() => {
         if (isOpen && !isClosing) {
@@ -43,13 +48,20 @@ export function ContentSheet() {
                 );
             }
 
+            const focusTimer = setTimeout(() => {
+                closeButtonRef.current?.focus();
+            }, 60);
+
             return () => {
+                clearTimeout(focusTimer);
                 cleanupModalScroll?.();
                 document.body.style.overflow = originalOverflow;
             };
         }
     }, [isOpen, isClosing, registerModalScroll]);
 
+    const activeSlug = sheet?.type === "project" ? sheet.slug : null;
+    const activeType = sheet?.type ?? null;
     useEffect(() => {
         if (contentScrollRef.current) {
             const activeLenis = getLenis();
@@ -59,7 +71,7 @@ export function ContentSheet() {
                 contentScrollRef.current.scrollTo(0, 0);
             }
         }
-    }, [sheet, getLenis]);
+    }, [activeSlug, activeType, getLenis]);
 
     const handleKeyDown = useCallback(
         (e: KeyboardEvent) => {
@@ -89,12 +101,18 @@ export function ContentSheet() {
             <div
                 onClick={handleClose}
                 aria-hidden="true"
-                className={`fixed inset-0 z-40 bg-ink/15 dark:bg-black/50 transition-opacity duration-360 ease-out-soft pointer-events-auto ${
+                className={`fixed inset-0 z-40 bg-ink/20 dark:bg-black/60 backdrop-blur-[2px] transition-opacity duration-360 ease-out pointer-events-auto ${
                     isClosing ? "opacity-0" : "opacity-100"
                 }`}
             />
 
+            {sheet?.type === "work" && (
+                <ProjectPreviewStage targetImage={hoveredImage} projects={allProjects} isDrawerClosing={isClosing} />
+            )}
+
             <section
+                ref={dialogRef}
+                tabIndex={-1}
                 role="dialog"
                 aria-modal="true"
                 aria-label={
@@ -104,60 +122,64 @@ export function ContentSheet() {
                           ? "Sobre Mim"
                           : "Detalhes do Projeto"
                 }
-                className={`fixed inset-x-0 bottom-0 top-10 sm:top-14 z-50 flex flex-col rounded-t-3xl sm:rounded-t-4xl bg-bg text-ink border-t border-x border-line/60 dark:border-line/40 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_-12px_40px_rgba(0,0,0,0.4)] pointer-events-auto ${
-                    isClosing
-                        ? "translate-y-full transition-transform duration-360 ease-out-soft"
-                        : "animate-[sheet-rise_380ms_var(--ease-out-soft)_forwards]"
-                }`}
+                className={`fixed inset-y-0 right-0 z-50 flex flex-col bg-bg text-ink border-l border-line/70 dark:border-line/40 shadow-[-16px_0_48px_rgba(0,0,0,0.06)] dark:shadow-[-24px_0_64px_rgba(0,0,0,0.5)] pointer-events-auto outline-none
+                    w-full sm:w-[88vw] md:w-[68vw] lg:w-[54vw] xl:w-[48vw] max-w-220
+                    ${isClosing ? "animate-panel-out" : "animate-panel-in"}`}
             >
-                <header className="sticky top-0 z-30 w-full bg-bg/95 backdrop-blur-md rounded-t-3xl sm:rounded-t-4xl pt-3 pb-3 section-frame-bottom">
-                    <div className="flex justify-center pb-2">
-                        <div aria-hidden="true" className="h-1 w-10 sm:w-12 rounded-full bg-ink-3/20" />
+                <header className="sticky top-0 z-30 w-full bg-bg/95 backdrop-blur-md border-b border-line/60 dark:border-line/40 px-6 sm:px-10 md:px-12 h-14 sm:h-16 flex items-center justify-between shrink-0">
+                    <div className="flex items-center min-w-0">
+                        {canBackToWork ? (
+                            <button
+                                type="button"
+                                onClick={backToWork}
+                                className="group inline-flex items-center gap-2 text-meta uppercase tracking-[0.08em] text-ink-2 hover:text-ink transition-colors cursor-pointer"
+                            >
+                                <ArrowLeft
+                                    size={14}
+                                    strokeWidth={2}
+                                    className="transition-transform duration-200 group-hover:-translate-x-1"
+                                />
+                                <span>Arquivo</span>
+                            </button>
+                        ) : (
+                            <span className="text-meta uppercase tracking-[0.08em] text-ink-3 font-medium select-none truncate">
+                                {sheet?.type === "work"
+                                    ? "Arquivo de Projetos"
+                                    : sheet?.type === "about"
+                                      ? "Sobre Mim"
+                                      : "Projeto"}
+                            </span>
+                        )}
                     </div>
 
-                    <Grid>
-                        <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex items-center justify-between">
-                            <div className="flex items-center min-w-0">
-                                {canBackToWork ? (
-                                    <Button
-                                        variant="secondary"
-                                        onClick={backToWork}
-                                        icon={
-                                            <ArrowLeft
-                                                size={14}
-                                                strokeWidth={2}
-                                                className="transition-transform duration-200 group-hover:-translate-x-0.5"
-                                            />
-                                        }
-                                    >
-                                        Projetos
-                                    </Button>
-                                ) : (
-                                    <span className="text-meta uppercase tracking-[0.08em] text-ink-3 font-medium select-none">
-                                        {sheet?.type === "work"
-                                            ? "Arquivo de Projetos"
-                                            : sheet?.type === "about"
-                                              ? "Sobre Mim"
-                                              : "Projeto"}
-                                    </span>
-                                )}
-                            </div>
-
-                            <div className="flex items-center gap-2 shrink-0">
-                                <IconButton onClick={handleClose} aria-label="Fechar" title="Fechar">
-                                    <X size={15} strokeWidth={2} />
-                                </IconButton>
-                            </div>
-                        </div>
-                    </Grid>
+                    <div className="flex items-center gap-3 shrink-0">
+                        <button
+                            ref={closeButtonRef}
+                            type="button"
+                            onClick={handleClose}
+                            aria-label="Fechar painel"
+                            title="Fechar (Esc)"
+                            className="group flex items-center gap-1.5 px-2 py-1.5 -mr-1.5 rounded-md text-ink-2 hover:text-ink hover:bg-surface/80 transition-colors cursor-pointer text-meta"
+                        >
+                            <span className="hidden sm:inline font-mono text-[10px] text-ink-3 group-hover:text-ink-2 border border-line/80 px-1 py-0.2 rounded select-none">
+                                ESC
+                            </span>
+                            <X size={16} strokeWidth={2} />
+                        </button>
+                    </div>
                 </header>
 
                 <div
                     ref={contentScrollRef}
-                    className="flex-1 overflow-y-auto overscroll-contain w-full pt-8 pb-[max(5rem,env(safe-area-inset-bottom)+2rem)] sm:pt-12 sm:pb-28"
+                    className="flex-1 overflow-y-auto overscroll-contain w-full pt-8 pb-[max(5rem,env(safe-area-inset-bottom)+2rem)] sm:pt-10 sm:pb-24 px-6 sm:px-10 md:px-12"
                 >
                     <div ref={contentInnerRef} className="w-full">
-                        {sheet?.type === "work" && <WorkContent onSelectProject={(slug) => openProject(slug, true)} />}
+                        {sheet?.type === "work" && (
+                            <WorkContent
+                                onSelectProject={(slug) => openProject(slug, true)}
+                                onHoverProject={setHoveredImage}
+                            />
+                        )}
 
                         {sheet?.type === "about" && <AboutContent />}
 

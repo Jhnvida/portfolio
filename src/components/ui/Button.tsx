@@ -22,6 +22,7 @@ export function Button({
     className,
     icon,
     endIcon,
+    title,
     "aria-label": ariaLabel,
     ...rest
 }: ButtonProps) {
@@ -62,6 +63,7 @@ export function Button({
                 onClick={onClick}
                 disabled={disabled}
                 aria-label={ariaLabel}
+                title={title || ariaLabel}
                 className={classes}
                 {...rest}
             >
@@ -77,6 +79,7 @@ export function Button({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={ariaLabel}
+                title={title || ariaLabel}
                 className={classes}
                 {...rest}
             >
@@ -86,7 +89,7 @@ export function Button({
     }
 
     return (
-        <Link href={href} onClick={onClick} aria-label={ariaLabel} className={classes} {...rest}>
+        <Link href={href} onClick={onClick} aria-label={ariaLabel} title={title || ariaLabel} className={classes} {...rest}>
             {content}
         </Link>
     );

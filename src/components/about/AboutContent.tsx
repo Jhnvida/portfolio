@@ -6,8 +6,8 @@ import { ListRow } from "../ui/ListRow";
 export function AboutContent() {
     return (
         <div className="w-full">
-            <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-12 sm:gap-16">
+            <Grid className="px-0 sm:px-0 md:px-0 max-w-none">
+                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-10 sm:gap-14">
                     <div>
                         <h1 {...enter(0)} className="text-display font-medium text-ink">
                             Sobre
