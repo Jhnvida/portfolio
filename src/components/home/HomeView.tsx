@@ -45,15 +45,15 @@ export function HomeView({ weather }: HomeViewProps) {
 
             <Section className="py-20 sm:py-28">
                 <Grid>
-                    <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-center text-center max-w-2xl mx-auto">
+                    <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-start text-left">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-6">Projetos</span>
 
-                        <p className="text-[clamp(1.125rem,1rem+0.5vw,1.25rem)] text-ink leading-relaxed font-normal max-w-xl">
+                        <p className="text-[clamp(1.125rem,1rem+0.5vw,1.25rem)] text-ink leading-relaxed font-normal max-w-2xl">
                             Desenvolvo produtos digitais e interfaces web com foco em código limpo, usabilidade e
                             atenção aos detalhes. Cada projeto equilibra engenharia e experiência visual.
                         </p>
 
-                        <div className="pt-12 sm:pt-16 flex justify-center">
+                        <div className="pt-8 sm:pt-10 flex justify-start">
                             <Button
                                 onClick={openWork}
                                 endIcon={
@@ -74,15 +74,15 @@ export function HomeView({ weather }: HomeViewProps) {
 
             <Section className="py-20 sm:py-28">
                 <Grid>
-                    <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-center text-center max-w-2xl mx-auto">
+                    <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-start text-left">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-6">Sobre</span>
 
-                        <p className="text-[clamp(1.125rem,1rem+0.5vw,1.25rem)] text-ink leading-relaxed font-normal max-w-xl">
+                        <p className="text-[clamp(1.125rem,1rem+0.5vw,1.25rem)] text-ink leading-relaxed font-normal max-w-2xl">
                             Minha atuação combina engenharia de software e atenção à experiência de quem navega. Crio
                             interfaces claras e cuidadosas, apoiadas por uma base técnica consistente.
                         </p>
 
-                        <div className="pt-12 sm:pt-16 flex justify-center">
+                        <div className="pt-8 sm:pt-10 flex justify-start">
                             <Button
                                 onClick={openAbout}
                                 endIcon={

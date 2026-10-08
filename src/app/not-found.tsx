@@ -10,7 +10,7 @@ export default function NotFound() {
     return (
         <Page className="flex flex-1 flex-col items-center justify-center px-4 min-[380px]:px-6 py-20 text-center sm:py-36">
             <div className="flex max-w-lg flex-col items-center gap-6">
-                <span {...enter(0)} className="text-meta uppercase tracking-wider text-ink-3">
+                <span {...enter(0)} className="text-meta uppercase tracking-[0.08em] text-ink-3">
                     404 · Não Encontrado
                 </span>
 

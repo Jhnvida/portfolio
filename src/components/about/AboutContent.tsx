@@ -17,7 +17,8 @@ export function AboutContent() {
                         </h1>
                     </div>
 
-                    <div {...enter(1)} className="flex flex-col gap-4 text-body text-ink-2 leading-relaxed">
+                    <div {...enter(1)} className="flex flex-col gap-4 text-body text-ink-2 leading-relaxed max-w-3xl">
+                        <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-2">Trajetória</span>
                         <p className="text-ink font-medium text-body sm:text-[1.125rem]">
                             Minha atuação combina engenharia de software e atenção à experiência de quem navega. Gosto
                             de criar interfaces claras, cuidadosas e agradáveis de usar, apoiadas por uma base técnica
@@ -36,7 +37,7 @@ export function AboutContent() {
                         </p>
                     </div>
 
-                    <div {...enter(2)} className="flex flex-col border-t border-line/40 pt-8 sm:pt-10">
+                    <div {...enter(2)} className="flex flex-col border-t border-line/60 pt-8 sm:pt-10">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Experiência</span>
 
                         <div className="flex flex-col gap-6">
@@ -58,7 +59,7 @@ export function AboutContent() {
                         </div>
                     </div>
 
-                    <div {...enter(3)} className="flex flex-col border-t border-line/40 pt-8 sm:pt-10">
+                    <div {...enter(3)} className="flex flex-col border-t border-line/60 pt-8 sm:pt-10">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Formação</span>
 
                         <div className="flex flex-col">
@@ -71,7 +72,7 @@ export function AboutContent() {
                         </div>
                     </div>
 
-                    <div {...enter(4)} className="flex flex-col border-t border-line/40 pt-8 sm:pt-10">
+                    <div {...enter(4)} className="flex flex-col border-t border-line/60 pt-8 sm:pt-10">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Tecnologias</span>
 
                         <div className="flex flex-col">

@@ -2,18 +2,29 @@
 
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import { createContext, ReactNode, useContext, useEffect, useRef } from "react";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useRef } from "react";
 
-const SmoothScrollContext = createContext<{ getLenis: () => Lenis | null }>({
+interface SmoothScrollContextType {
+    getLenis: () => Lenis | null;
+    getPageLenis: () => Lenis | null;
+    getModalLenis: () => Lenis | null;
+    registerModalScroll: (wrapper: HTMLElement, content?: HTMLElement) => () => void;
+}
+
+const SmoothScrollContext = createContext<SmoothScrollContextType>({
     getLenis: () => null,
+    getPageLenis: () => null,
+    getModalLenis: () => null,
+    registerModalScroll: () => () => {},
 });
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
-    const lenisRef = useRef<Lenis | null>(null);
+    const pageLenisRef = useRef<Lenis | null>(null);
+    const modalLenisRef = useRef<Lenis | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
-        const lenis = new Lenis({
+        const pageLenis = new Lenis({
             duration: 0.95,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: "vertical",
@@ -27,12 +38,16 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
             respectReducedMotion: true,
         });
 
-        lenisRef.current = lenis;
+        pageLenisRef.current = pageLenis;
 
         let rafId: number;
 
         function raf(time: number) {
-            lenis.raf(time);
+            if (modalLenisRef.current) {
+                modalLenisRef.current.raf(time);
+            } else if (pageLenisRef.current) {
+                pageLenisRef.current.raf(time);
+            }
             rafId = requestAnimationFrame(raf);
         }
 
@@ -40,27 +55,65 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
         return () => {
             cancelAnimationFrame(rafId);
-            lenis.destroy();
-            lenisRef.current = null;
+            pageLenis.destroy();
+            pageLenisRef.current = null;
         };
     }, []);
 
     useEffect(() => {
-        if (lenisRef.current) {
-            lenisRef.current.scrollTo(0, { immediate: true });
+        if (pageLenisRef.current) {
+            pageLenisRef.current.scrollTo(0, { immediate: true });
         } else {
             window.scrollTo(0, 0);
         }
     }, [pathname]);
 
-    return (
-        <SmoothScrollContext.Provider value={{ getLenis: () => lenisRef.current }}>
-            {children}
-        </SmoothScrollContext.Provider>
-    );
+    const registerModalScroll = useCallback((wrapper: HTMLElement, content?: HTMLElement) => {
+        pageLenisRef.current?.stop();
+
+        const modalLenis = new Lenis({
+            wrapper,
+            content: content || (wrapper.firstElementChild as HTMLElement) || wrapper,
+            eventsTarget: wrapper,
+            duration: 0.95,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: "vertical",
+            gestureOrientation: "vertical",
+            smoothWheel: true,
+            syncTouch: false,
+            wheelMultiplier: 1.0,
+            touchMultiplier: 1.0,
+            autoResize: true,
+            anchors: true,
+            respectReducedMotion: true,
+        });
+
+        modalLenisRef.current = modalLenis;
+
+        return () => {
+            modalLenis.destroy();
+            if (modalLenisRef.current === modalLenis) {
+                modalLenisRef.current = null;
+            }
+            pageLenisRef.current?.start();
+        };
+    }, []);
+
+    const contextValue: SmoothScrollContextType = {
+        getLenis: () => modalLenisRef.current || pageLenisRef.current,
+        getPageLenis: () => pageLenisRef.current,
+        getModalLenis: () => modalLenisRef.current,
+        registerModalScroll,
+    };
+
+    return <SmoothScrollContext.Provider value={contextValue}>{children}</SmoothScrollContext.Provider>;
 }
 
 export function useLenis() {
     const { getLenis } = useContext(SmoothScrollContext);
     return getLenis();
+}
+
+export function useSmoothScroll() {
+    return useContext(SmoothScrollContext);
 }

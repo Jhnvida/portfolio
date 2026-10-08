@@ -1,8 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { NextProjectProps } from "../../types";
-import { Grid } from "../layout/Grid";
-import { Reveal } from "../ui/Reveal";
 
 export function NextProject({ nextProject, currentSlug, onSelectProject }: NextProjectProps) {
     if (!nextProject || nextProject.slug === currentSlug) return null;
@@ -26,33 +24,28 @@ export function NextProject({ nextProject, currentSlug, onSelectProject }: NextP
     );
 
     return (
-        <Reveal
-            as="nav"
+        <nav
             aria-label="Navegação entre projetos"
-            className="w-full py-16 sm:py-24 border-t border-line mt-12"
+            className="flex flex-col border-t border-line/60 pt-8 sm:pt-10 pb-8 sm:pb-12"
         >
-            <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-4">
-                    <span className="text-meta text-ink-3">Próximo Projeto</span>
+            <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Próximo projeto</span>
 
-                    {onSelectProject ? (
-                        <button
-                            type="button"
-                            onClick={() => onSelectProject(nextProject.slug)}
-                            className="group flex w-full items-center justify-between gap-4 py-2 min-h-12 cursor-pointer"
-                        >
-                            {content}
-                        </button>
-                    ) : (
-                        <Link
-                            href={`/work/${nextProject.slug}`}
-                            className="group flex items-center justify-between gap-4 py-2 min-h-12"
-                        >
-                            {content}
-                        </Link>
-                    )}
-                </div>
-            </Grid>
-        </Reveal>
+            {onSelectProject ? (
+                <button
+                    type="button"
+                    onClick={() => onSelectProject(nextProject.slug)}
+                    className="group flex w-full items-center justify-between gap-4 py-2 min-h-12 cursor-pointer text-left"
+                >
+                    {content}
+                </button>
+            ) : (
+                <Link
+                    href={`/work/${nextProject.slug}`}
+                    className="group flex items-center justify-between gap-4 py-2 min-h-12 text-left"
+                >
+                    {content}
+                </Link>
+            )}
+        </nav>
     );
 }

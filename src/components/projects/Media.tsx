@@ -1,80 +1,47 @@
 import Image from "next/image";
 import { MediaProps } from "../../types";
-import { Grid } from "../layout/Grid";
 import { Reveal } from "../ui/Reveal";
 
 export function Media({ block }: MediaProps) {
     const { layout, items } = block;
 
-    if (layout === "full") {
-        const item = items[0];
-        return (
-            <section className="w-full py-8 sm:py-14">
-                <Grid>
-                    <div className="col-span-4 sm:col-span-8 lg:col-span-12">
+    return (
+        <div className="flex flex-col border-t border-line/60 pt-8 sm:pt-10">
+            <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Registro Visual</span>
+
+            {layout === "grid-2" ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 w-full">
+                    {items.map((item, idx) => (
                         <Reveal
+                            key={idx}
                             variant="media"
-                            className="relative aspect-16/10 sm:aspect-21/10 w-full overflow-hidden rounded-media bg-surface"
+                            className="relative aspect-4/3 w-full overflow-hidden rounded-media bg-surface"
                         >
                             <Image
                                 src={item.src}
-                                alt={item.alt || "Registro visual do projeto"}
+                                alt={item.alt || `Registro visual ${idx + 1}`}
                                 fill
-                                loading="eager"
-                                sizes="(max-width: 1024px) 100vw, 1200px"
+                                sizes="(max-width: 768px) 100vw, 580px"
                                 className="object-cover"
                             />
                         </Reveal>
-                    </div>
-                </Grid>
-            </section>
-        );
-    }
-
-    if (layout === "grid-2") {
-        return (
-            <section className="w-full py-8 sm:py-14">
-                <Grid>
-                    {items.map((item, idx) => (
-                        <div key={idx} className="col-span-4 sm:col-span-4 lg:col-span-6 mb-5 sm:mb-0 last:mb-0">
-                            <Reveal
-                                variant="media"
-                                className="relative aspect-4/3 w-full overflow-hidden rounded-media bg-surface"
-                            >
-                                <Image
-                                    src={item.src}
-                                    alt={item.alt || `Registro visual ${idx + 1}`}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 580px"
-                                    className="object-cover"
-                                />
-                            </Reveal>
-                        </div>
                     ))}
-                </Grid>
-            </section>
-        );
-    }
-
-    const item = items[0];
-    return (
-        <section className="w-full py-8 sm:py-14">
-            <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12">
-                    <Reveal
-                        variant="media"
-                        className="relative aspect-16/10 sm:aspect-video w-full overflow-hidden rounded-media bg-surface"
-                    >
-                        <Image
-                            src={item.src}
-                            alt={item.alt || "Registro visual do projeto"}
-                            fill
-                            sizes="(max-width: 1024px) 100vw, 1200px"
-                            className="object-cover"
-                        />
-                    </Reveal>
                 </div>
-            </Grid>
-        </section>
+            ) : (
+                <Reveal
+                    variant="media"
+                    className="relative aspect-16/10 sm:aspect-21/10 w-full overflow-hidden rounded-media bg-surface"
+                >
+                    <Image
+                        src={items[0].src}
+                        alt={items[0].alt || "Registro visual do projeto"}
+                        fill
+                        loading="eager"
+                        sizes="(max-width: 1024px) 100vw, 1200px"
+                        className="object-cover"
+                    />
+                </Reveal>
+            )}
+        </div>
     );
 }

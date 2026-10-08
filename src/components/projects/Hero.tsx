@@ -1,48 +1,46 @@
 import { enter } from "../../lib/motion";
 import { HeroProps } from "../../types";
-import { Grid } from "../layout/Grid";
 import { Button } from "../ui/Button";
 import { ListRow } from "../ui/ListRow";
 
 export function Hero({ project }: HeroProps) {
     return (
-        <header className="w-full pt-2 pb-10 sm:pt-4 sm:pb-14">
-            <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
-                    <div className="flex flex-col gap-3 max-w-xl pb-10 sm:pb-12">
-                        <div {...enter(0)} className="text-meta text-ink-3">
-                            <span className="font-mono tabular">{project.year}</span>
-                            <span className="mx-2">·</span>
-                            <span>{project.category}</span>
-                        </div>
+        <header className="flex flex-col gap-12 sm:gap-16">
+            <div className="flex flex-col gap-4">
+                <span {...enter(0)} className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-2">
+                    {project.category} <span className="text-ink-3/60">·</span>{" "}
+                    <span className="font-mono tabular">{project.year}</span>
+                </span>
 
-                        <h1
-                            {...enter(1)}
-                            className="text-display sm:text-[2.25rem] font-medium text-ink tracking-[-0.03em]"
-                        >
-                            {project.title}
-                        </h1>
+                <h1 {...enter(1)} className="text-display sm:text-[2.25rem] font-medium text-ink tracking-[-0.03em]">
+                    {project.title}
+                </h1>
 
-                        <p {...enter(2)} className="text-body text-ink-2 leading-relaxed mt-1">
-                            {project.summary}
-                        </p>
-                    </div>
+                <p
+                    {...enter(2)}
+                    className="text-ink font-medium text-body sm:text-[1.125rem] leading-relaxed max-w-3xl"
+                >
+                    {project.summary}
+                </p>
+            </div>
 
-                    <div {...enter(3)} className="flex flex-col border-t border-line/40 pt-2">
-                        <ListRow title="Papel" value={project.role} stackedOnMobile />
-                        {project.impact && <ListRow title="Foco" value={project.impact} stackedOnMobile />}
-                        <ListRow title="Tecnologias" value={project.stack.join(" · ")} stackedOnMobile />
-                    </div>
+            <div {...enter(3)} className="flex flex-col border-t border-line/60 pt-8 sm:pt-10">
+                <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-6">Ficha Técnica</span>
 
-                    {project.githubUrl && (
-                        <div {...enter(4)} className="pt-8">
-                            <Button href={project.githubUrl} external variant="secondary">
-                                Ver código no GitHub
-                            </Button>
-                        </div>
-                    )}
+                <div className="flex flex-col">
+                    <ListRow title="Papel" value={project.role} stackedOnMobile />
+                    {project.impact && <ListRow title="Foco" value={project.impact} stackedOnMobile />}
+                    <ListRow title="Tecnologias" value={project.stack.join(" · ")} stackedOnMobile />
                 </div>
-            </Grid>
+
+                {project.githubUrl && (
+                    <div {...enter(4)} className="pt-6 sm:pt-8 flex justify-start">
+                        <Button href={project.githubUrl} external variant="secondary">
+                            Ver código no GitHub
+                        </Button>
+                    </div>
+                )}
+            </div>
         </header>
     );
 }
