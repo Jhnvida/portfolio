@@ -104,13 +104,13 @@ export function ContentSheet() {
                           ? "Sobre Mim"
                           : "Detalhes do Projeto"
                 }
-                className={`fixed inset-x-0 bottom-0 top-12 sm:top-16 z-50 flex flex-col rounded-t-[1.5rem] sm:rounded-t-4xl bg-bg text-ink border-t border-x border-line/60 dark:border-line/40 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_-12px_40px_rgba(0,0,0,0.4)] pointer-events-auto ${
+                className={`fixed inset-x-0 bottom-0 top-10 sm:top-14 z-50 flex flex-col rounded-t-3xl sm:rounded-t-4xl bg-bg text-ink border-t border-x border-line/60 dark:border-line/40 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_-12px_40px_rgba(0,0,0,0.4)] pointer-events-auto ${
                     isClosing
                         ? "translate-y-full transition-transform duration-360 ease-out-soft"
                         : "animate-[sheet-rise_380ms_var(--ease-out-soft)_forwards]"
                 }`}
             >
-                <header className="sticky top-0 z-30 w-full bg-bg/95 backdrop-blur-sm border-b border-line/60 rounded-t-[1.5rem] sm:rounded-t-4xl pt-3 pb-3">
+                <header className="sticky top-0 z-30 w-full bg-bg/95 backdrop-blur-md rounded-t-3xl sm:rounded-t-4xl pt-3 pb-3 section-frame-bottom">
                     <div className="flex justify-center pb-2">
                         <div aria-hidden="true" className="h-1 w-10 sm:w-12 rounded-full bg-ink-3/20" />
                     </div>
@@ -118,7 +118,7 @@ export function ContentSheet() {
                     <Grid>
                         <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex items-center justify-between">
                             <div className="flex items-center min-w-0">
-                                {canBackToWork && (
+                                {canBackToWork ? (
                                     <Button
                                         variant="secondary"
                                         onClick={backToWork}
@@ -132,12 +132,20 @@ export function ContentSheet() {
                                     >
                                         Projetos
                                     </Button>
+                                ) : (
+                                    <span className="text-meta uppercase tracking-[0.08em] text-ink-3 font-medium select-none">
+                                        {sheet?.type === "work"
+                                            ? "Arquivo de Projetos"
+                                            : sheet?.type === "about"
+                                              ? "Sobre Mim"
+                                              : "Projeto"}
+                                    </span>
                                 )}
                             </div>
 
                             <div className="flex items-center gap-2 shrink-0">
                                 <IconButton onClick={handleClose} aria-label="Fechar" title="Fechar">
-                                    <X size={14} strokeWidth={2} />
+                                    <X size={15} strokeWidth={2} />
                                 </IconButton>
                             </div>
                         </div>
@@ -146,7 +154,7 @@ export function ContentSheet() {
 
                 <div
                     ref={contentScrollRef}
-                    className="flex-1 overflow-y-auto overscroll-contain w-full pt-8 pb-20 sm:pt-12 sm:pb-28"
+                    className="flex-1 overflow-y-auto overscroll-contain w-full pt-8 pb-[max(5rem,env(safe-area-inset-bottom)+2rem)] sm:pt-12 sm:pb-28"
                 >
                     <div ref={contentInnerRef} className="w-full">
                         {sheet?.type === "work" && <WorkContent onSelectProject={(slug) => openProject(slug, true)} />}

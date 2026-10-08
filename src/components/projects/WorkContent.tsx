@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { getAllProjects } from "../../data/projects";
 import { enter } from "../../lib/motion";
 import { Grid } from "../layout/Grid";
@@ -14,12 +15,18 @@ export function WorkContent({ onSelectProject }: WorkContentProps) {
         <div className="w-full">
             <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col">
-                    <h1
-                        {...enter(0)}
-                        className="text-display sm:text-[2.25rem] font-medium text-ink tracking-[-0.03em] pb-10 sm:pb-12"
-                    >
-                        Projetos
-                    </h1>
+                    <div className="pb-8 sm:pb-12">
+                        <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-2 sm:mb-3 block">
+                            Arquivo
+                        </span>
+                        <h1 {...enter(0)} className="text-display font-medium text-ink">
+                            Projetos
+                        </h1>
+                        <p className="mt-3 text-body text-ink-2 max-w-lg leading-relaxed">
+                            Trabalhos desenvolvidos do conceito ao código, com foco em clareza, experiência e boas
+                            práticas web.
+                        </p>
+                    </div>
 
                     <ProjectList projects={projects}>
                         <div className="flex flex-col">
@@ -30,23 +37,32 @@ export function WorkContent({ onSelectProject }: WorkContentProps) {
                                     onClick={onSelectProject ? () => onSelectProject(project.slug) : undefined}
                                     data-preview-image={project.image}
                                     {...enter(1 + idx)}
-                                    className="group w-full text-left py-8 sm:py-10 border-b border-line/60 transition-colors duration-200 cursor-pointer block first:border-t first:border-line/60"
+                                    className="group w-full text-left py-6 sm:py-8 border-b border-line/60 first:border-t first:border-line/60 transition-colors duration-200 cursor-pointer block hover:bg-surface/40 active:bg-surface/70 -mx-3 px-3 sm:-mx-4 sm:px-4 rounded-lg"
                                 >
-                                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-y-2 gap-x-6">
-                                        <div className="flex items-baseline gap-4 sm:gap-6">
-                                            <span className="text-meta font-mono text-ink-3 tabular shrink-0">
+                                    <div className="flex items-start sm:items-baseline justify-between gap-x-4">
+                                        <div className="flex items-baseline gap-3 sm:gap-5 min-w-0">
+                                            <span className="text-meta font-mono text-ink-3 tabular shrink-0 select-none">
                                                 {String(idx + 1).padStart(2, "0")}
                                             </span>
-                                            <h2 className="text-title sm:text-[1.625rem] font-medium text-ink tracking-tight transition-colors duration-200 group-hover:text-ink-2">
+                                            <h2 className="text-title font-medium text-ink tracking-tight transition-colors duration-200 group-hover:text-ink">
                                                 {project.title}
                                             </h2>
                                         </div>
-                                        <span className="text-meta font-mono text-ink-3 tabular pl-8 sm:pl-0">
-                                            {project.year}
-                                        </span>
+
+                                        <div className="flex items-center gap-3 shrink-0">
+                                            <span className="text-meta font-mono text-ink-3 tabular">
+                                                {project.year}
+                                            </span>
+                                            <ArrowUpRight
+                                                aria-hidden
+                                                size={15}
+                                                strokeWidth={2}
+                                                className="text-ink-3 opacity-50 transition-all duration-200 group-hover:opacity-100 group-hover:text-ink group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                            />
+                                        </div>
                                     </div>
 
-                                    <p className="text-body text-ink-2 mt-2 pl-8 sm:pl-10 max-w-2xl leading-relaxed">
+                                    <p className="text-body text-ink-2 mt-2 sm:mt-2.5 pl-7 sm:pl-9 max-w-xl leading-relaxed">
                                         {project.summary}
                                     </p>
                                 </button>

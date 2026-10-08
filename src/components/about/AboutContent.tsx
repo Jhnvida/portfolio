@@ -9,17 +9,14 @@ export function AboutContent() {
             <Grid>
                 <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col gap-12 sm:gap-16">
                     <div>
-                        <h1
-                            {...enter(0)}
-                            className="text-display sm:text-[2.25rem] font-medium text-ink tracking-[-0.03em]"
-                        >
+                        <h1 {...enter(0)} className="text-display font-medium text-ink">
                             Sobre
                         </h1>
                     </div>
 
-                    <div {...enter(1)} className="flex flex-col gap-4 text-body text-ink-2 leading-relaxed max-w-3xl">
+                    <div {...enter(1)} className="flex flex-col gap-4 text-body text-ink-2 leading-relaxed max-w-2xl">
                         <span className="text-meta tracking-[0.08em] uppercase text-ink-3 pb-2">Trajetória</span>
-                        <p className="text-ink font-medium text-body sm:text-[1.125rem]">
+                        <p className="text-ink font-medium text-lead">
                             Minha atuação combina engenharia de software e atenção à experiência de quem navega. Gosto
                             de criar interfaces claras, cuidadosas e agradáveis de usar, apoiadas por uma base técnica
                             bem construída.

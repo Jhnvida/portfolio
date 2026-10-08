@@ -12,14 +12,11 @@ export function Hero({ project }: HeroProps) {
                     <span className="font-mono tabular">{project.year}</span>
                 </span>
 
-                <h1 {...enter(1)} className="text-display sm:text-[2.25rem] font-medium text-ink tracking-[-0.03em]">
+                <h1 {...enter(1)} className="text-display font-medium text-ink">
                     {project.title}
                 </h1>
 
-                <p
-                    {...enter(2)}
-                    className="text-ink font-medium text-body sm:text-[1.125rem] leading-relaxed max-w-3xl"
-                >
+                <p {...enter(2)} className="text-ink font-medium text-lead leading-relaxed max-w-2xl">
                     {project.summary}
                 </p>
             </div>

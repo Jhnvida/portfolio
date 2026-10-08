@@ -56,7 +56,7 @@ export async function Weather() {
     const weather = await getJaguariunaWeather();
 
     return (
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-meta text-ink-3">
+        <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-1 text-meta text-ink-3">
             <span className="text-ink-2 font-medium">
                 {SITE.location.city}, {SITE.location.region}
             </span>
@@ -64,8 +64,8 @@ export async function Weather() {
             {weather ? (
                 <>
                     <span className="tabular">{weather.temperature}°C</span>
-                    <span>·</span>
-                    <span>{weather.description}</span>
+                    <span className="hidden min-[440px]:inline">·</span>
+                    <span className="hidden min-[440px]:inline">{weather.description}</span>
                 </>
             ) : (
                 <span>{SITE.location.timeZoneLabel}</span>

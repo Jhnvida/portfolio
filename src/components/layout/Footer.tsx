@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { CONTACT_ANCHOR, SITE, SOCIAL_LINKS } from "../../data/site";
-import { ThemeToggle } from "../ui/ThemeToggle";
+import { Button } from "../ui/Button";
 import { Grid } from "./Grid";
 import { Section } from "./Section";
 
@@ -11,53 +11,58 @@ export function Footer() {
         <Section
             as="footer"
             id={CONTACT_ANCHOR}
-            className="pt-20 sm:pt-28 pb-[max(2.5rem,env(safe-area-inset-bottom))]"
+            bottomLine={true}
+            className="scroll-mt-14 sm:scroll-mt-16 pt-16 sm:pt-24 pb-[max(3rem,env(safe-area-inset-bottom)+1.5rem)]"
         >
             <Grid>
-                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-center text-center">
-                    <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-6">Contato</span>
+                <div className="col-span-4 sm:col-span-8 lg:col-span-12 flex flex-col items-start text-left">
+                    <span className="text-meta tracking-[0.08em] uppercase text-ink-3 mb-4 sm:mb-5">Contato</span>
 
-                    <h2 className="text-[clamp(1.75rem,1.25rem+2vw,2.75rem)] font-medium text-ink tracking-[-0.03em] leading-[1.2]">
-                        Vamos conversar.
-                    </h2>
+                    <h2 className="text-display font-medium text-ink">Vamos conversar?</h2>
 
-                    <div className="mt-6 mb-12">
-                        <a
+                    <p className="mt-3 sm:mt-4 text-lead text-ink-2 max-w-lg leading-relaxed">
+                        Se você precisa de um site ou quer trocar uma ideia, me manda um e-mail.
+                    </p>
+
+                    <div className="mt-8 sm:mt-10">
+                        <Button
                             href={`mailto:${SITE.email}`}
-                            className="group inline-flex items-center gap-1.5 text-[clamp(1.0625rem,0.9rem+0.8vw,1.375rem)] font-medium tracking-[-0.015em] text-ink-2 hover:text-ink transition-colors duration-200"
+                            variant="primary"
+                            endIcon={
+                                <ArrowUpRight
+                                    aria-hidden
+                                    size={14}
+                                    strokeWidth={2}
+                                    className="opacity-70 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                />
+                            }
                         >
-                            <span>{SITE.email}</span>
-                            <ArrowUpRight
-                                aria-hidden
-                                size={14}
-                                strokeWidth={2}
-                                className="opacity-50 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            />
-                        </a>
+                            {SITE.email}
+                        </Button>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-meta text-ink-2 mb-16">
-                        {SOCIAL_LINKS.filter((l) => !l.href.startsWith("mailto:")).map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="hover:text-ink transition-colors duration-200"
-                            >
-                                {link.label}
-                            </a>
-                        ))}
-                    </div>
+                    <div className="divider-dashed mt-16 sm:mt-24 mb-8 sm:mb-10" />
 
-                    <div className="flex items-center justify-center gap-3 text-meta text-ink-3">
-                        <span>
-                            © {year} {SITE.name}
-                        </span>
-                        <span aria-hidden className="text-line select-none">
-                            ·
-                        </span>
-                        <ThemeToggle />
+                    <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-meta">
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-ink-2">
+                            {SOCIAL_LINKS.filter((l) => !l.href.startsWith("mailto:")).map((link) => (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-ink transition-colors duration-200"
+                                >
+                                    {link.label}
+                                </a>
+                            ))}
+                        </div>
+
+                        <div className="flex items-center text-ink-3">
+                            <span>
+                                © {year} {SITE.name}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </Grid>
