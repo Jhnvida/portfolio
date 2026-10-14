@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --foreground: #111111;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+}
+
+@theme {
+    --font-heading: var(--font-outfit), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family:
+        var(--font-inter),
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-heading {
+    font-family:
+        var(--font-outfit),
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+}
+
+.font-sans {
+    font-family:
+        var(--font-inter),
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+}
+
+::selection {
+    background-color: #111111;
+    color: #ffffff;
+}

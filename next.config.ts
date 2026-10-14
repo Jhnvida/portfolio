@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
     },
     cacheComponents: true,
     partialPrefetching: true,
+    images: {
+        dangerouslyAllowSVG: true,
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "placehold.co",
+            },
+        ],
+    },
     turbopack: {
         rules: {
             "*.css": {
