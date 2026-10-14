@@ -1,35 +1,33 @@
 "use client";
 
+import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function Header() {
+    const headerRef = useRef<HTMLElement>(null);
     const pathname = usePathname();
-    const [activeHash, setActiveHash] = useState<string>("");
 
-    useEffect(() => {
-        const handleHashChange = () => {
-            setActiveHash(window.location.hash);
-        };
-
-        handleHashChange();
-        window.addEventListener("hashchange", handleHashChange);
-        return () => window.removeEventListener("hashchange", handleHashChange);
-    }, []);
-
-    const isHome = pathname === "/" && activeHash !== "#work";
-    const isWork = pathname === "/" && activeHash === "#work";
+    const isHome = pathname === "/";
+    const isProjects = pathname === "/projects";
     const isAbout = pathname === "/about";
 
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion || !headerRef.current) return;
+
+        gsap.fromTo(headerRef.current, { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
+    }, []);
+
     return (
-        <header className="w-full pt-10 sm:pt-14 pb-4">
-            <div className="mx-auto flex max-w-4xl items-center justify-between px-6">
+        <header ref={headerRef} className="w-full pt-10 sm:pt-14 pb-4">
+            <div className="mx-auto flex max-w-355 items-center justify-between px-6 md:px-10">
                 <Link
                     href="/"
                     prefetch={true}
-                    onClick={() => setActiveHash("")}
-                    className="font-heading text-sm font-semibold tracking-tight text-neutral-950 transition-opacity hover:opacity-70"
+                    className="font-heading text-sm font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:underline"
+                    aria-label="Página inicial de João André"
                 >
                     João André
                 </Link>
@@ -38,39 +36,37 @@ export function Header() {
                     <Link
                         href="/"
                         prefetch={true}
-                        onClick={() => setActiveHash("")}
-                        className={`rounded-full px-3 py-1 transition-colors duration-150 ${
+                        className={`rounded-full px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 ${
                             isHome
                                 ? "bg-neutral-100 font-medium text-neutral-950"
                                 : "text-neutral-500 hover:text-neutral-900"
                         }`}
                     >
-                        Home
+                        Início
                     </Link>
 
                     <Link
-                        href="/#work"
-                        onClick={() => setActiveHash("#work")}
-                        className={`rounded-full px-3 py-1 transition-colors duration-150 ${
-                            isWork
+                        href="/projects"
+                        prefetch={true}
+                        className={`rounded-full px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 ${
+                            isProjects
                                 ? "bg-neutral-100 font-medium text-neutral-950"
                                 : "text-neutral-500 hover:text-neutral-900"
                         }`}
                     >
-                        Work
+                        Projetos
                     </Link>
 
                     <Link
                         href="/about"
                         prefetch={true}
-                        onClick={() => setActiveHash("")}
-                        className={`rounded-full px-3 py-1 transition-colors duration-150 ${
+                        className={`rounded-full px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 ${
                             isAbout
                                 ? "bg-neutral-100 font-medium text-neutral-950"
                                 : "text-neutral-500 hover:text-neutral-900"
                         }`}
                     >
-                        About
+                        Sobre
                     </Link>
                 </nav>
             </div>

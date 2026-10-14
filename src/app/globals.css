@@ -6,6 +6,9 @@
     --foreground: #111111;
     --muted: #6b7280;
     --border: #e5e7eb;
+
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme {
@@ -13,8 +16,25 @@
     --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+    pointer-events: none;
 }
 
 body {
@@ -54,4 +74,27 @@ body {
 ::selection {
     background-color: #111111;
     color: #ffffff;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+    html.custom-cursor-enabled,
+    html.custom-cursor-enabled body,
+    html.custom-cursor-enabled a,
+    html.custom-cursor-enabled button,
+    html.custom-cursor-enabled [role="button"],
+    html.custom-cursor-enabled [data-cursor="project"],
+    html.custom-cursor-enabled [data-cursor="copy"] {
+        cursor: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
