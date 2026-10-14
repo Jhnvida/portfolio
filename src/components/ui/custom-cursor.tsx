@@ -40,22 +40,12 @@ export function CustomCursor() {
         const handlePointerChange = () => updateEnabledState();
         const handleMotionChange = () => updateEnabledState();
 
-        if (pointerQuery.addEventListener) {
-            pointerQuery.addEventListener("change", handlePointerChange);
-            motionQuery.addEventListener("change", handleMotionChange);
-        } else {
-            pointerQuery.addListener(handlePointerChange);
-            motionQuery.addListener(handleMotionChange);
-        }
+        pointerQuery.addEventListener("change", handlePointerChange);
+        motionQuery.addEventListener("change", handleMotionChange);
 
         return () => {
-            if (pointerQuery.removeEventListener) {
-                pointerQuery.removeEventListener("change", handlePointerChange);
-                motionQuery.removeEventListener("change", handleMotionChange);
-            } else {
-                pointerQuery.removeListener(handlePointerChange);
-                motionQuery.removeListener(handleMotionChange);
-            }
+            pointerQuery.removeEventListener("change", handlePointerChange);
+            motionQuery.removeEventListener("change", handleMotionChange);
             document.documentElement.classList.remove("custom-cursor-enabled");
         };
     }, []);
@@ -174,10 +164,7 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 width: measuredWidth,
                 height: 32,
-                paddingLeft: 13,
-                paddingRight: 13,
-                paddingTop: 5,
-                paddingBottom: 5,
+                padding: "5px 13px",
                 borderRadius: 9999,
                 backgroundColor: "#0a0a0a",
                 duration: 0.26,
@@ -197,39 +184,16 @@ export function CustomCursor() {
             if (mode === "copy" && cursorText === "Copiado!") {
                 gsap.fromTo(pillRef.current, { scale: 0.94 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
             }
-        } else if (mode === "pointer") {
-            gsap.to(pillRef.current, {
-                width: 18,
-                height: 18,
-                paddingLeft: 0,
-                paddingRight: 0,
-                paddingTop: 0,
-                paddingBottom: 0,
-                borderRadius: 9999,
-                backgroundColor: "rgba(10, 10, 10, 0.4)",
-                duration: 0.2,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
-
-            gsap.to(contentRef.current, {
-                opacity: 0,
-                scale: 0.7,
-                duration: 0.15,
-                ease: "power2.in",
-                overwrite: "auto",
-            });
         } else {
+            const isPointer = mode === "pointer";
+
             gsap.to(pillRef.current, {
-                width: 9,
-                height: 9,
-                paddingLeft: 0,
-                paddingRight: 0,
-                paddingTop: 0,
-                paddingBottom: 0,
+                width: isPointer ? 18 : 9,
+                height: isPointer ? 18 : 9,
+                padding: 0,
                 borderRadius: 9999,
-                backgroundColor: "#0a0a0a",
-                duration: 0.22,
+                backgroundColor: isPointer ? "rgba(10, 10, 10, 0.4)" : "#0a0a0a",
+                duration: isPointer ? 0.2 : 0.22,
                 ease: "power2.out",
                 overwrite: "auto",
             });

@@ -40,10 +40,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         });
 
         lenisRef.current = lenis;
-
-        if (typeof window !== "undefined") {
-            (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
-        }
+        (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
         lenis.on("scroll", ScrollTrigger.update);
 
@@ -96,27 +93,15 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
             }
         };
 
-        if (reducedMotionQuery.addEventListener) {
-            reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
-        } else {
-            reducedMotionQuery.addListener(handleReducedMotionChange);
-        }
+        reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
 
         return () => {
             gsap.ticker.remove(handleTicker);
             lenis.destroy();
             lenisRef.current = null;
             document.removeEventListener("click", handleAnchorClick);
-
-            if (reducedMotionQuery.removeEventListener) {
-                reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
-            } else {
-                reducedMotionQuery.removeListener(handleReducedMotionChange);
-            }
-
-            if (typeof window !== "undefined") {
-                delete (window as unknown as { __lenis?: Lenis }).__lenis;
-            }
+            reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
+            delete (window as unknown as { __lenis?: Lenis }).__lenis;
         };
     }, []);
 

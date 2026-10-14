@@ -1,6 +1,5 @@
 "use client";
 
-import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
@@ -11,13 +10,6 @@ export function Hero() {
     const contentRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
     const ctaRef = useRef<HTMLDivElement>(null);
-
-    const { scrollTo } = useSmoothScroll();
-
-    const handleScrollToContact = (e: React.MouseEvent) => {
-        e.preventDefault();
-        scrollTo("#contato", { offset: 0, duration: 1.2 });
-    };
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -49,39 +41,29 @@ export function Hero() {
                 );
             }
 
-            const mm = gsap.matchMedia();
+            if (heroRef.current && contentRef.current) {
+                ScrollTrigger.create({
+                    trigger: heroRef.current,
+                    start: "top top",
+                    end: "bottom top",
+                    pin: true,
+                    pinSpacing: false,
+                    anticipatePin: 1,
+                });
 
-            mm.add(
-                {
-                    isDesktop: "(min-width: 768px)",
-                    isMobile: "(max-width: 767px)",
-                },
-                () => {
-                    if (heroRef.current && contentRef.current) {
-                        ScrollTrigger.create({
-                            trigger: heroRef.current,
-                            start: "top top",
-                            end: "bottom top",
-                            pin: true,
-                            pinSpacing: false,
-                            anticipatePin: 1,
-                        });
-
-                        gsap.to(contentRef.current, {
-                            scale: 0.93,
-                            opacity: 0.25,
-                            y: -30,
-                            ease: "none",
-                            scrollTrigger: {
-                                trigger: heroRef.current,
-                                start: "top top",
-                                end: "bottom top",
-                                scrub: true,
-                            },
-                        });
-                    }
-                },
-            );
+                gsap.to(contentRef.current, {
+                    scale: 0.93,
+                    opacity: 0.25,
+                    y: -30,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: heroRef.current,
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true,
+                    },
+                });
+            }
         }, heroRef);
 
         return () => ctx.revert();
@@ -103,7 +85,6 @@ export function Hero() {
                 <div ref={ctaRef} className="mt-8 flex items-center justify-center gap-3 text-xs font-sans">
                     <a
                         href="#contato"
-                        onClick={handleScrollToContact}
                         className="cursor-pointer rounded-full bg-neutral-950 px-4 py-2 text-white transition-all duration-200 ease-out hover:opacity-85 active:scale-98 inline-block"
                         aria-label="Ir para a seção de contato no rodapé"
                     >

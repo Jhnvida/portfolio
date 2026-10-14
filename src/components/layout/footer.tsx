@@ -18,35 +18,7 @@ export function Footer() {
     const [isCopied, setIsCopied] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
-    const handleClickEmail = async (e: React.MouseEvent) => {
-        e.preventDefault();
-
-        try {
-            await navigator.clipboard.writeText(email);
-        } catch {
-            const input = document.createElement("input");
-            input.value = email;
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand("copy");
-            document.body.removeChild(input);
-        }
-
-        if (isCopied) return;
-        setIsCopied(true);
-
-        if (typeof window !== "undefined") {
-            window.dispatchEvent(
-                new CustomEvent("cursor-state-change", {
-                    detail: { mode: "copy", text: "Copiado!" },
-                }),
-            );
-        }
-
-        if (resetTimeoutRef.current) {
-            clearTimeout(resetTimeoutRef.current);
-        }
-
+    const animateTextChange = (nextText: string, onTransition?: () => void) => {
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (textRef.current && !prefersReducedMotion) {
@@ -56,7 +28,8 @@ export function Footer() {
                 duration: 0.18,
                 ease: "power2.in",
                 onComplete: () => {
-                    setDisplayText(confirmedText);
+                    setDisplayText(nextText);
+                    onTransition?.();
                     gsap.fromTo(
                         textRef.current,
                         { y: 6, opacity: 0 },
@@ -71,44 +44,48 @@ export function Footer() {
                 },
             });
         } else {
-            setDisplayText(confirmedText);
+            setDisplayText(nextText);
+            onTransition?.();
+        }
+    };
+
+    const handleClickEmail = async (e: React.MouseEvent) => {
+        e.preventDefault();
+
+        try {
+            await navigator.clipboard.writeText(email);
+        } catch {
+            const input = document.createElement("input");
+            input.value = email;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            document.body.removeChild(input);
         }
 
-        resetTimeoutRef.current = setTimeout(() => {
-            if (typeof window !== "undefined") {
-                window.dispatchEvent(
-                    new CustomEvent("cursor-state-change", {
-                        detail: { mode: "copy", text: "Clique para copiar" },
-                    }),
-                );
-            }
+        if (resetTimeoutRef.current) {
+            clearTimeout(resetTimeoutRef.current);
+        }
 
-            if (textRef.current && !prefersReducedMotion) {
-                gsap.to(textRef.current, {
-                    y: -6,
-                    opacity: 0,
-                    duration: 0.18,
-                    ease: "power2.in",
-                    onComplete: () => {
-                        setDisplayText(initialText);
-                        setIsCopied(false);
-                        gsap.fromTo(
-                            textRef.current,
-                            { y: 6, opacity: 0 },
-                            {
-                                y: 0,
-                                opacity: 1,
-                                duration: 0.28,
-                                ease: "power3.out",
-                                clearProps: "transform",
-                            },
-                        );
-                    },
-                });
-            } else {
-                setDisplayText(initialText);
-                setIsCopied(false);
-            }
+        if (!isCopied) {
+            setIsCopied(true);
+            animateTextChange(confirmedText);
+        }
+
+        window.dispatchEvent(
+            new CustomEvent("cursor-state-change", {
+                detail: { mode: "copy", text: "Copiado!" },
+            }),
+        );
+
+        resetTimeoutRef.current = setTimeout(() => {
+            window.dispatchEvent(
+                new CustomEvent("cursor-state-change", {
+                    detail: { text: "Clique para copiar" },
+                }),
+            );
+
+            animateTextChange(initialText, () => setIsCopied(false));
         }, 3200);
     };
 
