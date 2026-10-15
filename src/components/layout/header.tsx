@@ -92,7 +92,10 @@ export function Header() {
                     João André
                 </Link>
 
-                <nav className="flex items-center gap-1 sm:gap-1.5 text-xs font-sans" aria-label="Navegação principal">
+                <nav
+                    className="flex items-center gap-1 sm:gap-1.5 text-xs font-sans font-medium"
+                    aria-label="Navegação principal"
+                >
                     {NAV_ITEMS.map((item) => {
                         const isActive = pathname === item.href;
                         return (
@@ -100,10 +103,10 @@ export function Header() {
                                 key={item.href}
                                 href={item.href}
                                 prefetch={true}
-                                className={`rounded-full px-2.5 sm:px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/30 ${
+                                className={`rounded-full px-2.5 sm:px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 ${
                                     isActive
-                                        ? "bg-neutral-100 font-medium text-neutral-950"
-                                        : "text-neutral-500 hover:text-neutral-900"
+                                        ? "bg-neutral-100 text-neutral-950"
+                                        : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50/80"
                                 }`}
                             >
                                 {item.label}

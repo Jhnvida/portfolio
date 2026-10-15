@@ -5,30 +5,33 @@ export function PersonalIntro() {
     return (
         <section
             aria-label="Apresentação pessoal e especialidades"
-            className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-100"
+            className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/70"
         >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-16 lg:gap-x-20">
                 <div className="md:col-span-7 lg:col-span-7">
-                    <p className="font-mono text-xs uppercase tracking-wider text-neutral-400 mb-6">Sobre</p>
+                    <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Sobre</p>
+
                     <div className="space-y-4 font-sans text-sm sm:text-base leading-relaxed text-neutral-800 max-w-xl">
                         <p>
-                            Desenvolvedor de software com experiência na criação e sustentação de aplicações web em
-                            produção, atuando na integração de APIs REST e na otimização de rotinas e consultas em
-                            bancos relacionais.
+                            Construo sites e aplicações web combinando cuidado visual, facilidade de uso e código
+                            organizado. Meu foco é entender o que cada projeto precisa para criar uma solução digital
+                            prática e agradável de usar — seja uma página para apresentar um trabalho ou uma ferramenta
+                            para automatizar tarefas do dia a dia.
                         </p>
                         <p>
-                            Graduando em Ciência da Computação pela UniFAJ, concentro minha atuação prática no
-                            ecossistema TypeScript, React, Node.js e PHP, priorizando código limpo, estabilidade e
-                            arquitetura sustentável.
+                            Estudo Ciência da Computação na UniFAJ e acumulo quase dois anos de experiência prática na
+                            Assist Soluções em TI, desenvolvendo e mantendo sistemas em produção. No dia a dia, trabalho
+                            com tecnologias como TypeScript, React, Node.js e PHP, valorizando sempre a clareza na
+                            comunicação, o cumprimento de prazos e o bom acabamento técnico.
                         </p>
                     </div>
 
                     <div className="mt-8">
                         <Link
                             href="/about"
-                            className="group inline-flex items-center gap-1.5 text-xs font-sans text-neutral-500 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:underline"
+                            className="group rounded-full border border-neutral-200/90 bg-white px-4.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-700 transition-all duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         >
-                            <span>Trajetória profissional completa</span>
+                            <span>Conhecer minha trajetória</span>
                             <ArrowRight
                                 aria-hidden="true"
                                 className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
@@ -39,23 +42,31 @@ export function PersonalIntro() {
 
                 <div className="md:col-span-5 lg:col-span-5 flex flex-col justify-between">
                     <div>
-                        <p className="font-mono text-xs uppercase tracking-wider text-neutral-400 mb-4">
-                            Especialidades
-                        </p>
-                        <ul className="space-y-2.5 font-sans text-sm text-neutral-800">
-                            <li>Desenvolvimento Front-End (React, TypeScript)</li>
-                            <li>APIs RESTful & Back-End (Node.js, PHP)</li>
-                            <li>Bancos de Dados Relacionais & SQL (MySQL, PostgreSQL)</li>
+                        <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Como posso ajudar</p>
+                        <ul className="space-y-4 font-sans text-sm text-neutral-800">
+                            <li>
+                                <strong className="font-medium text-neutral-950">Criação de sites:</strong>{" "}
+                                desenvolvimento de páginas para apresentar negócios, profissionais, projetos ou ideias,
+                                com navegação clara e visual adaptado para celulares e computadores.
+                            </li>
+                            <li>
+                                <strong className="font-medium text-neutral-950">Aplicações e ferramentas web:</strong>{" "}
+                                construção de sistemas sob medida, painéis administrativos e rotinas para organizar
+                                processos e atender necessidades específicas.
+                            </li>
+                            <li>
+                                <strong className="font-medium text-neutral-950">Melhorias e manutenção:</strong>{" "}
+                                ajustes visuais, correção de falhas, melhorias de velocidade e novas funcionalidades em
+                                sites ou sistemas que já estão no ar.
+                            </li>
                         </ul>
                     </div>
 
                     <div className="mt-10 md:mt-12">
-                        <p className="font-mono text-xs uppercase tracking-wider text-neutral-400 mb-2">
-                            Disponibilidade
-                        </p>
+                        <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Disponibilidade</p>
                         <p className="font-sans text-sm text-neutral-600 leading-relaxed">
-                            Disponível para novas oportunidades profissionais. Jaguariúna, SP — Presencial, híbrido ou
-                            remoto.
+                            Aberto a novas oportunidades de trabalho, projetos sob medida e colaborações técnicas.
+                            Disponível para atuação remota ou presencial na região de Jaguariúna e Campinas, SP.
                         </p>
                     </div>
                 </div>

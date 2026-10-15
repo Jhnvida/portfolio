@@ -51,7 +51,12 @@ body {
     html.custom-cursor-enabled button,
     html.custom-cursor-enabled [role="button"],
     html.custom-cursor-enabled [data-cursor="project"],
-    html.custom-cursor-enabled [data-cursor="copy"] {
+    html.custom-cursor-enabled [data-cursor="copy"],
+    html.custom-cursor-enabled [data-cursor="pointer"],
+    html.custom-cursor-enabled input,
+    html.custom-cursor-enabled select,
+    html.custom-cursor-enabled textarea,
+    html.custom-cursor-enabled label {
         cursor: none !important;
     }
 }

@@ -36,9 +36,10 @@ export const metadata: Metadata = {
         template: "João André — %s",
     },
     description:
-        "Portfólio de João André — Desenvolvedor de Software com quase 2 anos de experiência na criação e sustentação de aplicações web com React, TypeScript, Node.js e PHP.",
+        "Desenvolvedor de software focado em sites e aplicações web. Criação de interfaces funcionais, sistemas sob medida e atenção à estabilidade técnica.",
     keywords: [
         "João André",
+        "Desenvolvimento Web",
         "Desenvolvedor de Software",
         "Desenvolvedor Front-End",
         "Desenvolvedor Full-Stack",
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "João André — Desenvolvedor de Software",
         description:
-            "Desenvolvedor de Software com quase 2 anos de experiência na criação e sustentação de aplicações web modernas com React, TypeScript, Node.js e PHP.",
+            "Desenvolvimento de sites e aplicações web com foco em clareza visual, facilidade de uso e solidez técnica.",
         url: "/",
         siteName: "João André",
         locale: "pt_BR",
@@ -73,7 +74,8 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "João André — Desenvolvedor de Software",
-        description: "Desenvolvedor de Software com foco em TypeScript, React, Node.js e PHP.",
+        description:
+            "Desenvolvimento de sites e aplicações web com foco em clareza visual, facilidade de uso e solidez técnica.",
     },
     robots: {
         index: true,

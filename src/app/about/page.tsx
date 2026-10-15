@@ -3,29 +3,26 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Sobre",
-    description:
-        "Conheça a trajetória de João André: quase 2 anos de experiência profissional em sustentação e desenvolvimento web, bacharelado em Ciência da Computação e foco em React, TypeScript e Node.js.",
+    description: "Conheça a trajetória, a visão de desenvolvimento e a abordagem de trabalho de João André.",
     alternates: {
         canonical: "/about",
     },
     openGraph: {
         title: "João André — Sobre",
-        description:
-            "Trajetória profissional, formação acadêmica e foco técnico de João André, Desenvolvedor de Software.",
+        description: "Trajetória profissional, visão de desenvolvimento e postura de trabalho de João André.",
         url: "/about",
         type: "profile",
     },
     twitter: {
         title: "João André — Sobre",
-        description:
-            "Trajetória profissional, formação acadêmica e foco técnico de João André, Desenvolvedor de Software.",
+        description: "Trajetória profissional, visão de desenvolvimento e postura de trabalho de João André.",
     },
 };
 
 export default function AboutPage() {
     return (
-        <div className="mx-auto flex max-w-355 flex-col items-center justify-center px-6 py-28 md:py-36 text-center">
-            <AnimatedHeading className="font-heading text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-950">
+        <div className="mx-auto flex min-h-[55vh] max-w-3xl flex-col items-start justify-center px-6 md:px-10 py-20 sm:py-24 md:py-28 text-left">
+            <AnimatedHeading className="font-heading text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-950">
                 Sobre
             </AnimatedHeading>
         </div>

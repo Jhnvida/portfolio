@@ -189,7 +189,7 @@ export function Footer() {
 
                 <div className="my-auto flex flex-col items-center justify-center">
                     <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-900">
-                        Vamos trabalhar juntos
+                        Vamos conversar sobre o seu projeto?
                     </h2>
 
                     <div className="mt-3 sm:mt-4 flex flex-col items-center w-fit mx-auto">
@@ -202,11 +202,11 @@ export function Footer() {
                             onBlur={() => setIsHovered(false)}
                             onTouchStart={() => setIsHovered(true)}
                             data-cursor="copy"
-                            data-cursor-text={isCopied ? "Copiado!" : "Clique para copiar"}
-                            className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-normal sm:font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/30 rounded-lg px-2 py-0.5 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
-                                isHighlightActive ? "text-neutral-950" : "text-neutral-400"
+                            data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                            className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-normal sm:font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 rounded-lg px-2 py-0.5 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
+                                isHighlightActive ? "text-neutral-950" : "text-neutral-500 hover:text-neutral-900"
                             }`}
-                            aria-label={`Copiar endereço de e-mail ${email}`}
+                            aria-label={`Copiar e-mail de João André para contato: ${email}`}
                         >
                             <span ref={textRef} className="inline-block will-change-transform">
                                 {displayText}
@@ -217,13 +217,13 @@ export function Footer() {
 
                 <nav
                     aria-label="Links sociais e contato"
-                    className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-14 text-xs sm:text-[13px] font-sans text-neutral-400"
+                    className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-14 text-xs sm:text-[13px] font-sans font-medium text-neutral-500"
                 >
                     <a
                         href="https://www.linkedin.com/in/jaoandre"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:underline"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
                     >
                         LinkedIn
                     </a>
@@ -232,14 +232,14 @@ export function Footer() {
                         href="https://github.com/Jhnvida"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:underline"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
                     >
                         GitHub
                     </a>
 
                     <a
                         href={`mailto:${email}`}
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:underline"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
                     >
                         E-mail
                     </a>
