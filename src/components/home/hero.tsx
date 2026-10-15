@@ -42,15 +42,6 @@ export function Hero() {
             }
 
             if (heroRef.current && contentRef.current) {
-                ScrollTrigger.create({
-                    trigger: heroRef.current,
-                    start: "top top",
-                    end: "bottom top",
-                    pin: true,
-                    pinSpacing: false,
-                    anticipatePin: 1,
-                });
-
                 gsap.to(contentRef.current, {
                     scale: 0.93,
                     opacity: 0.25,
