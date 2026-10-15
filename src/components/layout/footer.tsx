@@ -92,25 +92,76 @@ export function Footer() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
+        const getResponsiveMetrics = () => {
+            const width = typeof window !== "undefined" ? window.innerWidth : 1200;
+            let targetPadding = 32;
+            let targetRadius = 36;
+
+            if (width < 640) {
+                targetPadding = 12;
+                targetRadius = 24;
+            } else if (width < 1024) {
+                targetPadding = 24;
+                targetRadius = 32;
+            } else {
+                targetPadding = Math.max(32, (width - 1420) / 2);
+                targetRadius = 40;
+            }
+
+            return { targetPadding, targetRadius };
+        };
+
         const ctx = gsap.context(() => {
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReducedMotion || !cardRef.current) return;
+            if (!footerRef.current || !cardRef.current) return;
 
-            gsap.fromTo(
-                cardRef.current,
-                { y: 32, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.85,
-                    ease: "power3.out",
-                    clearProps: "transform",
-                    scrollTrigger: {
-                        trigger: cardRef.current,
-                        start: "top 90%",
-                        once: true,
-                    },
+            if (prefersReducedMotion) {
+                const { targetPadding, targetRadius } = getResponsiveMetrics();
+                gsap.set(footerRef.current, {
+                    paddingLeft: targetPadding,
+                    paddingRight: targetPadding,
+                });
+                gsap.set(cardRef.current, {
+                    borderTopLeftRadius: targetRadius,
+                    borderTopRightRadius: targetRadius,
+                });
+                return;
+            }
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: "top bottom",
+                    end: "bottom bottom",
+                    scrub: true,
+                    invalidateOnRefresh: true,
                 },
+            });
+
+            tl.fromTo(
+                footerRef.current,
+                {
+                    paddingLeft: 0,
+                    paddingRight: 0,
+                },
+                {
+                    paddingLeft: () => getResponsiveMetrics().targetPadding,
+                    paddingRight: () => getResponsiveMetrics().targetPadding,
+                    ease: "none",
+                },
+                0,
+            ).fromTo(
+                cardRef.current,
+                {
+                    borderTopLeftRadius: 0,
+                    borderTopRightRadius: 0,
+                },
+                {
+                    borderTopLeftRadius: () => getResponsiveMetrics().targetRadius,
+                    borderTopRightRadius: () => getResponsiveMetrics().targetRadius,
+                    ease: "none",
+                },
+                0,
             );
         }, footerRef);
 
@@ -128,11 +179,11 @@ export function Footer() {
         <footer
             id="contato"
             ref={footerRef}
-            className="relative z-10 w-full bg-white px-4 sm:px-6 md:px-10 pb-8 sm:pb-12 md:pb-16 pt-8 sm:pt-12 scroll-mt-10 min-h-[85svh] md:min-h-[90svh] flex flex-col justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.02)]"
+            className="relative z-10 flex min-h-[60vh] md:min-h-[65vh] w-full flex-col justify-end bg-white scroll-mt-10 overflow-hidden"
         >
             <div
                 ref={cardRef}
-                className="mx-auto flex min-h-110 sm:min-h-125 md:min-h-140 w-full max-w-355 flex-col items-center justify-between rounded-2xl sm:rounded-3xl md:rounded-4xl bg-[#F9F9F9] px-6 py-16 sm:py-24 md:py-28 text-center transition-all duration-300"
+                className="mx-auto flex min-h-[60vh] md:min-h-[65vh] w-full flex-col items-center justify-between bg-[#F9F9F9] px-6 py-10 sm:py-12 md:py-14 text-center overflow-hidden"
             >
                 <div aria-hidden="true" className="w-full" />
 
