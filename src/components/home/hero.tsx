@@ -63,7 +63,7 @@ export function Hero() {
     return (
         <section
             ref={heroRef}
-            className="relative z-0 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center px-6 py-16 text-center"
+            className="sticky top-0 z-0 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center px-6 py-16 text-center"
         >
             <div ref={contentRef} className="mx-auto max-w-2xl will-change-transform">
                 <h1
