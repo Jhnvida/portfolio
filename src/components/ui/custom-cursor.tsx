@@ -55,8 +55,8 @@ export function CustomCursor() {
 
         gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
 
-        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.12, ease: "power2.out" });
-        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.12, ease: "power2.out" });
+        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.09, ease: "power3.out" });
+        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.09, ease: "power3.out" });
 
         const evaluateTarget = (target: HTMLElement | null) => {
             if (!target) return;
@@ -95,7 +95,7 @@ export function CustomCursor() {
                 hasMoved.current = true;
                 if (cursorRef.current) {
                     gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY });
-                    gsap.to(cursorRef.current, { opacity: 1, duration: 0.2, ease: "power2.out" });
+                    gsap.to(cursorRef.current, { opacity: 1, duration: 0.18, ease: "power2.out" });
                 }
             } else {
                 xTo.current?.(e.clientX);
@@ -111,13 +111,16 @@ export function CustomCursor() {
 
         const handleWindowLeave = () => {
             if (cursorRef.current) {
-                gsap.to(cursorRef.current, { opacity: 0, duration: 0.2, ease: "power2.out" });
+                gsap.to(cursorRef.current, { opacity: 0, duration: 0.18, ease: "power2.out" });
             }
         };
 
-        const handleWindowEnter = () => {
+        const handleWindowEnter = (e: MouseEvent) => {
             if (cursorRef.current && hasMoved.current) {
-                gsap.to(cursorRef.current, { opacity: 1, duration: 0.2, ease: "power2.out" });
+                gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY });
+                xTo.current?.(e.clientX);
+                yTo.current?.(e.clientY);
+                gsap.to(cursorRef.current, { opacity: 1, duration: 0.18, ease: "power2.out" });
             }
         };
 
@@ -139,7 +142,7 @@ export function CustomCursor() {
         window.addEventListener("mousemove", handleMouseMove, { passive: true });
         window.addEventListener("scroll", handleScroll, { passive: true });
         document.addEventListener("mouseleave", handleWindowLeave);
-        document.addEventListener("mouseenter", handleWindowEnter);
+        document.addEventListener("mouseenter", handleWindowEnter as EventListener);
         document.addEventListener("mouseover", handleMouseOver, { passive: true });
         window.addEventListener("cursor-state-change", handleCustomState as EventListener);
 
@@ -147,7 +150,7 @@ export function CustomCursor() {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("scroll", handleScroll);
             document.removeEventListener("mouseleave", handleWindowLeave);
-            document.removeEventListener("mouseenter", handleWindowEnter);
+            document.removeEventListener("mouseenter", handleWindowEnter as EventListener);
             document.removeEventListener("mouseover", handleMouseOver);
             window.removeEventListener("cursor-state-change", handleCustomState as EventListener);
         };
@@ -159,15 +162,16 @@ export function CustomCursor() {
         const isPill = mode === "project" || mode === "copy";
 
         if (isPill) {
-            const measuredWidth = contentRef.current.scrollWidth > 0 ? contentRef.current.scrollWidth + 28 : 120;
+            const measuredWidth = contentRef.current.scrollWidth > 0 ? contentRef.current.scrollWidth + 30 : 120;
 
             gsap.to(pillRef.current, {
                 width: measuredWidth,
                 height: 32,
-                padding: "5px 13px",
+                scale: 1,
+                padding: "5px 14px",
                 borderRadius: 9999,
                 backgroundColor: "#0a0a0a",
-                duration: 0.26,
+                duration: 0.25,
                 ease: "power3.out",
                 overwrite: "auto",
             });
@@ -182,7 +186,11 @@ export function CustomCursor() {
             });
 
             if (mode === "copy" && cursorText === "Copiado!") {
-                gsap.fromTo(pillRef.current, { scale: 0.94 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+                gsap.fromTo(
+                    pillRef.current,
+                    { scale: 0.94 },
+                    { scale: 1, duration: 0.28, ease: "back.out(1.8)", overwrite: "auto" },
+                );
             }
         } else {
             const isPointer = mode === "pointer";
@@ -190,6 +198,7 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 width: isPointer ? 18 : 9,
                 height: isPointer ? 18 : 9,
+                scale: 1,
                 padding: 0,
                 borderRadius: 9999,
                 backgroundColor: isPointer ? "rgba(10, 10, 10, 0.4)" : "#0a0a0a",
@@ -200,7 +209,7 @@ export function CustomCursor() {
 
             gsap.to(contentRef.current, {
                 opacity: 0,
-                scale: 0.7,
+                scale: 0.75,
                 duration: 0.15,
                 ease: "power2.in",
                 overwrite: "auto",
@@ -214,11 +223,7 @@ export function CustomCursor() {
     const isCopyState = mode === "copy";
 
     return (
-        <div
-            ref={cursorRef}
-            aria-hidden="true"
-            className="pointer-events-none fixed top-0 left-0 z-99999 will-change-transform select-none"
-        >
+        <div ref={cursorRef} aria-hidden="true" className="pointer-events-none fixed top-0 left-0 z-99999 select-none">
             <div
                 ref={pillRef}
                 className="flex items-center justify-center overflow-hidden rounded-full shadow-xs will-change-[width,height,transform]"
@@ -226,8 +231,8 @@ export function CustomCursor() {
             >
                 <div
                     ref={contentRef}
-                    className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white will-change-[opacity,transform]"
-                    style={{ opacity: 0, transform: "scale(0.7)" }}
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased"
+                    style={{ opacity: 0, transform: "scale(0.75)" }}
                 >
                     {isCopiedState ? (
                         <Check className="h-3.5 w-3.5 stroke-[2.5] text-emerald-400 shrink-0" aria-hidden="true" />

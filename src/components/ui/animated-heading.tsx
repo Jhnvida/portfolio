@@ -25,7 +25,7 @@ export function AnimatedHeading({ children, className = "", as: Component = "h1"
                     opacity: 1,
                     duration: 0.75,
                     ease: "power3.out",
-                    clearProps: "transform",
+                    clearProps: "transform,opacity",
                 },
             );
         }, headingRef);

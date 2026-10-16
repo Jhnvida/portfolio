@@ -22,14 +22,16 @@ export function Footer() {
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (textRef.current && !prefersReducedMotion) {
+            gsap.killTweensOf(textRef.current);
             gsap.to(textRef.current, {
                 y: -6,
                 opacity: 0,
-                duration: 0.18,
+                duration: 0.16,
                 ease: "power2.in",
                 onComplete: () => {
                     setDisplayText(nextText);
                     onTransition?.();
+                    if (!textRef.current) return;
                     gsap.fromTo(
                         textRef.current,
                         { y: 6, opacity: 0 },
@@ -38,7 +40,7 @@ export function Footer() {
                             opacity: 1,
                             duration: 0.28,
                             ease: "power3.out",
-                            clearProps: "transform",
+                            clearProps: "transform,opacity",
                         },
                     );
                 },
@@ -165,9 +167,14 @@ export function Footer() {
             );
         }, footerRef);
 
+        const textEl = textRef.current;
+
         return () => {
             if (resetTimeoutRef.current) {
                 clearTimeout(resetTimeoutRef.current);
+            }
+            if (textEl) {
+                gsap.killTweensOf(textEl);
             }
             ctx.revert();
         };

@@ -29,7 +29,7 @@ export function PersonalIntro() {
                     <div className="mt-8">
                         <Link
                             href="/about"
-                            className="group rounded-full border border-neutral-200/90 bg-white px-4.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-700 transition-all duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                            className="group rounded-full border border-neutral-200/90 bg-white px-4.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-700 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         >
                             <span>Conhecer minha trajetória</span>
                             <ArrowRight

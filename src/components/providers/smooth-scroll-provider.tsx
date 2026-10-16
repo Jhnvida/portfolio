@@ -49,7 +49,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         };
 
         gsap.ticker.add(handleTicker);
-        gsap.ticker.lagSmoothing(0);
+        gsap.ticker.lagSmoothing(500, 33);
 
         const handleAnchorClick = (e: MouseEvent) => {
             const target = e.target as HTMLElement | null;
@@ -75,7 +75,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                     e.preventDefault();
                     lenis.scrollTo(targetElement as HTMLElement, {
                         offset: 0,
-                        duration: isReducedMotion ? 0 : 1.2,
+                        duration: isReducedMotion ? 0 : 1.15,
                     });
                 }
             }
@@ -106,12 +106,25 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     }, []);
 
     useEffect(() => {
-        if (lenisRef.current) {
+        const hash = window.location.hash;
+
+        if (!hash && lenisRef.current) {
             lenisRef.current.scrollTo(0, { immediate: true });
         }
 
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
+
+            if (hash) {
+                const targetElement = document.querySelector<HTMLElement>(hash);
+                if (targetElement && lenisRef.current) {
+                    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    lenisRef.current.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: isReducedMotion ? 0 : 1.15,
+                    });
+                }
+            }
         }, 80);
 
         return () => clearTimeout(timer);
