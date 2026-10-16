@@ -4,19 +4,6 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Sobre",
     description: "Conheça a trajetória, a visão de desenvolvimento e a abordagem de trabalho de João André.",
-    alternates: {
-        canonical: "/about",
-    },
-    openGraph: {
-        title: "João André — Sobre",
-        description: "Trajetória profissional, visão de desenvolvimento e postura de trabalho de João André.",
-        url: "/about",
-        type: "profile",
-    },
-    twitter: {
-        title: "João André — Sobre",
-        description: "Trajetória profissional, visão de desenvolvimento e postura de trabalho de João André.",
-    },
 };
 
 export default function AboutPage() {

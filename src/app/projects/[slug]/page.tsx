@@ -26,24 +26,9 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
         };
     }
 
-    const description = `${project.title} — ${project.context} (${project.year}).`;
-
     return {
         title: project.title,
-        description,
-        alternates: {
-            canonical: `/projects/${project.slug}`,
-        },
-        openGraph: {
-            title: `João André — ${project.title}`,
-            description,
-            url: `/projects/${project.slug}`,
-            type: "article",
-        },
-        twitter: {
-            title: `João André — ${project.title}`,
-            description,
-        },
+        description: `${project.title} — ${project.context} (${project.year}).`,
     };
 }
 

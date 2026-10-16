@@ -72,12 +72,12 @@ export function Header() {
     return (
         <header
             ref={headerRef}
-            className={`sticky top-0 z-40 w-full pointer-events-none transition-[padding] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            className={`sticky top-0 z-40 w-full pointer-events-none transition-[padding] duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
                 isFloating ? "py-3 sm:py-4" : "pt-10 sm:pt-14 pb-4"
             }`}
         >
             <div
-                className={`mx-auto flex items-center justify-between pointer-events-auto transition-[max-width,width,padding,background-color,border-color,box-shadow,border-radius] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+                className={`mx-auto flex items-center justify-between pointer-events-auto transition-[max-width,width,padding,background-color,border-color,box-shadow,border-radius] duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
                     isFloating
                         ? "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-xl sm:max-w-2xl px-3.5 sm:px-6 py-1.5 sm:py-2 rounded-full bg-white/85 backdrop-blur-md border border-neutral-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)]"
                         : "w-full max-w-355 px-6 md:px-10 py-0 rounded-2xl bg-transparent border border-transparent shadow-none"

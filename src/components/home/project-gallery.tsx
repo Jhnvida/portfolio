@@ -15,7 +15,7 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
     const showPlaceholder = !project.imageSrc || imageError || !imageLoaded;
 
     const cardContent = (
-        <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] flex items-center justify-center overflow-hidden">
+        <div className="relative w-full aspect-16/10 sm:aspect-video flex items-center justify-center overflow-hidden">
             {!imageError && project.imageSrc && (
                 <img
                     src={project.imageSrc}
