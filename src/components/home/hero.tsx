@@ -63,12 +63,12 @@ export function Hero() {
     return (
         <section
             ref={heroRef}
-            className="sticky top-0 z-0 -mt-20 sm:-mt-24 pt-28 sm:pt-32 pb-16 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center bg-[#F9F9F9] px-6 text-center"
+            className="sticky top-0 z-0 -mt-20 sm:-mt-24 pt-28 sm:pt-32 pb-16 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center bg-surface-subtle px-6 text-center"
         >
             <div ref={contentRef} className="mx-auto max-w-2xl transform-gpu will-change-transform">
                 <h1
                     ref={headingRef}
-                    className="font-heading text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-950 leading-snug"
+                    className="font-heading text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-950 leading-[1.2] sm:leading-[1.18]"
                 >
                     Ei, pensando em criar algo incrível?
                     <br />
@@ -77,11 +77,11 @@ export function Hero() {
 
                 <div
                     ref={ctaRef}
-                    className="mt-8 flex items-center justify-center gap-3 text-xs sm:text-[13px] font-sans font-medium"
+                    className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-[13px] font-sans font-medium"
                 >
                     <a
                         href="#contato"
-                        className="cursor-pointer rounded-full bg-neutral-950 px-4.5 py-2 sm:px-5 sm:py-2.5 text-white transition-[background-color,transform] duration-200 ease-out hover:bg-neutral-800 active:scale-[0.98] inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                        className="cursor-pointer rounded-full bg-neutral-950 px-5 py-2.5 text-white transition-[background-color,transform] duration-200 ease-out hover:bg-neutral-800 active:scale-[0.98] inline-flex items-center justify-center min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         aria-label="Ir para a seção de contato e conversar sobre um projeto"
                     >
                         Conversar sobre um projeto
@@ -89,7 +89,7 @@ export function Hero() {
 
                     <Link
                         href="/about"
-                        className="rounded-full border border-neutral-200/90 bg-white px-4.5 py-2 sm:px-5 sm:py-2.5 text-neutral-700 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                        className="rounded-full border border-neutral-200/80 bg-white px-5 py-2.5 text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         aria-label="Conhecer mais sobre minha postura profissional e trajetória"
                     >
                         Conhecer o trabalho

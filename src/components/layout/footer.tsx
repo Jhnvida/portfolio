@@ -190,12 +190,12 @@ export function Footer() {
         >
             <div
                 ref={cardRef}
-                className="mx-auto flex min-h-[60vh] md:min-h-[65vh] w-full flex-col items-center justify-between bg-[#F9F9F9] px-6 py-10 sm:py-12 md:py-14 text-center overflow-hidden"
+                className="mx-auto flex min-h-[60vh] md:min-h-[65vh] w-full flex-col items-center justify-between bg-surface-subtle px-6 py-10 sm:py-12 md:py-14 text-center overflow-hidden"
             >
                 <div aria-hidden="true" className="w-full" />
 
                 <div className="my-auto flex flex-col items-center justify-center">
-                    <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-neutral-900">
+                    <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-normal tracking-tight text-neutral-600">
                         Vamos conversar sobre o seu projeto?
                     </h2>
 
@@ -210,8 +210,8 @@ export function Footer() {
                             onTouchStart={() => setIsHovered(true)}
                             data-cursor="copy"
                             data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
-                            className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-normal sm:font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 rounded-lg px-2 py-0.5 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
-                                isHighlightActive ? "text-neutral-950" : "text-neutral-500 hover:text-neutral-900"
+                            className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 rounded-lg px-2.5 py-1 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
+                                isHighlightActive ? "text-neutral-950" : "text-neutral-700 hover:text-neutral-950"
                             }`}
                             aria-label={`Copiar e-mail de João André para contato: ${email}`}
                         >
@@ -224,13 +224,13 @@ export function Footer() {
 
                 <nav
                     aria-label="Links sociais e contato"
-                    className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-14 text-xs sm:text-[13px] font-sans font-medium text-neutral-500"
+                    className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12 text-xs sm:text-[13px] font-sans font-medium text-neutral-600"
                 >
                     <a
                         href="https://www.linkedin.com/in/jaoandre"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
+                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         LinkedIn
                     </a>
@@ -239,14 +239,14 @@ export function Footer() {
                         href="https://github.com/Jhnvida"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
+                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         GitHub
                     </a>
 
                     <a
                         href={`mailto:${email}`}
-                        className="transition-colors duration-200 ease-out hover:text-neutral-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm"
+                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         E-mail
                     </a>

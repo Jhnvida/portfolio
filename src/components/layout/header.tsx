@@ -86,7 +86,7 @@ export function Header() {
                 <Link
                     href="/"
                     prefetch={true}
-                    className="font-heading text-xs sm:text-sm font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 focus-visible:rounded-sm shrink-0"
+                    className="font-heading text-xs sm:text-sm font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:rounded-sm shrink-0"
                     aria-label="Página inicial de João André"
                 >
                     João André
@@ -104,10 +104,10 @@ export function Header() {
                                 key={item.href}
                                 href={item.href}
                                 prefetch={true}
-                                className={`rounded-full px-2.5 sm:px-3 py-1 transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950/20 ${
+                                className={`rounded-full px-2.5 sm:px-3 py-1.5 sm:py-1 inline-flex items-center justify-center transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 ${
                                     isActive
-                                        ? "bg-neutral-100 text-neutral-950"
-                                        : "text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50/80"
+                                        ? "bg-neutral-100 text-neutral-950 font-medium"
+                                        : "text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100/60"
                                 }`}
                             >
                                 {item.label}

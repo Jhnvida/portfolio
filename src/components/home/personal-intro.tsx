@@ -5,11 +5,11 @@ export function PersonalIntro() {
     return (
         <section
             aria-label="Apresentação pessoal e especialidades"
-            className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/70"
+            className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/80"
         >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-16 lg:gap-x-20">
                 <div className="md:col-span-7 lg:col-span-7">
-                    <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Sobre</p>
+                    <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Sobre</p>
 
                     <div className="space-y-4 font-sans text-sm sm:text-base leading-relaxed text-neutral-800 max-w-xl">
                         <p>
@@ -29,7 +29,7 @@ export function PersonalIntro() {
                     <div className="mt-8">
                         <Link
                             href="/about"
-                            className="group rounded-full border border-neutral-200/90 bg-white px-4.5 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-700 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                            className="group rounded-full border border-neutral-200/80 bg-white px-5 py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         >
                             <span>Conhecer minha trajetória</span>
                             <ArrowRight
@@ -42,8 +42,8 @@ export function PersonalIntro() {
 
                 <div className="md:col-span-5 lg:col-span-5 flex flex-col justify-between">
                     <div>
-                        <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Como posso ajudar</p>
-                        <ul className="space-y-4 font-sans text-sm text-neutral-800">
+                        <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Como posso ajudar</p>
+                        <ul className="space-y-4 font-sans text-sm leading-relaxed text-neutral-800">
                             <li>
                                 <strong className="font-medium text-neutral-950">Criação de sites:</strong>{" "}
                                 desenvolvimento de páginas para apresentar negócios, profissionais, projetos ou ideias,
@@ -63,8 +63,8 @@ export function PersonalIntro() {
                     </div>
 
                     <div className="mt-10 md:mt-12">
-                        <p className="font-sans text-xs font-medium text-neutral-500 mb-3 sm:mb-4">Disponibilidade</p>
-                        <p className="font-sans text-sm text-neutral-600 leading-relaxed">
+                        <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Disponibilidade</p>
+                        <p className="font-sans text-sm text-neutral-700 leading-relaxed">
                             Aberto a novas oportunidades de trabalho, projetos sob medida e colaborações técnicas.
                             Disponível para atuação remota ou presencial na região de Jaguariúna e Campinas, SP.
                         </p>

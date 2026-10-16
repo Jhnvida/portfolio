@@ -11,7 +11,6 @@ const INITIAL_VISIBLE_COUNT = 2;
 function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isPreview?: boolean }) {
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
-
     const showPlaceholder = !project.imageSrc || imageError || !imageLoaded;
 
     const cardContent = (
@@ -40,10 +39,10 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
             )}
 
             <div className="absolute top-0 inset-x-0 z-10 p-5 sm:p-7 md:p-8 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
-                <span className="font-heading text-base sm:text-lg font-medium tracking-tight text-neutral-950 transition-colors duration-200 group-hover:text-neutral-600">
+                <span className="font-heading text-base sm:text-lg font-medium tracking-tight text-neutral-950 transition-colors duration-200 group-hover:text-neutral-700">
                     {project.title}
                 </span>
-                <span className="font-sans text-xs text-neutral-500 shrink-0">
+                <span className="font-sans text-xs text-neutral-600 shrink-0">
                     {project.context} · {project.year}
                 </span>
             </div>
@@ -54,7 +53,7 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
         return (
             <div
                 aria-hidden="true"
-                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/70 pointer-events-none select-none"
+                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 pointer-events-none select-none"
             >
                 {cardContent}
             </div>
@@ -68,7 +67,7 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
                 prefetch={true}
                 data-cursor="project"
                 data-cursor-text="Ver projeto"
-                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/70 transition-colors duration-200 ease-out hover:border-neutral-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 transition-colors duration-200 ease-out hover:border-neutral-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                 aria-label={`Conhecer o projeto: ${project.title}`}
             >
                 {cardContent}
@@ -158,7 +157,7 @@ export function ProjectGallery() {
                         <button
                             type="button"
                             onClick={() => setIsExpanded(true)}
-                            className="cursor-pointer rounded-full border border-neutral-200/90 bg-white px-5 py-2 sm:px-6 sm:py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-700 shadow-[0_4px_20px_rgb(0,0,0,0.04)] transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                            className="cursor-pointer rounded-full border border-neutral-200/80 bg-white px-6 py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 shadow-[0_2px_12px_rgb(0,0,0,0.04)] transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         >
                             Carregar mais
                         </button>
