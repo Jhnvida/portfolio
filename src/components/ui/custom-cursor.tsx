@@ -1,10 +1,10 @@
 "use client";
 
 import gsap from "gsap";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, ChevronDown, Copy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export type CursorMode = "default" | "pointer" | "project" | "copy";
+export type CursorMode = "default" | "pointer" | "project" | "copy" | "external" | "back" | "expand";
 
 export function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
@@ -15,8 +15,10 @@ export function CustomCursor() {
     const yTo = useRef<gsap.QuickToFunc | null>(null);
     const hasMoved = useRef(false);
     const mousePos = useRef({ x: 0, y: 0 });
+    const isPressedRef = useRef(false);
 
     const [mode, setMode] = useState<CursorMode>("default");
+    const modeRef = useRef<CursorMode>("default");
     const [cursorText, setCursorText] = useState("Ver projeto");
     const [isEnabled, setIsEnabled] = useState(false);
 
@@ -66,6 +68,7 @@ export function CustomCursor() {
                 const customText = copyEl.getAttribute("data-cursor-text") || "Clique para copiar";
                 setCursorText(customText);
                 setMode("copy");
+                modeRef.current = "copy";
                 return;
             }
 
@@ -74,6 +77,34 @@ export function CustomCursor() {
                 const customText = projectEl.getAttribute("data-cursor-text") || "Ver projeto";
                 setCursorText(customText);
                 setMode("project");
+                modeRef.current = "project";
+                return;
+            }
+
+            const externalEl = target.closest('[data-cursor="external"]') as HTMLElement | null;
+            if (externalEl) {
+                const customText = externalEl.getAttribute("data-cursor-text") || "Abrir link";
+                setCursorText(customText);
+                setMode("external");
+                modeRef.current = "external";
+                return;
+            }
+
+            const backEl = target.closest('[data-cursor="back"]') as HTMLElement | null;
+            if (backEl) {
+                const customText = backEl.getAttribute("data-cursor-text") || "Voltar";
+                setCursorText(customText);
+                setMode("back");
+                modeRef.current = "back";
+                return;
+            }
+
+            const expandEl = target.closest('[data-cursor="expand"]') as HTMLElement | null;
+            if (expandEl) {
+                const customText = expandEl.getAttribute("data-cursor-text") || "Carregar mais";
+                setCursorText(customText);
+                setMode("expand");
+                modeRef.current = "expand";
                 return;
             }
 
@@ -82,10 +113,12 @@ export function CustomCursor() {
             );
             if (interactiveEl) {
                 setMode("pointer");
+                modeRef.current = "pointer";
                 return;
             }
 
             setMode("default");
+            modeRef.current = "default";
         };
 
         const handleMouseMove = (e: MouseEvent) => {
@@ -103,6 +136,46 @@ export function CustomCursor() {
             }
         };
 
+        const handleMouseDown = (e: MouseEvent) => {
+            if (e.button !== 0 || !pillRef.current) return;
+            isPressedRef.current = true;
+            const isPill = ["project", "copy", "external", "back", "expand"].includes(modeRef.current);
+            gsap.to(pillRef.current, {
+                scale: isPill ? 0.93 : 0.82,
+                duration: 0.08,
+                ease: "power2.out",
+                overwrite: "auto",
+            });
+        };
+
+        const handleMouseUp = (e: MouseEvent) => {
+            if (e.button !== 0 || !pillRef.current) return;
+            isPressedRef.current = false;
+            gsap.to(pillRef.current, {
+                scale: 1,
+                duration: 0.18,
+                ease: "back.out(2)",
+                overwrite: "auto",
+            });
+
+            requestAnimationFrame(() => {
+                const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y) as HTMLElement | null;
+                evaluateTarget(target);
+            });
+        };
+
+        const handleBlurOrLeave = () => {
+            if (isPressedRef.current && pillRef.current) {
+                isPressedRef.current = false;
+                gsap.to(pillRef.current, {
+                    scale: 1,
+                    duration: 0.15,
+                    ease: "power2.out",
+                    overwrite: "auto",
+                });
+            }
+        };
+
         const handleScroll = () => {
             if (!hasMoved.current) return;
             const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y) as HTMLElement | null;
@@ -110,6 +183,7 @@ export function CustomCursor() {
         };
 
         const handleWindowLeave = () => {
+            handleBlurOrLeave();
             if (cursorRef.current) {
                 gsap.to(cursorRef.current, { opacity: 0, duration: 0.18, ease: "power2.out" });
             }
@@ -132,7 +206,18 @@ export function CustomCursor() {
         const handleCustomState = (e: Event) => {
             const customEvent = e as CustomEvent<{ mode?: CursorMode; text?: string }>;
             if (customEvent.detail?.mode) {
+                if (customEvent.detail.mode === "default") {
+                    const target = document.elementFromPoint(
+                        mousePos.current.x,
+                        mousePos.current.y,
+                    ) as HTMLElement | null;
+                    if (target) {
+                        evaluateTarget(target);
+                        return;
+                    }
+                }
                 setMode(customEvent.detail.mode);
+                modeRef.current = customEvent.detail.mode;
             }
             if (customEvent.detail?.text) {
                 setCursorText(customEvent.detail.text);
@@ -140,26 +225,34 @@ export function CustomCursor() {
         };
 
         window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mouseup", handleMouseUp);
+        window.addEventListener("blur", handleBlurOrLeave);
         window.addEventListener("scroll", handleScroll, { passive: true });
         document.addEventListener("mouseleave", handleWindowLeave);
         document.addEventListener("mouseenter", handleWindowEnter as EventListener);
         document.addEventListener("mouseover", handleMouseOver, { passive: true });
         window.addEventListener("cursor-state-change", handleCustomState as EventListener);
+        window.addEventListener("cursor:set", handleCustomState as EventListener);
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mousedown", handleMouseDown);
+            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("blur", handleBlurOrLeave);
             window.removeEventListener("scroll", handleScroll);
             document.removeEventListener("mouseleave", handleWindowLeave);
             document.removeEventListener("mouseenter", handleWindowEnter as EventListener);
             document.removeEventListener("mouseover", handleMouseOver);
             window.removeEventListener("cursor-state-change", handleCustomState as EventListener);
+            window.removeEventListener("cursor:set", handleCustomState as EventListener);
         };
     }, [isEnabled]);
 
     useEffect(() => {
         if (!isEnabled || !pillRef.current || !contentRef.current) return;
 
-        const isPill = mode === "project" || mode === "copy";
+        const isPill = ["project", "copy", "external", "back", "expand"].includes(mode);
 
         if (isPill) {
             const measuredWidth = contentRef.current.scrollWidth > 0 ? contentRef.current.scrollWidth + 30 : 120;
@@ -167,7 +260,7 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 width: measuredWidth,
                 height: 32,
-                scale: 1,
+                scale: isPressedRef.current ? 0.93 : 1,
                 padding: "5px 14px",
                 borderRadius: 9999,
                 backgroundColor: "#0a0a0a",
@@ -198,7 +291,7 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 width: isPointer ? 18 : 9,
                 height: isPointer ? 18 : 9,
-                scale: 1,
+                scale: isPressedRef.current ? 0.82 : 1,
                 padding: 0,
                 borderRadius: 9999,
                 backgroundColor: isPointer ? "rgba(10, 10, 10, 0.4)" : "#0a0a0a",
@@ -220,7 +313,6 @@ export function CustomCursor() {
     if (!isEnabled) return null;
 
     const isCopiedState = mode === "copy" && cursorText === "Copiado!";
-    const isCopyState = mode === "copy";
 
     return (
         <div ref={cursorRef} aria-hidden="true" className="pointer-events-none fixed top-0 left-0 z-99999 select-none">
@@ -234,10 +326,16 @@ export function CustomCursor() {
                     className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased"
                     style={{ opacity: 0, transform: "scale(0.75)" }}
                 >
-                    {isCopiedState ? (
-                        <Check className="h-3.5 w-3.5 stroke-[2.5] text-emerald-400 shrink-0" aria-hidden="true" />
-                    ) : isCopyState ? (
-                        <Copy className="h-3.5 w-3.5 stroke-2 shrink-0" aria-hidden="true" />
+                    {mode === "copy" ? (
+                        isCopiedState ? (
+                            <Check className="h-3.5 w-3.5 stroke-[2.5] text-emerald-400 shrink-0" aria-hidden="true" />
+                        ) : (
+                            <Copy className="h-3.5 w-3.5 stroke-2 shrink-0" aria-hidden="true" />
+                        )
+                    ) : mode === "back" ? (
+                        <ArrowLeft className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
+                    ) : mode === "expand" ? (
+                        <ChevronDown className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
                     ) : (
                         <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
                     )}

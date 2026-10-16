@@ -58,6 +58,8 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         <main className="mx-auto flex min-h-[60vh] max-w-3xl flex-col items-start justify-center px-6 md:px-10 py-20 sm:py-24 md:py-28 text-left">
             <Link
                 href="/#projetos"
+                data-cursor="back"
+                data-cursor-text="Voltar"
                 className="group mb-8 inline-flex items-center gap-2 font-sans text-xs font-medium text-neutral-600 py-2 sm:py-1 -ml-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
             >
                 <ArrowLeft

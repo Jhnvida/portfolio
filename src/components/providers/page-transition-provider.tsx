@@ -107,6 +107,10 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         isTransitioningRef.current = false;
         setIsTransitioning(false);
 
+        if (typeof window !== "undefined") {
+            window.dispatchEvent(new CustomEvent("cursor:set", { detail: { mode: "default" } }));
+        }
+
         const container = containerRef.current;
         if (!container) return;
 

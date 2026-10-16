@@ -218,6 +218,8 @@ export function Footer() {
                         href="https://www.linkedin.com/in/jaoandre"
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-cursor="external"
+                        data-cursor-text="Abrir LinkedIn"
                         className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         LinkedIn
@@ -227,6 +229,8 @@ export function Footer() {
                         href="https://github.com/Jhnvida"
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-cursor="external"
+                        data-cursor-text="Abrir GitHub"
                         className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         GitHub
@@ -234,6 +238,8 @@ export function Footer() {
 
                     <a
                         href={`mailto:${email}`}
+                        data-cursor="external"
+                        data-cursor-text="Enviar e-mail"
                         className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
                     >
                         E-mail

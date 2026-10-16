@@ -3,6 +3,7 @@
 import { PROJECTS, type ProjectItem } from "@/data/projects";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -58,7 +59,7 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
         return (
             <div
                 aria-hidden="true"
-                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 pointer-events-none select-none"
+                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 pointer-events-none select-none transition-colors duration-200 ease-out group-hover:border-neutral-300"
             >
                 {cardContent}
             </div>
@@ -126,7 +127,7 @@ export function ProjectGallery() {
         <section
             id="projetos"
             aria-label="Projetos selecionados"
-            className="mx-auto max-w-[1420px] px-6 md:px-10 pb-24 md:pb-32 scroll-mt-24"
+            className="mx-auto max-w-355 px-6 md:px-10 pb-24 md:pb-32 scroll-mt-24"
         >
             <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
                 {visibleProjects.map((project, index) => {
@@ -148,7 +149,14 @@ export function ProjectGallery() {
             </div>
 
             {nextPeekProject && (
-                <div className="relative mt-12 sm:mt-16 md:mt-20">
+                <button
+                    type="button"
+                    onClick={() => setIsExpanded(true)}
+                    data-cursor="expand"
+                    data-cursor-text="Carregar mais"
+                    aria-label="Carregar mais projetos selecionados"
+                    className="group relative mt-12 sm:mt-16 md:mt-20 block w-full text-left cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border-0 p-0 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                >
                     <div className="h-36 sm:h-48 md:h-60 overflow-hidden">
                         <ProjectCard project={nextPeekProject} isPreview />
                     </div>
@@ -158,16 +166,13 @@ export function ProjectGallery() {
                         className="pointer-events-none absolute inset-0 z-20 bg-linear-to-b from-white/0 via-white/80 to-white"
                     />
 
-                    <div className="absolute inset-x-0 bottom-3 sm:bottom-5 z-30 flex justify-center">
-                        <button
-                            type="button"
-                            onClick={() => setIsExpanded(true)}
-                            className="cursor-pointer rounded-full border border-neutral-200/80 bg-white px-6 py-2.5 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 shadow-[0_2px_12px_rgb(0,0,0,0.04)] transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                        >
-                            Carregar mais
-                        </button>
+                    <div className="absolute inset-x-0 bottom-3 sm:bottom-4 z-30 flex justify-center md:hidden pointer-events-none">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200/80 bg-white/95 backdrop-blur-xs px-4 py-1.5 text-xs font-sans font-medium text-neutral-800 shadow-[0_2px_8px_rgb(0,0,0,0.04)]">
+                            <span>Carregar mais</span>
+                            <ChevronDown aria-hidden="true" className="h-3.5 w-3.5 stroke-2 text-neutral-600" />
+                        </span>
                     </div>
-                </div>
+                </button>
             )}
         </section>
     );
