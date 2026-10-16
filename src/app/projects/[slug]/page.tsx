@@ -55,30 +55,30 @@ async function ProjectContent({ params }: ProjectPageProps) {
 
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
     return (
-        <main className="mx-auto flex min-h-[60vh] max-w-3xl flex-col items-start justify-center px-6 md:px-10 py-20 sm:py-24 md:py-28 text-left">
-            <Link
-                href="/#projetos"
-                data-cursor="back"
-                data-cursor-text="Voltar"
-                className="group mb-8 inline-flex items-center gap-2 font-sans text-xs font-medium text-neutral-600 py-2 sm:py-1 -ml-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
-            >
-                <ArrowLeft
-                    aria-hidden="true"
-                    className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
-                />
-                <span>Voltar para projetos</span>
-            </Link>
+        <div className="mx-auto w-full max-w-355 px-6 md:px-10 pt-12 sm:pt-16 pb-20 sm:pb-24">
+            <div className="max-w-2xl sm:max-w-3xl">
+                <Link
+                    href="/#projetos"
+                    className="group mb-8 rounded-full border border-neutral-200/80 bg-white px-4 py-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 min-h-9 sm:min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                >
+                    <ArrowLeft
+                        aria-hidden="true"
+                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
+                    />
+                    <span>Voltar para projetos</span>
+                </Link>
 
-            <Suspense
-                fallback={
-                    <div aria-hidden="true" className="w-full space-y-3">
-                        <div className="h-4 w-48 rounded-sm bg-neutral-100" />
-                        <div className="h-9 w-3/4 rounded-sm bg-neutral-100" />
-                    </div>
-                }
-            >
-                <ProjectContent params={params} />
-            </Suspense>
-        </main>
+                <Suspense
+                    fallback={
+                        <div aria-hidden="true" className="w-full space-y-3">
+                            <div className="h-4 w-48 rounded-sm bg-neutral-100" />
+                            <div className="h-9 w-3/4 rounded-sm bg-neutral-100" />
+                        </div>
+                    }
+                >
+                    <ProjectContent params={params} />
+                </Suspense>
+            </div>
+        </div>
     );
 }
