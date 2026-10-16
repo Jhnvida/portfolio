@@ -5,7 +5,7 @@ export function PersonalIntro() {
     return (
         <section
             aria-label="Apresentação pessoal e especialidades"
-            className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/80"
+            className="mx-auto max-w-[1420px] px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/80"
         >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-16 lg:gap-x-20">
                 <div className="md:col-span-7 lg:col-span-7">
@@ -19,10 +19,10 @@ export function PersonalIntro() {
                             para automatizar tarefas do dia a dia.
                         </p>
                         <p>
-                            Estudo Ciência da Computação na UniFAJ e acumulo quase dois anos de experiência prática na
-                            Assist Soluções em TI, desenvolvendo e mantendo sistemas em produção. No dia a dia, trabalho
-                            com tecnologias como TypeScript, React, Node.js e PHP, valorizando sempre a clareza na
-                            comunicação, o cumprimento de prazos e o bom acabamento técnico.
+                            Trago quase dois anos de experiência prática no desenvolvimento e sustentação de sistemas
+                            reais em produção. No meu processo de trabalho, valorizo a clareza na comunicação, o
+                            cumprimento rigoroso de prazos e o bom acabamento técnico, garantindo soluções estáveis e
+                            pensadas para gerar resultados concretos.
                         </p>
                     </div>
 
@@ -64,7 +64,7 @@ export function PersonalIntro() {
 
                     <div className="mt-10 md:mt-12">
                         <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Disponibilidade</p>
-                        <p className="font-sans text-sm text-neutral-700 leading-relaxed">
+                        <p className="font-sans text-sm text-neutral-800 leading-relaxed">
                             Aberto a novas oportunidades de trabalho, projetos sob medida e colaborações técnicas.
                             Disponível para atuação remota ou presencial na região de Jaguariúna e Campinas, SP.
                         </p>

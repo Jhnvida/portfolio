@@ -38,6 +38,11 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
                 />
             )}
 
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 top-0 h-28 sm:h-32 bg-linear-to-b from-white/85 via-white/35 to-transparent z-5"
+            />
+
             <div className="absolute top-0 inset-x-0 z-10 p-5 sm:p-7 md:p-8 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
                 <span className="font-heading text-base sm:text-lg font-medium tracking-tight text-neutral-950 transition-colors duration-200 group-hover:text-neutral-700">
                     {project.title}
@@ -121,7 +126,7 @@ export function ProjectGallery() {
         <section
             id="projetos"
             aria-label="Projetos selecionados"
-            className="mx-auto max-w-355 px-6 md:px-10 pb-24 md:pb-32 scroll-mt-24"
+            className="mx-auto max-w-[1420px] px-6 md:px-10 pb-24 md:pb-32 scroll-mt-24"
         >
             <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
                 {visibleProjects.map((project, index) => {

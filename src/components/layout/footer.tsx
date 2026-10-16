@@ -74,19 +74,7 @@ export function Footer() {
             animateTextChange(confirmedText);
         }
 
-        window.dispatchEvent(
-            new CustomEvent("cursor-state-change", {
-                detail: { mode: "copy", text: "Copiado!" },
-            }),
-        );
-
         resetTimeoutRef.current = setTimeout(() => {
-            window.dispatchEvent(
-                new CustomEvent("cursor-state-change", {
-                    detail: { text: "Clique para copiar" },
-                }),
-            );
-
             animateTextChange(initialText, () => setIsCopied(false));
         }, 3200);
     };
@@ -209,7 +197,7 @@ export function Footer() {
                             onBlur={() => setIsHovered(false)}
                             onTouchStart={() => setIsHovered(true)}
                             data-cursor="copy"
-                            data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                            data-cursor-text="Copiar e-mail"
                             className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 rounded-lg px-2.5 py-1 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
                                 isHighlightActive ? "text-neutral-950" : "text-neutral-700 hover:text-neutral-950"
                             }`}
