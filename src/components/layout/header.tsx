@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_ITEMS = [
-    { href: "/", label: "Início" },
-    { href: "/#projetos", label: "Projetos" },
-    { href: "/about", label: "Sobre" },
+    { id: "inicio", href: "/", anchor: "/", label: "Início" },
+    { id: "projetos", href: "/#projetos", anchor: "#projetos", label: "Projetos" },
+    { id: "sobre", href: "/#sobre", anchor: "#sobre", label: "Sobre" },
 ] as const;
 
-type HomeSection = "inicio" | "projetos" | "outro";
+type HomeSection = "inicio" | "projetos" | "sobre" | "outro";
 
 export function Header() {
     const headerRef = useRef<HTMLElement>(null);
@@ -46,7 +46,7 @@ export function Header() {
                 setIsFloating(false);
             }
 
-            if (pathname === "/" && currentScroll < 100) {
+            if (pathname === "/" && currentScroll < 150) {
                 setActiveHomeSection("inicio");
             }
         };
@@ -83,30 +83,64 @@ export function Header() {
         let retryTimeout: NodeJS.Timeout | null = null;
 
         const setupObserver = () => {
-            const target = document.getElementById("projetos");
-            if (!target) {
+            const projetosEl = document.getElementById("projetos");
+            const sobreEl = document.getElementById("sobre");
+
+            if (!projetosEl || !sobreEl) {
                 retryTimeout = setTimeout(setupObserver, 80);
                 return;
             }
 
+            const visibleMap: Record<string, number> = {
+                projetos: 0,
+                sobre: 0,
+            };
+
             observer = new IntersectionObserver(
                 (entries) => {
-                    const [entry] = entries;
-                    if (entry.isIntersecting) {
-                        setActiveHomeSection("projetos");
-                    } else if (entry.boundingClientRect.top > 0) {
+                    entries.forEach((entry) => {
+                        const id = entry.target.id;
+                        if (entry.isIntersecting) {
+                            visibleMap[id] = entry.intersectionRatio;
+                        } else {
+                            visibleMap[id] = 0;
+                        }
+                    });
+
+                    const currentScroll = window.scrollY || document.documentElement.scrollTop || 0;
+                    if (currentScroll < 150) {
                         setActiveHomeSection("inicio");
+                        return;
+                    }
+
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const isNearBottom = currentScroll + windowHeight >= documentHeight - 100;
+
+                    if (visibleMap.sobre > 0.05 || isNearBottom) {
+                        setActiveHomeSection("sobre");
+                    } else if (visibleMap.projetos > 0) {
+                        setActiveHomeSection("projetos");
                     } else {
-                        setActiveHomeSection("outro");
+                        const sobreRect = sobreEl.getBoundingClientRect();
+                        const projetosRect = projetosEl.getBoundingClientRect();
+                        if (sobreRect.top <= 250 && sobreRect.bottom >= 100) {
+                            setActiveHomeSection("sobre");
+                        } else if (projetosRect.top <= 250 && projetosRect.bottom >= 100) {
+                            setActiveHomeSection("projetos");
+                        } else if (projetosRect.top > 250) {
+                            setActiveHomeSection("inicio");
+                        }
                     }
                 },
                 {
-                    rootMargin: "-100px 0px -35% 0px",
-                    threshold: 0,
+                    rootMargin: "-80px 0px -20% 0px",
+                    threshold: [0, 0.05, 0.2, 0.5],
                 },
             );
 
-            observer.observe(target);
+            observer.observe(projetosEl);
+            observer.observe(sobreEl);
         };
 
         setupObserver();
@@ -117,30 +151,20 @@ export function Header() {
         };
     }, [pathname]);
 
-    const isItemActive = (href: string) => {
-        if (pathname === "/about") {
-            return href === "/about";
-        }
-
+    const isItemActive = (itemId: (typeof NAV_ITEMS)[number]["id"]) => {
         if (pathname.startsWith("/projects")) {
-            return href === "/#projetos";
+            return itemId === "projetos";
         }
 
         if (pathname === "/") {
-            if (href === "/") {
-                return activeHomeSection === "inicio";
-            }
-            if (href === "/#projetos") {
-                return activeHomeSection === "projetos";
-            }
-            return false;
+            return activeHomeSection === itemId;
         }
 
-        return pathname === href;
+        return false;
     };
 
-    const handleLogoOrInicioClick = (href: string) => {
-        if (pathname === "/" && href === "/") {
+    const handleNavClick = (href: string) => {
+        if (pathname === "/" && (href === "/" || href === "#inicio")) {
             const globalLenis = (
                 window as unknown as {
                     __lenis?: { scrollTo: (target: number, opts?: { duration?: number }) => void };
@@ -165,15 +189,15 @@ export function Header() {
             <div
                 className={`mx-auto flex items-center justify-between pointer-events-auto transition-[max-width,width,padding,background-color,border-color,box-shadow,border-radius] duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
                     isFloating
-                        ? "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-xl sm:max-w-[620px] px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-white/85 backdrop-blur-md border border-neutral-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)]"
-                        : "w-full max-w-[1420px] px-6 md:px-10 py-2 sm:py-2.5 rounded-2xl bg-transparent border border-transparent shadow-none"
+                        ? "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-xl sm:max-w-155 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-white/85 backdrop-blur-md border border-neutral-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)]"
+                        : "w-full max-w-355 px-6 md:px-10 py-2 sm:py-2.5 rounded-2xl bg-transparent border border-transparent shadow-none"
                 }`}
             >
                 <Link
                     href="/"
                     prefetch={true}
-                    onClick={() => handleLogoOrInicioClick("/")}
-                    className="font-heading text-sm sm:text-[15px] font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:rounded-sm shrink-0 min-h-[44px] sm:min-h-0 inline-flex items-center"
+                    onClick={() => handleNavClick("/")}
+                    className="font-heading text-sm sm:text-[15px] font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:rounded-sm shrink-0 min-h-11 sm:min-h-0 inline-flex items-center"
                     aria-label="Página inicial de João André"
                 >
                     João André
@@ -184,14 +208,15 @@ export function Header() {
                     aria-label="Navegação principal"
                 >
                     {NAV_ITEMS.map((item) => {
-                        const isActive = isItemActive(item.href);
+                        const targetHref = pathname === "/" ? item.anchor : item.href;
+                        const isActive = isItemActive(item.id);
                         return (
                             <Link
-                                key={item.href}
-                                href={item.href}
+                                key={item.id}
+                                href={targetHref}
                                 prefetch={true}
-                                onClick={() => handleLogoOrInicioClick(item.href)}
-                                className={`relative rounded-full px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-[38px] sm:min-h-0 inline-flex items-center justify-center transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 after:absolute after:-inset-1 after:content-[''] sm:after:hidden ${
+                                onClick={() => handleNavClick(targetHref)}
+                                className={`relative rounded-full px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-9.5 sm:min-h-0 inline-flex items-center justify-center transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 after:absolute after:-inset-1 after:content-[''] sm:after:hidden ${
                                     isActive
                                         ? "bg-neutral-100 text-neutral-950 font-medium"
                                         : "text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100/60"

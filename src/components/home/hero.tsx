@@ -3,7 +3,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export function Hero() {
@@ -64,7 +63,7 @@ export function Hero() {
     return (
         <section
             ref={heroRef}
-            className="sticky top-0 z-0 -mt-[110px] sm:-mt-[118px] pt-28 sm:pt-32 pb-16 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center bg-surface-subtle px-6 text-center"
+            className="sticky top-0 z-0 -mt-27.5 sm:-mt-29.5 pt-28 sm:pt-32 pb-16 flex min-h-[85svh] md:min-h-[88svh] w-full flex-col items-center justify-center bg-surface-subtle px-6 text-center"
         >
             <div ref={contentRef} className="mx-auto max-w-2xl transform-gpu will-change-transform">
                 <h1
@@ -88,17 +87,17 @@ export function Hero() {
                         Conversar sobre um projeto
                     </a>
 
-                    <Link
-                        href="/about"
-                        className="group rounded-full border border-neutral-200/80 bg-white px-5 py-2.5 text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                        aria-label="Conhecer mais sobre minha postura profissional e trajetória"
+                    <a
+                        href="#sobre"
+                        className="group rounded-full border border-neutral-200/80 bg-white px-5 py-2.5 text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 cursor-pointer"
+                        aria-label="Ir para a seção sobre mim e conhecer minha trajetória"
                     >
-                        <span>Conhecer o trabalho</span>
+                        <span>Sobre mim</span>
                         <ArrowRight
                             aria-hidden="true"
                             className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
                         />
-                    </Link>
+                    </a>
                 </div>
             </div>
         </section>
