@@ -77,6 +77,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                         offset: 0,
                         duration: isReducedMotion ? 0 : 1.15,
                     });
+                    try {
+                        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+                    } catch {}
                 }
             }
         };
@@ -106,24 +109,44 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     }, []);
 
     useEffect(() => {
+        let targetId: string | null = null;
+        try {
+            targetId = sessionStorage.getItem("scrollToSection");
+            if (targetId) {
+                sessionStorage.removeItem("scrollToSection");
+            }
+        } catch {}
+
         const hash = window.location.hash;
 
-        if (!hash && lenisRef.current) {
+        if (!hash && !targetId && lenisRef.current) {
             lenisRef.current.scrollTo(0, { immediate: true });
         }
 
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();
 
-            if (hash) {
-                const targetElement = document.querySelector<HTMLElement>(hash);
+            const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
                 if (targetElement && lenisRef.current) {
-                    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                     lenisRef.current.scrollTo(targetElement, {
                         offset: 0,
                         duration: isReducedMotion ? 0 : 1.15,
                     });
                 }
+            } else if (hash) {
+                const targetElement = document.querySelector<HTMLElement>(hash);
+                if (targetElement && lenisRef.current) {
+                    lenisRef.current.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: isReducedMotion ? 0 : 1.15,
+                    });
+                }
+                try {
+                    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+                } catch {}
             }
         }, 80);
 

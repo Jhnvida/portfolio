@@ -25,7 +25,6 @@ export function Footer() {
             gsap.killTweensOf(textRef.current);
             gsap.to(textRef.current, {
                 y: -6,
-                opacity: 0,
                 duration: 0.16,
                 ease: "power2.in",
                 onComplete: () => {
@@ -34,13 +33,12 @@ export function Footer() {
                     if (!textRef.current) return;
                     gsap.fromTo(
                         textRef.current,
-                        { y: 6, opacity: 0 },
+                        { y: 6 },
                         {
                             y: 0,
-                            opacity: 1,
                             duration: 0.28,
                             ease: "power3.out",
-                            clearProps: "transform,opacity",
+                            clearProps: "transform",
                         },
                     );
                 },

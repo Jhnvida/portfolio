@@ -19,28 +19,11 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
 
 export const usePageTransition = () => useContext(PageTransitionContext);
 
-const MOTION_CONFIG = {
-    exit: {
-        duration: 0.2,
-        ease: "power2.inOut",
-    },
-    enter: {
-        duration: 0.38,
-        ease: "power3.out",
-        yOffset: 12,
-    },
-    safetyTimeoutMs: 1200,
-};
-
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
-    const [isTransitioning, setIsTransitioning] = useState(false);
-
-    const isTransitioningRef = useRef(false);
+    const [isTransitioning] = useState(false);
     const containerRef = useRef<HTMLDivElement | null>(null);
-    const isInitialMount = useRef(true);
-    const safetyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const registerContainer = useCallback((el: HTMLDivElement | null) => {
         containerRef.current = el;
@@ -48,45 +31,10 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 
     const performNavigate = useCallback(
         (targetHref: string) => {
-            if (isTransitioningRef.current) return;
-
             if (typeof window !== "undefined") {
                 window.dispatchEvent(new CustomEvent("cursor:set", { detail: { mode: "default" } }));
             }
-
-            const prefersReducedMotion =
-                typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-            if (prefersReducedMotion || !containerRef.current) {
-                router.push(targetHref);
-                return;
-            }
-
-            isTransitioningRef.current = true;
-            setIsTransitioning(true);
-
-            if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
-            safetyTimeoutRef.current = setTimeout(() => {
-                if (isTransitioningRef.current && containerRef.current) {
-                    gsap.to(containerRef.current, {
-                        opacity: 1,
-                        duration: 0.2,
-                        clearProps: "transform,opacity",
-                    });
-                    isTransitioningRef.current = false;
-                    setIsTransitioning(false);
-                }
-            }, MOTION_CONFIG.safetyTimeoutMs);
-
-            gsap.killTweensOf(containerRef.current);
-            gsap.to(containerRef.current, {
-                opacity: 0,
-                duration: MOTION_CONFIG.exit.duration,
-                ease: MOTION_CONFIG.exit.ease,
-                onComplete: () => {
-                    router.push(targetHref);
-                },
-            });
+            router.push(targetHref);
         },
         [router],
     );
@@ -94,62 +42,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        if (isInitialMount.current) {
-            isInitialMount.current = false;
-            return;
-        }
-
-        if (safetyTimeoutRef.current) {
-            clearTimeout(safetyTimeoutRef.current);
-            safetyTimeoutRef.current = null;
-        }
-
-        isTransitioningRef.current = false;
-        setIsTransitioning(false);
-
         if (typeof window !== "undefined") {
             window.dispatchEvent(new CustomEvent("cursor:set", { detail: { mode: "default" } }));
         }
 
-        const container = containerRef.current;
-        if (!container) return;
-
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReducedMotion) {
-            gsap.set(container, { opacity: 1, y: 0, clearProps: "transform,opacity" });
-            return;
-        }
-
-        const hasHash = Boolean(window.location.hash);
-        const startY = hasHash ? 0 : MOTION_CONFIG.enter.yOffset;
-
-        gsap.killTweensOf(container);
-        gsap.fromTo(
-            container,
-            {
-                opacity: 0,
-                y: startY,
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: MOTION_CONFIG.enter.duration,
-                ease: MOTION_CONFIG.enter.ease,
-                clearProps: "transform,opacity",
-                onComplete: () => {
-                    ScrollTrigger.refresh();
-                },
-            },
-        );
+        ScrollTrigger.refresh();
     }, [pathname]);
-
-    useEffect(() => {
-        return () => {
-            if (safetyTimeoutRef.current) {
-                clearTimeout(safetyTimeoutRef.current);
-            }
-        };
-    }, []);
 
     useEffect(() => {
         const handleDocumentClick = (e: MouseEvent) => {
@@ -207,7 +105,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 }
 
 export function PageTransitionContent({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    const { registerContainer, isTransitioning } = usePageTransition();
+    const { registerContainer } = usePageTransition();
     const contentRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -216,10 +114,7 @@ export function PageTransitionContent({ children, className = "" }: { children: 
     }, [registerContainer]);
 
     return (
-        <div
-            ref={contentRef}
-            className={`flex-1 flex flex-col w-full ${isTransitioning ? "pointer-events-none select-none" : ""} ${className}`}
-        >
+        <div ref={contentRef} className={`flex-1 flex flex-col w-full ${className}`}>
             {children}
         </div>
     );

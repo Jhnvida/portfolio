@@ -1,9 +1,9 @@
+import { BackToProjectsLink } from "@/components/projects/back-to-projects";
 import { ProjectMediaPreview } from "@/components/projects/project-media-preview";
 import { AnimatedHeading } from "@/components/ui/animated-heading";
 import { getProjectBySlug, PROJECTS } from "@/data/projects";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -45,16 +45,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
         <article className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-14 xl:gap-x-20 items-start">
                 <aside className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-28 space-y-8">
-                    <Link
-                        href="/#projetos"
-                        className="group inline-flex items-center gap-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-500 transition-colors duration-200 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                    >
-                        <ArrowLeft
-                            aria-hidden="true"
-                            className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
-                        />
-                        <span>Voltar para projetos</span>
-                    </Link>
+                    <BackToProjectsLink />
 
                     <div className="space-y-4">
                         <AnimatedHeading className="font-heading text-2xl sm:text-3xl font-medium tracking-tight text-neutral-950 leading-[1.2]">
@@ -131,16 +122,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
             </div>
 
             <footer className="mt-16 sm:mt-24 pt-8 border-t border-neutral-200/80">
-                <Link
-                    href="/#projetos"
-                    className="group inline-flex items-center gap-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-500 transition-colors duration-200 hover:text-neutral-950"
-                >
-                    <ArrowLeft
-                        aria-hidden="true"
-                        className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
-                    />
-                    <span>Voltar para projetos</span>
-                </Link>
+                <BackToProjectsLink />
             </footer>
         </article>
     );

@@ -55,7 +55,7 @@ export function CustomCursor() {
     useEffect(() => {
         if (!isEnabled || !cursorRef.current) return;
 
-        gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50, opacity: 0 });
+        gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50, display: "none" });
 
         xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.09, ease: "power3.out" });
         yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.09, ease: "power3.out" });
@@ -127,8 +127,7 @@ export function CustomCursor() {
             if (!hasMoved.current) {
                 hasMoved.current = true;
                 if (cursorRef.current) {
-                    gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY });
-                    gsap.to(cursorRef.current, { opacity: 1, duration: 0.18, ease: "power2.out" });
+                    gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY, display: "block" });
                 }
             } else {
                 xTo.current?.(e.clientX);
@@ -185,16 +184,15 @@ export function CustomCursor() {
         const handleWindowLeave = () => {
             handleBlurOrLeave();
             if (cursorRef.current) {
-                gsap.to(cursorRef.current, { opacity: 0, duration: 0.18, ease: "power2.out" });
+                gsap.set(cursorRef.current, { display: "none" });
             }
         };
 
         const handleWindowEnter = (e: MouseEvent) => {
             if (cursorRef.current && hasMoved.current) {
-                gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY });
+                gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY, display: "block" });
                 xTo.current?.(e.clientX);
                 yTo.current?.(e.clientY);
-                gsap.to(cursorRef.current, { opacity: 1, duration: 0.18, ease: "power2.out" });
             }
         };
 
@@ -269,8 +267,8 @@ export function CustomCursor() {
                 overwrite: "auto",
             });
 
+            gsap.set(contentRef.current, { display: "flex" });
             gsap.to(contentRef.current, {
-                opacity: 1,
                 scale: 1,
                 duration: 0.2,
                 delay: 0.04,
@@ -294,18 +292,20 @@ export function CustomCursor() {
                 scale: isPressedRef.current ? 0.82 : 1,
                 padding: 0,
                 borderRadius: 9999,
-                backgroundColor: isPointer ? "rgba(10, 10, 10, 0.4)" : "#0a0a0a",
+                backgroundColor: "#0a0a0a",
                 duration: isPointer ? 0.2 : 0.22,
                 ease: "power2.out",
                 overwrite: "auto",
             });
 
             gsap.to(contentRef.current, {
-                opacity: 0,
                 scale: 0.75,
                 duration: 0.15,
                 ease: "power2.in",
                 overwrite: "auto",
+                onComplete: () => {
+                    if (contentRef.current) gsap.set(contentRef.current, { display: "none" });
+                },
             });
         }
     }, [mode, cursorText, isEnabled]);
@@ -324,7 +324,7 @@ export function CustomCursor() {
                 <div
                     ref={contentRef}
                     className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased"
-                    style={{ opacity: 0, transform: "scale(0.75)" }}
+                    style={{ transform: "scale(0.75)", display: "none" }}
                 >
                     {mode === "copy" ? (
                         isCopiedState ? (

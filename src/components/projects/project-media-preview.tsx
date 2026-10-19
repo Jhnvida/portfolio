@@ -9,32 +9,26 @@ interface ProjectMediaPreviewProps {
 }
 
 export function ProjectMediaPreview({ imageSrc, title, aspectRatio = "aspect-16/10" }: ProjectMediaPreviewProps) {
-    const [imageLoaded, setImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
-    const showPlaceholder = !imageSrc || imageError || !imageLoaded;
+    const hasImage = Boolean(imageSrc && !imageError);
 
     return (
         <div
-            className={`relative w-full ${aspectRatio} overflow-hidden rounded-xl md:rounded-2xl border border-neutral-200/80 bg-neutral-100/70`}
+            className={`relative w-full ${aspectRatio} overflow-hidden rounded-xl md:rounded-2xl border border-neutral-200 bg-neutral-100 flex items-center justify-center`}
         >
-            {!imageError && imageSrc && (
+            {hasImage ? (
                 <img
                     src={imageSrc}
                     alt={`Interface do projeto ${title}`}
-                    className={`h-full w-full object-cover transform-gpu transition-opacity duration-500 ease-out ${
-                        imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0 pointer-events-none"
-                    }`}
-                    loading="lazy"
-                    onLoad={() => setImageLoaded(true)}
+                    className="h-full w-full object-cover transform-gpu"
                     onError={() => setImageError(true)}
                 />
-            )}
-
-            {showPlaceholder && (
-                <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-linear-to-br from-neutral-100/80 via-neutral-50/70 to-neutral-100/90"
-                />
+            ) : (
+                <div aria-hidden="true" className="w-full h-full flex items-center justify-center bg-neutral-100">
+                    <span className="font-heading text-xs sm:text-sm text-neutral-400 font-medium">
+                        Interface do projeto em desenvolvimento
+                    </span>
+                </div>
             )}
         </div>
     );

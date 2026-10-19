@@ -18,33 +18,23 @@ export function Hero() {
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
             if (prefersReducedMotion) {
-                gsap.set([headingRef.current, ctaRef.current], { opacity: 1, y: 0 });
+                gsap.set([headingRef.current, ctaRef.current], { y: 0 });
                 return;
             }
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
             if (headingRef.current) {
-                tl.fromTo(
-                    headingRef.current,
-                    { y: 20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.75, clearProps: "transform,opacity" },
-                );
+                tl.fromTo(headingRef.current, { y: 20 }, { y: 0, duration: 0.75, clearProps: "transform" });
             }
 
             if (ctaRef.current) {
-                tl.fromTo(
-                    ctaRef.current,
-                    { y: 16, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.7, clearProps: "transform,opacity" },
-                    "-=0.55",
-                );
+                tl.fromTo(ctaRef.current, { y: 16 }, { y: 0, duration: 0.7, clearProps: "transform" }, "-=0.55");
             }
 
             if (heroRef.current && contentRef.current) {
                 gsap.to(contentRef.current, {
                     scale: 0.93,
-                    opacity: 0.25,
                     y: -30,
                     ease: "none",
                     scrollTrigger: {
@@ -59,6 +49,23 @@ export function Hero() {
 
         return () => ctx.revert();
     }, []);
+
+    const scrollToSection = (targetId: string) => {
+        const targetEl = document.getElementById(targetId);
+        if (!targetEl) return;
+
+        const globalLenis = (
+            window as unknown as {
+                __lenis?: { scrollTo: (target: HTMLElement, opts?: { duration?: number }) => void };
+            }
+        ).__lenis;
+
+        if (globalLenis && typeof globalLenis.scrollTo === "function") {
+            globalLenis.scrollTo(targetEl, { duration: 1.15 });
+        } else {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
         <section
@@ -79,16 +86,18 @@ export function Hero() {
                     ref={ctaRef}
                     className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs sm:text-[13px] font-sans font-medium"
                 >
-                    <a
-                        href="#contato"
+                    <button
+                        type="button"
+                        onClick={() => scrollToSection("contato")}
                         className="cursor-pointer rounded-full bg-neutral-950 px-5 py-2.5 text-white transition-[background-color,transform] duration-200 ease-out hover:bg-neutral-800 active:scale-[0.98] inline-flex items-center justify-center min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                         aria-label="Ir para a seção de contato e conversar sobre um projeto"
                     >
                         Conversar sobre um projeto
-                    </a>
+                    </button>
 
-                    <a
-                        href="#sobre"
+                    <button
+                        type="button"
+                        onClick={() => scrollToSection("sobre")}
                         className="group rounded-full border border-neutral-200/80 bg-white px-5 py-2.5 text-neutral-800 transition-[background-color,border-color,color,transform] duration-200 ease-out hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-950 active:scale-[0.98] inline-flex items-center justify-center gap-2 min-h-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 cursor-pointer"
                         aria-label="Ir para a seção sobre mim e conhecer minha trajetória"
                     >
@@ -97,7 +106,7 @@ export function Hero() {
                             aria-hidden="true"
                             className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
                         />
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>

@@ -3,55 +3,43 @@
 import { PROJECTS, type ProjectItem } from "@/data/projects";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const INITIAL_VISIBLE_COUNT = 2;
 
 function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isPreview?: boolean }) {
-    const [imageLoaded, setImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
-    const showPlaceholder = !project.imageSrc || imageError || !imageLoaded;
+    const imgRef = useRef<HTMLImageElement>(null);
+    const hasImage = Boolean(project.imageSrc && !imageError);
 
-    const cardContent = (
-        <div className="relative w-full aspect-16/10 sm:aspect-video flex items-center justify-center overflow-hidden">
-            {!imageError && project.imageSrc && (
+    useEffect(() => {
+        if (imgRef.current?.complete) {
+            ScrollTrigger.refresh();
+        }
+    }, []);
+
+    const mediaElement = (
+        <div className="relative w-full aspect-16/10 flex items-center justify-center overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100 border border-neutral-200/80 transition-colors duration-300 ease-out group-hover/card:border-neutral-300">
+            {hasImage ? (
                 <img
+                    ref={imgRef}
                     src={project.imageSrc}
                     alt={`Interface do projeto ${project.title}`}
-                    className={`h-full w-full object-cover transform-gpu transition-[transform,opacity] duration-500 ease-out group-hover:scale-[1.015] ${
-                        imageLoaded ? "opacity-100" : "opacity-0 absolute inset-0 pointer-events-none"
-                    }`}
-                    loading="lazy"
+                    className="h-full w-full object-cover transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.015]"
                     onLoad={() => {
-                        setImageLoaded(true);
                         ScrollTrigger.refresh();
                     }}
                     onError={() => setImageError(true)}
                 />
+            ) : (
+                <div aria-hidden="true" className="w-full h-full flex items-center justify-center bg-neutral-100">
+                    <span className="font-heading text-xs sm:text-sm text-neutral-400 font-medium">
+                        {project.status === "Em desenvolvimento" ? "Em desenvolvimento" : project.title}
+                    </span>
+                </div>
             )}
-
-            {showPlaceholder && (
-                <div
-                    aria-hidden="true"
-                    className="absolute inset-0 rounded-xl md:rounded-2xl bg-linear-to-br from-neutral-100/80 via-neutral-50/70 to-neutral-100/90"
-                />
-            )}
-
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-28 sm:h-32 bg-linear-to-b from-white/85 via-white/35 to-transparent z-5"
-            />
-
-            <div className="absolute top-0 inset-x-0 z-10 p-5 sm:p-7 md:p-8 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
-                <span className="font-heading text-base sm:text-lg font-medium tracking-tight text-neutral-950 transition-colors duration-200 group-hover:text-neutral-700">
-                    {project.title}
-                </span>
-                <span className="font-sans text-xs text-neutral-600 shrink-0">
-                    {project.context} · {project.year}
-                </span>
-            </div>
         </div>
     );
 
@@ -59,9 +47,9 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
         return (
             <div
                 aria-hidden="true"
-                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 pointer-events-none select-none transition-colors duration-200 ease-out group-hover:border-neutral-300"
+                className="relative block w-full aspect-16/10 pointer-events-none select-none"
             >
-                {cardContent}
+                {mediaElement}
             </div>
         );
     }
@@ -69,15 +57,55 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
     return (
         <article className="group relative block w-full">
             <Link
-                href={`/projects/${project.slug}`}
+                href={`/${project.slug}`}
                 prefetch={true}
                 data-cursor="project"
                 data-cursor-text="Ver projeto"
-                className="relative block w-full overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100/70 border border-neutral-200/80 transition-colors duration-200 ease-out hover:border-neutral-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                aria-label={`Conhecer o projeto: ${project.title}`}
+                className="group/card block focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-xl md:rounded-2xl"
+                aria-label={`Ver detalhes do projeto: ${project.title}`}
             >
-                {cardContent}
+                {mediaElement}
+
+                <div className="mt-5 sm:mt-6 flex flex-col gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4">
+                        <h3 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950 transition-colors duration-200 ease-out group-hover/card:text-neutral-700">
+                            {project.title}
+                        </h3>
+
+                        <span className="font-sans text-xs sm:text-sm text-neutral-500 shrink-0">
+                            {project.context} · {project.year}
+                        </span>
+                    </div>
+
+                    {project.summary && (
+                        <p className="font-sans text-sm sm:text-[15px] leading-relaxed text-neutral-600 max-w-3xl">
+                            {project.summary}
+                        </p>
+                    )}
+                </div>
             </Link>
+
+            {project.githubUrl && (
+                <div className="mt-2.5">
+                    <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor="external"
+                        data-cursor-text="GitHub"
+                        className="group/link inline-flex items-center gap-1.5 font-sans text-xs sm:text-[13px] text-neutral-500 transition-colors duration-200 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm w-fit"
+                        aria-label={`Ver repositório do projeto ${project.title} no GitHub`}
+                    >
+                        <span className="underline decoration-neutral-300 underline-offset-4 transition-colors group-hover/link:decoration-neutral-950">
+                            Repositório no GitHub
+                        </span>
+                        <ArrowUpRight
+                            aria-hidden="true"
+                            className="h-3.5 w-3.5 shrink-0 text-neutral-400 transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-hover/link:text-neutral-950"
+                        />
+                    </a>
+                </div>
+            )}
         </article>
     );
 }
@@ -102,14 +130,13 @@ export function ProjectGallery() {
             const ctx = gsap.context(() => {
                 gsap.fromTo(
                     targets,
-                    { y: 20, opacity: 0 },
+                    { y: 20 },
                     {
                         y: 0,
-                        opacity: 1,
                         duration: 0.7,
                         stagger: 0.1,
                         ease: "power3.out",
-                        clearProps: "transform,opacity",
+                        clearProps: "transform",
                         onComplete: () => {
                             ScrollTrigger.refresh();
                         },
@@ -129,7 +156,7 @@ export function ProjectGallery() {
             aria-label="Projetos selecionados"
             className="mx-auto max-w-355 px-6 md:px-10 pb-24 md:pb-32 scroll-mt-24"
         >
-            <div className="flex flex-col gap-12 sm:gap-16 md:gap-20">
+            <div className="flex flex-col gap-14 sm:gap-20 md:gap-24">
                 {visibleProjects.map((project, index) => {
                     const isExtraCard = index >= INITIAL_VISIBLE_COUNT;
 
@@ -155,19 +182,14 @@ export function ProjectGallery() {
                     data-cursor="expand"
                     data-cursor-text="Carregar mais"
                     aria-label="Carregar mais projetos selecionados"
-                    className="group relative mt-12 sm:mt-16 md:mt-20 block w-full text-left cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border-0 p-0 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                    className="group relative mt-14 sm:mt-20 md:mt-24 block w-full text-left cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border-0 p-0 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                 >
                     <div className="h-36 sm:h-48 md:h-60 overflow-hidden">
                         <ProjectCard project={nextPeekProject} isPreview />
                     </div>
 
-                    <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 z-20 bg-linear-to-b from-white/0 via-white/80 to-white"
-                    />
-
                     <div className="absolute inset-x-0 bottom-3 sm:bottom-4 z-30 flex justify-center md:hidden pointer-events-none">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200/80 bg-white/95 backdrop-blur-xs px-4 py-1.5 text-xs font-sans font-medium text-neutral-800 shadow-[0_2px_8px_rgb(0,0,0,0.04)]">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-sans font-medium text-neutral-800 shadow-[0_2px_8px_rgb(0,0,0,0.04)]">
                             <span>Carregar mais</span>
                             <ChevronDown aria-hidden="true" className="h-3.5 w-3.5 stroke-2 text-neutral-600" />
                         </span>

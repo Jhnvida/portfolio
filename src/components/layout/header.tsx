@@ -1,14 +1,13 @@
 "use client";
 
-import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const NAV_ITEMS = [
-    { id: "inicio", href: "/", anchor: "/", label: "Início" },
-    { id: "projetos", href: "/#projetos", anchor: "#projetos", label: "Projetos" },
-    { id: "sobre", href: "/#sobre", anchor: "#sobre", label: "Sobre" },
+    { id: "inicio", label: "Início" },
+    { id: "projetos", label: "Projetos" },
+    { id: "sobre", label: "Sobre" },
 ] as const;
 
 type HomeSection = "inicio" | "projetos" | "sobre" | "outro";
@@ -19,17 +18,6 @@ export function Header() {
     const [isFloating, setIsFloating] = useState(false);
     const isFloatingRef = useRef(false);
     const [activeHomeSection, setActiveHomeSection] = useState<HomeSection>("inicio");
-
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReducedMotion || !headerRef.current) return;
-
-        const ctx = gsap.context(() => {
-            gsap.fromTo(headerRef.current, { opacity: 0 }, { opacity: 1, duration: 0.65, ease: "power3.out" });
-        }, headerRef);
-
-        return () => ctx.revert();
-    }, []);
 
     useEffect(() => {
         const ENTER_THRESHOLD = 50;
@@ -152,19 +140,16 @@ export function Header() {
     }, [pathname]);
 
     const isItemActive = (itemId: (typeof NAV_ITEMS)[number]["id"]) => {
-        if (pathname.startsWith("/projects")) {
+        if (pathname !== "/") {
             return itemId === "projetos";
         }
 
-        if (pathname === "/") {
-            return activeHomeSection === itemId;
-        }
-
-        return false;
+        return activeHomeSection === itemId;
     };
 
-    const handleNavClick = (href: string) => {
-        if (pathname === "/" && (href === "/" || href === "#inicio")) {
+    const handleLogoClick = (e: React.MouseEvent) => {
+        if (pathname === "/") {
+            e.preventDefault();
             const globalLenis = (
                 window as unknown as {
                     __lenis?: { scrollTo: (target: number, opts?: { duration?: number }) => void };
@@ -179,6 +164,41 @@ export function Header() {
         }
     };
 
+    const handleNavItemClick = (e: React.MouseEvent, itemId: HomeSection) => {
+        if (pathname === "/") {
+            e.preventDefault();
+            const globalLenis = (
+                window as unknown as {
+                    __lenis?: { scrollTo: (target: HTMLElement | number, opts?: { duration?: number }) => void };
+                }
+            ).__lenis;
+
+            if (itemId === "inicio") {
+                if (globalLenis && typeof globalLenis.scrollTo === "function") {
+                    globalLenis.scrollTo(0, { duration: 1.15 });
+                } else {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+                return;
+            }
+
+            const targetEl = document.getElementById(itemId);
+            if (targetEl) {
+                if (globalLenis && typeof globalLenis.scrollTo === "function") {
+                    globalLenis.scrollTo(targetEl, { duration: 1.15 });
+                } else {
+                    targetEl.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        } else {
+            if (itemId !== "inicio") {
+                try {
+                    sessionStorage.setItem("scrollToSection", itemId);
+                } catch {}
+            }
+        }
+    };
+
     return (
         <header
             ref={headerRef}
@@ -189,15 +209,15 @@ export function Header() {
             <div
                 className={`mx-auto flex items-center justify-between pointer-events-auto transition-[max-width,width,padding,background-color,border-color,box-shadow,border-radius] duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
                     isFloating
-                        ? "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-xl sm:max-w-155 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-white/85 backdrop-blur-md border border-neutral-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)]"
+                        ? "w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] max-w-xl sm:max-w-155 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-white border border-neutral-200 shadow-[0_8px_30px_rgb(0,0,0,0.06),0_1px_3px_rgb(0,0,0,0.04)]"
                         : "w-full max-w-355 px-6 md:px-10 py-2 sm:py-2.5 rounded-2xl bg-transparent border border-transparent shadow-none"
                 }`}
             >
                 <Link
                     href="/"
                     prefetch={true}
-                    onClick={() => handleNavClick("/")}
-                    className="font-heading text-sm sm:text-[15px] font-semibold tracking-tight text-neutral-950 transition-opacity duration-200 ease-out hover:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:rounded-sm shrink-0 min-h-11 sm:min-h-0 inline-flex items-center"
+                    onClick={handleLogoClick}
+                    className="font-heading text-sm sm:text-[15px] font-semibold tracking-tight text-neutral-950 transition-colors duration-200 ease-out hover:text-neutral-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:rounded-sm shrink-0 min-h-11 sm:min-h-0 inline-flex items-center"
                     aria-label="Página inicial de João André"
                 >
                     João André
@@ -208,18 +228,17 @@ export function Header() {
                     aria-label="Navegação principal"
                 >
                     {NAV_ITEMS.map((item) => {
-                        const targetHref = pathname === "/" ? item.anchor : item.href;
                         const isActive = isItemActive(item.id);
                         return (
                             <Link
                                 key={item.id}
-                                href={targetHref}
+                                href="/"
                                 prefetch={true}
-                                onClick={() => handleNavClick(targetHref)}
+                                onClick={(e) => handleNavItemClick(e, item.id)}
                                 className={`relative rounded-full px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-9.5 sm:min-h-0 inline-flex items-center justify-center transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 after:absolute after:-inset-1 after:content-[''] sm:after:hidden ${
                                     isActive
                                         ? "bg-neutral-100 text-neutral-950 font-medium"
-                                        : "text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100/60"
+                                        : "text-neutral-600 hover:text-neutral-950 hover:bg-neutral-100"
                                 }`}
                             >
                                 {item.label}

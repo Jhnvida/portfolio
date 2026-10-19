@@ -19,6 +19,26 @@ export interface ProjectItem {
 
 export const PROJECTS: ProjectItem[] = [
     {
+        slug: "portfolio",
+        title: "Portfólio Pessoal",
+        context: "Website Minimalista",
+        year: "2026",
+        status: "Concluído",
+        summary:
+            "Website autoral desenvolvido com estética editorial minimalista, tipografia cuidadosa e micro-interações fluidas, priorizando o protagonismo do trabalho e o rigor técnico em acessibilidade.",
+        imageSrc: "/projects/portfolio.png",
+        aspectRatio: "aspect-[16/10]",
+        githubUrl: "https://github.com/Jhnvida/portfolio",
+        sections: {
+            overview:
+                "Criado com a intenção de romper com templates pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
+            solutions:
+                "Unimos o scroll físico suave da biblioteca Lenis com as animações orquestradas do GSAP ScrollTrigger, criando uma transição de scrub parallax no hero e uma galeria com carregamento escalonado de projetos. Desenvolvemos também um cursor magnético contextual que reage aos elementos interativos, e estruturamos o site com rotas dinâmicas pré-renderizadas no Next.js 16 para carregamento instantâneo.",
+            results:
+                "Uma plataforma rápida, acessível e coesa, com suporte integral a preferências de redução de movimento (prefers-reduced-motion) sem comprometer a identidade visual. O projeto reflete minha evolução técnica em TypeScript, React 19 e Tailwind CSS v4, com código-fonte público no GitHub e arquitetura modular pronta para receber novos trabalhos.",
+        },
+    },
+    {
         slug: "our-journey",
         title: "A Nossa Jornada",
         context: "Aplicação Web Interativa",
@@ -55,26 +75,6 @@ export const PROJECTS: ProjectItem[] = [
                 "Desenvolvemos uma experiência de compra prática em que o cliente navega pelos produtos, escolhe variações, adiciona itens ao carrinho e encaminha o pedido pronto e formatado diretamente para a conversa com o vendedor no WhatsApp. Para o lojista, a plataforma conta com um painel administrativo com upload e compressão automática de fotos no navegador antes do envio, métricas de visitas e conversão, além de integração com Stripe para faturamento recorrente com período de testes e tolerância bancária.",
             results:
                 "O projeto encontra-se atualmente em fase de desenvolvimento e estruturação contínua. As principais fundações técnicas — arquitetura moderna no Next.js 16 com Server Actions, segurança e isolamento multi-inquilino via Supabase Row Level Security (RLS) e suíte de testes com Vitest — já foram consolidadas, preparando o sistema para testes e validação com os primeiros lojistas.",
-        },
-    },
-    {
-        slug: "portfolio",
-        title: "Portfólio Pessoal",
-        context: "Website Minimalista",
-        year: "2026",
-        status: "Concluído",
-        summary:
-            "Website autoral desenvolvido com estética editorial minimalista, tipografia cuidadosa e micro-interações fluidas, priorizando o protagonismo do trabalho e o rigor técnico em acessibilidade.",
-        imageSrc: "/projects/portfolio.png",
-        aspectRatio: "aspect-[16/10]",
-        githubUrl: "https://github.com/Jhnvida/portfolio",
-        sections: {
-            overview:
-                "Criado com a intenção de romper com templates pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
-            solutions:
-                "Unimos o scroll físico suave da biblioteca Lenis com as animações orquestradas do GSAP ScrollTrigger, criando uma transição de scrub parallax no hero e uma galeria com carregamento escalonado de projetos. Desenvolvemos também um cursor magnético contextual que reage aos elementos interativos, e estruturamos o site com rotas dinâmicas pré-renderizadas no Next.js 16 para carregamento instantâneo.",
-            results:
-                "Uma plataforma rápida, acessível e coesa, com suporte integral a preferências de redução de movimento (prefers-reduced-motion) sem comprometer a identidade visual. O projeto reflete minha evolução técnica em TypeScript, React 19 e Tailwind CSS v4, com código-fonte público no GitHub e arquitetura modular pronta para receber novos trabalhos.",
         },
     },
 ];

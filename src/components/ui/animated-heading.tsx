@@ -19,13 +19,12 @@ export function AnimatedHeading({ children, className = "", as: Component = "h1"
 
             gsap.fromTo(
                 headingRef.current,
-                { y: 20, opacity: 0 },
+                { y: 20 },
                 {
                     y: 0,
-                    opacity: 1,
                     duration: 0.75,
                     ease: "power3.out",
-                    clearProps: "transform,opacity",
+                    clearProps: "transform",
                 },
             );
         }, headingRef);
