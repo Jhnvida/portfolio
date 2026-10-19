@@ -13,7 +13,7 @@ export function PersonalIntro() {
                         <p>
                             Construo sites e aplicações web combinando cuidado visual, facilidade de uso e código
                             organizado. Meu foco é entender o que cada projeto precisa para criar uma solução digital
-                            prática e agradável de usar — seja uma página para apresentar um trabalho ou uma ferramenta
+                            prática e agradável de usar - seja uma página para apresentar um trabalho ou uma ferramenta
                             para automatizar tarefas do dia a dia.
                         </p>
                         <p>

@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
     return {
         title: project.title,
-        description: `${project.title} — ${project.summary}`,
+        description: `${project.title} - ${project.summary}`,
     };
 }
 
@@ -88,6 +88,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                         imageSrc={project.imageSrc}
                         title={project.title}
                         aspectRatio={project.aspectRatio}
+                        slug={project.slug}
                     />
 
                     <div className="space-y-10 sm:space-y-12 max-w-2xl">

@@ -11,6 +11,10 @@
     --color-surface-subtle: #f9f9f9;
 }
 
+html {
+    scrollbar-gutter: stable;
+}
+
 html.lenis,
 html.lenis body {
     height: auto;

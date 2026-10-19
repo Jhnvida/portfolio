@@ -66,7 +66,7 @@ export const PROJECTS: ProjectItem[] = [
         status: "Em desenvolvimento",
         summary:
             "Plataforma micro-SaaS voltada para pequenos lojistas que vendem pelo Instagram e fecham pedidos pelo WhatsApp. O projeto centraliza o catálogo em um link leve para a bio, permitindo a seleção de produtos e o encaminhamento do pedido formatado diretamente no aplicativo de mensagens.",
-        imageSrc: "/projects/vitrine.webp",
+        imageSrc: "/projects/vitrine.png",
         aspectRatio: "aspect-[16/10]",
         sections: {
             overview:
@@ -74,7 +74,7 @@ export const PROJECTS: ProjectItem[] = [
             solutions:
                 "Desenvolvemos uma experiência de compra prática em que o cliente navega pelos produtos, escolhe variações, adiciona itens ao carrinho e encaminha o pedido pronto e formatado diretamente para a conversa com o vendedor no WhatsApp. Para o lojista, a plataforma conta com um painel administrativo com upload e compressão automática de fotos no navegador antes do envio, métricas de visitas e conversão, além de integração com Stripe para faturamento recorrente com período de testes e tolerância bancária.",
             results:
-                "O projeto encontra-se atualmente em fase de desenvolvimento e estruturação contínua. As principais fundações técnicas — arquitetura moderna no Next.js 16 com Server Actions, segurança e isolamento multi-inquilino via Supabase Row Level Security (RLS) e suíte de testes com Vitest — já foram consolidadas, preparando o sistema para testes e validação com os primeiros lojistas.",
+                "O projeto encontra-se atualmente em fase de desenvolvimento e estruturação contínua. As principais fundações técnicas - arquitetura moderna no Next.js 16 com Server Actions, segurança e isolamento multi-inquilino via Supabase Row Level Security (RLS) e suíte de testes com Vitest - já foram consolidadas, preparando o sistema para testes e validação com os primeiros lojistas.",
         },
     },
 ];

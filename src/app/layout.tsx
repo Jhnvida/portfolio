@@ -23,8 +23,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: {
-        default: "João André — Desenvolvedor de Software",
-        template: "João André — %s",
+        default: "João André - Desenvolvedor de Software",
+        template: "João André - %s",
     },
     description:
         "Desenvolvedor de software focado em sites e aplicações web. Criação de interfaces funcionais, sistemas sob medida e atenção à estabilidade técnica.",

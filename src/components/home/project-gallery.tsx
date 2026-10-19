@@ -15,13 +15,22 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
     const hasImage = Boolean(project.imageSrc && !imageError);
 
     useEffect(() => {
-        if (imgRef.current?.complete) {
-            ScrollTrigger.refresh();
+        if (imgRef.current) {
+            if (imgRef.current.complete) {
+                if (imgRef.current.naturalWidth === 0) {
+                    setImageError(true);
+                } else {
+                    ScrollTrigger.refresh();
+                }
+            }
         }
     }, []);
 
     const mediaElement = (
-        <div className="relative w-full aspect-16/10 flex items-center justify-center overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100 border border-neutral-200/80 transition-colors duration-300 ease-out group-hover/card:border-neutral-300">
+        <div
+            data-shared-image-container
+            className="relative w-full aspect-16/10 flex items-center justify-center overflow-hidden rounded-xl md:rounded-2xl bg-neutral-100 border border-neutral-200/80 transition-colors duration-300 ease-out group-hover/card:border-neutral-300"
+        >
             {hasImage ? (
                 <img
                     ref={imgRef}
@@ -34,21 +43,14 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
                     onError={() => setImageError(true)}
                 />
             ) : (
-                <div aria-hidden="true" className="w-full h-full flex items-center justify-center bg-neutral-100">
-                    <span className="font-heading text-xs sm:text-sm text-neutral-400 font-medium">
-                        {project.status === "Em desenvolvimento" ? "Em desenvolvimento" : project.title}
-                    </span>
-                </div>
+                <div aria-hidden="true" className="w-full h-full bg-neutral-100" />
             )}
         </div>
     );
 
     if (isPreview) {
         return (
-            <div
-                aria-hidden="true"
-                className="relative block w-full aspect-16/10 pointer-events-none select-none"
-            >
+            <div aria-hidden="true" className="relative block w-full aspect-16/10 pointer-events-none select-none">
                 {mediaElement}
             </div>
         );
@@ -59,6 +61,7 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
             <Link
                 href={`/${project.slug}`}
                 prefetch={true}
+                data-shared-project={project.slug}
                 data-cursor="project"
                 data-cursor-text="Ver projeto"
                 className="group/card block focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-xl md:rounded-2xl"
@@ -184,14 +187,21 @@ export function ProjectGallery() {
                     aria-label="Carregar mais projetos selecionados"
                     className="group relative mt-14 sm:mt-20 md:mt-24 block w-full text-left cursor-pointer overflow-hidden rounded-xl md:rounded-2xl border-0 p-0 bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
                 >
-                    <div className="h-36 sm:h-48 md:h-60 overflow-hidden">
+                    <div className="relative h-44 sm:h-56 md:h-72 overflow-hidden mask-[linear-gradient(to_bottom,black_30%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_30%,transparent_100%)]">
                         <ProjectCard project={nextPeekProject} isPreview />
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-linear-to-t from-white via-white/80 to-transparent"
+                        />
                     </div>
 
-                    <div className="absolute inset-x-0 bottom-3 sm:bottom-4 z-30 flex justify-center md:hidden pointer-events-none">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-sans font-medium text-neutral-800 shadow-[0_2px_8px_rgb(0,0,0,0.04)]">
+                    <div className="absolute inset-x-0 bottom-4 sm:bottom-6 z-30 flex justify-center pointer-events-none">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/95 backdrop-blur-md px-4 sm:px-5 py-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 shadow-[0_4px_16px_rgb(0,0,0,0.06)] transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_6px_20px_rgb(0,0,0,0.08)] group-hover:border-neutral-300">
                             <span>Carregar mais</span>
-                            <ChevronDown aria-hidden="true" className="h-3.5 w-3.5 stroke-2 text-neutral-600" />
+                            <ChevronDown
+                                aria-hidden="true"
+                                className="h-3.5 w-3.5 stroke-2 text-neutral-600 transition-transform duration-300 ease-out group-hover:translate-y-0.5"
+                            />
                         </span>
                     </div>
                 </button>
