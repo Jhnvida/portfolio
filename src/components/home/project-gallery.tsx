@@ -116,15 +116,31 @@ function ProjectCard({ project, isPreview = false }: { project: ProjectItem; isP
 export function ProjectGallery() {
     const [isExpanded, setIsExpanded] = useState(false);
     const extraCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+    const shouldFocusFirstNewCard = useRef(false);
 
     const visibleProjects = isExpanded ? PROJECTS : PROJECTS.slice(0, INITIAL_VISIBLE_COUNT);
     const nextPeekProject =
         !isExpanded && PROJECTS.length > INITIAL_VISIBLE_COUNT ? PROJECTS[INITIAL_VISIBLE_COUNT] : null;
 
+    const handleExpand = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (e.detail === 0) {
+            shouldFocusFirstNewCard.current = true;
+        }
+        setIsExpanded(true);
+    };
+
     useEffect(() => {
         if (!isExpanded) return;
 
         gsap.registerPlugin(ScrollTrigger);
+
+        if (shouldFocusFirstNewCard.current) {
+            shouldFocusFirstNewCard.current = false;
+            requestAnimationFrame(() => {
+                const firstNewLink = extraCardsRef.current[0]?.querySelector<HTMLAnchorElement>("a[href]");
+                firstNewLink?.focus({ preventScroll: true });
+            });
+        }
 
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const targets = extraCardsRef.current.filter((el): el is HTMLDivElement => el !== null);
@@ -181,7 +197,7 @@ export function ProjectGallery() {
             {nextPeekProject && (
                 <button
                     type="button"
-                    onClick={() => setIsExpanded(true)}
+                    onClick={handleExpand}
                     data-cursor="expand"
                     data-cursor-text="Carregar mais"
                     aria-label="Carregar mais projetos selecionados"
@@ -195,7 +211,7 @@ export function ProjectGallery() {
                         />
                     </div>
 
-                    <div className="absolute inset-x-0 bottom-4 sm:bottom-6 z-30 flex justify-center pointer-events-none">
+                    <div className="absolute inset-x-0 bottom-4 sm:bottom-6 z-30 flex md:hidden md:group-focus-visible:flex justify-center pointer-events-none">
                         <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/95 backdrop-blur-md px-4 sm:px-5 py-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-800 shadow-[0_4px_16px_rgb(0,0,0,0.06)] transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-[0_6px_20px_rgb(0,0,0,0.08)] group-hover:border-neutral-300">
                             <span>Carregar mais</span>
                             <ChevronDown

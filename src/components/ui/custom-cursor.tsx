@@ -14,6 +14,7 @@ export function CustomCursor() {
     const xTo = useRef<gsap.QuickToFunc | null>(null);
     const yTo = useRef<gsap.QuickToFunc | null>(null);
     const hasMoved = useRef(false);
+    const isVisibleRef = useRef(false);
     const mousePos = useRef({ x: 0, y: 0 });
     const isPressedRef = useRef(false);
 
@@ -124,15 +125,18 @@ export function CustomCursor() {
         const handleMouseMove = (e: MouseEvent) => {
             mousePos.current = { x: e.clientX, y: e.clientY };
 
-            if (!hasMoved.current) {
+            if (!cursorRef.current) return;
+
+            if (!hasMoved.current || !isVisibleRef.current) {
                 hasMoved.current = true;
-                if (cursorRef.current) {
-                    gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY, display: "block" });
-                }
-            } else {
-                xTo.current?.(e.clientX);
-                yTo.current?.(e.clientY);
+                isVisibleRef.current = true;
+                gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY, display: "block" });
+                const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+                evaluateTarget(target);
             }
+
+            xTo.current?.(e.clientX);
+            yTo.current?.(e.clientY);
         };
 
         const handleMouseDown = (e: MouseEvent) => {
@@ -164,6 +168,7 @@ export function CustomCursor() {
         };
 
         const handleBlurOrLeave = () => {
+            isVisibleRef.current = false;
             if (isPressedRef.current && pillRef.current) {
                 isPressedRef.current = false;
                 gsap.to(pillRef.current, {
@@ -172,6 +177,9 @@ export function CustomCursor() {
                     ease: "power2.out",
                     overwrite: "auto",
                 });
+            }
+            if (cursorRef.current) {
+                gsap.set(cursorRef.current, { display: "none" });
             }
         };
 
@@ -183,16 +191,16 @@ export function CustomCursor() {
 
         const handleWindowLeave = () => {
             handleBlurOrLeave();
-            if (cursorRef.current) {
-                gsap.set(cursorRef.current, { display: "none" });
-            }
         };
 
         const handleWindowEnter = (e: MouseEvent) => {
             if (cursorRef.current && hasMoved.current) {
+                isVisibleRef.current = true;
                 gsap.set(cursorRef.current, { x: e.clientX, y: e.clientY, display: "block" });
                 xTo.current?.(e.clientX);
                 yTo.current?.(e.clientY);
+                const target = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement | null;
+                evaluateTarget(target);
             }
         };
 
@@ -204,16 +212,6 @@ export function CustomCursor() {
         const handleCustomState = (e: Event) => {
             const customEvent = e as CustomEvent<{ mode?: CursorMode; text?: string }>;
             if (customEvent.detail?.mode) {
-                if (customEvent.detail.mode === "default") {
-                    const target = document.elementFromPoint(
-                        mousePos.current.x,
-                        mousePos.current.y,
-                    ) as HTMLElement | null;
-                    if (target) {
-                        evaluateTarget(target);
-                        return;
-                    }
-                }
                 setMode(customEvent.detail.mode);
                 modeRef.current = customEvent.detail.mode;
             }
@@ -250,10 +248,12 @@ export function CustomCursor() {
     useEffect(() => {
         if (!isEnabled || !pillRef.current || !contentRef.current) return;
 
+        gsap.killTweensOf([pillRef.current, contentRef.current]);
+
         const isPill = ["project", "copy", "external", "back", "expand"].includes(mode);
 
         if (isPill) {
-            const measuredWidth = contentRef.current.scrollWidth > 0 ? contentRef.current.scrollWidth + 30 : 120;
+            const measuredWidth = Math.max(contentRef.current.scrollWidth + 28, 90);
 
             gsap.to(pillRef.current, {
                 width: measuredWidth,
@@ -267,11 +267,10 @@ export function CustomCursor() {
                 overwrite: "auto",
             });
 
-            gsap.set(contentRef.current, { display: "flex" });
             gsap.to(contentRef.current, {
+                opacity: 1,
                 scale: 1,
                 duration: 0.2,
-                delay: 0.04,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -299,13 +298,11 @@ export function CustomCursor() {
             });
 
             gsap.to(contentRef.current, {
+                opacity: 0,
                 scale: 0.75,
                 duration: 0.15,
                 ease: "power2.in",
                 overwrite: "auto",
-                onComplete: () => {
-                    if (contentRef.current) gsap.set(contentRef.current, { display: "none" });
-                },
             });
         }
     }, [mode, cursorText, isEnabled]);
@@ -323,8 +320,8 @@ export function CustomCursor() {
             >
                 <div
                     ref={contentRef}
-                    className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased"
-                    style={{ transform: "scale(0.75)", display: "none" }}
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased pointer-events-none select-none"
+                    style={{ transform: "scale(0.75)", opacity: 0 }}
                 >
                     {mode === "copy" ? (
                         isCopiedState ? (
