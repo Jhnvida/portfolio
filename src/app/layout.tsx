@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/header";
 import { PageTransitionContent, PageTransitionProvider } from "@/components/providers/page-transition-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import { SITE_CONFIG } from "@/data";
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
@@ -23,11 +24,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: {
-        default: "João André - Desenvolvedor de Software",
-        template: "João André - %s",
+        default: `${SITE_CONFIG.shortName} - ${SITE_CONFIG.role}`,
+        template: `${SITE_CONFIG.shortName} - %s`,
     },
-    description:
-        "Desenvolvedor de software focado em sites e aplicações web. Criação de interfaces funcionais, sistemas sob medida e atenção à estabilidade técnica.",
+    description: SITE_CONFIG.description,
     icons: {
         icon: [
             { url: "/favicon.ico" },

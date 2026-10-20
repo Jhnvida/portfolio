@@ -1,5 +1,6 @@
 "use client";
 
+import { SITE_CONFIG } from "@/data";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
@@ -10,8 +11,8 @@ export function Footer() {
     const textRef = useRef<HTMLSpanElement>(null);
     const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const email = "joao.vida.andre@gmail.com";
-    const initialText = "joao.vida.andre (at) gmail.com";
+    const email = SITE_CONFIG.email;
+    const initialText = SITE_CONFIG.emailDisplay;
     const confirmedText = "Te vejo em breve";
 
     const [displayText, setDisplayText] = useState(initialText);
@@ -199,7 +200,7 @@ export function Footer() {
                             className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 rounded-lg px-2.5 py-1 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
                                 isHighlightActive ? "text-neutral-950" : "text-neutral-700 hover:text-neutral-950"
                             }`}
-                            aria-label={`Copiar e-mail de João André para contato: ${email}`}
+                            aria-label={`Copiar e-mail de ${SITE_CONFIG.shortName} para contato: ${email}`}
                         >
                             <span ref={textRef} className="inline-block will-change-transform">
                                 {displayText}
@@ -213,7 +214,7 @@ export function Footer() {
                     className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12 text-xs sm:text-[13px] font-sans font-medium text-neutral-600"
                 >
                     <a
-                        href="https://www.linkedin.com/in/jaoandre"
+                        href={SITE_CONFIG.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="external"
@@ -224,7 +225,7 @@ export function Footer() {
                     </a>
 
                     <a
-                        href="https://github.com/Jhnvida"
+                        href={SITE_CONFIG.social.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="external"

@@ -1,63 +1,66 @@
+import { PROFESSIONAL_EXPERIENCES, SITE_CONFIG } from "@/data";
+
 export function PersonalIntro() {
     return (
         <section
             id="sobre"
-            aria-label="Apresentação pessoal e especialidades"
+            aria-label={`Sobre ${SITE_CONFIG.shortName} e trajetória profissional`}
             className="mx-auto max-w-355 px-6 md:px-10 py-24 md:py-36 border-t border-neutral-200/80 scroll-mt-24 md:scroll-mt-32"
         >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-x-16 lg:gap-x-20">
-                <div className="md:col-span-7 lg:col-span-7">
-                    <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Sobre</p>
-
-                    <div className="space-y-4 font-sans text-sm sm:text-base leading-relaxed text-neutral-800 max-w-xl">
-                        <p>
-                            Construo sites e aplicações web combinando cuidado visual, facilidade de uso e código
-                            organizado. Meu foco é entender o que cada projeto precisa para criar uma solução digital
-                            prática e agradável de usar - seja uma página para apresentar um trabalho ou uma ferramenta
-                            para automatizar tarefas do dia a dia.
-                        </p>
-                        <p>
-                            Acredito que um bom produto digital nasce do equilíbrio entre simplicidade visual e uma
-                            estrutura técnica sólida por trás das telas. Com quase dois anos de experiência prática no
-                            desenvolvimento e sustentação de sistemas reais em produção, construí uma abordagem pautada
-                            em organização, atenção aos detalhes e responsabilidade técnica em cada etapa.
-                        </p>
-                        <p>
-                            No dia a dia com clientes e parceiros, priorizo a transparência: comunicação direta,
-                            alinhamento constante de expectativas, cumprimento rigoroso de prazos acordados e cuidado
-                            com a qualidade final de cada entrega.
-                        </p>
-                    </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-12 xl:gap-x-16">
+                <div className="lg:col-span-5 xl:col-span-5">
+                    <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Sobre mim</p>
+                    <h2 className="font-heading text-2xl sm:text-3xl lg:text-[34px] font-normal leading-[1.22] sm:leading-[1.18] tracking-tight text-neutral-950">
+                        {SITE_CONFIG.headline}
+                    </h2>
                 </div>
 
-                <div className="md:col-span-5 lg:col-span-5 flex flex-col justify-between">
-                    <div>
-                        <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Como posso ajudar</p>
-                        <ul className="space-y-4 font-sans text-sm leading-relaxed text-neutral-800">
-                            <li>
-                                <strong className="font-medium text-neutral-950">Criação de sites:</strong>{" "}
-                                desenvolvimento de páginas para apresentar negócios, profissionais, projetos ou ideias,
-                                com navegação clara e visual adaptado para celulares e computadores.
-                            </li>
-                            <li>
-                                <strong className="font-medium text-neutral-950">Aplicações e ferramentas web:</strong>{" "}
-                                construção de sistemas sob medida, painéis administrativos e rotinas para organizar
-                                processos e atender necessidades específicas.
-                            </li>
-                            <li>
-                                <strong className="font-medium text-neutral-950">Melhorias e manutenção:</strong>{" "}
-                                ajustes visuais, correção de falhas, melhorias de velocidade e novas funcionalidades em
-                                sites ou sistemas que já estão no ar.
-                            </li>
-                        </ul>
+                <div className="lg:col-span-7 xl:col-span-7 lg:pt-8 xl:pt-9">
+                    <div className="space-y-5 font-sans text-sm sm:text-base text-neutral-700 leading-relaxed sm:leading-[1.75] max-w-2xl">
+                        {SITE_CONFIG.bio.map((paragraph, index) => (
+                            <p key={index}>{paragraph}</p>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            <div className="mt-20 md:mt-28 pt-16 md:pt-20 border-t border-neutral-200/80">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-12 xl:gap-x-16">
+                    <div className="lg:col-span-5 xl:col-span-5">
+                        <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Trajetória</p>
+                        <h3 className="font-heading text-xl sm:text-2xl font-normal text-neutral-950 tracking-tight">
+                            Experiência profissional
+                        </h3>
                     </div>
 
-                    <div className="mt-10 md:mt-12">
-                        <p className="font-sans text-xs font-medium text-neutral-600 mb-3 sm:mb-4">Disponibilidade</p>
-                        <p className="font-sans text-sm text-neutral-800 leading-relaxed">
-                            Aberto a novas oportunidades de trabalho, projetos sob medida e colaborações técnicas.
-                            Disponível para atuação remota ou presencial na região de Jaguariúna e Campinas, SP.
-                        </p>
+                    <div className="lg:col-span-7 xl:col-span-7">
+                        <ol className="relative border-l border-neutral-200/80 ml-2 space-y-10 sm:space-y-12">
+                            {PROFESSIONAL_EXPERIENCES.map((item, index) => (
+                                <li key={index} className="relative pl-6 sm:pl-8">
+                                    <span
+                                        className="absolute left-0 -translate-x-1/2 top-2 h-2 w-2 rounded-full bg-neutral-950 ring-4 ring-white"
+                                        aria-hidden="true"
+                                    />
+
+                                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                                        <h4 className="font-sans text-sm sm:text-base font-semibold text-neutral-950">
+                                            {item.company}
+                                        </h4>
+                                        <span className="font-sans text-xs sm:text-sm text-neutral-500 shrink-0 tabular-nums">
+                                            {item.period}
+                                        </span>
+                                    </div>
+
+                                    <p className="font-sans text-xs sm:text-sm font-medium text-neutral-800 mt-0.5">
+                                        {item.role}
+                                    </p>
+
+                                    <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2 max-w-2xl">
+                                        {item.description}
+                                    </p>
+                                </li>
+                            ))}
+                        </ol>
                     </div>
                 </div>
             </div>
