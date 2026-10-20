@@ -173,7 +173,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                                 return;
                             }
 
-                            // Subpixel precision lock at final destination rect
                             const finalDest = el.getBoundingClientRect();
                             const finalStyle = window.getComputedStyle(el);
                             proxyEl.style.transform = `translate3d(${finalDest.left}px, ${finalDest.top}px, 0)`;
@@ -181,11 +180,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                             proxyEl.style.height = `${finalDest.height}px`;
                             proxyEl.style.borderRadius = finalStyle.borderRadius;
 
-                            // Reveal real destination element immediately in this paint frame
                             el.style.opacity = "1";
                             setIsDestinationReady(true);
 
-                            // Clean up proxy on the subsequent frame to guarantee zero flicker / blank frame
                             requestAnimationFrame(() => {
                                 el.style.opacity = "";
                                 safeCleanup();
@@ -210,7 +207,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         ScrollTrigger.refresh();
     }, [pathname]);
 
-    // Reusable single document click listener
     useEffect(() => {
         const handleDocumentClick = (e: MouseEvent) => {
             if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -243,7 +239,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                 return;
             }
 
-            // Prevent concurrent navigations
             if (isTransitioningRef.current) {
                 e.preventDefault();
                 return;
@@ -251,7 +246,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 
             e.preventDefault();
 
-            // Check if this anchor represents a shared element project card
             const projectSlug = anchor.getAttribute("data-shared-project");
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -288,13 +282,10 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     activeTransitionRef.current = transitionData;
                     setActiveTransition(transitionData);
 
-                    // Atomically hide original media container to prevent visual duplication
                     mediaContainer.style.opacity = "0";
 
-                    // Pause smooth scroll during flight
                     pauseScroll();
 
-                    // Resolution watchdog (5.0s) allows slow route mounts without premature abort
                     resolutionTimerRef.current = setTimeout(() => {
                         safeCleanup();
                     }, 5000);
@@ -319,14 +310,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
         };
     }, [performNavigate, pauseScroll, safeCleanup]);
 
-    // Safety cleanup only when the entire provider unmounts
     useEffect(() => {
         return () => {
             safeCleanup();
         };
     }, [safeCleanup]);
 
-    // Synchronize initial proxy placement with GSAP
     useEffect(() => {
         if (activeTransition && proxyContainerRef.current) {
             gsap.set(proxyContainerRef.current, {
