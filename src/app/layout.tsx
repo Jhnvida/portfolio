@@ -1,5 +1,4 @@
 import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
 import { PageTransitionContent, PageTransitionProvider } from "@/components/providers/page-transition-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
@@ -42,13 +41,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR" className={`${outfit.variable} ${inter.variable} h-full antialiased`}>
-            <body className="flex min-h-full flex-col bg-white text-neutral-950">
+            <body className="flex min-h-full flex-col bg-[#fafafa] text-neutral-950 overflow-x-clip selection:bg-neutral-950 selection:text-white">
                 <SmoothScrollProvider>
                     <PageTransitionProvider>
                         <CustomCursor />
 
-                        <Header />
-                        <main id="main-content" className="relative z-0 flex-1 flex flex-col">
+                        <main id="main-content" className="relative z-0 flex-1 flex flex-col w-full">
                             <PageTransitionContent>{children}</PageTransitionContent>
                         </main>
                         <Footer />

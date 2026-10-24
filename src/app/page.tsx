@@ -6,11 +6,8 @@ export default function HomePage() {
     return (
         <>
             <Hero />
-
-            <div className="relative z-10 bg-white pt-12 sm:pt-16 md:pt-20">
-                <ProjectGallery />
-                <PersonalIntro />
-            </div>
+            <ProjectGallery />
+            <PersonalIntro />
         </>
     );
 }

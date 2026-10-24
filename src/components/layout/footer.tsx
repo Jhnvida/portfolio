@@ -2,12 +2,9 @@
 
 import { SITE_CONFIG } from "@/data";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 
 export function Footer() {
-    const footerRef = useRef<HTMLElement>(null);
-    const cardRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
     const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -79,83 +76,7 @@ export function Footer() {
     };
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const getResponsiveMetrics = () => {
-            const width = typeof window !== "undefined" ? window.innerWidth : 1200;
-            let targetPadding = 32;
-            let targetRadius = 36;
-
-            if (width < 640) {
-                targetPadding = 12;
-                targetRadius = 24;
-            } else if (width < 1024) {
-                targetPadding = 24;
-                targetRadius = 32;
-            } else {
-                targetPadding = Math.max(32, (width - 1420) / 2);
-                targetRadius = 40;
-            }
-
-            return { targetPadding, targetRadius };
-        };
-
-        const ctx = gsap.context(() => {
-            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (!footerRef.current || !cardRef.current) return;
-
-            if (prefersReducedMotion) {
-                const { targetPadding, targetRadius } = getResponsiveMetrics();
-                gsap.set(footerRef.current, {
-                    paddingLeft: targetPadding,
-                    paddingRight: targetPadding,
-                });
-                gsap.set(cardRef.current, {
-                    borderTopLeftRadius: targetRadius,
-                    borderTopRightRadius: targetRadius,
-                });
-                return;
-            }
-
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: "top bottom",
-                    end: "bottom bottom",
-                    scrub: true,
-                    invalidateOnRefresh: true,
-                },
-            });
-
-            tl.fromTo(
-                footerRef.current,
-                {
-                    paddingLeft: 0,
-                    paddingRight: 0,
-                },
-                {
-                    paddingLeft: () => getResponsiveMetrics().targetPadding,
-                    paddingRight: () => getResponsiveMetrics().targetPadding,
-                    ease: "none",
-                },
-                0,
-            ).fromTo(
-                cardRef.current,
-                {
-                    borderTopLeftRadius: 0,
-                    borderTopRightRadius: 0,
-                },
-                {
-                    borderTopLeftRadius: () => getResponsiveMetrics().targetRadius,
-                    borderTopRightRadius: () => getResponsiveMetrics().targetRadius,
-                    ease: "none",
-                },
-                0,
-            );
-        }, footerRef);
-
         const textEl = textRef.current;
-
         return () => {
             if (resetTimeoutRef.current) {
                 clearTimeout(resetTimeoutRef.current);
@@ -163,7 +84,6 @@ export function Footer() {
             if (textEl) {
                 gsap.killTweensOf(textEl);
             }
-            ctx.revert();
         };
     }, []);
 
@@ -172,54 +92,47 @@ export function Footer() {
     return (
         <footer
             id="contato"
-            ref={footerRef}
-            className="relative z-10 flex min-h-[60vh] md:min-h-[65vh] w-full flex-col justify-end bg-white scroll-mt-10 overflow-hidden"
+            aria-label="Contato e encerramento"
+            className="relative z-35 w-full bg-[#fafafa] px-6 md:px-10 lg:px-12 xl:px-16 pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 border-t border-neutral-200/70 scroll-mt-20"
         >
-            <div
-                ref={cardRef}
-                className="mx-auto flex min-h-[60vh] md:min-h-[65vh] w-full flex-col items-center justify-between bg-surface-subtle px-6 py-10 sm:py-12 md:py-14 text-center overflow-hidden"
-            >
-                <div aria-hidden="true" className="w-full" />
-
-                <div className="my-auto flex flex-col items-center justify-center">
-                    <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-normal tracking-tight text-neutral-600">
+            <div className="w-full flex flex-col justify-between min-h-[35vh]">
+                <div className="text-left max-w-4xl">
+                    <p className="font-sans text-xs uppercase tracking-widest font-semibold text-neutral-500 mb-4 sm:mb-6">
                         Vamos conversar sobre o seu projeto?
-                    </h2>
+                    </p>
 
-                    <div className="mt-3 sm:mt-4 flex flex-col items-center w-fit mx-auto">
-                        <button
-                            type="button"
-                            onClick={handleClickEmail}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            onFocus={() => setIsHovered(true)}
-                            onBlur={() => setIsHovered(false)}
-                            onTouchStart={() => setIsHovered(true)}
-                            data-cursor="copy"
-                            data-cursor-text="Copiar e-mail"
-                            className={`group font-heading text-2xl sm:text-3xl md:text-4xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 rounded-lg px-2.5 py-1 wrap-break-word sm:break-normal inline-flex items-center justify-center w-fit cursor-pointer ${
-                                isHighlightActive ? "text-neutral-950" : "text-neutral-700 hover:text-neutral-950"
-                            }`}
-                            aria-label={`Copiar e-mail de ${SITE_CONFIG.shortName} para contato: ${email}`}
-                        >
-                            <span ref={textRef} className="inline-block will-change-transform">
-                                {displayText}
-                            </span>
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        onClick={handleClickEmail}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        onFocus={() => setIsHovered(true)}
+                        onBlur={() => setIsHovered(false)}
+                        onTouchStart={() => setIsHovered(true)}
+                        data-cursor="copy"
+                        data-cursor-text="Copiar e-mail"
+                        className={`text-left font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-sm cursor-pointer p-0 select-text ${
+                            isHighlightActive ? "text-neutral-950" : "text-neutral-800 hover:text-neutral-950"
+                        }`}
+                        aria-label={`Copiar e-mail de ${SITE_CONFIG.shortName} para contato: ${email}`}
+                    >
+                        <span ref={textRef} className="inline-block will-change-transform">
+                            {displayText}
+                        </span>
+                    </button>
                 </div>
 
                 <nav
-                    aria-label="Links sociais e contato"
-                    className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12 text-xs sm:text-[13px] font-sans font-medium text-neutral-600"
+                    aria-label="Links de redes sociais e contato"
+                    className="mt-16 sm:mt-24 flex flex-wrap items-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-sans font-medium text-neutral-600"
                 >
                     <a
                         href={SITE_CONFIG.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="external"
-                        data-cursor-text="Abrir LinkedIn"
-                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
+                        data-cursor-text="LinkedIn"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
                     >
                         LinkedIn
                     </a>
@@ -229,8 +142,8 @@ export function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         data-cursor="external"
-                        data-cursor-text="Abrir GitHub"
-                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
+                        data-cursor-text="GitHub"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
                     >
                         GitHub
                     </a>
@@ -239,7 +152,7 @@ export function Footer() {
                         href={`mailto:${email}`}
                         data-cursor="external"
                         data-cursor-text="Enviar e-mail"
-                        className="py-2.5 sm:py-1 px-1 transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 focus-visible:rounded-sm"
+                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
                     >
                         E-mail
                     </a>

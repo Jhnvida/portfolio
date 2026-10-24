@@ -135,7 +135,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     }
 
                     const origin = activeTransitionRef.current.rect;
-                    const originRadius = parseFloat(origin.borderRadius) || 16;
+                    const originRadius = parseFloat(origin.borderRadius) || 0;
                     const proxyEl = proxyContainerRef.current;
 
                     animationTimerRef.current = setTimeout(() => {
@@ -153,7 +153,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 
                             const liveDest = el.getBoundingClientRect();
                             const destStyle = window.getComputedStyle(el);
-                            const destRadius = parseFloat(destStyle.borderRadius) || 16;
+                            const destRadius = parseFloat(destStyle.borderRadius) || 0;
 
                             const p = anim.progress;
                             const curX = origin.left + (liveDest.left - origin.left) * p;
@@ -246,17 +246,21 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 
             e.preventDefault();
 
-            const projectSlug = anchor.getAttribute("data-shared-project");
+            const projectSlug =
+                anchor.getAttribute("data-shared-project") ||
+                anchor.closest("[data-project-card]")?.getAttribute("data-shared-project");
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
             if (projectSlug && !prefersReducedMotion) {
-                const mediaContainer = anchor.querySelector<HTMLElement>("[data-shared-image-container]");
+                const mediaContainer =
+                    anchor.querySelector<HTMLElement>("[data-shared-image-container]") ||
+                    anchor.closest("[data-project-card]")?.querySelector<HTMLElement>("[data-shared-image-container]");
                 const imgEl = mediaContainer?.querySelector<HTMLImageElement>("img");
 
                 if (mediaContainer && imgEl) {
                     const rect = mediaContainer.getBoundingClientRect();
                     const style = window.getComputedStyle(mediaContainer);
-                    const borderRadius = style.borderRadius || "16px";
+                    const borderRadius = style.borderRadius || "0px";
 
                     isTransitioningRef.current = true;
                     setIsTransitioning(true);

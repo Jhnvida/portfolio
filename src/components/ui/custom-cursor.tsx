@@ -21,6 +21,7 @@ export function CustomCursor() {
     const [mode, setMode] = useState<CursorMode>("default");
     const modeRef = useRef<CursorMode>("default");
     const [cursorText, setCursorText] = useState("Ver projeto");
+    const cursorTextRef = useRef("Ver projeto");
     const [isEnabled, setIsEnabled] = useState(false);
 
     useEffect(() => {
@@ -58,8 +59,19 @@ export function CustomCursor() {
 
         gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50, display: "none" });
 
-        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.09, ease: "power3.out" });
-        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.09, ease: "power3.out" });
+        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.03, ease: "power2.out" });
+        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.03, ease: "power2.out" });
+
+        const applyModeAndText = (nextMode: CursorMode, nextText?: string) => {
+            if (nextText !== undefined && cursorTextRef.current !== nextText) {
+                cursorTextRef.current = nextText;
+                setCursorText(nextText);
+            }
+            if (modeRef.current !== nextMode) {
+                modeRef.current = nextMode;
+                setMode(nextMode);
+            }
+        };
 
         const evaluateTarget = (target: HTMLElement | null) => {
             if (!target) return;
@@ -67,45 +79,35 @@ export function CustomCursor() {
             const copyEl = target.closest('[data-cursor="copy"]') as HTMLElement | null;
             if (copyEl) {
                 const customText = copyEl.getAttribute("data-cursor-text") || "Clique para copiar";
-                setCursorText(customText);
-                setMode("copy");
-                modeRef.current = "copy";
+                applyModeAndText("copy", customText);
                 return;
             }
 
             const projectEl = target.closest('[data-cursor="project"]') as HTMLElement | null;
             if (projectEl) {
                 const customText = projectEl.getAttribute("data-cursor-text") || "Ver projeto";
-                setCursorText(customText);
-                setMode("project");
-                modeRef.current = "project";
+                applyModeAndText("project", customText);
                 return;
             }
 
             const externalEl = target.closest('[data-cursor="external"]') as HTMLElement | null;
             if (externalEl) {
                 const customText = externalEl.getAttribute("data-cursor-text") || "Abrir link";
-                setCursorText(customText);
-                setMode("external");
-                modeRef.current = "external";
+                applyModeAndText("external", customText);
                 return;
             }
 
             const backEl = target.closest('[data-cursor="back"]') as HTMLElement | null;
             if (backEl) {
                 const customText = backEl.getAttribute("data-cursor-text") || "Voltar";
-                setCursorText(customText);
-                setMode("back");
-                modeRef.current = "back";
+                applyModeAndText("back", customText);
                 return;
             }
 
             const expandEl = target.closest('[data-cursor="expand"]') as HTMLElement | null;
             if (expandEl) {
                 const customText = expandEl.getAttribute("data-cursor-text") || "Carregar mais";
-                setCursorText(customText);
-                setMode("expand");
-                modeRef.current = "expand";
+                applyModeAndText("expand", customText);
                 return;
             }
 
@@ -113,13 +115,11 @@ export function CustomCursor() {
                 'a, button, [role="button"], input, select, textarea, label, [data-cursor="pointer"]',
             );
             if (interactiveEl) {
-                setMode("pointer");
-                modeRef.current = "pointer";
+                applyModeAndText("pointer");
                 return;
             }
 
-            setMode("default");
-            modeRef.current = "default";
+            applyModeAndText("default");
         };
 
         const handleMouseMove = (e: MouseEvent) => {
@@ -144,7 +144,7 @@ export function CustomCursor() {
             isPressedRef.current = true;
             const isPill = ["project", "copy", "external", "back", "expand"].includes(modeRef.current);
             gsap.to(pillRef.current, {
-                scale: isPill ? 0.93 : 0.82,
+                scale: isPill ? 0.94 : 0.85,
                 duration: 0.08,
                 ease: "power2.out",
                 overwrite: "auto",
@@ -156,7 +156,7 @@ export function CustomCursor() {
             isPressedRef.current = false;
             gsap.to(pillRef.current, {
                 scale: 1,
-                duration: 0.18,
+                duration: 0.16,
                 ease: "back.out(2)",
                 overwrite: "auto",
             });
@@ -212,11 +212,7 @@ export function CustomCursor() {
         const handleCustomState = (e: Event) => {
             const customEvent = e as CustomEvent<{ mode?: CursorMode; text?: string }>;
             if (customEvent.detail?.mode) {
-                setMode(customEvent.detail.mode);
-                modeRef.current = customEvent.detail.mode;
-            }
-            if (customEvent.detail?.text) {
-                setCursorText(customEvent.detail.text);
+                applyModeAndText(customEvent.detail.mode, customEvent.detail.text);
             }
         };
 
@@ -258,11 +254,11 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 width: measuredWidth,
                 height: 32,
-                scale: isPressedRef.current ? 0.93 : 1,
+                scale: isPressedRef.current ? 0.94 : 1,
                 padding: "5px 14px",
                 borderRadius: 9999,
                 backgroundColor: "#0a0a0a",
-                duration: 0.25,
+                duration: 0.22,
                 ease: "power3.out",
                 overwrite: "auto",
             });
@@ -270,7 +266,7 @@ export function CustomCursor() {
             gsap.to(contentRef.current, {
                 opacity: 1,
                 scale: 1,
-                duration: 0.2,
+                duration: 0.18,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -278,21 +274,21 @@ export function CustomCursor() {
             if (mode === "copy" && cursorText === "Copiado!") {
                 gsap.fromTo(
                     pillRef.current,
-                    { scale: 0.94 },
-                    { scale: 1, duration: 0.28, ease: "back.out(1.8)", overwrite: "auto" },
+                    { scale: 0.95 },
+                    { scale: 1, duration: 0.25, ease: "back.out(1.8)", overwrite: "auto" },
                 );
             }
         } else {
             const isPointer = mode === "pointer";
 
             gsap.to(pillRef.current, {
-                width: isPointer ? 18 : 9,
-                height: isPointer ? 18 : 9,
-                scale: isPressedRef.current ? 0.82 : 1,
+                width: isPointer ? 16 : 8,
+                height: isPointer ? 16 : 8,
+                scale: isPressedRef.current ? 0.85 : 1,
                 padding: 0,
                 borderRadius: 9999,
                 backgroundColor: "#0a0a0a",
-                duration: isPointer ? 0.2 : 0.22,
+                duration: isPointer ? 0.18 : 0.2,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -300,7 +296,7 @@ export function CustomCursor() {
             gsap.to(contentRef.current, {
                 opacity: 0,
                 scale: 0.75,
-                duration: 0.15,
+                duration: 0.12,
                 ease: "power2.in",
                 overwrite: "auto",
             });
@@ -315,8 +311,8 @@ export function CustomCursor() {
         <div ref={cursorRef} aria-hidden="true" className="pointer-events-none fixed top-0 left-0 z-99999 select-none">
             <div
                 ref={pillRef}
-                className="flex items-center justify-center overflow-hidden rounded-full shadow-xs will-change-[width,height,transform]"
-                style={{ width: 9, height: 9, backgroundColor: "#0a0a0a" }}
+                className="pointer-events-none flex items-center justify-center overflow-hidden rounded-full border border-white/25 shadow-sm will-change-[width,height,transform]"
+                style={{ width: 8, height: 8, backgroundColor: "#0a0a0a" }}
             >
                 <div
                     ref={contentRef}

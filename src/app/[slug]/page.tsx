@@ -44,11 +44,11 @@ async function ProjectContent({ params }: ProjectPageProps) {
     return (
         <article className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-12 lg:gap-x-14 xl:gap-x-20 items-start">
-                <aside className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-28 space-y-8">
+                <aside className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-12 space-y-8">
                     <BackToProjectsLink />
 
                     <div className="space-y-4">
-                        <AnimatedHeading className="font-heading text-2xl sm:text-3xl font-medium tracking-tight text-neutral-950 leading-[1.2]">
+                        <AnimatedHeading className="font-heading text-3xl sm:text-4xl font-medium tracking-tight text-neutral-950 leading-[1.2]">
                             {project.title}
                         </AnimatedHeading>
 
@@ -60,7 +60,6 @@ async function ProjectContent({ params }: ProjectPageProps) {
                     <div className="space-y-3 pt-6 border-t border-neutral-200/80 font-sans text-xs sm:text-sm text-neutral-500">
                         <p>
                             {project.context} · {project.year}
-                            {project.status === "Em desenvolvimento" && " · Em desenvolvimento"}
                         </p>
 
                         {project.githubUrl && (
@@ -91,9 +90,9 @@ async function ProjectContent({ params }: ProjectPageProps) {
                         slug={project.slug}
                     />
 
-                    <div className="space-y-10 sm:space-y-12 max-w-2xl">
+                    <div className="space-y-10 sm:space-y-12 max-w-3xl">
                         <section className="space-y-3">
-                            <h2 className="font-heading text-lg sm:text-xl font-medium tracking-tight text-neutral-950">
+                            <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Visão Geral
                             </h2>
                             <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
@@ -102,7 +101,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                         </section>
 
                         <section className="space-y-3">
-                            <h2 className="font-heading text-lg sm:text-xl font-medium tracking-tight text-neutral-950">
+                            <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Soluções
                             </h2>
                             <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
@@ -111,7 +110,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                         </section>
 
                         <section className="space-y-3">
-                            <h2 className="font-heading text-lg sm:text-xl font-medium tracking-tight text-neutral-950">
+                            <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Resultados
                             </h2>
                             <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
@@ -131,13 +130,13 @@ async function ProjectContent({ params }: ProjectPageProps) {
 
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
     return (
-        <div className="mx-auto w-full max-w-355 px-6 md:px-10 pt-10 sm:pt-14 pb-20 sm:pb-28">
+        <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 pt-12 sm:pt-16 md:pt-20 pb-20 sm:pb-28">
             <Suspense
                 fallback={
                     <div aria-hidden="true" className="w-full space-y-4">
-                        <div className="h-4 w-48 rounded-sm bg-neutral-100" />
-                        <div className="h-8 w-2/3 rounded-sm bg-neutral-100" />
-                        <div className="h-64 sm:h-96 w-full rounded-xl bg-neutral-100" />
+                        <div className="h-4 w-48 bg-neutral-100" />
+                        <div className="h-8 w-2/3 bg-neutral-100" />
+                        <div className="h-64 sm:h-96 w-full bg-neutral-100" />
                     </div>
                 }
             >

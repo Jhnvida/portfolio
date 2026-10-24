@@ -9,7 +9,6 @@ export interface ProjectItem {
     title: string;
     context: string;
     year: string;
-    status?: "Em desenvolvimento" | "Concluído";
     summary: string;
     imageSrc?: string;
     aspectRatio: string;
@@ -23,7 +22,6 @@ export const PROJECTS: ProjectItem[] = [
         title: "Portfólio Pessoal",
         context: "Website Minimalista",
         year: "2026",
-        status: "Concluído",
         summary:
             "Website autoral desenvolvido com estética editorial minimalista, tipografia cuidadosa e micro-interações fluidas, priorizando o protagonismo do trabalho e o rigor técnico em acessibilidade.",
         imageSrc: "/projects/portfolio.png",
@@ -33,7 +31,7 @@ export const PROJECTS: ProjectItem[] = [
             overview:
                 "Criado com a intenção de romper com templates pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
             solutions:
-                "Unimos o scroll físico suave da biblioteca Lenis com as animações orquestradas do GSAP ScrollTrigger, criando uma transição de scrub parallax no hero e uma galeria com carregamento escalonado de projetos. Desenvolvemos também um cursor magnético contextual que reage aos elementos interativos, e estruturamos o site com rotas dinâmicas pré-renderizadas no Next.js 16 para carregamento instantâneo.",
+                "Unimos o scroll físico suave da biblioteca Lenis com as micro-interações orquestradas no GSAP e uma galeria com carregamento escalonado de projetos. Desenvolvemos também um cursor magnético contextual que reage aos elementos interativos, e estruturamos o site com rotas dinâmicas pré-renderizadas no Next.js 16 para carregamento instantâneo.",
             results:
                 "Uma plataforma rápida, acessível e coesa, com suporte integral a preferências de redução de movimento (prefers-reduced-motion) sem comprometer a identidade visual. O projeto reflete minha evolução técnica em TypeScript, React 19 e Tailwind CSS v4, com código-fonte público no GitHub e arquitetura modular pronta para receber novos trabalhos.",
         },
@@ -43,7 +41,6 @@ export const PROJECTS: ProjectItem[] = [
         title: "A Nossa Jornada",
         context: "Aplicação Web Interativa",
         year: "2026",
-        status: "Concluído",
         summary:
             "Aplicação web criada para casais acompanharem sua história e reunirem momentos especiais, memórias, receitas e planos futuros em um espaço íntimo e seguro.",
         imageSrc: "/projects/our-journey.png",
@@ -63,7 +60,6 @@ export const PROJECTS: ProjectItem[] = [
         title: "Vitrine",
         context: "Micro-SaaS & E-commerce",
         year: "2026",
-        status: "Em desenvolvimento",
         summary:
             "Plataforma micro-SaaS voltada para pequenos lojistas que vendem pelo Instagram e fecham pedidos pelo WhatsApp. O projeto centraliza o catálogo em um link leve para a bio, permitindo a seleção de produtos e o encaminhamento do pedido formatado diretamente no aplicativo de mensagens.",
         imageSrc: "/projects/vitrine.png",
