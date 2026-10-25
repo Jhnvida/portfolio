@@ -7,10 +7,9 @@ import { useEffect, useState } from "react";
 const NAV_ITEMS = [
     { id: "inicio", label: "Início" },
     { id: "projetos", label: "Projetos" },
-    { id: "sobre", label: "Sobre" },
 ] as const;
 
-type HomeSection = "inicio" | "projetos" | "sobre" | "outro";
+type HomeSection = "inicio" | "projetos" | "outro";
 
 export function Header() {
     const pathname = usePathname();
@@ -56,26 +55,19 @@ export function Header() {
 
         const setupObserver = () => {
             const projetosEl = document.getElementById("projetos");
-            const sobreEl = document.getElementById("sobre");
 
-            if (!projetosEl || !sobreEl) {
+            if (!projetosEl) {
                 retryTimeout = setTimeout(setupObserver, 80);
                 return;
             }
 
-            const visibleMap: Record<string, number> = {
-                projetos: 0,
-                sobre: 0,
-            };
+            let projetosVisibleRatio = 0;
 
             observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        const id = entry.target.id;
-                        if (entry.isIntersecting) {
-                            visibleMap[id] = entry.intersectionRatio;
-                        } else {
-                            visibleMap[id] = 0;
+                        if (entry.target.id === "projetos") {
+                            projetosVisibleRatio = entry.isIntersecting ? entry.intersectionRatio : 0;
                         }
                     });
 
@@ -85,22 +77,13 @@ export function Header() {
                         return;
                     }
 
-                    const windowHeight = window.innerHeight;
-                    const documentHeight = document.documentElement.scrollHeight;
-                    const isNearBottom = currentScroll + windowHeight >= documentHeight - 100;
-
-                    if (visibleMap.sobre > 0.05 || isNearBottom) {
-                        setActiveHomeSection("sobre");
-                    } else if (visibleMap.projetos > 0) {
+                    if (projetosVisibleRatio > 0) {
                         setActiveHomeSection("projetos");
                     } else {
-                        const sobreRect = sobreEl.getBoundingClientRect();
                         const projetosRect = projetosEl.getBoundingClientRect();
-                        if (sobreRect.top <= 250 && sobreRect.bottom >= 100) {
-                            setActiveHomeSection("sobre");
-                        } else if (projetosRect.top <= 250 && projetosRect.bottom >= 100) {
+                        if (projetosRect.top <= 250) {
                             setActiveHomeSection("projetos");
-                        } else if (projetosRect.top > 250) {
+                        } else {
                             setActiveHomeSection("inicio");
                         }
                     }
@@ -112,7 +95,6 @@ export function Header() {
             );
 
             observer.observe(projetosEl);
-            observer.observe(sobreEl);
         };
 
         setupObserver();
