@@ -36,7 +36,7 @@ export function ProjectMediaPreview({ imageSrc, title, aspectRatio = "aspect-16/
     return (
         <div
             ref={containerRef}
-            className={`relative w-full ${aspectRatio} overflow-hidden border border-neutral-200 bg-neutral-100 flex items-center justify-center ${
+            className={`relative w-full ${aspectRatio} overflow-hidden border border-neutral-200 bg-neutral-200 flex items-center justify-center ${
                 shouldHideForTransition ? "opacity-0" : "opacity-100"
             }`}
         >
@@ -49,7 +49,7 @@ export function ProjectMediaPreview({ imageSrc, title, aspectRatio = "aspect-16/
                     onError={() => setImageError(true)}
                 />
             ) : (
-                <div aria-hidden="true" className="w-full h-full bg-neutral-100" />
+                <div aria-hidden="true" className="w-full h-full bg-neutral-200" />
             )}
         </div>
     );

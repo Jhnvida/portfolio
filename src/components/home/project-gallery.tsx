@@ -30,11 +30,11 @@ function FullscreenProjectCard({
             className="group/card sticky top-0 h-dvh w-full py-4 sm:py-6 md:py-8 bg-surface-subtle"
         >
             <div className="h-full w-full max-w-360 mx-auto px-6 md:px-10 lg:px-12 xl:px-16">
-                <div className="relative h-full w-full overflow-hidden bg-neutral-900">
+                <div className="relative h-full w-full overflow-hidden bg-neutral-200">
                     <div
                         ref={imageRef}
                         data-shared-image-container
-                        className="absolute inset-0 h-full w-full overflow-hidden bg-neutral-900 will-change-transform"
+                        className="absolute inset-0 h-full w-full overflow-hidden bg-neutral-200 will-change-transform"
                     >
                         {hasImage ? (
                             <img
@@ -44,14 +44,7 @@ function FullscreenProjectCard({
                                 onError={() => setImageError(true)}
                             />
                         ) : (
-                            <div
-                                aria-hidden="true"
-                                className="h-full w-full bg-neutral-800 flex items-center justify-center"
-                            >
-                                <span className="font-heading text-4xl sm:text-6xl font-medium text-neutral-400">
-                                    {project.title}
-                                </span>
-                            </div>
+                            <div aria-hidden="true" className="h-full w-full bg-neutral-200" />
                         )}
 
                         <div

@@ -250,13 +250,7 @@ export function Footer() {
                                 Contato
                             </Link>
 
-                            <button
-                                type="button"
-                                onClick={handleBackToTop}
-                                data-cursor="back"
-                                data-cursor-text="Voltar ao topo"
-                                className={`text-left cursor-pointer ${linkClass}`}
-                            >
+                            <button type="button" onClick={handleBackToTop} className={`text-left ${linkClass}`}>
                                 Voltar ao topo
                             </button>
                         </nav>
@@ -271,8 +265,6 @@ export function Footer() {
                                 href={SITE_CONFIG.social.linkedin}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                data-cursor="external"
-                                data-cursor-text="LinkedIn"
                                 className={linkClass}
                             >
                                 LinkedIn
@@ -282,8 +274,6 @@ export function Footer() {
                                 href={SITE_CONFIG.social.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                data-cursor="external"
-                                data-cursor-text="GitHub"
                                 className={linkClass}
                             >
                                 GitHub
@@ -292,10 +282,8 @@ export function Footer() {
                             <button
                                 type="button"
                                 onClick={handleClickEmail}
-                                data-cursor="copy"
-                                data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
                                 aria-label={`Copiar e-mail: ${email}`}
-                                className={`text-left cursor-pointer ${linkClass} ${
+                                className={`text-left ${linkClass} ${
                                     isCopied ? "text-emerald-600 hover:text-emerald-700 font-medium" : ""
                                 }`}
                             >

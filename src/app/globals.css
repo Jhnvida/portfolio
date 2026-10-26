@@ -51,16 +51,20 @@ body {
 
 @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
     html.custom-cursor-enabled,
-    html.custom-cursor-enabled body,
-    html.custom-cursor-enabled a,
-    html.custom-cursor-enabled button,
-    html.custom-cursor-enabled [role="button"],
-    html.custom-cursor-enabled [data-cursor],
-    html.custom-cursor-enabled input,
-    html.custom-cursor-enabled select,
-    html.custom-cursor-enabled textarea,
-    html.custom-cursor-enabled label {
+    html.custom-cursor-enabled *,
+    html.custom-cursor-enabled *::before,
+    html.custom-cursor-enabled *::after {
         cursor: none !important;
+    }
+
+    html.custom-cursor-enabled input,
+    html.custom-cursor-enabled textarea,
+    html.custom-cursor-enabled [contenteditable="true"] {
+        cursor: text !important;
+    }
+
+    html.custom-cursor-enabled select {
+        cursor: pointer !important;
     }
 }
 
