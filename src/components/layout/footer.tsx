@@ -166,6 +166,23 @@ export function Footer() {
         }
     };
 
+    const handleScrollToContact = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const targetEl = document.getElementById("contato-info") || footerRef.current;
+
+        if (lenis) {
+            lenis.scrollTo("bottom", { duration: prefersReducedMotion ? 0 : 1.15 });
+        } else if (targetEl) {
+            targetEl.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+        } else {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: prefersReducedMotion ? "auto" : "smooth",
+            });
+        }
+    };
+
     useEffect(() => {
         const textEl = emailTextRef.current;
         return () => {
@@ -186,7 +203,7 @@ export function Footer() {
             ref={footerRef}
             id="contato"
             aria-label="Contato e encerramento"
-            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 px-6 md:px-10 lg:px-12 xl:px-16 pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
+            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 px-6 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-28 md:pt-36 lg:pt-44 xl:pt-48 pb-16 sm:pb-24 md:pb-32 lg:pb-36 xl:pb-40 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
         >
             <div ref={contentRef} className="w-full will-change-[opacity,transform]">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
@@ -217,15 +234,9 @@ export function Footer() {
                                 Projetos
                             </Link>
 
-                            <button
-                                type="button"
-                                onClick={handleClickEmail}
-                                data-cursor="copy"
-                                data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
-                                className={`text-left cursor-pointer ${linkClass}`}
-                            >
+                            <Link href="#contato-info" onClick={handleScrollToContact} className={linkClass}>
                                 Contato
-                            </button>
+                            </Link>
 
                             <button
                                 type="button"
@@ -239,8 +250,10 @@ export function Footer() {
                         </nav>
 
                         <nav
+                            id="contato-info"
                             aria-label="Redes sociais e contato direto"
-                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px]"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px] scroll-mt-6 focus:outline-none"
+                            tabIndex={-1}
                         >
                             <a
                                 href={SITE_CONFIG.social.linkedin}

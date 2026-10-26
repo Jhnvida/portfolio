@@ -73,10 +73,17 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                 const targetElement = document.querySelector(hash);
                 if (targetElement) {
                     e.preventDefault();
-                    lenis.scrollTo(targetElement as HTMLElement, {
-                        offset: 0,
-                        duration: isReducedMotion ? 0 : 1.15,
-                    });
+                    const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
+                    if (isFooter) {
+                        lenis.scrollTo("bottom", {
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    } else {
+                        lenis.scrollTo(targetElement as HTMLElement, {
+                            offset: 0,
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    }
                     try {
                         window.history.replaceState(null, "", window.location.pathname + window.location.search);
                     } catch {}
@@ -131,18 +138,32 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
             if (targetId) {
                 const targetElement = document.getElementById(targetId);
                 if (targetElement && lenisRef.current) {
-                    lenisRef.current.scrollTo(targetElement, {
-                        offset: 0,
-                        duration: isReducedMotion ? 0 : 1.15,
-                    });
+                    const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
+                    if (isFooter) {
+                        lenisRef.current.scrollTo("bottom", {
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    } else {
+                        lenisRef.current.scrollTo(targetElement, {
+                            offset: 0,
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    }
                 }
             } else if (hash) {
                 const targetElement = document.querySelector<HTMLElement>(hash);
                 if (targetElement && lenisRef.current) {
-                    lenisRef.current.scrollTo(targetElement, {
-                        offset: 0,
-                        duration: isReducedMotion ? 0 : 1.15,
-                    });
+                    const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
+                    if (isFooter) {
+                        lenisRef.current.scrollTo("bottom", {
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    } else {
+                        lenisRef.current.scrollTo(targetElement, {
+                            offset: 0,
+                            duration: isReducedMotion ? 0 : 1.15,
+                        });
+                    }
                 }
                 try {
                     window.history.replaceState(null, "", window.location.pathname + window.location.search);
