@@ -1,10 +1,10 @@
 "use client";
 
 import gsap from "gsap";
-import { ArrowLeft, ArrowUpRight, Check, ChevronDown, Copy } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Copy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export type CursorMode = "default" | "pointer" | "project" | "copy" | "external" | "back" | "expand";
+export type CursorMode = "default" | "pointer" | "project" | "copy" | "external" | "back";
 
 export function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
@@ -104,13 +104,6 @@ export function CustomCursor() {
                 return;
             }
 
-            const expandEl = target.closest('[data-cursor="expand"]') as HTMLElement | null;
-            if (expandEl) {
-                const customText = expandEl.getAttribute("data-cursor-text") || "Carregar mais";
-                applyModeAndText("expand", customText);
-                return;
-            }
-
             const interactiveEl = target.closest(
                 'a, button, [role="button"], input, select, textarea, label, [data-cursor="pointer"]',
             );
@@ -142,7 +135,7 @@ export function CustomCursor() {
         const handleMouseDown = (e: MouseEvent) => {
             if (e.button !== 0 || !pillRef.current) return;
             isPressedRef.current = true;
-            const isPill = ["project", "copy", "external", "back", "expand"].includes(modeRef.current);
+            const isPill = ["project", "copy", "external", "back"].includes(modeRef.current);
             gsap.to(pillRef.current, {
                 scale: isPill ? 0.94 : 0.85,
                 duration: 0.08,
@@ -246,7 +239,7 @@ export function CustomCursor() {
 
         gsap.killTweensOf([pillRef.current, contentRef.current]);
 
-        const isPill = ["project", "copy", "external", "back", "expand"].includes(mode);
+        const isPill = ["project", "copy", "external", "back"].includes(mode);
 
         if (isPill) {
             const measuredWidth = Math.max(contentRef.current.scrollWidth + 28, 90);
@@ -327,8 +320,6 @@ export function CustomCursor() {
                         )
                     ) : mode === "back" ? (
                         <ArrowLeft className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
-                    ) : mode === "expand" ? (
-                        <ChevronDown className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
                     ) : (
                         <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
                     )}

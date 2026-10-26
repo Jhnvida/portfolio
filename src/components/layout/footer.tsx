@@ -1,42 +1,107 @@
 "use client";
 
+import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { SITE_CONFIG } from "@/data";
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 
 export function Footer() {
-    const textRef = useRef<HTMLSpanElement>(null);
+    const pathname = usePathname();
+    const { scrollTo, lenis } = useSmoothScroll();
+    const footerRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const emailTextRef = useRef<HTMLSpanElement>(null);
     const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const email = SITE_CONFIG.email;
-    const initialText = SITE_CONFIG.emailDisplay;
+    const initialText = "E-mail";
     const confirmedText = "Te vejo em breve";
 
     const [displayText, setDisplayText] = useState(initialText);
     const [isCopied, setIsCopied] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion) {
+            if (contentRef.current) {
+                gsap.set(contentRef.current, { opacity: 1, y: 0 });
+            }
+            return;
+        }
+
+        const footerEl = footerRef.current;
+        const contentEl = contentRef.current;
+        const mainEl = document.getElementById("main-content");
+
+        if (!footerEl || !contentEl || !mainEl) return;
+
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                contentEl,
+                {
+                    opacity: 0,
+                    y: -24,
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: mainEl,
+                        start: "bottom bottom",
+                        end: () => `+=${footerEl.offsetHeight}`,
+                        scrub: true,
+                        invalidateOnRefresh: true,
+                    },
+                },
+            );
+        });
+
+        const resizeObserver = new ResizeObserver(() => {
+            ScrollTrigger.refresh();
+        });
+
+        resizeObserver.observe(footerEl);
+
+        const timer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 120);
+
+        return () => {
+            clearTimeout(timer);
+            resizeObserver.disconnect();
+            ctx.revert();
+        };
+    }, []);
 
     const animateTextChange = (nextText: string, onTransition?: () => void) => {
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        if (textRef.current && !prefersReducedMotion) {
-            gsap.killTweensOf(textRef.current);
-            gsap.to(textRef.current, {
+        if (emailTextRef.current && !prefersReducedMotion) {
+            gsap.killTweensOf(emailTextRef.current);
+            gsap.to(emailTextRef.current, {
                 y: -6,
+                opacity: 0,
                 duration: 0.16,
                 ease: "power2.in",
                 onComplete: () => {
                     setDisplayText(nextText);
                     onTransition?.();
-                    if (!textRef.current) return;
+                    if (!emailTextRef.current) return;
                     gsap.fromTo(
-                        textRef.current,
-                        { y: 6 },
+                        emailTextRef.current,
+                        { y: 6, opacity: 0 },
                         {
                             y: 0,
+                            opacity: 1,
                             duration: 0.28,
                             ease: "power3.out",
-                            clearProps: "transform",
+                            clearProps: "transform,opacity",
                         },
                     );
                 },
@@ -47,8 +112,8 @@ export function Footer() {
         }
     };
 
-    const handleClickEmail = async (e: React.MouseEvent) => {
-        e.preventDefault();
+    const handleClickEmail = async (e?: React.MouseEvent) => {
+        if (e) e.preventDefault();
 
         try {
             await navigator.clipboard.writeText(email);
@@ -75,8 +140,34 @@ export function Footer() {
         }, 3200);
     };
 
+    const handleBackToTop = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (lenis) {
+            lenis.scrollTo(0, { duration: prefersReducedMotion ? 0 : 1.15 });
+        } else {
+            scrollTo(0);
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+        }
+    };
+
+    const handleScrollToSection = (e: React.MouseEvent, targetId: string) => {
+        if (pathname === "/") {
+            e.preventDefault();
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                if (lenis) {
+                    lenis.scrollTo(targetEl, { duration: 1.15 });
+                } else {
+                    targetEl.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        }
+    };
+
     useEffect(() => {
-        const textEl = textRef.current;
+        const textEl = emailTextRef.current;
         return () => {
             if (resetTimeoutRef.current) {
                 clearTimeout(resetTimeoutRef.current);
@@ -87,76 +178,109 @@ export function Footer() {
         };
     }, []);
 
-    const isHighlightActive = isHovered || isCopied;
+    const linkClass =
+        "text-neutral-600 hover:text-neutral-950 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-xs select-none";
 
     return (
         <footer
+            ref={footerRef}
             id="contato"
             aria-label="Contato e encerramento"
-            className="relative z-35 w-full bg-[#fafafa] px-6 md:px-10 lg:px-12 xl:px-16 pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 border-t border-neutral-200/70 scroll-mt-20"
+            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 px-6 md:px-10 lg:px-12 xl:px-16 pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
         >
-            <div className="w-full flex flex-col justify-between min-h-[35vh]">
-                <div className="text-left max-w-4xl">
-                    <p className="font-sans text-xs uppercase tracking-widest font-semibold text-neutral-500 mb-4 sm:mb-6">
-                        Vamos conversar sobre o seu projeto?
-                    </p>
+            <div ref={contentRef} className="w-full will-change-[opacity,transform]">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
+                    <div className="md:col-span-7 space-y-1">
+                        <p className="font-sans text-xs sm:text-[13px] md:text-sm text-neutral-500">
+                            Baseado em {SITE_CONFIG.location}.
+                        </p>
+                        <p className="font-sans text-xs sm:text-[13px] md:text-sm font-medium text-neutral-950">
+                            Disponível para novos projetos.
+                        </p>
+                    </div>
 
-                    <button
-                        type="button"
-                        onClick={handleClickEmail}
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        onFocus={() => setIsHovered(true)}
-                        onBlur={() => setIsHovered(false)}
-                        onTouchStart={() => setIsHovered(true)}
-                        data-cursor="copy"
-                        data-cursor-text="Copiar e-mail"
-                        className={`text-left font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight transition-colors duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-sm cursor-pointer p-0 select-text ${
-                            isHighlightActive ? "text-neutral-950" : "text-neutral-800 hover:text-neutral-950"
-                        }`}
-                        aria-label={`Copiar e-mail de ${SITE_CONFIG.shortName} para contato: ${email}`}
-                    >
-                        <span ref={textRef} className="inline-block will-change-transform">
-                            {displayText}
-                        </span>
-                    </button>
+                    <div className="md:col-span-5 grid grid-cols-2 gap-8 sm:gap-12">
+                        <nav
+                            aria-label="Navegação do rodapé"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px]"
+                        >
+                            <Link href="/" prefetch={true} onClick={handleBackToTop} className={linkClass}>
+                                Início
+                            </Link>
+
+                            <Link
+                                href="/#projetos"
+                                prefetch={true}
+                                onClick={(e) => handleScrollToSection(e, "projetos")}
+                                className={linkClass}
+                            >
+                                Projetos
+                            </Link>
+
+                            <button
+                                type="button"
+                                onClick={handleClickEmail}
+                                data-cursor="copy"
+                                data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                                className={`text-left cursor-pointer ${linkClass}`}
+                            >
+                                Contato
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={handleBackToTop}
+                                data-cursor="back"
+                                data-cursor-text="Voltar ao topo"
+                                className={`text-left cursor-pointer ${linkClass}`}
+                            >
+                                Voltar ao topo
+                            </button>
+                        </nav>
+
+                        <nav
+                            aria-label="Redes sociais e contato direto"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px]"
+                        >
+                            <a
+                                href={SITE_CONFIG.social.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-cursor="external"
+                                data-cursor-text="LinkedIn"
+                                className={linkClass}
+                            >
+                                LinkedIn
+                            </a>
+
+                            <a
+                                href={SITE_CONFIG.social.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                data-cursor="external"
+                                data-cursor-text="GitHub"
+                                className={linkClass}
+                            >
+                                GitHub
+                            </a>
+
+                            <button
+                                type="button"
+                                onClick={handleClickEmail}
+                                data-cursor="copy"
+                                data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                                aria-label={`Copiar e-mail: ${email}`}
+                                className={`text-left cursor-pointer ${linkClass} ${
+                                    isCopied ? "text-emerald-600 hover:text-emerald-700 font-medium" : ""
+                                }`}
+                            >
+                                <span ref={emailTextRef} className="inline-block will-change-transform">
+                                    {displayText}
+                                </span>
+                            </button>
+                        </nav>
+                    </div>
                 </div>
-
-                <nav
-                    aria-label="Links de redes sociais e contato"
-                    className="mt-16 sm:mt-24 flex flex-wrap items-center gap-6 sm:gap-8 text-xs sm:text-[13px] font-sans font-medium text-neutral-600"
-                >
-                    <a
-                        href={SITE_CONFIG.social.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-cursor="external"
-                        data-cursor-text="LinkedIn"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
-                    >
-                        LinkedIn
-                    </a>
-
-                    <a
-                        href={SITE_CONFIG.social.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-cursor="external"
-                        data-cursor-text="GitHub"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
-                    >
-                        GitHub
-                    </a>
-
-                    <a
-                        href={`mailto:${email}`}
-                        data-cursor="external"
-                        data-cursor-text="Enviar e-mail"
-                        className="transition-colors duration-200 ease-out hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 rounded-sm"
-                    >
-                        E-mail
-                    </a>
-                </nav>
             </div>
         </footer>
     );

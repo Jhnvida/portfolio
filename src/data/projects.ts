@@ -1,4 +1,4 @@
-export interface ProjectSections {
+interface ProjectSections {
     overview: string;
     solutions: string;
     results: string;
@@ -62,7 +62,6 @@ export const PROJECTS: ProjectItem[] = [
         year: "2026",
         summary:
             "Plataforma micro-SaaS voltada para pequenos lojistas que vendem pelo Instagram e fecham pedidos pelo WhatsApp. O projeto centraliza o catálogo em um link leve para a bio, permitindo a seleção de produtos e o encaminhamento do pedido formatado diretamente no aplicativo de mensagens.",
-        imageSrc: "/projects/vitrine.png",
         aspectRatio: "aspect-[16/10]",
         sections: {
             overview:

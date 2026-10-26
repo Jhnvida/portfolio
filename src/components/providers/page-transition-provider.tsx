@@ -12,7 +12,6 @@ const PageTransitionContext = createContext<PageTransitionContextType>({
     activeSlug: null,
     isDestinationReady: true,
     navigate: () => {},
-    registerContainer: () => {},
     registerDestination: () => {},
 });
 
@@ -43,11 +42,6 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     const resolutionTimerRef = useRef<NodeJS.Timeout | null>(null);
     const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
     const activeTweenRef = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);
-    const containerRef = useRef<HTMLDivElement | null>(null);
-
-    const registerContainer = useCallback((el: HTMLDivElement | null) => {
-        containerRef.current = el;
-    }, []);
 
     const safeResumeScroll = useCallback(() => {
         if (isScrollPausedRef.current) {
@@ -338,10 +332,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
             activeSlug,
             isDestinationReady,
             navigate: performNavigate,
-            registerContainer,
             registerDestination,
         };
-    }, [isTransitioning, activeSlug, isDestinationReady, performNavigate, registerContainer, registerDestination]);
+    }, [isTransitioning, activeSlug, isDestinationReady, performNavigate, registerDestination]);
 
     return (
         <PageTransitionContext.Provider value={contextValue}>
@@ -372,17 +365,5 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 }
 
 export function PageTransitionContent({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    const { registerContainer } = usePageTransition();
-    const contentRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        registerContainer(contentRef.current);
-        return () => registerContainer(null);
-    }, [registerContainer]);
-
-    return (
-        <div ref={contentRef} className={`flex-1 flex flex-col w-full ${className}`}>
-            {children}
-        </div>
-    );
+    return <div className={`flex-1 flex flex-col w-full ${className}`}>{children}</div>;
 }

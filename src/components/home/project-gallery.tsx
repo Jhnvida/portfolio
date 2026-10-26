@@ -27,7 +27,7 @@ function FullscreenProjectCard({
             data-project-card
             data-shared-project={project.slug}
             style={{ zIndex: (index + 1) * 10 }}
-            className="group/card sticky top-0 h-[100dvh] w-full px-6 md:px-10 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8 bg-[#fafafa]"
+            className="group/card sticky top-0 h-dvh w-full px-6 md:px-10 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8 bg-surface-subtle"
         >
             <div className="relative h-full w-full overflow-hidden bg-neutral-900 shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
                 <div
@@ -55,7 +55,7 @@ function FullscreenProjectCard({
 
                     <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 sm:h-2/5 bg-gradient-to-t from-black/80 via-black/35 to-transparent"
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 sm:h-2/5 bg-linear-to-t from-black/80 via-black/35 to-transparent"
                     />
                 </div>
 
@@ -172,6 +172,9 @@ export function ProjectGallery() {
                     targetPoints.push(Math.round(sectionStartScroll + i * vh));
                 }
 
+                const lastCardTarget = targetPoints[totalCards - 1];
+                if (currentScroll > lastCardTarget + 20) return;
+
                 let closestTarget = targetPoints[0];
                 let minDiff = Math.abs(currentScroll - closestTarget);
 
@@ -220,7 +223,7 @@ export function ProjectGallery() {
             ref={sectionRef}
             id="projetos"
             aria-label="Projetos selecionados"
-            className="relative w-full bg-[#fafafa] scroll-mt-0"
+            className="relative w-full bg-surface-subtle scroll-mt-0"
         >
             {PROJECTS.map((project, index) => (
                 <FullscreenProjectCard

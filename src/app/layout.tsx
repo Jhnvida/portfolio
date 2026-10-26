@@ -41,12 +41,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR" className={`${outfit.variable} ${inter.variable} h-full antialiased`}>
-            <body className="flex min-h-full flex-col bg-[#fafafa] text-neutral-950 overflow-x-clip selection:bg-neutral-950 selection:text-white">
+            <body className="flex min-h-full flex-col bg-surface-subtle text-neutral-950 overflow-x-clip selection:bg-neutral-950 selection:text-white">
                 <SmoothScrollProvider>
                     <PageTransitionProvider>
                         <CustomCursor />
 
-                        <main id="main-content" className="relative z-0 flex-1 flex flex-col w-full">
+                        <main
+                            id="main-content"
+                            className="relative z-10 flex-1 flex flex-col w-full bg-surface-subtle shadow-[0_24px_48px_rgba(0,0,0,0.04)]"
+                        >
                             <PageTransitionContent>{children}</PageTransitionContent>
                         </main>
                         <Footer />

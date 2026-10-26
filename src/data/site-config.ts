@@ -1,8 +1,3 @@
-export interface SocialLinks {
-    github: string;
-    linkedin: string;
-}
-
 export interface SiteConfig {
     name: string;
     shortName: string;
@@ -11,7 +6,10 @@ export interface SiteConfig {
     location: string;
     email: string;
     emailDisplay: string;
-    social: SocialLinks;
+    social: {
+        github: string;
+        linkedin: string;
+    };
 }
 
 export const SITE_CONFIG: SiteConfig = {
@@ -27,4 +25,4 @@ export const SITE_CONFIG: SiteConfig = {
         github: "https://github.com/Jhnvida",
         linkedin: "https://www.linkedin.com/in/jaoandre",
     },
-} as const;
+};

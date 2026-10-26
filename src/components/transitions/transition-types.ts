@@ -1,4 +1,4 @@
-export interface SharedElementRect {
+interface SharedElementRect {
     top: number;
     left: number;
     width: number;
@@ -18,6 +18,5 @@ export interface PageTransitionContextType {
     activeSlug: string | null;
     isDestinationReady: boolean;
     navigate: (href: string) => void;
-    registerContainer: (el: HTMLDivElement | null) => void;
     registerDestination: (slug: string, el: HTMLElement | null) => void;
 }
