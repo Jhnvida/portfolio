@@ -203,9 +203,12 @@ export function Footer() {
             ref={footerRef}
             id="contato"
             aria-label="Contato e encerramento"
-            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 px-6 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-28 md:pt-36 lg:pt-44 xl:pt-48 pb-16 sm:pb-24 md:pb-32 lg:pb-36 xl:pb-40 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
+            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 pt-20 sm:pt-28 md:pt-36 lg:pt-44 xl:pt-48 pb-16 sm:pb-24 md:pb-32 lg:pb-36 xl:pb-40 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
         >
-            <div ref={contentRef} className="w-full will-change-[opacity,transform]">
+            <div
+                ref={contentRef}
+                className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform]"
+            >
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
                     <div className="md:col-span-7 space-y-1">
                         <p className="font-sans text-xs sm:text-[13px] md:text-sm text-neutral-500">
@@ -232,6 +235,15 @@ export function Footer() {
                                 className={linkClass}
                             >
                                 Projetos
+                            </Link>
+
+                            <Link
+                                href="/#sobre"
+                                prefetch={true}
+                                onClick={(e) => handleScrollToSection(e, "sobre")}
+                                className={linkClass}
+                            >
+                                Sobre
                             </Link>
 
                             <Link href="#contato-info" onClick={handleScrollToContact} className={linkClass}>

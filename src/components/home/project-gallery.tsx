@@ -27,59 +27,61 @@ function FullscreenProjectCard({
             data-project-card
             data-shared-project={project.slug}
             style={{ zIndex: (index + 1) * 10 }}
-            className="group/card sticky top-0 h-dvh w-full px-6 md:px-10 lg:px-12 xl:px-16 py-4 sm:py-6 md:py-8 bg-surface-subtle"
+            className="group/card sticky top-0 h-dvh w-full py-4 sm:py-6 md:py-8 bg-surface-subtle"
         >
-            <div className="relative h-full w-full overflow-hidden bg-neutral-900 shadow-[0_12px_36px_rgba(0,0,0,0.08)]">
-                <div
-                    ref={imageRef}
-                    data-shared-image-container
-                    className="absolute inset-0 h-full w-full overflow-hidden bg-neutral-900 will-change-transform"
-                >
-                    {hasImage ? (
-                        <img
-                            src={project.imageSrc}
-                            alt={`Interface do projeto ${project.title}`}
-                            className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.01]"
-                            onError={() => setImageError(true)}
-                        />
-                    ) : (
+            <div className="h-full w-full max-w-360 mx-auto px-6 md:px-10 lg:px-12 xl:px-16">
+                <div className="relative h-full w-full overflow-hidden bg-neutral-900">
+                    <div
+                        ref={imageRef}
+                        data-shared-image-container
+                        className="absolute inset-0 h-full w-full overflow-hidden bg-neutral-900 will-change-transform"
+                    >
+                        {hasImage ? (
+                            <img
+                                src={project.imageSrc}
+                                alt={`Interface do projeto ${project.title}`}
+                                className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.01]"
+                                onError={() => setImageError(true)}
+                            />
+                        ) : (
+                            <div
+                                aria-hidden="true"
+                                className="h-full w-full bg-neutral-800 flex items-center justify-center"
+                            >
+                                <span className="font-heading text-4xl sm:text-6xl font-medium text-neutral-400">
+                                    {project.title}
+                                </span>
+                            </div>
+                        )}
+
                         <div
                             aria-hidden="true"
-                            className="h-full w-full bg-neutral-800 flex items-center justify-center"
-                        >
-                            <span className="font-heading text-4xl sm:text-6xl font-medium text-neutral-400">
-                                {project.title}
-                            </span>
-                        </div>
-                    )}
+                            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 sm:h-2/5 bg-linear-to-t from-black/80 via-black/35 to-transparent"
+                        />
+                    </div>
 
-                    <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 sm:h-2/5 bg-linear-to-t from-black/80 via-black/35 to-transparent"
+                    <Link
+                        href={`/${project.slug}`}
+                        prefetch={true}
+                        data-shared-project={project.slug}
+                        data-cursor="project"
+                        data-cursor-text="Ver projeto"
+                        className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                        aria-label={`Ver detalhes do projeto: ${project.title}`}
                     />
-                </div>
 
-                <Link
-                    href={`/${project.slug}`}
-                    prefetch={true}
-                    data-shared-project={project.slug}
-                    data-cursor="project"
-                    data-cursor-text="Ver projeto"
-                    className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                    aria-label={`Ver detalhes do projeto: ${project.title}`}
-                />
+                    <div className="relative z-15 flex h-full w-full flex-col justify-end px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 text-white pointer-events-none">
+                        <div className="max-w-3xl text-left pointer-events-none">
+                            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white transition-colors duration-200 group-hover/card:text-white/95">
+                                {project.title}
+                            </h2>
 
-                <div className="relative z-15 flex h-full w-full flex-col justify-end px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 text-white pointer-events-none">
-                    <div className="max-w-3xl text-left pointer-events-none">
-                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white transition-colors duration-200 group-hover/card:text-white/95">
-                            {project.title}
-                        </h2>
-
-                        {project.summary && (
-                            <p className="mt-3 sm:mt-4 font-sans text-sm sm:text-base md:text-lg leading-relaxed text-white/80 max-w-2xl sm:max-w-3xl">
-                                {project.summary}
-                            </p>
-                        )}
+                            {project.summary && (
+                                <p className="mt-3 sm:mt-4 font-sans text-sm sm:text-base md:text-lg leading-relaxed text-white/80 max-w-2xl sm:max-w-3xl">
+                                    {project.summary}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

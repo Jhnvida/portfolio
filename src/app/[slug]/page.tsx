@@ -130,7 +130,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
 
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
     return (
-        <div className="w-full px-6 md:px-10 lg:px-12 xl:px-16 pt-12 sm:pt-16 md:pt-20 pb-20 sm:pb-28">
+        <div className="w-full max-w-360 mx-auto px-6 md:px-10 lg:px-12 xl:px-16 pt-12 sm:pt-16 md:pt-20 pb-20 sm:pb-28">
             <Suspense
                 fallback={
                     <div aria-hidden="true" className="w-full space-y-4">

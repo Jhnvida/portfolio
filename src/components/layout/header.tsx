@@ -56,9 +56,9 @@ export function Header() {
     return (
         <header
             aria-label="Cabeçalho do site"
-            className="w-full bg-surface-subtle text-neutral-950 px-6 md:px-10 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 pb-4"
+            className="w-full bg-surface-subtle text-neutral-950 pt-6 sm:pt-8 md:pt-10 pb-4"
         >
-            <div className="w-full flex items-center justify-between">
+            <div className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 flex items-center justify-between">
                 <Link
                     href="/"
                     onClick={handleBackToTop}

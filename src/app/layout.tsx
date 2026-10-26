@@ -24,8 +24,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: {
-        default: `${SITE_CONFIG.shortName} - ${SITE_CONFIG.role}`,
-        template: `${SITE_CONFIG.shortName} - %s`,
+        default: `${SITE_CONFIG.shortName} — ${SITE_CONFIG.role}`,
+        template: `${SITE_CONFIG.shortName} — %s`,
     },
     description: SITE_CONFIG.description,
     icons: {
