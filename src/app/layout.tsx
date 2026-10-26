@@ -1,4 +1,5 @@
 import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import { PageTransitionContent, PageTransitionProvider } from "@/components/providers/page-transition-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             id="main-content"
                             className="relative z-10 flex-1 flex flex-col w-full bg-surface-subtle shadow-[0_24px_48px_rgba(0,0,0,0.04)]"
                         >
+                            <Header />
                             <PageTransitionContent>{children}</PageTransitionContent>
                         </main>
                         <Footer />
