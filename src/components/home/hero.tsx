@@ -1,5 +1,6 @@
 "use client";
 
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 
@@ -22,13 +23,13 @@ export function Hero() {
             if (elements.length > 0) {
                 gsap.fromTo(
                     elements,
-                    { y: 22, opacity: 0 },
+                    { y: MOTION.distance.content, opacity: 0 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 0.85,
-                        stagger: 0.14,
-                        ease: "power3.out",
+                        duration: MOTION.duration.entrance,
+                        stagger: 0.12,
+                        ease: MOTION.ease.entrance,
                         clearProps: "transform,opacity",
                     },
                 );

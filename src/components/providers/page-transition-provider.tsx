@@ -2,6 +2,7 @@
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import type { PageTransitionContextType, SharedElementData } from "@/components/transitions/transition-types";
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname, useRouter } from "next/navigation";
@@ -140,8 +141,8 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
 
                     const tween = gsap.to(anim, {
                         progress: 1,
-                        duration: 0.85,
-                        ease: "power4.out",
+                        duration: MOTION.duration.sharedElement,
+                        ease: MOTION.ease.entrance,
                         onUpdate: () => {
                             if (!proxyEl || !el) return;
 

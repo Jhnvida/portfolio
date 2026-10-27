@@ -1,5 +1,6 @@
 "use client";
 
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import React, { useEffect, useRef } from "react";
 
@@ -19,12 +20,13 @@ export function AnimatedHeading({ children, className = "", as: Component = "h1"
 
             gsap.fromTo(
                 headingRef.current,
-                { y: 20 },
+                { opacity: 0, y: MOTION.distance.content },
                 {
+                    opacity: 1,
                     y: 0,
-                    duration: 0.75,
-                    ease: "power3.out",
-                    clearProps: "transform",
+                    duration: MOTION.duration.content,
+                    ease: MOTION.ease.entrance,
+                    clearProps: "transform,opacity",
                 },
             );
         }, headingRef);

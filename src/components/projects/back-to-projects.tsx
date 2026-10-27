@@ -19,7 +19,7 @@ export function BackToProjectsLink({ className = "" }: { className?: string }) {
         >
             <ArrowLeft
                 aria-hidden="true"
-                className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5"
+                className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-0.5"
             />
             <span>Voltar para projetos</span>
         </Link>

@@ -1,5 +1,6 @@
 "use client";
 
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { ArrowLeft, ArrowUpRight, Check, Copy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -7,16 +8,12 @@ import { useEffect, useRef, useState } from "react";
 export type CursorMode = "default" | "pointer" | "project" | "copy" | "external" | "back" | "hidden";
 
 export function CustomCursor() {
-    const dotWrapperRef = useRef<HTMLDivElement>(null);
-    const followerWrapperRef = useRef<HTMLDivElement>(null);
-    const dotRef = useRef<HTMLDivElement>(null);
+    const cursorRef = useRef<HTMLDivElement>(null);
     const pillRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const dotXTo = useRef<gsap.QuickToFunc | null>(null);
-    const dotYTo = useRef<gsap.QuickToFunc | null>(null);
-    const followerXTo = useRef<gsap.QuickToFunc | null>(null);
-    const followerYTo = useRef<gsap.QuickToFunc | null>(null);
+    const xTo = useRef<gsap.QuickToFunc | null>(null);
+    const yTo = useRef<gsap.QuickToFunc | null>(null);
 
     const hasMoved = useRef(false);
     const isVisibleRef = useRef(false);
@@ -62,19 +59,16 @@ export function CustomCursor() {
     }, []);
 
     useEffect(() => {
-        if (!isEnabled || !dotWrapperRef.current || !followerWrapperRef.current) return;
+        if (!isEnabled || !cursorRef.current) return;
 
-        gsap.set([dotWrapperRef.current, followerWrapperRef.current], {
+        gsap.set(cursorRef.current, {
             xPercent: -50,
             yPercent: -50,
             display: "none",
         });
 
-        dotXTo.current = gsap.quickTo(dotWrapperRef.current, "x", { duration: 0.015, ease: "power2.out" });
-        dotYTo.current = gsap.quickTo(dotWrapperRef.current, "y", { duration: 0.015, ease: "power2.out" });
-
-        followerXTo.current = gsap.quickTo(followerWrapperRef.current, "x", { duration: 0.18, ease: "power2.out" });
-        followerYTo.current = gsap.quickTo(followerWrapperRef.current, "y", { duration: 0.18, ease: "power2.out" });
+        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.035, ease: "power2.out" });
+        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.035, ease: "power2.out" });
 
         const applyModeAndText = (nextMode: CursorMode, nextText?: string, nextDark?: boolean) => {
             if (nextText !== undefined && cursorTextRef.current !== nextText) {
@@ -153,12 +147,12 @@ export function CustomCursor() {
         const handleMouseMove = (e: MouseEvent) => {
             mousePos.current = { x: e.clientX, y: e.clientY };
 
-            if (!dotWrapperRef.current || !followerWrapperRef.current) return;
+            if (!cursorRef.current) return;
 
             if (!hasMoved.current || !isVisibleRef.current) {
                 hasMoved.current = true;
                 isVisibleRef.current = true;
-                gsap.set([dotWrapperRef.current, followerWrapperRef.current], {
+                gsap.set(cursorRef.current, {
                     x: e.clientX,
                     y: e.clientY,
                     display: "block",
@@ -166,25 +160,17 @@ export function CustomCursor() {
                 evaluateTarget(e.target as HTMLElement | null);
             }
 
-            dotXTo.current?.(e.clientX);
-            dotYTo.current?.(e.clientY);
-            followerXTo.current?.(e.clientX);
-            followerYTo.current?.(e.clientY);
+            xTo.current?.(e.clientX);
+            yTo.current?.(e.clientY);
         };
 
         const handleMouseDown = (e: MouseEvent) => {
-            if (e.button !== 0 || !pillRef.current || !dotRef.current) return;
+            if (e.button !== 0 || !pillRef.current) return;
             isPressedRef.current = true;
             const isPill = ["project", "copy", "external", "back"].includes(modeRef.current);
 
             gsap.to(pillRef.current, {
-                scale: isPill ? 0.94 : 0.86,
-                duration: 0.08,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
-            gsap.to(dotRef.current, {
-                scale: 0.7,
+                scale: isPill ? 0.94 : 0.8,
                 duration: 0.08,
                 ease: "power2.out",
                 overwrite: "auto",
@@ -192,19 +178,13 @@ export function CustomCursor() {
         };
 
         const handleMouseUp = (e: MouseEvent) => {
-            if (e.button !== 0 || !pillRef.current || !dotRef.current) return;
+            if (e.button !== 0 || !pillRef.current) return;
             isPressedRef.current = false;
 
             gsap.to(pillRef.current, {
                 scale: 1,
-                duration: 0.18,
-                ease: "back.out(2)",
-                overwrite: "auto",
-            });
-            gsap.to(dotRef.current, {
-                scale: 1,
-                duration: 0.15,
-                ease: "power2.out",
+                duration: MOTION.duration.fast,
+                ease: MOTION.ease.micro,
                 overwrite: "auto",
             });
 
@@ -217,25 +197,23 @@ export function CustomCursor() {
         const handleBlurOrLeave = () => {
             isVisibleRef.current = false;
             isPressedRef.current = false;
-            if (dotWrapperRef.current && followerWrapperRef.current) {
-                gsap.set([dotWrapperRef.current, followerWrapperRef.current], { display: "none" });
+            if (cursorRef.current) {
+                gsap.set(cursorRef.current, { display: "none" });
             }
         };
 
         const handleWindowEnter = (e: MouseEvent) => {
-            if (dotWrapperRef.current && followerWrapperRef.current) {
+            if (cursorRef.current) {
                 isVisibleRef.current = true;
                 hasMoved.current = true;
                 mousePos.current = { x: e.clientX, y: e.clientY };
-                gsap.set([dotWrapperRef.current, followerWrapperRef.current], {
+                gsap.set(cursorRef.current, {
                     x: e.clientX,
                     y: e.clientY,
                     display: "block",
                 });
-                dotXTo.current?.(e.clientX);
-                dotYTo.current?.(e.clientY);
-                followerXTo.current?.(e.clientX);
-                followerYTo.current?.(e.clientY);
+                xTo.current?.(e.clientX);
+                yTo.current?.(e.clientY);
                 const target = document.elementFromPoint(e.clientX, e.clientY);
                 evaluateTarget(target);
             }
@@ -245,10 +223,15 @@ export function CustomCursor() {
             evaluateTarget(e.target);
         };
 
+        let scrollRafId: number | null = null;
         const handleScroll = () => {
             if (!hasMoved.current) return;
-            const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y);
-            evaluateTarget(target);
+            if (scrollRafId !== null) return;
+            scrollRafId = requestAnimationFrame(() => {
+                scrollRafId = null;
+                const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y);
+                evaluateTarget(target);
+            });
         };
 
         const handleCustomState = (e: Event) => {
@@ -276,6 +259,9 @@ export function CustomCursor() {
         window.addEventListener("cursor:set", handleCustomState as EventListener);
 
         return () => {
+            if (scrollRafId !== null) {
+                cancelAnimationFrame(scrollRafId);
+            }
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mousedown", handleMouseDown);
             window.removeEventListener("mouseup", handleMouseUp);
@@ -290,23 +276,24 @@ export function CustomCursor() {
     }, [isEnabled]);
 
     useEffect(() => {
-        if (!isEnabled || !pillRef.current || !dotRef.current || !contentRef.current) return;
+        if (!isEnabled || !pillRef.current || !contentRef.current) return;
 
-        gsap.killTweensOf([pillRef.current, dotRef.current, contentRef.current]);
+        gsap.killTweensOf([pillRef.current, contentRef.current]);
 
         const isPill = ["project", "copy", "external", "back"].includes(mode);
 
         if (mode === "hidden") {
-            gsap.to([dotRef.current, pillRef.current], {
+            gsap.to(pillRef.current, {
                 opacity: 0,
-                scale: 0.5,
+                scale: 0.3,
                 duration: 0.12,
                 ease: "power2.out",
                 overwrite: "auto",
             });
             gsap.to(contentRef.current, {
                 opacity: 0,
-                duration: 0.1,
+                scale: 0.5,
+                duration: 0.08,
                 overwrite: "auto",
             });
             return;
@@ -325,16 +312,8 @@ export function CustomCursor() {
                 borderColor: "rgba(255, 255, 255, 0.25)",
                 borderWidth: 1,
                 opacity: 1,
-                duration: 0.22,
+                duration: 0.24,
                 ease: "power3.out",
-                overwrite: "auto",
-            });
-
-            gsap.to(dotRef.current, {
-                opacity: 0,
-                scale: 0,
-                duration: 0.14,
-                ease: "power2.out",
                 overwrite: "auto",
             });
 
@@ -342,6 +321,7 @@ export function CustomCursor() {
                 opacity: 1,
                 scale: 1,
                 duration: 0.18,
+                delay: 0.04,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -350,33 +330,24 @@ export function CustomCursor() {
                 gsap.fromTo(
                     pillRef.current,
                     { scale: 0.94 },
-                    { scale: 1, duration: 0.25, ease: "back.out(1.8)", overwrite: "auto" },
+                    { scale: 1, duration: MOTION.duration.normal, ease: MOTION.ease.micro, overwrite: "auto" },
                 );
             }
         } else if (mode === "pointer") {
-            const ringBorder = isDarkBg ? "rgba(255, 255, 255, 0.45)" : "rgba(10, 10, 10, 0.35)";
-            const ringBg = isDarkBg ? "rgba(255, 255, 255, 0.08)" : "rgba(10, 10, 10, 0.04)";
+            const dotColor = isDarkBg ? "#ffffff" : "#0a0a0a";
+            const borderColor = isDarkBg ? "rgba(255, 255, 255, 0.4)" : "rgba(10, 10, 10, 0.2)";
 
             gsap.to(pillRef.current, {
-                width: 38,
-                height: 38,
-                scale: isPressedRef.current ? 0.88 : 1,
+                width: 16,
+                height: 16,
+                scale: isPressedRef.current ? 0.85 : 1,
                 padding: 0,
                 borderRadius: 9999,
-                backgroundColor: ringBg,
-                borderColor: ringBorder,
-                borderWidth: 1.5,
+                backgroundColor: dotColor,
+                borderColor: borderColor,
+                borderWidth: 0,
                 opacity: 1,
                 duration: 0.2,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
-
-            gsap.to(dotRef.current, {
-                opacity: 0.25,
-                scale: 0.5,
-                backgroundColor: isDarkBg ? "#ffffff" : "#0a0a0a",
-                duration: 0.16,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -389,28 +360,20 @@ export function CustomCursor() {
                 overwrite: "auto",
             });
         } else {
-            const ringBorder = isDarkBg ? "rgba(255, 255, 255, 0.35)" : "rgba(10, 10, 10, 0.25)";
+            const dotColor = isDarkBg ? "#ffffff" : "#0a0a0a";
+            const borderColor = isDarkBg ? "rgba(255, 255, 255, 0.3)" : "rgba(10, 10, 10, 0.15)";
 
             gsap.to(pillRef.current, {
-                width: 24,
-                height: 24,
-                scale: isPressedRef.current ? 0.86 : 1,
+                width: 8,
+                height: 8,
+                scale: isPressedRef.current ? 0.8 : 1,
                 padding: 0,
                 borderRadius: 9999,
-                backgroundColor: "transparent",
-                borderColor: ringBorder,
-                borderWidth: 1,
+                backgroundColor: dotColor,
+                borderColor: borderColor,
+                borderWidth: 0,
                 opacity: 1,
                 duration: 0.2,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
-
-            gsap.to(dotRef.current, {
-                opacity: 1,
-                scale: 1,
-                backgroundColor: isDarkBg ? "#ffffff" : "#0a0a0a",
-                duration: 0.18,
                 ease: "power2.out",
                 overwrite: "auto",
             });
@@ -430,59 +393,38 @@ export function CustomCursor() {
     const isCopiedState = mode === "copy" && cursorText === "Copiado!";
 
     return (
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-99999 select-none">
+        <div
+            ref={cursorRef}
+            aria-hidden="true"
+            className="pointer-events-none fixed top-0 left-0 z-99999 select-none transform-gpu"
+            style={{ display: "none" }}
+        >
             <div
-                ref={dotWrapperRef}
-                className="pointer-events-none fixed top-0 left-0 will-change-transform"
-                style={{ display: "none" }}
+                ref={pillRef}
+                className="pointer-events-none flex items-center justify-center overflow-hidden rounded-full border border-white/20 shadow-sm will-change-[width,height,transform,background-color,border-color,opacity]"
+                style={{
+                    width: 8,
+                    height: 8,
+                    backgroundColor: isDarkBg ? "#ffffff" : "#0a0a0a",
+                }}
             >
                 <div
-                    ref={dotRef}
-                    className="pointer-events-none rounded-full will-change-transform"
-                    style={{
-                        width: 5,
-                        height: 5,
-                        backgroundColor: isDarkBg ? "#ffffff" : "#0a0a0a",
-                    }}
-                />
-            </div>
-
-            <div
-                ref={followerWrapperRef}
-                className="pointer-events-none fixed top-0 left-0 will-change-transform"
-                style={{ display: "none" }}
-            >
-                <div
-                    ref={pillRef}
-                    className="pointer-events-none flex items-center justify-center overflow-hidden rounded-full border will-change-[width,height,transform,opacity]"
-                    style={{
-                        width: 24,
-                        height: 24,
-                        borderColor: isDarkBg ? "rgba(255, 255, 255, 0.35)" : "rgba(10, 10, 10, 0.25)",
-                        backgroundColor: "transparent",
-                    }}
+                    ref={contentRef}
+                    className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased pointer-events-none select-none"
+                    style={{ transform: "scale(0.7)", opacity: 0 }}
                 >
-                    <div
-                        ref={contentRef}
-                        className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-sans font-medium text-white antialiased pointer-events-none select-none"
-                        style={{ transform: "scale(0.7)", opacity: 0 }}
-                    >
-                        {mode === "copy" ? (
-                            isCopiedState ? (
-                                <Check
-                                    className="h-3.5 w-3.5 stroke-[2.5] text-emerald-400 shrink-0"
-                                    aria-hidden="true"
-                                />
-                            ) : (
-                                <Copy className="h-3.5 w-3.5 stroke-2 shrink-0" aria-hidden="true" />
-                            )
-                        ) : mode === "back" ? (
-                            <ArrowLeft className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
+                    {mode === "copy" ? (
+                        isCopiedState ? (
+                            <Check className="h-3.5 w-3.5 stroke-[2.5] text-emerald-400 shrink-0" aria-hidden="true" />
                         ) : (
-                            <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
-                        )}
-                        <span>{cursorText}</span>
-                    </div>
+                            <Copy className="h-3.5 w-3.5 stroke-2 shrink-0" aria-hidden="true" />
+                        )
+                    ) : mode === "back" ? (
+                        <ArrowLeft className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
+                    ) : (
+                        <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.2] shrink-0" aria-hidden="true" />
+                    )}
+                    <span>{cursorText}</span>
                 </div>
             </div>
         </div>

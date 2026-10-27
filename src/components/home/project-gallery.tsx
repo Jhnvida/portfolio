@@ -3,7 +3,6 @@
 import { PROJECTS, type ProjectItem } from "@/data/projects";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type Lenis from "lenis";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -40,7 +39,7 @@ function FullscreenProjectCard({
                             <img
                                 src={project.imageSrc}
                                 alt={`Interface do projeto ${project.title}`}
-                                className="h-full w-full object-cover object-center transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.01]"
+                                className="h-full w-full object-cover object-center transform-gpu transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/card:scale-[1.015]"
                                 onError={() => setImageError(true)}
                             />
                         ) : (
@@ -112,7 +111,7 @@ export function ProjectGallery() {
                             trigger: card,
                             start: "top bottom",
                             end: "top top",
-                            scrub: true,
+                            scrub: 0.6,
                         },
                     },
                 );
@@ -126,90 +125,6 @@ export function ProjectGallery() {
         return () => {
             clearTimeout(timer);
             ctx.revert();
-        };
-    }, []);
-
-    useEffect(() => {
-        let snapTimeout: NodeJS.Timeout | null = null;
-        let isProgrammatic = false;
-
-        const handleScroll = () => {
-            if (snapTimeout) {
-                clearTimeout(snapTimeout);
-            }
-
-            snapTimeout = setTimeout(() => {
-                if (isProgrammatic) {
-                    isProgrammatic = false;
-                    return;
-                }
-
-                const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if (prefersReducedMotion) return;
-
-                const sectionEl = sectionRef.current;
-                if (!sectionEl) return;
-
-                const globalLenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-                if (!globalLenis) return;
-
-                const rect = sectionEl.getBoundingClientRect();
-                const vh = window.innerHeight;
-                const totalCards = PROJECTS.length;
-
-                if (rect.top > vh * 0.4 || rect.bottom < vh * 0.5) return;
-
-                const currentScroll = window.scrollY || document.documentElement.scrollTop;
-                const sectionStartScroll = currentScroll + rect.top;
-
-                const targetPoints: number[] = [];
-                for (let i = 0; i < totalCards; i++) {
-                    targetPoints.push(Math.round(sectionStartScroll + i * vh));
-                }
-
-                const lastCardTarget = targetPoints[totalCards - 1];
-                if (currentScroll > lastCardTarget + 20) return;
-
-                let closestTarget = targetPoints[0];
-                let minDiff = Math.abs(currentScroll - closestTarget);
-
-                for (let i = 1; i < targetPoints.length; i++) {
-                    const diff = Math.abs(currentScroll - targetPoints[i]);
-                    if (diff < minDiff) {
-                        minDiff = diff;
-                        closestTarget = targetPoints[i];
-                    }
-                }
-
-                if (minDiff > 3 && minDiff < vh * 0.4) {
-                    isProgrammatic = true;
-                    globalLenis.scrollTo(closestTarget, {
-                        duration: 0.32,
-                        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -8 * t)),
-                        onComplete: () => {
-                            isProgrammatic = false;
-                        },
-                    });
-                }
-            }, 45);
-        };
-
-        const handleUserInput = () => {
-            isProgrammatic = false;
-            if (snapTimeout) {
-                clearTimeout(snapTimeout);
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        window.addEventListener("wheel", handleUserInput, { passive: true });
-        window.addEventListener("touchstart", handleUserInput, { passive: true });
-
-        return () => {
-            if (snapTimeout) clearTimeout(snapTimeout);
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("wheel", handleUserInput);
-            window.removeEventListener("touchstart", handleUserInput);
         };
     }, []);
 

@@ -2,6 +2,7 @@
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { SITE_CONFIG } from "@/data";
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
@@ -44,8 +45,8 @@ export function Footer() {
             gsap.fromTo(
                 contentEl,
                 {
-                    opacity: 0,
-                    y: -24,
+                    opacity: 0.2,
+                    y: -10,
                 },
                 {
                     opacity: 1,
@@ -55,7 +56,7 @@ export function Footer() {
                         trigger: mainEl,
                         start: "bottom bottom",
                         end: () => `+=${footerEl.offsetHeight}`,
-                        scrub: true,
+                        scrub: 0.5,
                         invalidateOnRefresh: true,
                     },
                 },
@@ -85,22 +86,22 @@ export function Footer() {
         if (emailTextRef.current && !prefersReducedMotion) {
             gsap.killTweensOf(emailTextRef.current);
             gsap.to(emailTextRef.current, {
-                y: -6,
+                y: -MOTION.distance.micro * 2,
                 opacity: 0,
-                duration: 0.16,
-                ease: "power2.in",
+                duration: MOTION.duration.fast,
+                ease: MOTION.ease.exit,
                 onComplete: () => {
                     setDisplayText(nextText);
                     onTransition?.();
                     if (!emailTextRef.current) return;
                     gsap.fromTo(
                         emailTextRef.current,
-                        { y: 6, opacity: 0 },
+                        { y: MOTION.distance.micro * 2, opacity: 0 },
                         {
                             y: 0,
                             opacity: 1,
-                            duration: 0.28,
-                            ease: "power3.out",
+                            duration: MOTION.duration.normal,
+                            ease: MOTION.ease.entrance,
                             clearProps: "transform,opacity",
                         },
                     );
@@ -145,7 +146,7 @@ export function Footer() {
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (lenis) {
-            lenis.scrollTo(0, { duration: prefersReducedMotion ? 0 : 1.15 });
+            lenis.scrollTo(0, { duration: prefersReducedMotion ? 0 : MOTION.duration.scroll });
         } else {
             scrollTo(0);
             window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
@@ -155,12 +156,13 @@ export function Footer() {
     const handleScrollToSection = (e: React.MouseEvent, targetId: string) => {
         if (pathname === "/") {
             e.preventDefault();
+            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
                 if (lenis) {
-                    lenis.scrollTo(targetEl, { duration: 1.15 });
+                    lenis.scrollTo(targetEl, { duration: prefersReducedMotion ? 0 : MOTION.duration.scroll });
                 } else {
-                    targetEl.scrollIntoView({ behavior: "smooth" });
+                    targetEl.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
                 }
             }
         }
@@ -172,7 +174,7 @@ export function Footer() {
         const targetEl = document.getElementById("contato-info") || footerRef.current;
 
         if (lenis) {
-            lenis.scrollTo("bottom", { duration: prefersReducedMotion ? 0 : 1.15 });
+            lenis.scrollTo("bottom", { duration: prefersReducedMotion ? 0 : MOTION.duration.scroll });
         } else if (targetEl) {
             targetEl.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
         } else {

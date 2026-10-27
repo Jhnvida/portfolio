@@ -2,6 +2,7 @@
 
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { SITE_CONFIG } from "@/data";
+import { MOTION } from "@/lib/motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -16,7 +17,7 @@ export function Header() {
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
             if (lenis) {
-                lenis.scrollTo(0, { duration: prefersReducedMotion ? 0 : 1.15 });
+                lenis.scrollTo(0, { duration: prefersReducedMotion ? 0 : MOTION.duration.scroll });
             } else {
                 scrollTo(0);
                 window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
@@ -31,7 +32,7 @@ export function Header() {
 
             if (targetId === "contato-info" || targetId === "contato") {
                 if (lenis) {
-                    lenis.scrollTo("bottom", { duration: prefersReducedMotion ? 0 : 1.15 });
+                    lenis.scrollTo("bottom", { duration: prefersReducedMotion ? 0 : MOTION.duration.scroll });
                     return;
                 }
             }
@@ -41,7 +42,7 @@ export function Header() {
                 if (lenis) {
                     lenis.scrollTo(targetEl, {
                         offset: 0,
-                        duration: prefersReducedMotion ? 0 : 1.15,
+                        duration: prefersReducedMotion ? 0 : MOTION.duration.scroll,
                     });
                 } else {
                     targetEl.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });

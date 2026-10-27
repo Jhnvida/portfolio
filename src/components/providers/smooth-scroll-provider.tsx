@@ -1,5 +1,6 @@
 "use client";
 
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -29,7 +30,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         const isReducedMotion = reducedMotionQuery.matches;
 
         const lenis = new Lenis({
-            duration: isReducedMotion ? 0 : 1.15,
+            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
             easing: isReducedMotion ? (t) => t : (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: "vertical",
             gestureOrientation: "vertical",
@@ -76,12 +77,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                     const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
                     if (isFooter) {
                         lenis.scrollTo("bottom", {
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     } else {
                         lenis.scrollTo(targetElement as HTMLElement, {
                             offset: 0,
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     }
                     try {
@@ -98,7 +99,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                 lenis.options.duration = 0;
                 lenis.options.smoothWheel = false;
             } else {
-                lenis.options.duration = 1.15;
+                lenis.options.duration = MOTION.duration.scroll;
                 lenis.options.smoothWheel = true;
             }
         };
@@ -141,12 +142,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                     const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
                     if (isFooter) {
                         lenisRef.current.scrollTo("bottom", {
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     } else {
                         lenisRef.current.scrollTo(targetElement, {
                             offset: 0,
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     }
                 }
@@ -156,12 +157,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                     const isFooter = targetElement.tagName === "FOOTER" || targetElement.closest("footer");
                     if (isFooter) {
                         lenisRef.current.scrollTo("bottom", {
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     } else {
                         lenisRef.current.scrollTo(targetElement, {
                             offset: 0,
-                            duration: isReducedMotion ? 0 : 1.15,
+                            duration: isReducedMotion ? 0 : MOTION.duration.scroll,
                         });
                     }
                 }

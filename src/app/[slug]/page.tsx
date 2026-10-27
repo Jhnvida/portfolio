@@ -74,7 +74,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                                     <span>Acessar repositório no GitHub</span>
                                     <ArrowUpRight
                                         aria-hidden="true"
-                                        className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                        className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
                                     />
                                 </a>
                             </div>

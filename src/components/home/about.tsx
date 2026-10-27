@@ -1,5 +1,6 @@
 "use client";
 
+import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
@@ -12,7 +13,12 @@ export function About() {
         gsap.registerPlugin(ScrollTrigger);
 
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion) {
+            if (contentRef.current) {
+                gsap.set(contentRef.current, { opacity: 1, y: 0 });
+            }
+            return;
+        }
 
         const sectionEl = sectionRef.current;
         const contentEl = contentRef.current;
@@ -21,16 +27,17 @@ export function About() {
         const ctx = gsap.context(() => {
             gsap.fromTo(
                 contentEl,
-                { opacity: 0, y: 32 },
+                { opacity: 0, y: MOTION.distance.section },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.9,
-                    ease: "power3.out",
+                    duration: MOTION.duration.entrance,
+                    ease: MOTION.ease.entrance,
+                    clearProps: "transform,opacity",
                     scrollTrigger: {
                         trigger: sectionEl,
                         start: "top 80%",
-                        toggleActions: "play none none reverse",
+                        once: true,
                     },
                 },
             );
