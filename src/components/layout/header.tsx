@@ -62,7 +62,7 @@ export function Header() {
                 <Link
                     href="/"
                     onClick={handleBackToTop}
-                    className="font-sans font-medium text-sm sm:text-[15px] md:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-xs select-none"
+                    className="font-sans font-medium text-sm sm:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-xs select-none"
                     aria-label={`Página inicial de ${SITE_CONFIG.shortName}`}
                 >
                     {SITE_CONFIG.shortName}
@@ -70,7 +70,7 @@ export function Header() {
 
                 <nav
                     aria-label="Navegação principal"
-                    className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 font-sans text-xs sm:text-[13px]"
+                    className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 font-sans text-xs sm:text-sm"
                 >
                     <Link
                         href="/#projetos"

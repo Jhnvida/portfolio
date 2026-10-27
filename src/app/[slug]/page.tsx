@@ -57,7 +57,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                         </p>
                     </div>
 
-                    <div className="space-y-3 pt-6 border-t border-neutral-200/80 font-sans text-xs sm:text-sm text-neutral-500">
+                    <div className="space-y-3 pt-6 border-t border-neutral-200/80 font-sans text-xs sm:text-sm text-neutral-600">
                         <p>
                             {project.context} · {project.year}
                         </p>
@@ -74,7 +74,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                                     <span>Acessar repositório no GitHub</span>
                                     <ArrowUpRight
                                         aria-hidden="true"
-                                        className="h-3.5 w-3.5 shrink-0 text-neutral-500 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                        className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
                                     />
                                 </a>
                             </div>
@@ -95,7 +95,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                             <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Visão Geral
                             </h2>
-                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
+                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-700">
                                 {project.sections.overview}
                             </p>
                         </section>
@@ -104,7 +104,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                             <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Soluções
                             </h2>
-                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
+                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-700">
                                 {project.sections.solutions}
                             </p>
                         </section>
@@ -113,7 +113,7 @@ async function ProjectContent({ params }: ProjectPageProps) {
                             <h2 className="font-heading text-xl sm:text-2xl font-medium tracking-tight text-neutral-950">
                                 Resultados
                             </h2>
-                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-800">
+                            <p className="font-sans text-sm sm:text-base leading-relaxed text-neutral-700">
                                 {project.sections.results}
                             </p>
                         </section>

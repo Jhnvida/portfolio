@@ -15,7 +15,7 @@ export function BackToProjectsLink({ className = "" }: { className?: string }) {
             href="/"
             prefetch={true}
             onClick={handleClick}
-            className={`group inline-flex items-center gap-2 text-xs sm:text-[13px] font-sans font-medium text-neutral-500 transition-colors duration-200 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 ${className}`}
+            className={`group inline-flex items-center gap-2 text-xs sm:text-sm font-sans font-medium text-neutral-600 transition-colors duration-200 hover:text-neutral-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 ${className}`}
         >
             <ArrowLeft
                 aria-hidden="true"

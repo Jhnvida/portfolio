@@ -203,7 +203,7 @@ export function Footer() {
             ref={footerRef}
             id="contato"
             aria-label="Contato e encerramento"
-            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 pt-20 sm:pt-28 md:pt-36 lg:pt-44 xl:pt-48 pb-16 sm:pb-24 md:pb-32 lg:pb-36 xl:pb-40 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
+            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-16 sm:pb-20 md:pb-24 lg:pb-28 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
         >
             <div
                 ref={contentRef}
@@ -211,10 +211,10 @@ export function Footer() {
             >
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
                     <div className="md:col-span-7 space-y-1">
-                        <p className="font-sans text-xs sm:text-[13px] md:text-sm text-neutral-500">
+                        <p className="font-sans text-xs sm:text-sm text-neutral-600">
                             Baseado em {SITE_CONFIG.location}.
                         </p>
-                        <p className="font-sans text-xs sm:text-[13px] md:text-sm font-medium text-neutral-950">
+                        <p className="font-sans text-xs sm:text-sm font-medium text-neutral-950">
                             Disponível para novos projetos.
                         </p>
                     </div>
@@ -222,7 +222,7 @@ export function Footer() {
                     <div className="md:col-span-5 grid grid-cols-2 gap-8 sm:gap-12">
                         <nav
                             aria-label="Navegação do rodapé"
-                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px]"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-sm"
                         >
                             <Link href="/" prefetch={true} onClick={handleBackToTop} className={linkClass}>
                                 Início
@@ -258,7 +258,7 @@ export function Footer() {
                         <nav
                             id="contato-info"
                             aria-label="Redes sociais e contato direto"
-                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-[13px] scroll-mt-6 focus:outline-none"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-sm scroll-mt-6 focus:outline-none"
                             tabIndex={-1}
                         >
                             <a

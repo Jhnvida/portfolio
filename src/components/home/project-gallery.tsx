@@ -65,7 +65,7 @@ function FullscreenProjectCard({
 
                     <div className="relative z-15 flex h-full w-full flex-col justify-end px-6 py-8 sm:px-10 sm:py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 text-white pointer-events-none">
                         <div className="max-w-3xl text-left pointer-events-none">
-                            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white transition-colors duration-200 group-hover/card:text-white/95">
+                            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white transition-colors duration-200 group-hover/card:text-white/95 leading-tight">
                                 {project.title}
                             </h2>
 

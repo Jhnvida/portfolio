@@ -52,7 +52,7 @@ export function About() {
             >
                 <div className="max-w-3xl mx-auto space-y-12 sm:space-y-16">
                     <div className="space-y-6">
-                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight text-neutral-950">
+                        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-950">
                             Sobre
                         </h2>
 
@@ -64,19 +64,19 @@ export function About() {
 
                     <div className="grid grid-cols-2 gap-x-10 sm:gap-x-16 md:gap-x-20 gap-y-10 sm:gap-y-12">
                         <div className="space-y-1.5">
-                            <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-950 tracking-tight block">
+                            <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal tabular-nums text-neutral-950 tracking-tight block">
                                 100%
                             </span>
-                            <span className="font-sans text-xs sm:text-sm text-neutral-500 leading-snug block">
+                            <span className="font-sans text-xs sm:text-sm text-neutral-600 leading-snug block">
                                 Código autoral & sob medida
                             </span>
                         </div>
 
                         <div className="space-y-1.5">
-                            <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-950 tracking-tight block">
+                            <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal tabular-nums text-neutral-950 tracking-tight block">
                                 03
                             </span>
-                            <span className="font-sans text-xs sm:text-sm text-neutral-500 leading-snug block">
+                            <span className="font-sans text-xs sm:text-sm text-neutral-600 leading-snug block">
                                 Projetos em destaque no portfólio
                             </span>
                         </div>
@@ -85,7 +85,7 @@ export function About() {
                             <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-950 tracking-tight block">
                                 Full-stack
                             </span>
-                            <span className="font-sans text-xs sm:text-sm text-neutral-500 leading-snug block">
+                            <span className="font-sans text-xs sm:text-sm text-neutral-600 leading-snug block">
                                 Da concepção à entrega final
                             </span>
                         </div>
@@ -94,7 +94,7 @@ export function About() {
                             <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-950 tracking-tight block">
                                 SP
                             </span>
-                            <span className="font-sans text-xs sm:text-sm text-neutral-500 leading-snug block">
+                            <span className="font-sans text-xs sm:text-sm text-neutral-600 leading-snug block">
                                 Jaguariúna & Campinas (remoto)
                             </span>
                         </div>
