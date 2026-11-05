@@ -58,18 +58,20 @@ export const PROJECTS: ProjectItem[] = [
     {
         slug: "vitrine",
         title: "Vitrine",
-        context: "Micro-SaaS & E-commerce",
+        context: "Micro-SaaS & Creator Economy",
         year: "2026",
         summary:
-            "Plataforma micro-SaaS voltada para pequenos lojistas que vendem pelo Instagram e fecham pedidos pelo WhatsApp. O projeto centraliza o catálogo em um link leve para a bio, permitindo a seleção de produtos e o encaminhamento do pedido formatado diretamente no aplicativo de mensagens.",
+            "Plataforma de Bio Store voltada para criadores de conteúdo e infoprodutores monetizarem sua audiência. Transforma o link da bio em uma loja digital enxuta inspirada em Bento UI, com checkout nativo em segundos via Pix e Cartão e entrega automatizada de arquivos digitais.",
+        imageSrc: "/projects/vitrine.png",
         aspectRatio: "aspect-[16/10]",
+        githubUrl: "https://github.com/Jhnvida/vitrine",
         sections: {
             overview:
-                "Muitos pequenos empreendedores utilizam o Instagram como vitrine principal, mas enfrentam grande atrito na etapa de fechar pedidos: o envio manual de dezenas de fotos ou catálogos pesados em PDF no WhatsApp gera conversas confusas, demora no atendimento e perda frequente de vendas. O Vitrine foi concebido para resolver esse gargalo, oferecendo uma plataforma ágil onde cada lojista tem um link único e leve para a bio, com catálogo online otimizado para celulares.",
+                "Criadores de conteúdo, mentores e profissionais independentes costumam concentrar sua distribuição no Instagram, mas enfrentavam atrito severo para converter seguidores em compradores. O mercado dividia-se entre agregadores de links estáticos, que apenas dispersam o tráfego sem capacidade transacional, e plataformas tradicionais de infoprodutos, cujos checkouts burocráticos e extensos destroem a conversão de microprodutos de impulso (como templates, e-books e planilhas). O Vitrine foi concebido para ocupar esse espaço ideal: transformar o link da bio em uma mini-loja de altíssima velocidade e estética refinada, permitindo que a compra seja concluída em menos de 30 segundos no próprio navegador do aplicativo.",
             solutions:
-                "Desenvolvemos uma experiência de compra prática em que o cliente navega pelos produtos, escolhe variações, adiciona itens ao carrinho e encaminha o pedido pronto e formatado diretamente para a conversa com o vendedor no WhatsApp. Para o lojista, a plataforma conta com um painel administrativo com upload e compressão automática de fotos no navegador antes do envio, métricas de visitas e conversão, além de integração com Stripe para faturamento recorrente com período de testes e tolerância bancária.",
+                "Projetamos uma interface modular e mobile-first orientada pelos princípios de Bento UI, garantindo elegância visual e hierarquia clara para os produtos e links do criador. Eliminamos redirecionamentos externos integrando um drawer de checkout nativo acoplado ao Stripe para liquidação instantânea via Pix dinâmico e cartão de crédito. Implementamos uma esteira de entrega digital automatizada com provisionamento de links de download seguros e temporários via Supabase Storage e confirmações transacionais disparadas pelo Resend, além de um painel de controle protegido com autenticação SSR e monitoramento de saldos e conversões.",
             results:
-                "O projeto encontra-se atualmente em fase de desenvolvimento e estruturação contínua. As principais fundações técnicas - arquitetura moderna no Next.js 16 com Server Actions, segurança e isolamento multi-inquilino via Supabase Row Level Security (RLS) e suíte de testes com Vitest - já foram consolidadas, preparando o sistema para testes e validação com os primeiros lojistas.",
+                "Uma infraestrutura moderna e escalável arquitetada em monorepo Turborepo com Next.js 16 (App Router, Turbopack e Server Actions), TypeScript estrito e Tailwind CSS. A persistência e as regras de negócio são resguardadas por políticas estritas de Row Level Security (RLS) no PostgreSQL do Supabase e rotas autenticadas sob a convenção proxy, cobertas por uma suíte de testes de integração automatizados. Com as etapas de base, modelagem e integração cloud validadas, o projeto encontra-se pronto para a fase de testes com criadores fundadores.",
         },
     },
 ];
