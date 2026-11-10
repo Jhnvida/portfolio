@@ -25,22 +25,64 @@ export function About() {
         if (!sectionEl || !contentEl) return;
 
         const ctx = gsap.context(() => {
-            gsap.fromTo(
-                contentEl,
-                { opacity: 0, y: MOTION.distance.section },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: MOTION.duration.entrance,
-                    ease: MOTION.ease.entrance,
-                    clearProps: "transform,opacity",
-                    scrollTrigger: {
-                        trigger: sectionEl,
-                        start: "top 80%",
-                        once: true,
-                    },
+            const headerBlock = contentEl.querySelector(".space-y-6");
+            const metrics = contentEl.querySelectorAll(".grid > div");
+            const paragraphsBlock = contentEl.querySelector(".space-y-6:last-child, .space-y-6.font-sans");
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionEl,
+                    start: "top 78%",
+                    once: true,
                 },
-            );
+                onComplete: () => {
+                    gsap.set([contentEl, headerBlock, metrics, paragraphsBlock], {
+                        clearProps: "transform,opacity,willChange",
+                    });
+                },
+            });
+
+            if (headerBlock) {
+                tl.fromTo(
+                    headerBlock,
+                    { opacity: 0, y: MOTION.distance.section },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: MOTION.duration.content,
+                        ease: MOTION.ease.entrance,
+                    },
+                );
+            }
+
+            if (metrics.length > 0) {
+                tl.fromTo(
+                    metrics,
+                    { opacity: 0, y: 16 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        stagger: 0.08,
+                        ease: MOTION.ease.smooth,
+                    },
+                    "-=0.45",
+                );
+            }
+
+            if (paragraphsBlock) {
+                tl.fromTo(
+                    paragraphsBlock,
+                    { opacity: 0, y: MOTION.distance.content },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: MOTION.duration.content,
+                        ease: MOTION.ease.smooth,
+                    },
+                    "-=0.4",
+                );
+            }
         }, sectionEl);
 
         return () => ctx.revert();
@@ -90,7 +132,7 @@ export function About() {
 
                         <div className="space-y-1.5">
                             <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-normal text-neutral-950 tracking-tight block">
-                                Full-stack
+                                Completo
                             </span>
                             <span className="font-sans text-xs sm:text-sm text-neutral-600 leading-snug block">
                                 Da concepção à entrega final

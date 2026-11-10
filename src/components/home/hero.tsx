@@ -10,33 +10,76 @@ export function Hero() {
     const descRef = useRef<HTMLParagraphElement>(null);
 
     useEffect(() => {
+        const headingEl = headingRef.current;
+        const descEl = descRef.current;
+        if (!headingEl || !descEl) return;
+
+        const originalHeadingText = headingEl.textContent || "";
+
         const ctx = gsap.context(() => {
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
             if (prefersReducedMotion) {
-                gsap.set([headingRef.current, descRef.current], { y: 0, opacity: 1 });
+                gsap.set([headingEl, descEl], { y: 0, opacity: 1 });
                 return;
             }
 
-            const elements = [headingRef.current, descRef.current].filter(Boolean);
+            const words = originalHeadingText.trim().split(/\s+/);
+            headingEl.innerHTML = "";
+            const wordSpans: HTMLElement[] = [];
 
-            if (elements.length > 0) {
-                gsap.fromTo(
-                    elements,
-                    { y: MOTION.distance.content, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: MOTION.duration.entrance,
-                        stagger: 0.12,
-                        ease: MOTION.ease.entrance,
-                        clearProps: "transform,opacity",
-                    },
-                );
-            }
+            words.forEach((word, i) => {
+                const span = document.createElement("span");
+                span.className = "inline-block will-change-[transform,opacity]";
+                span.textContent = word;
+                headingEl.appendChild(span);
+                wordSpans.push(span);
+
+                if (i < words.length - 1) {
+                    headingEl.appendChild(document.createTextNode(" "));
+                }
+            });
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    gsap.set(wordSpans, { clearProps: "transform,opacity,willChange" });
+                    gsap.set(descEl, { clearProps: "transform,opacity,willChange" });
+                },
+            });
+
+            tl.fromTo(
+                wordSpans,
+                { y: 22, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: MOTION.duration.entrance,
+                    stagger: 0.038,
+                    ease: MOTION.ease.entrance,
+                    delay: 0.12,
+                },
+                0,
+            );
+
+            tl.fromTo(
+                descEl,
+                { y: MOTION.distance.content, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: MOTION.duration.content,
+                    ease: MOTION.ease.smooth,
+                },
+                "-=0.55",
+            );
         }, heroRef);
 
-        return () => ctx.revert();
+        return () => {
+            ctx.revert();
+            if (headingEl) {
+                headingEl.textContent = originalHeadingText;
+            }
+        };
     }, []);
 
     return (

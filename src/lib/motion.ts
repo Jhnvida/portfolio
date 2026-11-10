@@ -1,8 +1,9 @@
 export const MOTION = {
     ease: {
-        entrance: "power3.out",
+        entrance: "power4.out",
+        smooth: "power3.out",
         micro: "power2.out",
-        sharedElement: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        sharedElement: "cubic-bezier(0.16, 1, 0.3, 1)",
         exit: "power2.in",
     },
 
@@ -10,17 +11,17 @@ export const MOTION = {
         instant: 0.08,
         fast: 0.18,
         normal: 0.25,
-        content: 0.65,
-        entrance: 0.75,
-        sharedElement: 0.7,
-        scroll: 1.1,
+        content: 0.75,
+        entrance: 0.9,
+        sharedElement: 0.65,
+        scroll: 1.05,
     },
 
     distance: {
         micro: 2,
-        subtle: 8,
-        content: 16,
-        section: 20,
+        subtle: 6,
+        content: 14,
+        section: 18,
     },
 } as const;
 

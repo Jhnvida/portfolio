@@ -1,5 +1,6 @@
 "use client";
 
+import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { PROJECTS, type ProjectItem } from "@/data/projects";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -82,6 +83,7 @@ function FullscreenProjectCard({
 }
 
 export function ProjectGallery() {
+    const { lenis } = useSmoothScroll();
     const sectionRef = useRef<HTMLElement>(null);
     const cardRefs = useRef<(HTMLElement | null)[]>([]);
     const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -111,7 +113,7 @@ export function ProjectGallery() {
                             trigger: card,
                             start: "top bottom",
                             end: "top top",
-                            scrub: 0.6,
+                            scrub: 0.25,
                         },
                     },
                 );
@@ -127,6 +129,112 @@ export function ProjectGallery() {
             ctx.revert();
         };
     }, []);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion || !lenis || !sectionRef.current) return;
+
+        const sectionEl = sectionRef.current;
+        let settleTimer: NodeJS.Timeout | null = null;
+        let isTouching = false;
+        let isProgrammaticNav = false;
+
+        const handleTouchStart = () => {
+            isTouching = true;
+            if (settleTimer) clearTimeout(settleTimer);
+        };
+
+        const handleTouchEnd = () => {
+            isTouching = false;
+            scheduleSnapCheck();
+        };
+
+        const handleAnchorClick = (e: MouseEvent) => {
+            const anchor = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('a[href*="#"]');
+            if (anchor) {
+                isProgrammaticNav = true;
+                if (settleTimer) clearTimeout(settleTimer);
+                setTimeout(() => {
+                    isProgrammaticNav = false;
+                }, 1400);
+            }
+        };
+
+        window.addEventListener("touchstart", handleTouchStart, { passive: true });
+        window.addEventListener("touchend", handleTouchEnd, { passive: true });
+        window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
+        document.addEventListener("click", handleAnchorClick, { capture: true });
+
+        const scheduleSnapCheck = () => {
+            if (settleTimer) clearTimeout(settleTimer);
+            if (isTouching || isProgrammaticNav) return;
+
+            settleTimer = setTimeout(() => {
+                if (isTouching || isProgrammaticNav) return;
+
+                if (Math.abs(lenis.velocity) > 0.08) {
+                    scheduleSnapCheck();
+                    return;
+                }
+
+                const currentScroll = lenis.scroll;
+                const sectionRect = sectionEl.getBoundingClientRect();
+                const sectionTop = currentScroll + sectionRect.top;
+                const vh = window.innerHeight;
+                const projectCount = PROJECTS.length;
+                const maxSnapScroll = sectionTop + (projectCount - 1) * vh;
+
+                const zoneMargin = 60;
+                if (currentScroll < sectionTop - zoneMargin || currentScroll > maxSnapScroll + zoneMargin) {
+                    return;
+                }
+
+                const targets: number[] = [];
+                for (let i = 0; i < projectCount; i++) {
+                    targets.push(sectionTop + i * vh);
+                }
+
+                let closestTarget = targets[0];
+                let minDistance = Math.abs(currentScroll - targets[0]);
+
+                for (let i = 1; i < targets.length; i++) {
+                    const dist = Math.abs(currentScroll - targets[i]);
+                    if (dist < minDistance) {
+                        minDistance = dist;
+                        closestTarget = targets[i];
+                    }
+                }
+
+                if (minDistance < 4) return;
+
+                if (currentScroll < sectionTop && Math.abs(currentScroll - sectionTop) > vh * 0.3) {
+                    return;
+                }
+                if (currentScroll > maxSnapScroll && Math.abs(currentScroll - maxSnapScroll) > vh * 0.3) {
+                    return;
+                }
+
+                lenis.scrollTo(closestTarget, {
+                    duration: 0.65,
+                    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    lock: false,
+                });
+            }, 180);
+        };
+
+        const unsubscribeScroll = lenis.on("scroll", () => {
+            scheduleSnapCheck();
+        });
+
+        return () => {
+            if (settleTimer) clearTimeout(settleTimer);
+            unsubscribeScroll();
+            window.removeEventListener("touchstart", handleTouchStart);
+            window.removeEventListener("touchend", handleTouchEnd);
+            window.removeEventListener("touchcancel", handleTouchEnd);
+            document.removeEventListener("click", handleAnchorClick, { capture: true });
+        };
+    }, [lenis]);
 
     return (
         <section

@@ -20,16 +20,16 @@ export const PROJECTS: ProjectItem[] = [
     {
         slug: "portfolio",
         title: "Portfólio Pessoal",
-        context: "Website Minimalista",
+        context: "Site Minimalista",
         year: "2026",
         summary:
-            "Website autoral desenvolvido com estética editorial minimalista, tipografia cuidadosa e micro-interações fluidas, priorizando o protagonismo do trabalho e o rigor técnico em acessibilidade.",
+            "Site autoral desenvolvido com estética editorial minimalista, tipografia cuidadosa e microinterações fluidas, priorizando o protagonismo do trabalho e o rigor técnico em acessibilidade.",
         imageSrc: "/projects/portfolio.png",
         aspectRatio: "aspect-[16/10]",
         githubUrl: "https://github.com/Jhnvida/portfolio",
         sections: {
             overview:
-                "Criado com a intenção de romper com templates pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
+                "Criado com a intenção de romper com modelos pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
             solutions:
                 "Unimos o scroll físico suave da biblioteca Lenis com as micro-interações orquestradas no GSAP e uma galeria com carregamento escalonado de projetos. Desenvolvemos também um cursor magnético contextual que reage aos elementos interativos, e estruturamos o site com rotas dinâmicas pré-renderizadas no Next.js 16 para carregamento instantâneo.",
             results:
@@ -52,26 +52,25 @@ export const PROJECTS: ProjectItem[] = [
             solutions:
                 "Construímos uma interface interativa rica que reúne um contador em tempo real calculando a duração exata do relacionamento em anos, meses e dias, um mural de 'Próximos Capítulos' para planejar e marcar metas futuras a dois, e a seção 'A Nossa Cozinha', criada para arquivar receitas culinárias compartilhadas. Toda a gestão de conteúdo é feita por um painel administrativo protegido com autenticação e banco de dados do Supabase.",
             results:
-                "A aplicação alcançou uma experiência de navegação leve e fluida, combinando o novo React Compiler no React 19 para renderização otimizada, transições suaves com Motion e estilos modulares com CSS Modules. O projeto está concluído e com código-fonte aberto no GitHub, servindo como uma demonstração prática de engenharia front-end moderna e sensibilidade de design.",
+                "A aplicação alcançou uma experiência de navegação leve e fluida, combinando o novo React Compiler no React 19 para renderização otimizada, transições suaves com Motion e estilos modulares com CSS Modules. O projeto está concluído e com código-fonte aberto no GitHub, servindo como uma demonstração prática de engenharia de interface moderna e sensibilidade visual.",
         },
     },
     {
         slug: "vitrine",
         title: "Vitrine",
-        context: "Micro-SaaS & Creator Economy",
+        context: "Plataforma Digital & Criadores",
         year: "2026",
         summary:
-            "Plataforma de Bio Store voltada para criadores de conteúdo e infoprodutores monetizarem sua audiência. Transforma o link da bio em uma loja digital enxuta inspirada em Bento UI, com checkout nativo em segundos via Pix e Cartão e entrega automatizada de arquivos digitais.",
+            "Plataforma de loja para bio voltada para criadores de conteúdo e produtores digitais monetizarem sua audiência. Transforma o link da bio em uma loja digital enxuta inspirada em blocos modulares, com pagamento nativo em segundos via Pix e Cartão e entrega automatizada de arquivos digitais.",
         imageSrc: "/projects/vitrine.png",
         aspectRatio: "aspect-[16/10]",
-        githubUrl: "https://github.com/Jhnvida/vitrine",
         sections: {
             overview:
-                "Criadores de conteúdo, mentores e profissionais independentes costumam concentrar sua distribuição no Instagram, mas enfrentavam atrito severo para converter seguidores em compradores. O mercado dividia-se entre agregadores de links estáticos, que apenas dispersam o tráfego sem capacidade transacional, e plataformas tradicionais de infoprodutos, cujos checkouts burocráticos e extensos destroem a conversão de microprodutos de impulso (como templates, e-books e planilhas). O Vitrine foi concebido para ocupar esse espaço ideal: transformar o link da bio em uma mini-loja de altíssima velocidade e estética refinada, permitindo que a compra seja concluída em menos de 30 segundos no próprio navegador do aplicativo.",
+                "Criadores de conteúdo, mentores e profissionais independentes costumam concentrar sua distribuição no Instagram, mas enfrentavam atrito severo para converter seguidores em compradores. O mercado dividia-se entre agregadores de links estáticos, que apenas dispersam o tráfego sem capacidade transacional, e plataformas tradicionais de infoprodutos, cujas etapas burocráticas de pagamento destroem a conversão de compras por impulso (como modelos prontos, livros digitais e planilhas). O Vitrine foi concebido para ocupar esse espaço ideal: transformar o link da bio em uma loja ágil de estética refinada, permitindo que a compra seja concluída em menos de 30 segundos no próprio navegador do aplicativo.",
             solutions:
-                "Projetamos uma interface modular e mobile-first orientada pelos princípios de Bento UI, garantindo elegância visual e hierarquia clara para os produtos e links do criador. Eliminamos redirecionamentos externos integrando um drawer de checkout nativo acoplado ao Stripe para liquidação instantânea via Pix dinâmico e cartão de crédito. Implementamos uma esteira de entrega digital automatizada com provisionamento de links de download seguros e temporários via Supabase Storage e confirmações transacionais disparadas pelo Resend, além de um painel de controle protegido com autenticação SSR e monitoramento de saldos e conversões.",
+                "Projetamos uma interface modular pensada prioritariamente para celular e orientada por blocos visuais claros, garantindo elegância e hierarquia intuitiva para os produtos e links do criador. Eliminamos redirecionamentos externos integrando um painel de pagamento nativo acoplado ao Stripe para liquidação instantânea via Pix dinâmico e cartão de crédito. Implementamos uma esteira de entrega digital automatizada com fornecimento de links de download seguros e temporários em armazenamento em nuvem e confirmações transacionais disparadas por e-mail, além de um painel de controle protegido com autenticação segura e monitoramento de saldos e conversões.",
             results:
-                "Uma infraestrutura moderna e escalável arquitetada em monorepo Turborepo com Next.js 16 (App Router, Turbopack e Server Actions), TypeScript estrito e Tailwind CSS. A persistência e as regras de negócio são resguardadas por políticas estritas de Row Level Security (RLS) no PostgreSQL do Supabase e rotas autenticadas sob a convenção proxy, cobertas por uma suíte de testes de integração automatizados. Com as etapas de base, modelagem e integração cloud validadas, o projeto encontra-se pronto para a fase de testes com criadores fundadores.",
+                "Uma infraestrutura moderna e escalável construída com Next.js 16, TypeScript e Tailwind CSS. A persistência e as regras de negócio são resguardadas por políticas estritas de segurança de dados no banco de dados e rotas protegidas, cobertas por uma suíte de testes de integração automatizados. Com as etapas de base, modelagem e integração em nuvem validadas, o projeto encontra-se pronto para a fase de testes com criadores fundadores.",
         },
     },
 ];

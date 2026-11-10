@@ -142,7 +142,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     const tween = gsap.to(anim, {
                         progress: 1,
                         duration: MOTION.duration.sharedElement,
-                        ease: MOTION.ease.entrance,
+                        ease: MOTION.ease.sharedElement,
                         onUpdate: () => {
                             if (!proxyEl || !el) return;
 

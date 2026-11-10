@@ -312,8 +312,8 @@ export function CustomCursor() {
                 borderColor: "rgba(255, 255, 255, 0.25)",
                 borderWidth: 1,
                 opacity: 1,
-                duration: 0.24,
-                ease: "power3.out",
+                duration: 0.26,
+                ease: MOTION.ease.smooth,
                 overwrite: "auto",
             });
 
@@ -322,7 +322,7 @@ export function CustomCursor() {
                 scale: 1,
                 duration: 0.18,
                 delay: 0.04,
-                ease: "power2.out",
+                ease: MOTION.ease.micro,
                 overwrite: "auto",
             });
 
@@ -347,8 +347,8 @@ export function CustomCursor() {
                 borderColor: borderColor,
                 borderWidth: 0,
                 opacity: 1,
-                duration: 0.2,
-                ease: "power2.out",
+                duration: 0.22,
+                ease: MOTION.ease.smooth,
                 overwrite: "auto",
             });
 
@@ -373,8 +373,8 @@ export function CustomCursor() {
                 borderColor: borderColor,
                 borderWidth: 0,
                 opacity: 1,
-                duration: 0.2,
-                ease: "power2.out",
+                duration: 0.22,
+                ease: MOTION.ease.smooth,
                 overwrite: "auto",
             });
 

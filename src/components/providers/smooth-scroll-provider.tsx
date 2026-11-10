@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import React, { createContext, useContext, useEffect, useMemo, useRef } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 interface SmoothScrollContextType {
     lenis: Lenis | null;
@@ -21,6 +21,7 @@ export const useSmoothScroll = () => useContext(SmoothScrollContext);
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
     const lenisRef = useRef<Lenis | null>(null);
+    const [lenisState, setLenisState] = useState<Lenis | null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -41,6 +42,8 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         });
 
         lenisRef.current = lenis;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setLenisState(lenis);
         (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
         lenis.on("scroll", ScrollTrigger.update);
@@ -110,6 +113,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
             gsap.ticker.remove(handleTicker);
             lenis.destroy();
             lenisRef.current = null;
+            setLenisState(null);
             document.removeEventListener("click", handleAnchorClick);
             reducedMotionQuery.removeEventListener("change", handleReducedMotionChange);
             delete (window as unknown as { __lenis?: Lenis }).__lenis;
@@ -177,9 +181,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     const contextValue = useMemo<SmoothScrollContextType>(() => {
         return {
-            get lenis() {
-                return lenisRef.current;
-            },
+            lenis: lenisState,
             scrollTo: (target: string | number | HTMLElement, options?: Parameters<Lenis["scrollTo"]>[1]) => {
                 if (lenisRef.current) {
                     lenisRef.current.scrollTo(target, options);
@@ -189,7 +191,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
                 }
             },
         };
-    }, []);
+    }, [lenisState]);
 
     return <SmoothScrollContext.Provider value={contextValue}>{children}</SmoothScrollContext.Provider>;
 }

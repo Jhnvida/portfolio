@@ -56,7 +56,7 @@ export function Footer() {
                         trigger: mainEl,
                         start: "bottom bottom",
                         end: () => `+=${footerEl.offsetHeight}`,
-                        scrub: 0.5,
+                        scrub: 0.25,
                         invalidateOnRefresh: true,
                     },
                 },
