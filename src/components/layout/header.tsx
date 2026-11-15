@@ -3,73 +3,13 @@
 import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { SITE_CONFIG } from "@/data";
 import { MOTION } from "@/lib/motion";
-import gsap from "gsap";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
 export function Header() {
     const pathname = usePathname();
     const { lenis, scrollTo } = useSmoothScroll();
-    const headerRef = useRef<HTMLElement>(null);
-    const logoRef = useRef<HTMLAnchorElement>(null);
-    const navRef = useRef<HTMLElement>(null);
-    const hasAnimatedRef = useRef(false);
-
-    useEffect(() => {
-        if (hasAnimatedRef.current) return;
-        hasAnimatedRef.current = true;
-
-        const ctx = gsap.context(() => {
-            const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-            if (prefersReducedMotion) {
-                if (logoRef.current) gsap.set(logoRef.current, { y: 0, opacity: 1 });
-                if (navRef.current) gsap.set(navRef.current.children, { y: 0, opacity: 1 });
-                return;
-            }
-
-            const navItems = navRef.current ? Array.from(navRef.current.children) : [];
-
-            const tl = gsap.timeline({
-                defaults: {
-                    ease: MOTION.ease.smooth,
-                },
-            });
-
-            if (logoRef.current) {
-                tl.fromTo(
-                    logoRef.current,
-                    { y: -6, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.75,
-                        delay: 0.05,
-                        clearProps: "transform,opacity",
-                    },
-                    0,
-                );
-            }
-
-            if (navItems.length > 0) {
-                tl.fromTo(
-                    navItems,
-                    { y: -5, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.7,
-                        stagger: 0.05,
-                        delay: 0.1,
-                        clearProps: "transform,opacity",
-                    },
-                    0,
-                );
-            }
-        }, headerRef);
-
-        return () => ctx.revert();
-    }, []);
 
     const handleBackToTop = (e: React.MouseEvent) => {
         if (pathname === "/") {
@@ -116,23 +56,21 @@ export function Header() {
 
     return (
         <header
-            ref={headerRef}
             aria-label="Cabeçalho do site"
             className="w-full bg-surface-subtle text-neutral-950 pt-6 sm:pt-8 md:pt-10 pb-4"
         >
             <div className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 flex items-center justify-between">
                 <Link
-                    ref={logoRef}
                     href="/"
                     onClick={handleBackToTop}
-                    className="font-sans font-medium text-sm sm:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-xs select-none"
+                    className="animate-header-item font-sans font-medium text-sm sm:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-xs select-none will-change-[transform,opacity]"
+                    style={{ animationDelay: "50ms" }}
                     aria-label={`Página inicial de ${SITE_CONFIG.shortName}`}
                 >
                     {SITE_CONFIG.shortName}
                 </Link>
 
                 <nav
-                    ref={navRef}
                     aria-label="Navegação principal"
                     className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 font-sans text-xs sm:text-sm"
                 >
@@ -140,7 +78,8 @@ export function Header() {
                         href="/#projetos"
                         prefetch={true}
                         onClick={(e) => handleScrollToSection(e, "projetos")}
-                        className={navLinkClass}
+                        className={`${navLinkClass} animate-header-item will-change-[transform,opacity]`}
+                        style={{ animationDelay: "100ms" }}
                     >
                         Trabalhos
                     </Link>
@@ -149,7 +88,8 @@ export function Header() {
                         href="/#sobre"
                         prefetch={true}
                         onClick={(e) => handleScrollToSection(e, "sobre")}
-                        className={navLinkClass}
+                        className={`${navLinkClass} animate-header-item will-change-[transform,opacity]`}
+                        style={{ animationDelay: "150ms" }}
                     >
                         Sobre
                     </Link>
@@ -158,7 +98,8 @@ export function Header() {
                         href="/#contato-info"
                         prefetch={true}
                         onClick={(e) => handleScrollToSection(e, "contato-info")}
-                        className={navLinkClass}
+                        className={`${navLinkClass} animate-header-item will-change-[transform,opacity]`}
+                        style={{ animationDelay: "200ms" }}
                     >
                         Contato
                     </Link>

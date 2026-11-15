@@ -42,6 +42,19 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR" className={`${outfit.variable} ${inter.variable} h-full antialiased`}>
+            <head>
+                <noscript>
+                    <style>{`
+                        .animate-hero-word,
+                        .animate-hero-content,
+                        .animate-header-item {
+                            animation: none !important;
+                            opacity: 1 !important;
+                            transform: none !important;
+                        }
+                    `}</style>
+                </noscript>
+            </head>
             <body className="flex min-h-full flex-col bg-surface-subtle text-neutral-950 overflow-x-clip selection:bg-neutral-950 selection:text-white">
                 <SmoothScrollProvider>
                     <PageTransitionProvider>
