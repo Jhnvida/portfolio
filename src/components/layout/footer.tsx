@@ -4,28 +4,35 @@ import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import { SITE_CONFIG } from "@/data";
 import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger, CustomEase);
+    try {
+        CustomEase.create("tickerEase", "0.16, 1, 0.3, 1");
+    } catch {}
+}
 
 export function Footer() {
     const pathname = usePathname();
     const { scrollTo, lenis } = useSmoothScroll();
     const footerRef = useRef<HTMLElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-    const emailTextRef = useRef<HTMLSpanElement>(null);
+    const slot1Ref = useRef<HTMLSpanElement>(null);
+    const slot2Ref = useRef<HTMLSpanElement>(null);
     const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const email = SITE_CONFIG.email;
-    const initialText = "E-mail";
     const confirmedText = "Te vejo em breve";
 
-    const [displayText, setDisplayText] = useState(initialText);
     const [isCopied, setIsCopied] = useState(false);
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, CustomEase);
 
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (prefersReducedMotion) {
@@ -80,39 +87,6 @@ export function Footer() {
         };
     }, []);
 
-    const animateTextChange = (nextText: string, onTransition?: () => void) => {
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        if (emailTextRef.current && !prefersReducedMotion) {
-            gsap.killTweensOf(emailTextRef.current);
-            gsap.to(emailTextRef.current, {
-                y: -MOTION.distance.micro * 2,
-                opacity: 0,
-                duration: MOTION.duration.fast,
-                ease: MOTION.ease.exit,
-                onComplete: () => {
-                    setDisplayText(nextText);
-                    onTransition?.();
-                    if (!emailTextRef.current) return;
-                    gsap.fromTo(
-                        emailTextRef.current,
-                        { y: MOTION.distance.micro * 2, opacity: 0 },
-                        {
-                            y: 0,
-                            opacity: 1,
-                            duration: MOTION.duration.normal,
-                            ease: MOTION.ease.entrance,
-                            clearProps: "transform,opacity",
-                        },
-                    );
-                },
-            });
-        } else {
-            setDisplayText(nextText);
-            onTransition?.();
-        }
-    };
-
     const handleClickEmail = async (e?: React.MouseEvent) => {
         if (e) e.preventDefault();
 
@@ -131,13 +105,96 @@ export function Footer() {
             clearTimeout(resetTimeoutRef.current);
         }
 
+        if (typeof window !== "undefined") {
+            window.dispatchEvent(
+                new CustomEvent("cursor:set", {
+                    detail: { mode: "copy", text: "Copiado!" },
+                }),
+            );
+        }
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
         if (!isCopied) {
             setIsCopied(true);
-            animateTextChange(confirmedText);
+
+            if (slot1Ref.current && slot2Ref.current && !prefersReducedMotion) {
+                gsap.killTweensOf([slot1Ref.current, slot2Ref.current]);
+
+                const tl = gsap.timeline();
+                tl.to(
+                    slot1Ref.current,
+                    {
+                        yPercent: -100,
+                        opacity: 0,
+                        duration: 0.45,
+                        ease: "tickerEase",
+                    },
+                    0,
+                );
+                tl.fromTo(
+                    slot2Ref.current,
+                    {
+                        yPercent: 100,
+                        opacity: 0,
+                    },
+                    {
+                        yPercent: 0,
+                        opacity: 1,
+                        duration: 0.45,
+                        ease: "tickerEase",
+                    },
+                    0,
+                );
+            } else if (slot1Ref.current && slot2Ref.current) {
+                gsap.set(slot1Ref.current, { yPercent: -100, opacity: 0 });
+                gsap.set(slot2Ref.current, { yPercent: 0, opacity: 1 });
+            }
         }
 
         resetTimeoutRef.current = setTimeout(() => {
-            animateTextChange(initialText, () => setIsCopied(false));
+            setIsCopied(false);
+
+            if (typeof window !== "undefined") {
+                window.dispatchEvent(
+                    new CustomEvent("cursor:set", {
+                        detail: { mode: "copy", text: "Copiar e-mail" },
+                    }),
+                );
+            }
+
+            if (slot1Ref.current && slot2Ref.current && !prefersReducedMotion) {
+                gsap.killTweensOf([slot1Ref.current, slot2Ref.current]);
+
+                const tl = gsap.timeline();
+                tl.to(
+                    slot2Ref.current,
+                    {
+                        yPercent: -100,
+                        opacity: 0,
+                        duration: 0.45,
+                        ease: "tickerEase",
+                    },
+                    0,
+                );
+                tl.fromTo(
+                    slot1Ref.current,
+                    {
+                        yPercent: 100,
+                        opacity: 0,
+                    },
+                    {
+                        yPercent: 0,
+                        opacity: 1,
+                        duration: 0.45,
+                        ease: "tickerEase",
+                    },
+                    0,
+                );
+            } else if (slot1Ref.current && slot2Ref.current) {
+                gsap.set(slot1Ref.current, { yPercent: 0, opacity: 1 });
+                gsap.set(slot2Ref.current, { yPercent: 100, opacity: 0 });
+            }
         }, 3200);
     };
 
@@ -186,14 +243,19 @@ export function Footer() {
     };
 
     useEffect(() => {
-        const textEl = emailTextRef.current;
+        if (slot2Ref.current) {
+            gsap.set(slot2Ref.current, { yPercent: 100, opacity: 0 });
+        }
+
+        const s1 = slot1Ref.current;
+        const s2 = slot2Ref.current;
+
         return () => {
             if (resetTimeoutRef.current) {
                 clearTimeout(resetTimeoutRef.current);
             }
-            if (textEl) {
-                gsap.killTweensOf(textEl);
-            }
+            if (s1) gsap.killTweensOf(s1);
+            if (s2) gsap.killTweensOf(s2);
         };
     }, []);
 
@@ -205,13 +267,47 @@ export function Footer() {
             ref={footerRef}
             id="contato"
             aria-label="Contato e encerramento"
-            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-16 sm:pb-20 md:pb-24 lg:pb-28 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
+            className="sticky bottom-0 z-0 w-full bg-surface-subtle text-neutral-950 pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-16 sm:pb-20 md:pb-24 lg:pb-28 border-t border-neutral-200/80 scroll-mt-20 overflow-hidden"
         >
             <div
                 ref={contentRef}
-                className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform]"
+                className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform] space-y-12 sm:space-y-16 md:space-y-20"
             >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
+                {/* Elemento de E-mail em Evidência com Rolling Ticker */}
+                <div id="contato-info" className="scroll-mt-12 focus:outline-none" tabIndex={-1}>
+                    <button
+                        type="button"
+                        onClick={handleClickEmail}
+                        data-cursor="copy"
+                        data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                        title="Copiar e-mail"
+                        aria-label={`Copiar e-mail: ${email}`}
+                        className="group relative block text-left font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-neutral-950 transition-colors duration-200 hover:text-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-xs select-none"
+                    >
+                        {/* Container com altura delimitada e overflow hidden para o efeito slot machine */}
+                        <span className="relative block overflow-hidden leading-[1.12] sm:leading-[1.1] py-1">
+                            {/* Slot 1: E-mail */}
+                            <span
+                                ref={slot1Ref}
+                                className="block will-change-[transform,opacity] break-all sm:break-normal"
+                            >
+                                {email}
+                            </span>
+
+                            {/* Slot 2: Confirmação ("Te vejo em breve") */}
+                            <span
+                                ref={slot2Ref}
+                                aria-hidden={!isCopied}
+                                className="absolute inset-0 block will-change-[transform,opacity] select-none pointer-events-none opacity-0"
+                            >
+                                {confirmedText}
+                            </span>
+                        </span>
+                    </button>
+                </div>
+
+                {/* Grade de Links e Informações */}
+                <div className="pt-8 sm:pt-10 border-t border-neutral-200/80 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
                     <div className="md:col-span-7 space-y-1">
                         <p className="font-sans text-xs sm:text-sm text-neutral-600">
                             Baseado em {SITE_CONFIG.location}.
@@ -258,10 +354,8 @@ export function Footer() {
                         </nav>
 
                         <nav
-                            id="contato-info"
-                            aria-label="Redes sociais e contato direto"
-                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-sm scroll-mt-6 focus:outline-none"
-                            tabIndex={-1}
+                            aria-label="Redes sociais"
+                            className="flex flex-col space-y-2.5 sm:space-y-3 font-sans text-xs sm:text-sm"
                         >
                             <a
                                 href={SITE_CONFIG.social.linkedin}
@@ -280,19 +374,6 @@ export function Footer() {
                             >
                                 GitHub
                             </a>
-
-                            <button
-                                type="button"
-                                onClick={handleClickEmail}
-                                aria-label={`Copiar e-mail: ${email}`}
-                                className={`text-left ${linkClass} ${
-                                    isCopied ? "text-emerald-600 hover:text-emerald-700 font-medium" : ""
-                                }`}
-                            >
-                                <span ref={emailTextRef} className="inline-block will-change-transform">
-                                    {displayText}
-                                </span>
-                            </button>
                         </nav>
                     </div>
                 </div>

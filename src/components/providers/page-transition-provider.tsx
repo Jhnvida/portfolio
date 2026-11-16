@@ -119,74 +119,77 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
             window.scrollTo(0, 0);
 
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    if (!isTransitioningRef.current || activeSlugRef.current !== slug || !el) {
-                        return;
-                    }
+                if (!isTransitioningRef.current || activeSlugRef.current !== slug || !el) {
+                    return;
+                }
 
-                    if (!proxyContainerRef.current || !activeTransitionRef.current) {
-                        safeCleanup();
-                        return;
-                    }
+                if (!proxyContainerRef.current || !activeTransitionRef.current) {
+                    safeCleanup();
+                    return;
+                }
 
-                    const origin = activeTransitionRef.current.rect;
-                    const originRadius = parseFloat(origin.borderRadius) || 0;
-                    const proxyEl = proxyContainerRef.current;
+                const origin = activeTransitionRef.current.rect;
+                const originRadius = parseFloat(origin.borderRadius) || 0;
+                const proxyEl = proxyContainerRef.current;
 
-                    animationTimerRef.current = setTimeout(() => {
-                        safeCleanup();
-                    }, 1500);
+                const destRect = el.getBoundingClientRect();
+                const destStyle = window.getComputedStyle(el);
+                const destRadius = parseFloat(destStyle.borderRadius) || 0;
 
-                    const anim = { progress: 0 };
+                const deltaX = destRect.left - origin.left;
+                const deltaY = destRect.top - origin.top;
+                const deltaW = destRect.width - origin.width;
+                const deltaH = destRect.height - origin.height;
+                const deltaR = destRadius - originRadius;
 
-                    const tween = gsap.to(anim, {
-                        progress: 1,
-                        duration: MOTION.duration.sharedElement,
-                        ease: MOTION.ease.sharedElement,
-                        onUpdate: () => {
-                            if (!proxyEl || !el) return;
+                animationTimerRef.current = setTimeout(() => {
+                    safeCleanup();
+                }, 1000);
 
-                            const liveDest = el.getBoundingClientRect();
-                            const destStyle = window.getComputedStyle(el);
-                            const destRadius = parseFloat(destStyle.borderRadius) || 0;
+                const anim = { progress: 0 };
 
-                            const p = anim.progress;
-                            const curX = origin.left + (liveDest.left - origin.left) * p;
-                            const curY = origin.top + (liveDest.top - origin.top) * p;
-                            const curW = origin.width + (liveDest.width - origin.width) * p;
-                            const curH = origin.height + (liveDest.height - origin.height) * p;
-                            const curR = originRadius + (destRadius - originRadius) * p;
+                const tween = gsap.to(anim, {
+                    progress: 1,
+                    duration: MOTION.duration.sharedElement,
+                    ease: MOTION.ease.sharedElement,
+                    onUpdate: () => {
+                        if (!proxyEl) return;
 
-                            proxyEl.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
-                            proxyEl.style.width = `${curW}px`;
-                            proxyEl.style.height = `${curH}px`;
-                            proxyEl.style.borderRadius = `${curR}px`;
-                        },
-                        onComplete: () => {
-                            if (!proxyEl || !el) {
-                                safeCleanup();
-                                return;
-                            }
+                        const p = anim.progress;
+                        const curX = origin.left + deltaX * p;
+                        const curY = origin.top + deltaY * p;
+                        const curW = origin.width + deltaW * p;
+                        const curH = origin.height + deltaH * p;
 
-                            const finalDest = el.getBoundingClientRect();
-                            const finalStyle = window.getComputedStyle(el);
-                            proxyEl.style.transform = `translate3d(${finalDest.left}px, ${finalDest.top}px, 0)`;
-                            proxyEl.style.width = `${finalDest.width}px`;
-                            proxyEl.style.height = `${finalDest.height}px`;
-                            proxyEl.style.borderRadius = finalStyle.borderRadius;
+                        proxyEl.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
+                        proxyEl.style.width = `${curW}px`;
+                        proxyEl.style.height = `${curH}px`;
+                        if (deltaR !== 0) {
+                            proxyEl.style.borderRadius = `${originRadius + deltaR * p}px`;
+                        }
+                    },
+                    onComplete: () => {
+                        if (!proxyEl || !el) {
+                            safeCleanup();
+                            return;
+                        }
 
-                            el.style.opacity = "1";
-                            setIsDestinationReady(true);
+                        proxyEl.style.transform = `translate3d(${destRect.left}px, ${destRect.top}px, 0)`;
+                        proxyEl.style.width = `${destRect.width}px`;
+                        proxyEl.style.height = `${destRect.height}px`;
+                        proxyEl.style.borderRadius = destStyle.borderRadius;
 
-                            requestAnimationFrame(() => {
-                                el.style.opacity = "";
-                                safeCleanup();
-                            });
-                        },
-                    });
+                        el.style.opacity = "1";
+                        setIsDestinationReady(true);
 
-                    activeTweenRef.current = tween;
+                        requestAnimationFrame(() => {
+                            el.style.opacity = "";
+                            safeCleanup();
+                        });
+                    },
                 });
+
+                activeTweenRef.current = tween;
             });
         },
         [safeCleanup],
