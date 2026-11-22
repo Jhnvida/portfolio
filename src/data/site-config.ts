@@ -13,8 +13,8 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
-    name: "João André Vida da Silva",
-    shortName: "João André",
+    name: "João Vida",
+    shortName: "João Vida",
     role: "Desenvolvedor de Software",
     description:
         "Desenvolvedor de software focado em sites e aplicações web. Criação de interfaces funcionais, sistemas sob medida e atenção à estabilidade técnica.",

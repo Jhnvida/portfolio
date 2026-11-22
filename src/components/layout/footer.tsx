@@ -273,7 +273,6 @@ export function Footer() {
                 ref={contentRef}
                 className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform] space-y-12 sm:space-y-16 md:space-y-20"
             >
-                {/* Elemento de E-mail em Evidência com Rolling Ticker */}
                 <div id="contato-info" className="scroll-mt-12 focus:outline-none" tabIndex={-1}>
                     <button
                         type="button"
@@ -284,9 +283,7 @@ export function Footer() {
                         aria-label={`Copiar e-mail: ${email}`}
                         className="group relative block text-left font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-neutral-950 transition-colors duration-200 hover:text-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-xs select-none"
                     >
-                        {/* Container com altura delimitada e overflow hidden para o efeito slot machine */}
                         <span className="relative block overflow-hidden leading-[1.12] sm:leading-[1.1] py-1">
-                            {/* Slot 1: E-mail */}
                             <span
                                 ref={slot1Ref}
                                 className="block will-change-[transform,opacity] break-all sm:break-normal"
@@ -294,7 +291,6 @@ export function Footer() {
                                 {email}
                             </span>
 
-                            {/* Slot 2: Confirmação ("Te vejo em breve") */}
                             <span
                                 ref={slot2Ref}
                                 aria-hidden={!isCopied}
@@ -306,7 +302,6 @@ export function Footer() {
                     </button>
                 </div>
 
-                {/* Grade de Links e Informações */}
                 <div className="pt-8 sm:pt-10 border-t border-neutral-200/80 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 justify-between">
                     <div className="md:col-span-7 space-y-1">
                         <p className="font-sans text-xs sm:text-sm text-neutral-600">

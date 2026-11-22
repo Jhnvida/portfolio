@@ -92,7 +92,7 @@ export function About() {
         <section
             ref={sectionRef}
             id="sobre"
-            aria-label="Sobre João André"
+            aria-label="Sobre João Vida"
             className="relative w-full bg-surface-subtle text-neutral-950 py-24 sm:py-32 md:py-40 scroll-mt-12 overflow-hidden"
         >
             <div
@@ -151,9 +151,9 @@ export function About() {
 
                     <div className="space-y-6 font-sans text-sm sm:text-base leading-relaxed text-neutral-700">
                         <p>
-                            Sou o João André, desenvolvedor de software. Encaro cada projeto não como uma simples
-                            entrega de tarefas, mas como a construção de algo que precisa fazer sentido prático, ser
-                            intuitivo de usar e permanecer estável ao longo do tempo.
+                            Sou o João Vida, desenvolvedor de software. Encaro cada projeto não como uma simples entrega
+                            de tarefas, mas como a construção de algo que precisa fazer sentido prático, ser intuitivo
+                            de usar e permanecer estável ao longo do tempo.
                         </p>
 
                         <p>

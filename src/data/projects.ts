@@ -56,21 +56,22 @@ export const PROJECTS: ProjectItem[] = [
         },
     },
     {
-        slug: "vitrine",
-        title: "Vitrine",
-        context: "Plataforma Digital & Criadores",
+        slug: "inventario",
+        title: "Inventário Inteligente",
+        context: "Gestão Operacional & IA Local",
         year: "2026",
         summary:
-            "Plataforma de loja para bio voltada para criadores de conteúdo e produtores digitais monetizarem sua audiência. Transforma o link da bio em uma loja digital enxuta inspirada em blocos modulares, com pagamento nativo em segundos via Pix e Cartão e entrega automatizada de arquivos digitais.",
-        imageSrc: "/projects/vitrine.png",
+            "Sistema de gestão de estoque e rastreabilidade operacional que une integridade transacional no PostgreSQL via Supabase a um assistente analítico executado localmente via Ollama com Function Calling.",
+        imageSrc: "/projects/inventario.png",
         aspectRatio: "aspect-[16/10]",
+        githubUrl: "https://github.com/Jhnvida/inventario-tcc",
         sections: {
             overview:
-                "Criadores de conteúdo, mentores e profissionais independentes costumam concentrar sua distribuição no Instagram, mas enfrentavam atrito severo para converter seguidores em compradores. O mercado dividia-se entre agregadores de links estáticos, que apenas dispersam o tráfego sem capacidade transacional, e plataformas tradicionais de infoprodutos, cujas etapas burocráticas de pagamento destroem a conversão de compras por impulso (como modelos prontos, livros digitais e planilhas). O Vitrine foi concebido para ocupar esse espaço ideal: transformar o link da bio em uma loja ágil de estética refinada, permitindo que a compra seja concluída em menos de 30 segundos no próprio navegador do aplicativo.",
+                "O controle de inventário físico em empresas costuma sofrer com dois gargalos críticos: divergências de saldo decorrentes de concorrência operacional e a dificuldade de extrair inteligência ágil a partir de milhares de movimentações diárias. O Inventário Inteligente foi desenvolvido para resolver essa lacuna, unificando catalogação detalhada (SKU, localização física, limites de segurança), auditoria rigorosa de entradas e saídas e fluxos transacionais completos de pedidos de compra e venda em uma plataforma web de alta velocidade.",
             solutions:
-                "Projetamos uma interface modular pensada prioritariamente para celular e orientada por blocos visuais claros, garantindo elegância e hierarquia intuitiva para os produtos e links do criador. Eliminamos redirecionamentos externos integrando um painel de pagamento nativo acoplado ao Stripe para liquidação instantânea via Pix dinâmico e cartão de crédito. Implementamos uma esteira de entrega digital automatizada com fornecimento de links de download seguros e temporários em armazenamento em nuvem e confirmações transacionais disparadas por e-mail, além de um painel de controle protegido com autenticação segura e monitoramento de saldos e conversões.",
+                "Para garantir blindagem contra inconsistências de estoque, todas as operações de movimentação e baixa de pedidos foram modeladas diretamente no PostgreSQL do Supabase por meio de Stored Procedures (RPCs) com transações atômicas ACID. O grande diferencial está na integração de um assistente de IA conversacional executado 100% localmente via Ollama (modelo Llama 3.2), equipado com Function Calling determinístico e guardrails de escopo: o operador pode consultar métricas, análises de curva ABC e previsões de ruptura de estoque em linguagem natural, com segurança de dados garantida e sem dependência de APIs em nuvem.",
             results:
-                "Uma infraestrutura moderna e escalável construída com Next.js 16, TypeScript e Tailwind CSS. A persistência e as regras de negócio são resguardadas por políticas estritas de segurança de dados no banco de dados e rotas protegidas, cobertas por uma suíte de testes de integração automatizados. Com as etapas de base, modelagem e integração em nuvem validadas, o projeto encontra-se pronto para a fase de testes com criadores fundadores.",
+                "Uma solução corporativa robusta e moderna construída com React 19 (aproveitando o React Compiler para eliminar re-renderizações supérfluas), TypeScript rigoroso, Vite 8 e Tailwind CSS v4. A interface conta com painel de controle executivo em tempo real, navegação fluida orquestrada por GSAP e rotas protegidas por autenticação segura. O projeto conta com testes automatizados nativos do Node.js, conformidade estrita de linting com Oxlint e código-fonte público no GitHub.",
         },
     },
 ];
