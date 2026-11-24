@@ -34,7 +34,9 @@ function FullscreenProjectCard({
                     <div
                         ref={imageRef}
                         data-shared-image-container
-                        className="absolute inset-0 h-full w-full overflow-hidden bg-neutral-200 will-change-transform"
+                        className={`absolute inset-0 h-full w-full overflow-hidden bg-neutral-200 ${
+                            index > 0 ? "will-change-transform" : ""
+                        }`}
                     >
                         {hasImage ? (
                             <img
@@ -138,9 +140,11 @@ export function ProjectGallery() {
         let settleTimer: NodeJS.Timeout | null = null;
         let isTouching = false;
         let isProgrammaticNav = false;
+        let isSnapping = false;
 
         const handleTouchStart = () => {
             isTouching = true;
+            isSnapping = false;
             if (settleTimer) clearTimeout(settleTimer);
         };
 
@@ -153,6 +157,7 @@ export function ProjectGallery() {
             const anchor = (e.target as HTMLElement)?.closest<HTMLAnchorElement>('a[href*="#"]');
             if (anchor) {
                 isProgrammaticNav = true;
+                isSnapping = false;
                 if (settleTimer) clearTimeout(settleTimer);
                 setTimeout(() => {
                     isProgrammaticNav = false;
@@ -167,10 +172,10 @@ export function ProjectGallery() {
 
         const scheduleSnapCheck = () => {
             if (settleTimer) clearTimeout(settleTimer);
-            if (isTouching || isProgrammaticNav) return;
+            if (isTouching || isProgrammaticNav || isSnapping) return;
 
             settleTimer = setTimeout(() => {
-                if (isTouching || isProgrammaticNav) return;
+                if (isTouching || isProgrammaticNav || isSnapping) return;
 
                 if (Math.abs(lenis.velocity) > 0.08) {
                     scheduleSnapCheck();
@@ -214,10 +219,14 @@ export function ProjectGallery() {
                     return;
                 }
 
+                isSnapping = true;
                 lenis.scrollTo(closestTarget, {
                     duration: 0.65,
                     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
                     lock: false,
+                    onComplete: () => {
+                        isSnapping = false;
+                    },
                 });
             }, 180);
         };

@@ -34,23 +34,25 @@ export function Header() {
         });
 
         let unsubscribeLenis: (() => void) | undefined;
+        let onNativeScroll: (() => void) | undefined;
+
         if (lenis) {
             const onLenisScroll = (e: { scroll: number }) => {
                 handleScroll(e.scroll);
             };
             lenis.on("scroll", onLenisScroll);
             unsubscribeLenis = () => lenis.off("scroll", onLenisScroll);
+        } else {
+            onNativeScroll = () => {
+                handleScroll(window.scrollY || document.documentElement.scrollTop);
+            };
+            window.addEventListener("scroll", onNativeScroll, { passive: true });
         }
-
-        const onNativeScroll = () => {
-            handleScroll(window.scrollY || document.documentElement.scrollTop);
-        };
-        window.addEventListener("scroll", onNativeScroll, { passive: true });
 
         return () => {
             window.cancelAnimationFrame(initialRaf);
             if (unsubscribeLenis) unsubscribeLenis();
-            window.removeEventListener("scroll", onNativeScroll);
+            if (onNativeScroll) window.removeEventListener("scroll", onNativeScroll);
         };
     }, [lenis, pathname]);
 
@@ -97,7 +99,7 @@ export function Header() {
     return (
         <>
             <div
-                className="w-full h-16 sm:h-[72px] md:h-20 pointer-events-none select-none shrink-0"
+                className="w-full h-16 sm:h-18 md:h-20 pointer-events-none select-none shrink-0"
                 aria-hidden="true"
             />
 
@@ -110,14 +112,14 @@ export function Header() {
                 <div
                     className={`pointer-events-auto flex items-center justify-between motion-reduce:transition-none transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isScrolled
-                            ? "w-full max-w-[calc(100%-1rem)] sm:max-w-[460px] md:max-w-[480px] px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#fafafa]/80 backdrop-blur-md backdrop-saturate-150 border border-neutral-950/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)]"
+                            ? "w-full max-w-[calc(100%-1rem)] sm:max-w-115 md:max-w-120 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-surface-subtle/80 backdrop-blur-md backdrop-saturate-150 border border-neutral-950/8 shadow-[0_8px_30px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)]"
                             : "w-full max-w-360 px-6 md:px-10 lg:px-12 xl:px-16 py-0 bg-transparent border border-transparent shadow-none rounded-none"
                     }`}
                 >
                     <Link
                         href="/"
                         onClick={handleBackToTop}
-                        className="animate-header-item font-sans font-medium text-sm sm:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none will-change-[transform,opacity] whitespace-nowrap"
+                        className="animate-header-item font-sans font-medium text-sm sm:text-base text-neutral-950 tracking-tight transition-opacity hover:opacity-75 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none whitespace-nowrap"
                         style={{ animationDelay: "50ms" }}
                         aria-label={`Página inicial de ${SITE_CONFIG.shortName}`}
                     >
@@ -136,9 +138,9 @@ export function Header() {
                             href="/#projetos"
                             prefetch={true}
                             onClick={(e) => handleScrollToSection(e, "projetos")}
-                            className={`animate-header-item will-change-[transform,opacity] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
+                            className={`animate-header-item transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
                                 isScrolled
-                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/[0.05]"
+                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/5"
                                     : "text-neutral-600 hover:text-neutral-950 py-1"
                             }`}
                             style={{ animationDelay: "100ms" }}
@@ -150,9 +152,9 @@ export function Header() {
                             href="/#sobre"
                             prefetch={true}
                             onClick={(e) => handleScrollToSection(e, "sobre")}
-                            className={`animate-header-item will-change-[transform,opacity] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
+                            className={`animate-header-item transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
                                 isScrolled
-                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/[0.05]"
+                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/5"
                                     : "text-neutral-600 hover:text-neutral-950 py-1"
                             }`}
                             style={{ animationDelay: "150ms" }}
@@ -164,9 +166,9 @@ export function Header() {
                             href="/#contato-info"
                             prefetch={true}
                             onClick={(e) => handleScrollToSection(e, "contato-info")}
-                            className={`animate-header-item will-change-[transform,opacity] transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
+                            className={`animate-header-item transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-subtle rounded-full select-none ${
                                 isScrolled
-                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/[0.05]"
+                                    ? "text-neutral-600 hover:text-neutral-950 px-2 sm:px-2.5 py-1 hover:bg-neutral-950/5"
                                     : "text-neutral-600 hover:text-neutral-950 py-1"
                             }`}
                             style={{ animationDelay: "200ms" }}

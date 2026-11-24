@@ -53,7 +53,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         };
 
         gsap.ticker.add(handleTicker);
-        gsap.ticker.lagSmoothing(500, 33);
+        gsap.ticker.lagSmoothing(0);
 
         const handleAnchorClick = (e: MouseEvent) => {
             const target = e.target as HTMLElement | null;
@@ -111,6 +111,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
         return () => {
             gsap.ticker.remove(handleTicker);
+            lenis.off("scroll", ScrollTrigger.update);
             lenis.destroy();
             lenisRef.current = null;
             setLenisState(null);

@@ -223,15 +223,21 @@ export function CustomCursor() {
             evaluateTarget(e.target);
         };
 
-        let scrollRafId: number | null = null;
+        let lastScrollCheck = 0;
+        let scrollTimer: NodeJS.Timeout | null = null;
         const handleScroll = () => {
             if (!hasMoved.current) return;
-            if (scrollRafId !== null) return;
-            scrollRafId = requestAnimationFrame(() => {
-                scrollRafId = null;
+            const now = performance.now();
+            if (now - lastScrollCheck >= 120) {
+                lastScrollCheck = now;
                 const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y);
                 evaluateTarget(target);
-            });
+            }
+            if (scrollTimer) clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                const target = document.elementFromPoint(mousePos.current.x, mousePos.current.y);
+                evaluateTarget(target);
+            }, 80);
         };
 
         const handleCustomState = (e: Event) => {
@@ -259,8 +265,8 @@ export function CustomCursor() {
         window.addEventListener("cursor:set", handleCustomState as EventListener);
 
         return () => {
-            if (scrollRafId !== null) {
-                cancelAnimationFrame(scrollRafId);
+            if (scrollTimer) {
+                clearTimeout(scrollTimer);
             }
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mousedown", handleMouseDown);
@@ -401,7 +407,7 @@ export function CustomCursor() {
         >
             <div
                 ref={pillRef}
-                className="pointer-events-none flex items-center justify-center overflow-hidden rounded-full border border-white/20 shadow-sm will-change-[width,height,transform,background-color,border-color,opacity]"
+                className="pointer-events-none flex items-center justify-center overflow-hidden rounded-full border border-white/20 shadow-sm will-change-transform"
                 style={{
                     width: 8,
                     height: 8,

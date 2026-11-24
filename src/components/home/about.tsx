@@ -95,10 +95,7 @@ export function About() {
             aria-label="Sobre João Vida"
             className="relative w-full bg-surface-subtle text-neutral-950 py-24 sm:py-32 md:py-40 scroll-mt-12 overflow-hidden"
         >
-            <div
-                ref={contentRef}
-                className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16 will-change-[opacity,transform]"
-            >
+            <div ref={contentRef} className="max-w-360 mx-auto w-full px-6 md:px-10 lg:px-12 xl:px-16">
                 <div className="max-w-3xl mx-auto space-y-12 sm:space-y-16">
                     <div className="space-y-6">
                         <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-neutral-950">

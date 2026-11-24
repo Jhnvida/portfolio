@@ -70,8 +70,12 @@ export function Footer() {
             );
         });
 
+        let resizeTimer: NodeJS.Timeout | null = null;
         const resizeObserver = new ResizeObserver(() => {
-            ScrollTrigger.refresh();
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
         });
 
         resizeObserver.observe(footerEl);
@@ -81,6 +85,7 @@ export function Footer() {
         }, 120);
 
         return () => {
+            if (resizeTimer) clearTimeout(resizeTimer);
             clearTimeout(timer);
             resizeObserver.disconnect();
             ctx.revert();

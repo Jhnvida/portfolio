@@ -15,7 +15,7 @@ export function Hero() {
                         {HEADING_WORDS.map((word, i) => (
                             <React.Fragment key={i}>
                                 <span
-                                    className="inline-block animate-hero-word will-change-[transform,opacity]"
+                                    className="inline-block animate-hero-word"
                                     style={{
                                         animationDelay: `${120 + i * 38}ms`,
                                     }}
@@ -28,7 +28,7 @@ export function Hero() {
                     </h1>
 
                     <p
-                        className="font-sans text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed max-w-3xl text-pretty animate-hero-content will-change-[transform,opacity]"
+                        className="font-sans text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed max-w-3xl text-pretty animate-hero-content"
                         style={{
                             animationDelay: "680ms",
                         }}

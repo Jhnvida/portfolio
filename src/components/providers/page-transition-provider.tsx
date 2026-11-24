@@ -4,7 +4,6 @@ import { useSmoothScroll } from "@/components/providers/smooth-scroll-provider";
 import type { PageTransitionContextType, SharedElementData } from "@/components/transitions/transition-types";
 import { MOTION } from "@/lib/motion";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePathname, useRouter } from "next/navigation";
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 
@@ -128,56 +127,28 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     return;
                 }
 
-                const origin = activeTransitionRef.current.rect;
-                const originRadius = parseFloat(origin.borderRadius) || 0;
                 const proxyEl = proxyContainerRef.current;
-
                 const destRect = el.getBoundingClientRect();
                 const destStyle = window.getComputedStyle(el);
                 const destRadius = parseFloat(destStyle.borderRadius) || 0;
-
-                const deltaX = destRect.left - origin.left;
-                const deltaY = destRect.top - origin.top;
-                const deltaW = destRect.width - origin.width;
-                const deltaH = destRect.height - origin.height;
-                const deltaR = destRadius - originRadius;
 
                 animationTimerRef.current = setTimeout(() => {
                     safeCleanup();
                 }, 1000);
 
-                const anim = { progress: 0 };
-
-                const tween = gsap.to(anim, {
-                    progress: 1,
+                const tween = gsap.to(proxyEl, {
+                    x: destRect.left,
+                    y: destRect.top,
+                    width: destRect.width,
+                    height: destRect.height,
+                    borderRadius: destRadius,
                     duration: MOTION.duration.sharedElement,
                     ease: MOTION.ease.sharedElement,
-                    onUpdate: () => {
-                        if (!proxyEl) return;
-
-                        const p = anim.progress;
-                        const curX = origin.left + deltaX * p;
-                        const curY = origin.top + deltaY * p;
-                        const curW = origin.width + deltaW * p;
-                        const curH = origin.height + deltaH * p;
-
-                        proxyEl.style.transform = `translate3d(${curX}px, ${curY}px, 0)`;
-                        proxyEl.style.width = `${curW}px`;
-                        proxyEl.style.height = `${curH}px`;
-                        if (deltaR !== 0) {
-                            proxyEl.style.borderRadius = `${originRadius + deltaR * p}px`;
-                        }
-                    },
                     onComplete: () => {
                         if (!proxyEl || !el) {
                             safeCleanup();
                             return;
                         }
-
-                        proxyEl.style.transform = `translate3d(${destRect.left}px, ${destRect.top}px, 0)`;
-                        proxyEl.style.width = `${destRect.width}px`;
-                        proxyEl.style.height = `${destRect.height}px`;
-                        proxyEl.style.borderRadius = destStyle.borderRadius;
 
                         el.style.opacity = "1";
                         setIsDestinationReady(true);
@@ -196,13 +167,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
     );
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
-
         if (typeof window !== "undefined") {
             window.dispatchEvent(new CustomEvent("cursor:set", { detail: { mode: "default" } }));
         }
-
-        ScrollTrigger.refresh();
     }, [pathname]);
 
     useEffect(() => {
@@ -349,7 +316,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     ref={proxyContainerRef}
                     data-shared-proxy
                     aria-hidden="true"
-                    className="fixed top-0 left-0 pointer-events-none z-50 overflow-hidden bg-neutral-100 border border-neutral-200 transform-gpu will-change-[transform,width,height,border-radius]"
+                    className="fixed top-0 left-0 pointer-events-none z-50 overflow-hidden bg-neutral-100 border border-neutral-200 transform-gpu will-change-transform"
                     style={{
                         width: activeTransition.rect.width,
                         height: activeTransition.rect.height,
