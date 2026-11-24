@@ -110,14 +110,6 @@ export function Footer() {
             clearTimeout(resetTimeoutRef.current);
         }
 
-        if (typeof window !== "undefined") {
-            window.dispatchEvent(
-                new CustomEvent("cursor:set", {
-                    detail: { mode: "copy", text: "Copiado!" },
-                }),
-            );
-        }
-
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (!isCopied) {
@@ -159,14 +151,6 @@ export function Footer() {
 
         resetTimeoutRef.current = setTimeout(() => {
             setIsCopied(false);
-
-            if (typeof window !== "undefined") {
-                window.dispatchEvent(
-                    new CustomEvent("cursor:set", {
-                        detail: { mode: "copy", text: "Copiar e-mail" },
-                    }),
-                );
-            }
 
             if (slot1Ref.current && slot2Ref.current && !prefersReducedMotion) {
                 gsap.killTweensOf([slot1Ref.current, slot2Ref.current]);
@@ -283,7 +267,7 @@ export function Footer() {
                         type="button"
                         onClick={handleClickEmail}
                         data-cursor="copy"
-                        data-cursor-text={isCopied ? "Copiado!" : "Copiar e-mail"}
+                        data-cursor-text="Copiar e-mail"
                         title="Copiar e-mail"
                         aria-label={`Copiar e-mail: ${email}`}
                         className="group relative block text-left font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-neutral-950 transition-colors duration-200 hover:text-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-4 rounded-xs select-none"

@@ -98,10 +98,7 @@ export function Header() {
 
     return (
         <>
-            <div
-                className="w-full h-16 sm:h-18 md:h-20 pointer-events-none select-none shrink-0"
-                aria-hidden="true"
-            />
+            <div className="w-full h-16 sm:h-18 md:h-20 pointer-events-none select-none shrink-0" aria-hidden="true" />
 
             <header
                 aria-label="Cabeçalho do site"
