@@ -13,6 +13,7 @@ export interface ProjectItem {
     imageSrc?: string;
     aspectRatio: string;
     githubUrl?: string;
+    liveUrl?: string;
     sections: ProjectSections;
 }
 
@@ -27,6 +28,7 @@ export const PROJECTS: ProjectItem[] = [
         imageSrc: "/projects/portfolio.png",
         aspectRatio: "aspect-[16/10]",
         githubUrl: "https://github.com/Jhnvida/portfolio",
+        liveUrl: "https://jhnvida.dev",
         sections: {
             overview:
                 "Criado com a intenção de romper com modelos pré-moldados e a estética padronizada de interfaces geradas por IA, este portfólio aposta em um design editorial autoral, proporções equilibradas e tipografia expressiva. O objetivo foi criar uma presença digital sofisticada que comunique com clareza minha atuação técnica, filosofia de trabalho e projetos selecionados.",
@@ -46,6 +48,7 @@ export const PROJECTS: ProjectItem[] = [
         imageSrc: "/projects/our-journey.png",
         aspectRatio: "aspect-[16/10]",
         githubUrl: "https://github.com/Jhnvida/our-journey",
+        liveUrl: "https://our-journey-jhnvida.vercel.app",
         sections: {
             overview:
                 "Registros de datas marcantes e momentos especiais de um relacionamento costumam ficar dispersos em conversas de chat, rolos de câmera ou galerias de redes sociais. O 'A Nossa Jornada' foi criado com o propósito de reunir essas lembranças em um espaço digital acolhedor, privado e intimista, permitindo que o casal acompanhe sua trajetória em uma linha do tempo cronológica com fotos, datas e relatos afetivos.",

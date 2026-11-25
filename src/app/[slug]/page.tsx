@@ -62,21 +62,39 @@ async function ProjectContent({ params }: ProjectPageProps) {
                             {project.context} · {project.year}
                         </p>
 
-                        {project.githubUrl && (
-                            <div className="pt-1">
-                                <a
-                                    href={project.githubUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group inline-flex items-center gap-1.5 font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-950"
-                                    aria-label={`Ver repositório do projeto no GitHub`}
-                                >
-                                    <span>Acessar repositório no GitHub</span>
-                                    <ArrowUpRight
-                                        aria-hidden="true"
-                                        className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
-                                    />
-                                </a>
+                        {(project.liveUrl || project.githubUrl) && (
+                            <div className="pt-1 flex flex-col space-y-2">
+                                {project.liveUrl && (
+                                    <a
+                                        href={project.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group inline-flex items-center gap-1.5 font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-950 w-fit"
+                                        aria-label={`Acessar site de ${project.title}`}
+                                    >
+                                        <span>Acessar site ao vivo</span>
+                                        <ArrowUpRight
+                                            aria-hidden="true"
+                                            className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                        />
+                                    </a>
+                                )}
+
+                                {project.githubUrl && (
+                                    <a
+                                        href={project.githubUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group inline-flex items-center gap-1.5 font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-950 w-fit"
+                                        aria-label={`Ver repositório do projeto no GitHub`}
+                                    >
+                                        <span>Acessar repositório no GitHub</span>
+                                        <ArrowUpRight
+                                            aria-hidden="true"
+                                            className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                        />
+                                    </a>
+                                )}
                             </div>
                         )}
                     </div>
@@ -121,8 +139,44 @@ async function ProjectContent({ params }: ProjectPageProps) {
                 </div>
             </div>
 
-            <footer className="mt-16 sm:mt-24 pt-8 border-t border-neutral-200/80">
+            <footer className="mt-16 sm:mt-24 pt-8 border-t border-neutral-200/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <BackToProjectsLink />
+
+                {(project.liveUrl || project.githubUrl) && (
+                    <div className="flex flex-wrap items-center gap-6 font-sans text-xs sm:text-sm">
+                        {project.liveUrl && (
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-1.5 font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-950"
+                                aria-label={`Acessar site de ${project.title}`}
+                            >
+                                <span>Acessar site ao vivo</span>
+                                <ArrowUpRight
+                                    aria-hidden="true"
+                                    className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                />
+                            </a>
+                        )}
+
+                        {project.githubUrl && (
+                            <a
+                                href={project.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group inline-flex items-center gap-1.5 font-medium text-neutral-950 underline decoration-neutral-300 underline-offset-4 transition-colors hover:decoration-neutral-950"
+                                aria-label={`Ver repositório do projeto no GitHub`}
+                            >
+                                <span>Acessar repositório no GitHub</span>
+                                <ArrowUpRight
+                                    aria-hidden="true"
+                                    className="h-3.5 w-3.5 shrink-0 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neutral-950"
+                                />
+                            </a>
+                        )}
+                    </div>
+                )}
             </footer>
         </article>
     );
