@@ -28,15 +28,17 @@ export function About() {
             const headerBlock = contentEl.querySelector(".space-y-6");
             const metrics = contentEl.querySelectorAll(".grid > div");
             const paragraphsBlock = contentEl.querySelector(".space-y-6:last-child, .space-y-6.font-sans");
+            const paragraphs = paragraphsBlock ? paragraphsBlock.querySelectorAll("p") : [];
 
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionEl,
-                    start: "top 78%",
+                    start: "top 80%",
                     once: true,
+                    invalidateOnRefresh: true,
                 },
                 onComplete: () => {
-                    gsap.set([contentEl, headerBlock, metrics, paragraphsBlock], {
+                    gsap.set([contentEl, headerBlock, metrics, paragraphsBlock, paragraphs], {
                         clearProps: "transform,opacity,willChange",
                     });
                 },
@@ -45,12 +47,13 @@ export function About() {
             if (headerBlock) {
                 tl.fromTo(
                     headerBlock,
-                    { opacity: 0, y: MOTION.distance.section },
+                    { opacity: 0, y: MOTION.distance.content },
                     {
                         opacity: 1,
                         y: 0,
                         duration: MOTION.duration.content,
-                        ease: MOTION.ease.entrance,
+                        ease: MOTION.ease.smooth,
+                        force3D: true,
                     },
                 );
             }
@@ -62,15 +65,30 @@ export function About() {
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.7,
-                        stagger: 0.08,
+                        duration: MOTION.duration.content,
+                        stagger: 0.07,
                         ease: MOTION.ease.smooth,
+                        force3D: true,
                     },
                     "-=0.45",
                 );
             }
 
-            if (paragraphsBlock) {
+            if (paragraphs.length > 0) {
+                tl.fromTo(
+                    paragraphs,
+                    { opacity: 0, y: 14 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: MOTION.duration.content,
+                        stagger: 0.08,
+                        ease: MOTION.ease.smooth,
+                        force3D: true,
+                    },
+                    "-=0.4",
+                );
+            } else if (paragraphsBlock) {
                 tl.fromTo(
                     paragraphsBlock,
                     { opacity: 0, y: MOTION.distance.content },
@@ -79,6 +97,7 @@ export function About() {
                         y: 0,
                         duration: MOTION.duration.content,
                         ease: MOTION.ease.smooth,
+                        force3D: true,
                     },
                     "-=0.4",
                 );

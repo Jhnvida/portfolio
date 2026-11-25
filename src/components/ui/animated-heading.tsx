@@ -20,12 +20,13 @@ export function AnimatedHeading({ children, className = "", as: Component = "h1"
 
             gsap.fromTo(
                 headingRef.current,
-                { opacity: 0, y: MOTION.distance.content },
+                { opacity: 0, y: 12 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: MOTION.duration.content,
-                    ease: MOTION.ease.entrance,
+                    ease: MOTION.ease.smooth,
+                    force3D: true,
                     clearProps: "transform,opacity",
                 },
             );

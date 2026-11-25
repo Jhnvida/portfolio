@@ -25,6 +25,7 @@ export function Footer() {
     const slot1Ref = useRef<HTMLSpanElement>(null);
     const slot2Ref = useRef<HTMLSpanElement>(null);
     const resetTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const tickerTimelineRef = useRef<gsap.core.Timeline | null>(null);
 
     const email = SITE_CONFIG.email;
     const confirmedText = "Te vejo em breve";
@@ -53,12 +54,13 @@ export function Footer() {
                 contentEl,
                 {
                     opacity: 0.2,
-                    y: -10,
+                    y: -12,
                 },
                 {
                     opacity: 1,
                     y: 0,
                     ease: "none",
+                    force3D: true,
                     scrollTrigger: {
                         trigger: mainEl,
                         start: "bottom bottom",
@@ -68,7 +70,7 @@ export function Footer() {
                     },
                 },
             );
-        });
+        }, footerEl);
 
         let resizeTimer: NodeJS.Timeout | null = null;
         const resizeObserver = new ResizeObserver(() => {
@@ -116,16 +118,21 @@ export function Footer() {
             setIsCopied(true);
 
             if (slot1Ref.current && slot2Ref.current && !prefersReducedMotion) {
+                if (tickerTimelineRef.current) {
+                    tickerTimelineRef.current.kill();
+                }
                 gsap.killTweensOf([slot1Ref.current, slot2Ref.current]);
 
                 const tl = gsap.timeline();
+                tickerTimelineRef.current = tl;
                 tl.to(
                     slot1Ref.current,
                     {
                         yPercent: -100,
                         opacity: 0,
-                        duration: 0.45,
-                        ease: "tickerEase",
+                        duration: 0.42,
+                        ease: MOTION.ease.ticker,
+                        force3D: true,
                     },
                     0,
                 );
@@ -138,8 +145,9 @@ export function Footer() {
                     {
                         yPercent: 0,
                         opacity: 1,
-                        duration: 0.45,
-                        ease: "tickerEase",
+                        duration: 0.42,
+                        ease: MOTION.ease.ticker,
+                        force3D: true,
                     },
                     0,
                 );
@@ -153,16 +161,21 @@ export function Footer() {
             setIsCopied(false);
 
             if (slot1Ref.current && slot2Ref.current && !prefersReducedMotion) {
+                if (tickerTimelineRef.current) {
+                    tickerTimelineRef.current.kill();
+                }
                 gsap.killTweensOf([slot1Ref.current, slot2Ref.current]);
 
                 const tl = gsap.timeline();
+                tickerTimelineRef.current = tl;
                 tl.to(
                     slot2Ref.current,
                     {
                         yPercent: -100,
                         opacity: 0,
-                        duration: 0.45,
-                        ease: "tickerEase",
+                        duration: 0.42,
+                        ease: MOTION.ease.ticker,
+                        force3D: true,
                     },
                     0,
                 );
@@ -175,8 +188,9 @@ export function Footer() {
                     {
                         yPercent: 0,
                         opacity: 1,
-                        duration: 0.45,
-                        ease: "tickerEase",
+                        duration: 0.42,
+                        ease: MOTION.ease.ticker,
+                        force3D: true,
                     },
                     0,
                 );
@@ -242,6 +256,9 @@ export function Footer() {
         return () => {
             if (resetTimeoutRef.current) {
                 clearTimeout(resetTimeoutRef.current);
+            }
+            if (tickerTimelineRef.current) {
+                tickerTimelineRef.current.kill();
             }
             if (s1) gsap.killTweensOf(s1);
             if (s2) gsap.killTweensOf(s2);

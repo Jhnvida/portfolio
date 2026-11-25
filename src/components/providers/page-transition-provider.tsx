@@ -70,6 +70,9 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
             activeTweenRef.current.kill();
             activeTweenRef.current = null;
         }
+        if (proxyContainerRef.current) {
+            gsap.killTweensOf(proxyContainerRef.current);
+        }
 
         if (originElementRef.current) {
             originElementRef.current.style.opacity = "";
@@ -144,6 +147,8 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                     borderRadius: destRadius,
                     duration: MOTION.duration.sharedElement,
                     ease: MOTION.ease.sharedElement,
+                    force3D: true,
+                    overwrite: "auto",
                     onComplete: () => {
                         if (!proxyEl || !el) {
                             safeCleanup();
@@ -293,6 +298,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
                 width: activeTransition.rect.width,
                 height: activeTransition.rect.height,
                 borderRadius: activeTransition.rect.borderRadius,
+                force3D: true,
             });
         }
     }, [activeTransition]);

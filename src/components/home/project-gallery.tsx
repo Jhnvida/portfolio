@@ -111,16 +111,18 @@ export function ProjectGallery() {
                     {
                         yPercent: 0,
                         ease: "none",
+                        force3D: true,
                         scrollTrigger: {
                             trigger: card,
                             start: "top bottom",
                             end: "top top",
-                            scrub: 0.25,
+                            scrub: 0.3,
+                            invalidateOnRefresh: true,
                         },
                     },
                 );
             });
-        });
+        }, sectionRef);
 
         const timer = setTimeout(() => {
             ScrollTrigger.refresh();

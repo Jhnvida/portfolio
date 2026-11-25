@@ -61,14 +61,18 @@ export function CustomCursor() {
     useEffect(() => {
         if (!isEnabled || !cursorRef.current) return;
 
-        gsap.set(cursorRef.current, {
+        const cursorEl = cursorRef.current;
+        const pillEl = pillRef.current;
+        const contentEl = contentRef.current;
+
+        gsap.set(cursorEl, {
             xPercent: -50,
             yPercent: -50,
             display: "none",
         });
 
-        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.035, ease: "power2.out" });
-        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.035, ease: "power2.out" });
+        xTo.current = gsap.quickTo(cursorRef.current, "x", { duration: 0.04, ease: "power2.out" });
+        yTo.current = gsap.quickTo(cursorRef.current, "y", { duration: 0.04, ease: "power2.out" });
 
         const applyModeAndText = (nextMode: CursorMode, nextText?: string, nextDark?: boolean) => {
             if (nextText !== undefined && cursorTextRef.current !== nextText) {
@@ -170,9 +174,10 @@ export function CustomCursor() {
             const isPill = ["project", "copy", "external", "back"].includes(modeRef.current);
 
             gsap.to(pillRef.current, {
-                scale: isPill ? 0.94 : 0.8,
-                duration: 0.08,
+                scale: isPill ? 0.94 : 0.82,
+                duration: 0.1,
                 ease: "power2.out",
+                force3D: true,
                 overwrite: "auto",
             });
         };
@@ -185,6 +190,7 @@ export function CustomCursor() {
                 scale: 1,
                 duration: MOTION.duration.fast,
                 ease: MOTION.ease.micro,
+                force3D: true,
                 overwrite: "auto",
             });
 
@@ -278,6 +284,9 @@ export function CustomCursor() {
             document.removeEventListener("mouseover", handleMouseOver);
             window.removeEventListener("cursor-state-change", handleCustomState as EventListener);
             window.removeEventListener("cursor:set", handleCustomState as EventListener);
+            if (cursorEl) {
+                gsap.killTweensOf([cursorEl, pillEl, contentEl]);
+            }
         };
     }, [isEnabled]);
 
@@ -292,14 +301,16 @@ export function CustomCursor() {
             gsap.to(pillRef.current, {
                 opacity: 0,
                 scale: 0.3,
-                duration: 0.12,
+                duration: 0.14,
                 ease: "power2.out",
+                force3D: true,
                 overwrite: "auto",
             });
             gsap.to(contentRef.current, {
                 opacity: 0,
                 scale: 0.5,
-                duration: 0.08,
+                duration: 0.1,
+                force3D: true,
                 overwrite: "auto",
             });
             return;
@@ -318,17 +329,19 @@ export function CustomCursor() {
                 borderColor: "rgba(255, 255, 255, 0.25)",
                 borderWidth: 1,
                 opacity: 1,
-                duration: 0.26,
+                duration: 0.28,
                 ease: MOTION.ease.smooth,
+                force3D: true,
                 overwrite: "auto",
             });
 
             gsap.to(contentRef.current, {
                 opacity: 1,
                 scale: 1,
-                duration: 0.18,
+                duration: 0.2,
                 delay: 0.04,
                 ease: MOTION.ease.micro,
+                force3D: true,
                 overwrite: "auto",
             });
 
@@ -336,7 +349,13 @@ export function CustomCursor() {
                 gsap.fromTo(
                     pillRef.current,
                     { scale: 0.94 },
-                    { scale: 1, duration: MOTION.duration.normal, ease: MOTION.ease.micro, overwrite: "auto" },
+                    {
+                        scale: 1,
+                        duration: MOTION.duration.normal,
+                        ease: MOTION.ease.micro,
+                        force3D: true,
+                        overwrite: "auto",
+                    },
                 );
             }
         } else if (mode === "pointer") {
@@ -353,16 +372,18 @@ export function CustomCursor() {
                 borderColor: borderColor,
                 borderWidth: 0,
                 opacity: 1,
-                duration: 0.22,
+                duration: 0.24,
                 ease: MOTION.ease.smooth,
+                force3D: true,
                 overwrite: "auto",
             });
 
             gsap.to(contentRef.current, {
                 opacity: 0,
                 scale: 0.7,
-                duration: 0.1,
+                duration: 0.12,
                 ease: "power2.in",
+                force3D: true,
                 overwrite: "auto",
             });
         } else {
@@ -379,16 +400,18 @@ export function CustomCursor() {
                 borderColor: borderColor,
                 borderWidth: 0,
                 opacity: 1,
-                duration: 0.22,
+                duration: 0.24,
                 ease: MOTION.ease.smooth,
+                force3D: true,
                 overwrite: "auto",
             });
 
             gsap.to(contentRef.current, {
                 opacity: 0,
                 scale: 0.7,
-                duration: 0.1,
+                duration: 0.12,
                 ease: "power2.in",
+                force3D: true,
                 overwrite: "auto",
             });
         }
